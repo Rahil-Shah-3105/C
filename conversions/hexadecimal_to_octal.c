@@ -4,6 +4,7 @@
 
 int main()
 {
+fprintf(stderr, ">>> Entering main()\n");
 #define MAX_STR_LEN 17
     char hex[MAX_STR_LEN];
     long long octal, bin, place;
@@ -17,6 +18,9 @@ int main()
     bin = 0ll;
     place = 0ll;
 
+	fprintf(stderr, "main(): octal → %d\n", octal);
+	fprintf(stderr, "main(): bin → %d\n", bin);
+	fprintf(stderr, "main(): place → %d\n", place);
     /* Hexadecimal to binary conversion */
     for (i = 0; hex[i] != '\0'; i++)
     {
@@ -91,11 +95,13 @@ int main()
     while (bin > 0)
     {
         rem = bin % 1000;
+		fprintf(stderr, "main(): rem → %d\n", rem);
 
         switch (rem)
         {
         case 0:
             val = 0;
+			fprintf(stderr, "main(): val → %d\n", val);
             break;
         case 1:
             val = 1;
@@ -129,5 +135,6 @@ int main()
     printf("Hexadecimal number = %s\n", hex);
     printf("Octal number = %lld", octal);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

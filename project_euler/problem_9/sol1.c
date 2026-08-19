@@ -9,6 +9,7 @@
 /** Main function */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     for (int a = 1; a < 300; a++)
         for (int b = a + 1; b < 400; b++)
             for (int c = b + 1; c < 500; c++)
@@ -22,5 +23,6 @@ int main(void)
                     }
             }
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

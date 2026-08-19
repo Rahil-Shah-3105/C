@@ -7,17 +7,20 @@
 
 int ways(int n, int *a, int k)
 {
+	fprintf(stderr, ">>> Entering ways(n=%d,a=%p,k=%p)\n", n, a, k);
     if (n < 0 || k < 0)
         return 0;
     if (n == 0)
         return 1;
     if (k == 0)
+	fprintf(stderr, "<<< Exiting ways(n=%d,a=%p,k=%p)\n", n, a, k);
         return 0;
     return ways(n, a, k - 1) + ways(n - a[k - 1], a, k);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int m;
     int t;
     int n;

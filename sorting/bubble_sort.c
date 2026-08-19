@@ -16,11 +16,13 @@
  */
 void display(const int *arr, int n)
 {
+	fprintf(stderr, ">>> Entering display(arr=%p,n=%p)\n", arr, n);
     for (int i = 0; i < n; i++)
     {
         printf("%d ", arr[i]);
     }
     printf("\n");
+	fprintf(stderr, "<<< Exiting display(arr=%p,n=%p)\n", arr, n);
 }
 
 /**
@@ -30,9 +32,11 @@ void display(const int *arr, int n)
  */
 void swap(int *first, int *second)
 {
+	fprintf(stderr, ">>> Entering swap(first=%p,second=%p)\n", first, second);
     int temp = *first;
     *first = *second;
     *second = temp;
+	fprintf(stderr, "<<< Exiting swap(first=%p,second=%p)\n", first, second);
 }
 
 /**
@@ -42,6 +46,7 @@ void swap(int *first, int *second)
  */
 void bubbleSort(int *arr, int size)
 {
+	fprintf(stderr, ">>> Entering bubbleSort(arr=%p,size=%p)\n", arr, size);
     for (int i = 0; i < size - 1; i++)
     {                         /* for each array index */
         bool swapped = false; /* flag to check if any changes had to be made */
@@ -62,6 +67,7 @@ void bubbleSort(int *arr, int size)
             break;
         }
     }
+	fprintf(stderr, "<<< Exiting bubbleSort(arr=%p,size=%p)\n", arr, size);
 }
 
 /**
@@ -69,6 +75,7 @@ void bubbleSort(int *arr, int size)
  */
 void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     const int size = 10;
     int *arr = (int *)calloc(size, sizeof(int));
 
@@ -83,13 +90,16 @@ void test()
         assert(arr[i] <= arr[i + 1]);
     }
     free(arr);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /** Driver Code */
 int main(int argc, const char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     /* Intializes random number generator */
     srand(time(NULL));
     test();
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

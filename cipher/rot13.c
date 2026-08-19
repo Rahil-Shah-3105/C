@@ -21,6 +21,7 @@
  * @param s contains the string to be processed
  */
 void rot13(char *s) {
+	fprintf(stderr, ">>> Entering rot13(s=%s)\n", s);
     for (int i = 0; s[i]; i++) {
         if (s[i] >= 'A' && s[i] <= 'Z') {
             s[i] = 'A' + ((s[i] - 'A' + 13) % 26);
@@ -28,6 +29,7 @@ void rot13(char *s) {
             s[i] = 'a' + ((s[i] - 'a' + 13) % 26);
         }
     } 
+	fprintf(stderr, "<<< Exiting rot13(s=%s)\n", s);
 }
 
 /**
@@ -35,6 +37,7 @@ void rot13(char *s) {
  * @returns void
  */
 static void test() {
+	fprintf(stderr, ">>> Entering test()\n");
     char test_01[] = "The more I C, the less I see.";
     rot13(test_01);
     assert(strcmp(test_01, "Gur zber V P, gur yrff V frr.") == 0);
@@ -48,6 +51,7 @@ static void test() {
     assert(strcmp(test_03, "Which witch switched the Swiss wristwatches?") == 0);
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -55,6 +59,8 @@ static void test() {
  * @returns 0 on exit
  */
 int main() {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
