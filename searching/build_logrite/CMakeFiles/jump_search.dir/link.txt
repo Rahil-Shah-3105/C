@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/jump_search.dir/jump_search.o -o jump_search 

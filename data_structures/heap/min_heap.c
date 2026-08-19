@@ -9,6 +9,7 @@ typedef struct min_heap
 } Heap;
 
 Heap *create_heap(Heap *heap); /*Creates a min_heap structure and returns a
+								fprintf(stderr, "<<< Exiting create_heap(heap=%p)\n", heap);
                                   pointer to the struct*/
 void down_heapify(Heap *heap, int index); /*Pushes an element downwards in the
                                              heap to find its correct position*/
@@ -23,6 +24,7 @@ int size(Heap *heap);  /*Returns the size of heap*/
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     Heap *head = create_heap(head);
     push(head, 10);
     printf("Pushing element : 10\n");
@@ -45,10 +47,15 @@ int main()
     printf("Popping an element.\n");
     printf("Top element = %d \n", top(head));
     printf("\n");
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
+fprintf(stderr, ">>> Entering create_heap(heap=%p)\n", heap);
+fprintf(stderr, "create_heap(heap=%d): heap → %d\n", heap, heap);
+fprintf(stderr, "<<< Exiting create_heap(heap=%p)\n", heap);
 Heap *create_heap(Heap *heap)
 {
+	fprintf(stderr, ">>> Entering create_heap(heap=%p)\n", heap);
     heap = (Heap *)malloc(sizeof(Heap));
     heap->size = 1;
     heap->p = (int *)malloc(heap->size * sizeof(int));
@@ -58,13 +65,16 @@ Heap *create_heap(Heap *heap)
 
 void down_heapify(Heap *heap, int index)
 {
+	fprintf(stderr, ">>> Entering down_heapify(heap=%p,index=%d)\n", heap, index);
     if (index >= heap->count)
         return;
     int left = index * 2 + 1;
     int right = index * 2 + 2;
     int leftflag = 0, rightflag = 0;
+	fprintf(stderr, "down_heapify(heap=%d,index=%d): leftflag → %d\n", heap, index, leftflag);
 
     int minimum = *((heap->p) + index);
+	fprintf(stderr, "down_heapify(heap=%d,index=%d): minimum → %d\n", heap, index, minimum);
     if (left < heap->count && minimum > *((heap->p) + left))
     {
         minimum = *((heap->p) + left);
@@ -75,6 +85,7 @@ void down_heapify(Heap *heap, int index)
         minimum = *((heap->p) + right);
         leftflag = 0;
         rightflag = 1;
+		fprintf(stderr, "down_heapify(heap=%d,index=%d): rightflag → %d\n", heap, index, rightflag);
     }
     if (leftflag)
     {
@@ -88,13 +99,18 @@ void down_heapify(Heap *heap, int index)
         *((heap->p) + index) = minimum;
         down_heapify(heap, right);
     }
+	fprintf(stderr, "<<< Exiting down_heapify(heap=%p,index=%d)\n", heap, index);
 }
 void up_heapify(Heap *heap, int index)
 {
+	fprintf(stderr, ">>> Entering up_heapify(heap=%p,index=%d)\n", heap, index);
     int parent = (index - 1) / 2;
     if (parent < 0)
+		fprintf(stderr, "Exception in up_heapify(heap=%d,index=%d): %d\n", heap, index, errno);
+        fprintf(stderr, "<<< Exiting up_heapify(heap=%p,index=%d)\n", heap, index);
         return;
     if (*((heap->p) + index) < *((heap->p) + parent))
+	fprintf(stderr, "up_heapify(heap=%d,index=%d): parent → %d\n", heap, index, parent);
     {
         int temp = *((heap->p) + index);
         *((heap->p) + index) = *((heap->p) + parent);
@@ -105,6 +121,7 @@ void up_heapify(Heap *heap, int index)
 
 void push(Heap *heap, int x)
 {
+	fprintf(stderr, ">>> Entering push(heap=%p,x=%d)\n", heap, x);
     if (heap->count >= heap->size)
         return;
     *((heap->p) + heap->count) = x;
@@ -115,9 +132,11 @@ void push(Heap *heap, int x)
         (heap->p) = (int *)realloc((heap->p), (heap->size) * sizeof(int));
     }
     up_heapify(heap, heap->count - 1);
+	fprintf(stderr, "<<< Exiting push(heap=%p,x=%d)\n", heap, x);
 }
 void pop(Heap *heap)
 {
+	fprintf(stderr, ">>> Entering pop(heap=%p)\n", heap);
     if (heap->count == 0)
         return;
     heap->count--;
@@ -130,19 +149,24 @@ void pop(Heap *heap)
         heap->size /= 2;
         (heap->p) = (int *)realloc((heap->p), (heap->size) * sizeof(int));
     }
+	fprintf(stderr, "<<< Exiting pop(heap=%p)\n", heap);
 }
 int top(Heap *heap)
 {
+	fprintf(stderr, ">>> Entering top(heap=%p)\n", heap);
     if (heap->count != 0)
         return *(heap->p);
     else
+		fprintf(stderr, "<<< Exiting top(heap=%p)\n", heap);
         return INT_MIN;
 }
 int empty(Heap *heap)
 {
+	fprintf(stderr, ">>> Entering empty(heap=%p)\n", heap);
     if (heap->count != 0)
         return 0;
     else
+		fprintf(stderr, "<<< Exiting empty(heap=%p)\n", heap);
         return 1;
 }
 int size(Heap *heap) { return heap->count; }

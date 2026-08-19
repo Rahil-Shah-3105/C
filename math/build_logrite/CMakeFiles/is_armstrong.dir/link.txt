@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/is_armstrong.dir/is_armstrong.o -o is_armstrong 

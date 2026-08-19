@@ -37,6 +37,7 @@ int pop(struct Stack *);
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int vertices, edges, i, src, dst;
     printf("Enter the number of vertices\n");
     scanf("%d", &vertices);
@@ -64,11 +65,13 @@ int main()
     printf("The strongly connected components are:\n");
     scc(graph2);
     printf("\n");*/
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 // Creates a topological sorting of the graph
 void fillOrder(int vertex, struct Graph *graph, struct Stack *stack)
 {
+	fprintf(stderr, ">>> Entering fillOrder(vertex=%d,graph=%p,stack=%p)\n", vertex, graph, stack);
     graph->visited[vertex] = 1;
     struct node *adjList = graph->adjLists[vertex];
     struct node *temp = adjList;
@@ -84,6 +87,7 @@ void fillOrder(int vertex, struct Graph *graph, struct Stack *stack)
     }
     // and then add itself
     push(stack, vertex);
+	fprintf(stderr, "<<< Exiting fillOrder(vertex=%d,graph=%p,stack=%p)\n", vertex, graph, stack);
 }
 // Transpose the adjacency list
 struct Graph *transpose(struct Graph *g)
@@ -105,6 +109,7 @@ struct Graph *transpose(struct Graph *g)
 // Recursive dfs aproach
 void dfs(struct Graph *graph, int vertex)
 {
+	fprintf(stderr, ">>> Entering dfs(graph=%p,vertex=%d)\n", graph, vertex);
     struct node *adjList = graph->adjLists[vertex];
     struct node *temp = adjList;
 
@@ -122,11 +127,13 @@ void dfs(struct Graph *graph, int vertex)
         }
         temp = temp->next;
     }
+	fprintf(stderr, "<<< Exiting dfs(graph=%p,vertex=%d)\n", graph, vertex);
 }
 
 // Strongly connected components
 void scc(struct Graph *graph)
 {
+	fprintf(stderr, ">>> Entering scc(graph=%p)\n", graph);
     // Step I: Create a topological sort of the graph and store it in a stack
     struct Stack *stack = createStack();
     int i = 0;
@@ -144,12 +151,14 @@ void scc(struct Graph *graph)
     while (stack->top != -1)
     {
         int v = pop(stack);
+		fprintf(stderr, "scc(graph=%d): v → %d\n", graph, v);
         if (graphT->visited[v] == 0)
         {
             dfs(graphT, v);
             printf("\n");
         }
     }
+	fprintf(stderr, "<<< Exiting scc(graph=%p)\n", graph);
 }
 
 // Allocate memory for a node
@@ -179,14 +188,17 @@ struct Graph *createGraph(int vertices)
 // Creates a unidirectional graph
 void addEdge(struct Graph *graph, int src, int dest)
 {
+	fprintf(stderr, ">>> Entering addEdge(graph=%p,src=%d,dest=%d)\n", graph, src, dest);
     // Add edge from src to dest
     struct node *newNode = createNode(dest);
     newNode->next = graph->adjLists[src];
     graph->adjLists[src] = newNode;
+	fprintf(stderr, "<<< Exiting addEdge(graph=%p,src=%d,dest=%d)\n", graph, src, dest);
 }
 // Utility function to see state of graph at a given time
 void printGraph(struct Graph *graph)
 {
+	fprintf(stderr, ">>> Entering printGraph(graph=%p)\n", graph);
     int v;
     for (v = 0; v < graph->numVertices; v++)
     {
@@ -199,6 +211,7 @@ void printGraph(struct Graph *graph)
         }
         printf("\n");
     }
+	fprintf(stderr, "<<< Exiting printGraph(graph=%p)\n", graph);
 }
 // Creates a stack
 struct Stack *createStack()
@@ -210,14 +223,19 @@ struct Stack *createStack()
 // Pushes element into stack
 void push(struct Stack *stack, int element)
 {
+	fprintf(stderr, ">>> Entering push(stack=%p,element=%d)\n", stack, element);
     stack->arr[++stack->top] =
         element;  // Increment then add, as we start from -1
+		fprintf(stderr, "<<< Exiting push(stack=%p,element=%d)\n", stack, element);
 }
 // Removes element from stack, or returns INT_MIN if stack empty
 int pop(struct Stack *stack)
 {
+	fprintf(stderr, ">>> Entering pop(stack=%p)\n", stack);
     if (stack->top == -1)
         return INT_MIN;
     else
+		fprintf(stderr, "Exception in pop(stack=%d): %d\n", stack, errno);
+        fprintf(stderr, "<<< Exiting pop(stack=%p)\n", stack);
         return stack->arr[stack->top--];
 }

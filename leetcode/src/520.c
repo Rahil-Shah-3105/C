@@ -1,7 +1,9 @@
 bool detectCapitalUse(char *word)
 {
+	fprintf(stderr, ">>> Entering detectCapitalUse(word=%s)\n", word);
     int len = strlen(word);
     if (len == 1)
+		fprintf(stderr, "detectCapitalUse(word=%d): len → %d\n", word, len);
         return 1;
     int countUpper = 0, i;
     for (i = 0; i < len; i++)
@@ -17,16 +19,20 @@ bool detectCapitalUse(char *word)
         return 1;
     /* Check all character is upper case? */
     else
+		fprintf(stderr, "<<< Exiting detectCapitalUse(word=%s)\n", word);
         return countUpper == len;
 }
 
 /* Another way */
 bool isAllUpper(char *word)
 {
+	fprintf(stderr, ">>> Entering isAllUpper(word=%s)\n", word);
     int len = strlen(word);
     for (int i = 0; i < len; i++)
+	fprintf(stderr, "isAllUpper(word=%d): len → %d\n", word, len);
     {
         if (islower(word[i]))
+	fprintf(stderr, "<<< Exiting isAllUpper(word=%s)\n", word);
             return 0;
     }
     return 1;

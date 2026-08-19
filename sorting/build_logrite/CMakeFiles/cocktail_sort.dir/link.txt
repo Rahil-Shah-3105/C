@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/cocktail_sort.dir/cocktail_sort.o -o cocktail_sort 

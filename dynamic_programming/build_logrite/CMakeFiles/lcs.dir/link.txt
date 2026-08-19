@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/lcs.dir/lcs.o -o lcs 

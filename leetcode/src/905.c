@@ -10,6 +10,8 @@
  *
  * Note: The returned array must be malloced, assume caller calls free().
  */
+fprintf(stderr, ">>> Entering sortArrayByParity(A=%p,ASize=%d,returnSize=%p)\n", A, ASize, returnSize);
+fprintf(stderr, "<<< Exiting sortArrayByParity(A=%p,ASize=%d,returnSize=%p)\n", A, ASize, returnSize);
 int *sortArrayByParity(int *A, int ASize, int *returnSize)
 {
     int *retArr = malloc(ASize * sizeof(int));

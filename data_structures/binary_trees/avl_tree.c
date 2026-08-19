@@ -12,10 +12,13 @@ typedef struct AVLnode avlNode;
 
 int max(int a, int b) { return (a > b) ? a : b; }
 
+fprintf(stderr, ">>> Entering newNode(key=%d)\n", key);
+fprintf(stderr, "<<< Exiting newNode(key=%d)\n", key);
 avlNode *newNode(int key)
 {
     avlNode *node = (avlNode *)malloc(sizeof(avlNode));
 
+	fprintf(stderr, "newNode(key=%d): node → %d\n", key, node);
     if (node == NULL)
         printf("!! Out of Space !!\n");
     else
@@ -31,21 +34,29 @@ avlNode *newNode(int key)
 
 int nodeHeight(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering nodeHeight(node=%p)\n", node);
     if (node == NULL)
         return -1;
     else
+		fprintf(stderr, "Exception in nodeHeight(node=%d): %d\n", node, errno);
+        fprintf(stderr, "<<< Exiting nodeHeight(node=%p)\n", node);
         return (node->height);
 }
 
 int heightDiff(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering heightDiff(node=%p)\n", node);
     if (node == NULL)
         return 0;
     else
+		fprintf(stderr, "Exception in heightDiff(node=%d): %d\n", node, errno);
+        fprintf(stderr, "<<< Exiting heightDiff(node=%p)\n", node);
         return (nodeHeight(node->left) - nodeHeight(node->right));
 }
 
 /* Returns the node with min key in the left subtree*/
+fprintf(stderr, ">>> Entering minNode(node=%p)\n", node);
+fprintf(stderr, "<<< Exiting minNode(node=%p)\n", node);
 avlNode *minNode(avlNode *node)
 {
     avlNode *temp = node;
@@ -57,6 +68,7 @@ avlNode *minNode(avlNode *node)
 
 void printAVL(avlNode *node, int level)
 {
+	fprintf(stderr, ">>> Entering printAVL(node=%p,level=%d)\n", node, level);
     int i;
     if (node != NULL)
     {
@@ -69,8 +81,11 @@ void printAVL(avlNode *node, int level)
 
         printAVL(node->left, level + 1);
     }
+	fprintf(stderr, "<<< Exiting printAVL(node=%p,level=%d)\n", node, level);
 }
 
+fprintf(stderr, ">>> Entering rightRotate(z=%p)\n", z);
+fprintf(stderr, "<<< Exiting rightRotate(z=%p)\n", z);
 avlNode *rightRotate(avlNode *z)
 {
     avlNode *y = z->left;
@@ -85,6 +100,8 @@ avlNode *rightRotate(avlNode *z)
     return y;
 }
 
+fprintf(stderr, ">>> Entering leftRotate(z=%p)\n", z);
+fprintf(stderr, "<<< Exiting leftRotate(z=%p)\n", z);
 avlNode *leftRotate(avlNode *z)
 {
     avlNode *y = z->right;
@@ -99,6 +116,8 @@ avlNode *leftRotate(avlNode *z)
     return y;
 }
 
+fprintf(stderr, ">>> Entering LeftRightRotate(z=%p)\n", z);
+fprintf(stderr, "<<< Exiting LeftRightRotate(z=%p)\n", z);
 avlNode *LeftRightRotate(avlNode *z)
 {
     z->left = leftRotate(z->left);
@@ -106,6 +125,8 @@ avlNode *LeftRightRotate(avlNode *z)
     return (rightRotate(z));
 }
 
+fprintf(stderr, ">>> Entering RightLeftRotate(z=%p)\n", z);
+fprintf(stderr, "<<< Exiting RightLeftRotate(z=%p)\n", z);
 avlNode *RightLeftRotate(avlNode *z)
 {
     z->right = rightRotate(z->right);
@@ -113,9 +134,14 @@ avlNode *RightLeftRotate(avlNode *z)
     return (leftRotate(z));
 }
 
+fprintf(stderr, ">>> Entering insert(node=%p,key=%d)\n", node, key);
+fprintf(stderr, "Exception in insert(node=%d,key=%d): %d\n", node, key, errno);
+fprintf(stderr, "insert(node=%d,key=%d): node → %d\n", node, key, node);
+fprintf(stderr, "<<< Exiting insert(node=%p,key=%d)\n", node, key);
 avlNode *insert(avlNode *node, int key)
 {
     if (node == NULL)
+		fprintf(stderr, "Exception in insert(node=%d,key=%d): %d\n", node, key, errno);
         return (newNode(key));
 
     /*Binary Search Tree insertion*/
@@ -132,6 +158,7 @@ avlNode *insert(avlNode *node, int key)
 
     /*Checking for the balance condition*/
     int balance = heightDiff(node);
+	fprintf(stderr, "insert(node=%d,key=%d): balance → %d\n", node, key, balance);
 
     /*Left Left */
     if (balance > 1 && key < (node->left->key))
@@ -156,9 +183,15 @@ avlNode *insert(avlNode *node, int key)
     return node;
 }
 
+fprintf(stderr, ">>> Entering delete(node=%p,queryNum=%d)\n", node, queryNum);
+fprintf(stderr, "Exception in delete(node=%d,queryNum=%d): %d\n", node, queryNum, errno);
+fprintf(stderr, "delete(node=%d,queryNum=%d): node → %d\n", node, queryNum, node);
+fprintf(stderr, "<<< Exiting delete(node=%p,queryNum=%d)\n", node, queryNum);
 avlNode *delete (avlNode *node, int queryNum)
 {
+	fprintf(stderr, ">>> Entering delete(node=%p,queryNum=%d)\n", node, queryNum);
     if (node == NULL)
+		fprintf(stderr, "Exception in delete(node=%d,queryNum=%d): %d\n", node, queryNum, errno);
         return node;
 
     if (queryNum < node->key)
@@ -195,6 +228,7 @@ avlNode *delete (avlNode *node, int queryNum)
             node->right =
                 delete (node->right,
                         temp->key); /*Delete the smallest in the R subtree.*/
+						fprintf(stderr, "<<< Exiting delete(node=%p,queryNum=%d)\n", node, queryNum);
         }
     }
 
@@ -206,6 +240,7 @@ avlNode *delete (avlNode *node, int queryNum)
     node->height = (max(nodeHeight(node->left), nodeHeight(node->right)) + 1);
 
     int balance = heightDiff(node);
+	fprintf(stderr, "delete(node=%d,queryNum=%d): balance → %d\n", node, queryNum, balance);
 
     /*Left Left */
     if ((balance > 1) && (heightDiff(node->left) >= 0))
@@ -230,10 +265,15 @@ avlNode *delete (avlNode *node, int queryNum)
     return node;
 }
 
+fprintf(stderr, ">>> Entering findNode(node=%p,queryNum=%d)\n", node, queryNum);
+fprintf(stderr, "Exception in findNode(node=%d,queryNum=%d): %d\n", node, queryNum, errno);
+fprintf(stderr, "findNode(node=%d,queryNum=%d): node → %d\n", node, queryNum, node);
+fprintf(stderr, "<<< Exiting findNode(node=%p,queryNum=%d)\n", node, queryNum);
 avlNode *findNode(avlNode *node, int queryNum)
 {
     if (node != NULL)
     {
+		fprintf(stderr, "Exception in findNode(node=%d,queryNum=%d): %d\n", node, queryNum, errno);
         if (queryNum < node->key)
             node = findNode(node->left, queryNum);
         else if (queryNum > node->key)
@@ -245,36 +285,44 @@ avlNode *findNode(avlNode *node, int queryNum)
 
 void printPreOrder(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering printPreOrder(node=%p)\n", node);
     if (node == NULL)
         return;
 
     printf("  %d  ", (node->key));
     printPreOrder(node->left);
     printPreOrder(node->right);
+	fprintf(stderr, "<<< Exiting printPreOrder(node=%p)\n", node);
 }
 
 void printInOrder(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering printInOrder(node=%p)\n", node);
     if (node == NULL)
         return;
     printInOrder(node->left);
     printf("  %d  ", (node->key));
     printInOrder(node->right);
+	fprintf(stderr, "<<< Exiting printInOrder(node=%p)\n", node);
 }
 
 void printPostOrder(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering printPostOrder(node=%p)\n", node);
     if (node == NULL)
         return;
     printPostOrder(node->left);
     printPostOrder(node->right);
     printf("  %d  ", (node->key));
+	fprintf(stderr, "<<< Exiting printPostOrder(node=%p)\n", node);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int choice;
     int flag = 1;
+	fprintf(stderr, "main(): flag → %d\n", flag);
     int insertNum;
     int queryNum;
 
@@ -285,6 +333,7 @@ int main()
     {
         printf("\n\nEnter the Step to Run : \n");
 
+		clock_t __logStart = clock();
         printf("\t1: Insert a node into AVL tree\n");
         printf("\t2: Delete a node in AVL tree\n");
         printf("\t3: Search a node into AVL tree\n");
@@ -316,12 +365,14 @@ int main()
                 printf("\n\t %d Already exists in the tree\n", insertNum);
             else
             {
+				fprintf(stderr, "main(): tempNode → %d\n", tempNode);
                 printf("\n\tPrinting AVL Tree\n");
                 printAVL(root, 1);
                 printf("\n");
 
                 root = insert(root, insertNum);
                 printf("\n\tPrinting AVL Tree\n");
+				fprintf(stderr, "main(): root → %d\n", root);
                 printAVL(root, 1);
                 printf("\n");
             }

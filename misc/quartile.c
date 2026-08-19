@@ -4,6 +4,7 @@
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int a[10], n, i, j, temp;
     float q1, q3, iqr;
 
@@ -39,9 +40,12 @@ int main()
     q1 = a[n / 4];
     printf("\nFirst Quartile : %f", q1);
     q3 = a[(3 * n) / 4];
+	fprintf(stderr, "main(): q3 → %d\n", q3);
     printf("\nThird Quartile : %f", q3);
     iqr = q3 - q1;
+	fprintf(stderr, "main(): iqr → %d\n", iqr);
     printf("\nInterQuartile Range is : %f", iqr);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

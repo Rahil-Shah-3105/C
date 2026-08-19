@@ -1,0 +1,14 @@
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/remote_command_exec_udp_client.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/remote_command_exec_udp_server.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/tcp_full_duplex_client.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/tcp_full_duplex_server.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/tcp_half_duplex_client.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/tcp_half_duplex_server.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/udp_client.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/udp_server.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/edit_cache.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/rebuild_cache.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/list_install_components.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/install.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/install/local.dir
+/root/logrite/scans/r3/p4852/client_server/build_logrite/CMakeFiles/install/strip.dir

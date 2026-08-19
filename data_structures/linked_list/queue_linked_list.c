@@ -28,17 +28,22 @@ void createqueue() { q.front = q.rear = NULL; }
 
 int empty()
 {
+	fprintf(stderr, ">>> Entering empty()\n");
     if (q.front == NULL)
         return 1;
     else
+		fprintf(stderr, "Exception in empty(): %d\n", errno);
+        fprintf(stderr, "<<< Exiting empty()\n");
         return 0;
 }
 
 void insert(int x)
 {
+	fprintf(stderr, ">>> Entering insert(x=%d)\n", x);
     struct node *pnode;
 
     pnode = (struct node *)malloc(sizeof(struct node));
+	fprintf(stderr, "insert(x=%d): pnode → %d\n", x, pnode);
     if (pnode == NULL)
     {
         printf("Memory overflow. Unable to insert.\n");
@@ -50,15 +55,19 @@ void insert(int x)
 
     if (empty())
         q.front = q.rear = pnode;
+		fprintf(stderr, "insert(x=%d): q.front → %d\n", x, q.front);
     else
     {
         (q.rear)->next = pnode;
         q.rear = pnode;
+		fprintf(stderr, "insert(x=%d): q.rear → %d\n", x, q.rear);
     }
+	fprintf(stderr, "<<< Exiting insert(x=%d)\n", x);
 }
 
 int removes()
 {
+	fprintf(stderr, ">>> Entering removes()\n");
     int x;
     struct node *p;
 
@@ -70,15 +79,20 @@ int removes()
 
     p = q.front;
     x = (q.front)->data;
+	fprintf(stderr, "removes(): x → %d\n", x);
     q.front = (q.front)->next;
     if (q.front == NULL) /* Queue contained only one node */
         q.rear = NULL;
+		fprintf(stderr, "removes(): q.rear → %d\n", q.rear);
     free(p);
+	fprintf(stderr, "Exception in removes(): %d\n", errno);
+	fprintf(stderr, "<<< Exiting removes()\n");
     return x;
 }
 
 void show()
 {
+	fprintf(stderr, ">>> Entering show()\n");
     struct node *p;
 
     if (empty())
@@ -88,6 +102,7 @@ void show()
         printf("Queue from front to rear is as shown: \n");
 
         p = q.front;
+		fprintf(stderr, "show(): p → %d\n", p);
         while (p != NULL)
         {
             printf("%d ", p->data);
@@ -96,12 +111,14 @@ void show()
 
         printf("\n");
     }
+	fprintf(stderr, "<<< Exiting show()\n");
 }
 
 void destroyqueue() { q.front = q.rear = NULL; }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int x, ch;
 
     createqueue();
@@ -126,6 +143,7 @@ int main()
 
         case 2:
             x = removes();
+			fprintf(stderr, "main(): x → %d\n", x);
             printf("Element removed is: %d\n", x);
             show();
             break;

@@ -5,6 +5,7 @@
 // Runtime : O(gridSize*gridColSize*gridColSize)
 // Space: O(gridColSize)
 int minPathCost(int** grid, int gridSize, int* gridColSize, int** moveCost, int moveCostSize, int* moveCostColSize){
+	fprintf(stderr, ">>> Entering minPathCost(grid=%p,gridSize=%d,gridColSize=%p,moveCost=%p,moveCostSize=%d,moveCostColSize=%p)\n", grid, gridSize, gridColSize, moveCost, moveCostSize, moveCostColSize);
     int* dp = (int*)calloc(gridColSize[0], sizeof(int));
     int* newDp = (int*)calloc(gridColSize[0], sizeof(int));
     
@@ -30,6 +31,7 @@ int minPathCost(int** grid, int gridSize, int* gridColSize, int** moveCost, int 
     
     // Find minimum value.
     int minValue = dp[0] + grid[gridSize - 1][0];
+	fprintf(stderr, "minPathCost(grid=%d,gridSize=%d,gridColSize=%d,moveCost=%d,moveCostSize=%d,moveCostColSize=%d): minValue → %d\n", grid, gridSize, gridColSize, moveCost, moveCostSize, moveCostColSize, minValue);
     for(int j = 1; j < gridColSize[0]; j++){
         minValue = min(minValue, dp[j] + grid[gridSize - 1][j]);
     }
@@ -38,5 +40,6 @@ int minPathCost(int** grid, int gridSize, int* gridColSize, int** moveCost, int 
     free(dp);
     free(newDp);
     
+	fprintf(stderr, "<<< Exiting minPathCost(grid=%p,gridSize=%d,gridColSize=%p,moveCost=%p,moveCostSize=%d,moveCostColSize=%p)\n", grid, gridSize, gridColSize, moveCost, moveCostSize, moveCostColSize);
     return minValue;
 }

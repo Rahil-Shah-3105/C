@@ -2,8 +2,10 @@
 
 int reverse(int x)
 {
+	fprintf(stderr, ">>> Entering reverse(x=%d)\n", x);
     int rev = 0;
     while (x != 0)
+	fprintf(stderr, "reverse(x=%d): rev → %d\n", x, rev);
     {
         int pop = x % 10;
         x /= 10;
@@ -13,5 +15,6 @@ int reverse(int x)
             return 0;
         rev = rev * 10 + pop;
     }
+	fprintf(stderr, "<<< Exiting reverse(x=%d)\n", x);
     return rev;
 }

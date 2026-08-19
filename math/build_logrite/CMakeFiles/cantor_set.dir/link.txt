@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/cantor_set.dir/cantor_set.o -o cantor_set 

@@ -4,8 +4,11 @@
 /* Naive Pattern Search algorithm (brute force way) */
 void naive_search(char *str, char *pattern)
 {
+	fprintf(stderr, ">>> Entering naive_search(str=%s,pattern=%s)\n", str, pattern);
     int len_str = strlen(str);
     int len_pat = strlen(pattern);
+	fprintf(stderr, "naive_search(str=%d,pattern=%d): len_pat → %d\n", str, pattern, len_pat);
+	fprintf(stderr, "naive_search(str=%d,pattern=%d): len_str → %d\n", str, pattern, len_str);
 
     for (int i = 0; i <= len_str - len_pat; i++)
     {
@@ -18,10 +21,12 @@ void naive_search(char *str, char *pattern)
         if (j == len_pat)
             printf("--Pattern is found at: %d\n", i);
     }
+	fprintf(stderr, "<<< Exiting naive_search(str=%s,pattern=%s)\n", str, pattern);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     char str[] = "AABCAB12AFAABCABFFEGABCAB";
     char pat1[] = "ABCAB";
     char pat2[] = "FFF"; /* not found */
@@ -34,5 +39,6 @@ int main()
     naive_search(str, pat2);
     printf("Test3: search pattern %s\n", pat3);
     naive_search(str, pat3);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

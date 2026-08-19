@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/comb_sort.dir/comb_sort.o -o comb_sort 

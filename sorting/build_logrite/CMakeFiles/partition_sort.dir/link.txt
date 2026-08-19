@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/partition_sort.dir/partition_sort.o -o partition_sort 

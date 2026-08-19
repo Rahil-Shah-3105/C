@@ -23,8 +23,10 @@
  */
 void bubble_sort(int* array_sort)
 {
+	fprintf(stderr, ">>> Entering bubble_sort(array_sort=%p)\n", array_sort);
 	bool is_sorted = false;
 
+	fprintf(stderr, "bubble_sort(array_sort=%d): is_sorted → %d\n", array_sort, is_sorted);
     /* keep iterating over entire array
      * and swaping elements out of order
      * until it is sorted */
@@ -49,6 +51,7 @@ void bubble_sort(int* array_sort)
             }
         }
     }
+	fprintf(stderr, "<<< Exiting bubble_sort(array_sort=%p)\n", array_sort);
 }
 
 /**
@@ -56,6 +59,7 @@ void bubble_sort(int* array_sort)
  * @returns void
  */
 static void test() {
+	fprintf(stderr, ">>> Entering test()\n");
     /* simple int array for testing */
 	int array_sort[MAX] = {0};
 
@@ -74,6 +78,7 @@ static void test() {
     {
         assert(array_sort[i] <= array_sort[i+1]);
     }
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -82,6 +87,8 @@ static void test() {
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

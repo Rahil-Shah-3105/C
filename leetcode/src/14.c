@@ -1,7 +1,10 @@
 int findMaxConsecutiveOnes(int* nums, int numsSize){
+	fprintf(stderr, ">>> Entering findMaxConsecutiveOnes(nums=%p,numsSize=%d)\n", nums, numsSize);
     int i=0;
     int maxCount=0;
+	fprintf(stderr, "findMaxConsecutiveOnes(nums=%d,numsSize=%d): maxCount → %d\n", nums, numsSize, maxCount);
     int count = 0;
+	fprintf(stderr, "findMaxConsecutiveOnes(nums=%d,numsSize=%d): count → %d\n", nums, numsSize, count);
     
     while(i<numsSize){
         
@@ -20,6 +23,7 @@ int findMaxConsecutiveOnes(int* nums, int numsSize){
         }
         
     }
+	fprintf(stderr, "<<< Exiting findMaxConsecutiveOnes(nums=%p,numsSize=%d)\n", nums, numsSize);
     return maxCount;
     
 }

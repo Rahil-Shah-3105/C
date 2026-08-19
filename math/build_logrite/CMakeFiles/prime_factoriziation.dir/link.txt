@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/prime_factoriziation.dir/prime_factoriziation.o -o prime_factoriziation 

@@ -12,9 +12,12 @@
  */
 
 int singleNonDuplicate(int* nums, int numsSize) {
+	fprintf(stderr, ">>> Entering singleNonDuplicate(nums=%p,numsSize=%d)\n", nums, numsSize);
     int left = 0, right = numsSize - 1;
     while (left < right) {
         int mid = (right + left) / 2;
+		fprintf(stderr, "singleNonDuplicate(nums=%d,numsSize=%d): mid → %d\n", nums, numsSize, mid);
+		fprintf(stderr, "singleNonDuplicate(nums=%d,numsSize=%d): left → %d\n", nums, numsSize, left);
         if (mid % 2 == 0) {
             if (nums[mid] == nums[mid + 1])
                 left = mid + 2;
@@ -28,5 +31,6 @@ int singleNonDuplicate(int* nums, int numsSize) {
                 right = mid - 1;
         }
     }
+	fprintf(stderr, "<<< Exiting singleNonDuplicate(nums=%p,numsSize=%d)\n", nums, numsSize);
     return nums[left];
 }

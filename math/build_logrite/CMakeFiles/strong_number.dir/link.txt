@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/strong_number.dir/strong_number.o -o strong_number 

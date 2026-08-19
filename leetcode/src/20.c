@@ -1,5 +1,6 @@
 bool isValid(char *s)
 {
+	fprintf(stderr, ">>> Entering isValid(s=%s)\n", s);
     int i, k = 0, len = strlen(s);
     char *store = calloc(len, sizeof(char));
 
@@ -25,6 +26,7 @@ bool isValid(char *s)
                 goto out;
             break;
         }
+	fprintf(stderr, "<<< Exiting isValid(s=%s)\n", s);
     }
 out:
     free(store);

@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/rot13.dir/rot13.o -o rot13 

@@ -35,12 +35,14 @@ double func(double x)
  */
 double secant_method(double x0, double x1, double tolerance)
 {
+	fprintf(stderr, ">>> Entering secant_method(x0=%f,x1=%f,tolerance=%f)\n", x0, x1, tolerance);
     int n = 1;  // step counter
 
     while (n++ < NMAX)
     {
         // calculate secant line root
         double x2 = x1 - func(x1) * (x1 - x0) / (func(x1) - func(x0));
+		fprintf(stderr, "secant_method(x0=%d,x1=%d,tolerance=%d): x2 → %d\n", x0, x1, tolerance, x2);
 
         // update values
         x0 = x1;
@@ -48,6 +50,7 @@ double secant_method(double x0, double x1, double tolerance)
 
         // return value if it meets tolerance
         if (fabs(x1 - x0) < tolerance)
+	fprintf(stderr, "<<< Exiting secant_method(x0=%f,x1=%f,tolerance=%f)\n", x0, x1, tolerance);
             return x2;
     }
 
@@ -60,6 +63,7 @@ double secant_method(double x0, double x1, double tolerance)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     // compares root values found by the secant method within the tolerance
     assert(secant_method(0.2, 0.5, TOLERANCE) - sqrt(3) < TOLERANCE);
     assert(fabs(secant_method(-2, -5, TOLERANCE)) - sqrt(3) < TOLERANCE);
@@ -67,6 +71,7 @@ static void test()
     assert(fabs(secant_method(1, -1.5, TOLERANCE)) - sqrt(3) < TOLERANCE);
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -75,6 +80,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

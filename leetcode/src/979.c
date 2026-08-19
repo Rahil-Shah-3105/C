@@ -43,5 +43,7 @@ struct NodeDistributeInfo* getDisturb(struct TreeNode* node) {
 // Runtime: O(n)
 // Space: O(1)
 int distributeCoins(struct TreeNode* root) {
+	fprintf(stderr, ">>> Entering distributeCoins(root=%p)\n", root);
+    fprintf(stderr, "<<< Exiting distributeCoins(root=%p)\n", root);
     return getDisturb(root)->distributeMoves;
 }

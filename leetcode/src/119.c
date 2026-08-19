@@ -2,6 +2,7 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 int* getRow(int rowIndex, int* returnSize){
+	fprintf(stderr, ">>> Entering getRow(rowIndex=%d,returnSize=%p)\n", rowIndex, returnSize);
     int colIndex = rowIndex + 1;
     int* ans = (int*) malloc(sizeof(int) * colIndex);
     for (int i = 0; i < colIndex; i++)
@@ -18,5 +19,6 @@ int* getRow(int rowIndex, int* returnSize){
         }
     }
     
+	fprintf(stderr, "<<< Exiting getRow(rowIndex=%d,returnSize=%p)\n", rowIndex, returnSize);
     return ans;
 }

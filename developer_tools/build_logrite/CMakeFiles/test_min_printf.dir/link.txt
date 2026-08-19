@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/test_min_printf.dir/test_min_printf.o -o test_min_printf 

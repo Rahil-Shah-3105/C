@@ -3,6 +3,7 @@
 
 int numJewelsInStones(char *j, char *s)
 {
+	fprintf(stderr, ">>> Entering numJewelsInStones(j=%s,s=%s)\n", j, s);
     // as strlen is O(n), store it once rather than using it in for loop
     int cnt[500], lens = strlen(s), lenj = strlen(j), sol = 0;
     memset(cnt, 0, sizeof(cnt));
@@ -13,5 +14,6 @@ int numJewelsInStones(char *j, char *s)
     // count the characters in s
     for (int i = 0; i < lens; i++) sol += cnt[s[i]];
 
+	fprintf(stderr, "<<< Exiting numJewelsInStones(j=%s,s=%s)\n", j, s);
     return sol;
 }

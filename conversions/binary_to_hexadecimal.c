@@ -5,6 +5,7 @@
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     long int binary, hexa = 0, i = 1, remainder;
 
     printf("Enter the binary number: ");
@@ -12,10 +13,14 @@ int main()
     while (binary != 0)
     {
         remainder = binary % 10;
+		fprintf(stderr, "main(): remainder → %d\n", remainder);
         hexa = hexa + remainder * i;
+		fprintf(stderr, "main(): hexa → %d\n", hexa);
         i = i * 2;
         binary = binary / 10;
+		fprintf(stderr, "main(): binary → %d\n", binary);
     }
     printf("The equivalent hexadecimal value: %lX", hexa);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

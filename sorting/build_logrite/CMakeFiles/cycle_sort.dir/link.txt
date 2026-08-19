@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/cycle_sort.dir/cycle_sort.o -o cycle_sort 

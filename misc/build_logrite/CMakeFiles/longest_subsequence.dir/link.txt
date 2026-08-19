@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/longest_subsequence.dir/longest_subsequence.o -o longest_subsequence 

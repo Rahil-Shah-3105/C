@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/celsius_to_fahrenheit.dir/celsius_to_fahrenheit.o -o celsius_to_fahrenheit 

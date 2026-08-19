@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/hangman.dir/hangman.o -o hangman 

@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/other_binary_search.dir/other_binary_search.o -o other_binary_search 

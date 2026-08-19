@@ -30,12 +30,14 @@ struct Stack st;		///< global declaration of stack st
  * @returns void
  */
 void push(char opd) {
+	fprintf(stderr, ">>> Entering push(opd=%c)\n", opd);
 	if(st.top == 9)	{		// overflow condition
 		printf("Stack overflow...");
 		exit(1);
 	}
 	st.top++;
 	st.stack[st.top] = opd;
+	fprintf(stderr, "<<< Exiting push(opd=%c)\n", opd);
 }
 
 /**
@@ -43,13 +45,16 @@ void push(char opd) {
  * @returns popped character
  */
 char pop() {
+	fprintf(stderr, ">>> Entering pop()\n");
 	char item;				///< to store the popped value to be returned
 	if(st.top == -1) {		// underflow condition
 		printf("Stack underflow...");
 		exit(1);
 	}
 	item = st.stack[st.top];
+	fprintf(stderr, "pop(): item → %d\n", item);
 	st.top--;
+	fprintf(stderr, "<<< Exiting pop()\n");
 	return item;
 }
 
@@ -59,7 +64,10 @@ char pop() {
  * @returns 0 if the stack is NOT empty
  */
 uint16_t isEmpty() {
+	fprintf(stderr, ">>> Entering isEmpty()\n");
 	if(st.top == -1) {
+		fprintf(stderr, "Exception in isEmpty(): %d\n", errno);
+	fprintf(stderr, "<<< Exiting isEmpty()\n");
 		return 1;
 	}
 	return 0;
@@ -70,6 +78,8 @@ uint16_t isEmpty() {
  * @returns top of stack
  */
 char Top() {
+	fprintf(stderr, ">>> Entering Top()\n");
+	fprintf(stderr, "<<< Exiting Top()\n");
 	return st.stack[st.top];
 }
 
@@ -81,6 +91,7 @@ char Top() {
  * @returns -1 otherwise
  */
 int16_t priority(char opr) {
+	fprintf(stderr, ">>> Entering priority(opr=%c)\n", opr);
 	if(opr == '+' || opr == '-') {
 		return 0;
 	}
@@ -88,6 +99,7 @@ int16_t priority(char opr) {
 		return 1;
 	}
 	else {
+		fprintf(stderr, "<<< Exiting priority(opr=%c)\n", opr);
 		return -1;
 	}
 }
@@ -98,6 +110,7 @@ int16_t priority(char opr) {
  * @returns output postfix expression
  */
 char *convert(char inf[]) {
+	fprintf(stderr, ">>> Entering convert(inf=%s)\n", inf);
 	static char post[25];				///< to store the postfix expression
 	int i;								///< loop iterator
 	int j = 0;							///< keeps track of end of postfix string
@@ -129,6 +142,7 @@ char *convert(char inf[]) {
 		j++;
 	}
 	post[j] = '\0';						// end postfix string with null character
+	fprintf(stderr, "<<< Exiting convert(inf=%s)\n", inf);
 	return post;
 }
 
@@ -137,6 +151,7 @@ char *convert(char inf[]) {
  * @returns void
  */
 static void test() {
+	fprintf(stderr, ">>> Entering test()\n");
     /* check sample test case
 	   input- "(A/(B-C)*D+E)"
 	   expected output- "ABC-/D*E+"
@@ -147,6 +162,7 @@ static void test() {
 	 */
 	assert(strcmp(convert("7-(2*3+5)*(8-4/2)"), "723*5+842/-*-") == 0); 			/// this ensures that the algorithm works as expected
 	printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -154,11 +170,14 @@ static void test() {
  * @returns 0 on exit
  */
 int main() {
+	fprintf(stderr, ">>> Entering main()\n");
 	st.top = -1;			/// initialize
 	test();				/// run self-test implementations
+	fprintf(stderr, "main(): st.top → %d\n", st.top);
 	char inf[25];			///< to store input infix expression
 	printf("Enter infix: ");
 	scanf("%s", inf);
 	printf("Postfix: %s", convert(inf));
+	fprintf(stderr, "<<< Exiting main()\n");
 	return 0;
 }

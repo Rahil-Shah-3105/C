@@ -2,6 +2,8 @@
 
 int compare(const int* i, const int* j)
 {
+	fprintf(stderr, ">>> Entering compare(i=%p,j=%p)\n", i, j);
+    fprintf(stderr, "<<< Exiting compare(i=%p,j=%p)\n", i, j);
     return *i - *j;
 }
 
@@ -9,6 +11,7 @@ int compare(const int* i, const int* j)
 // Runtime: O(n*log(n))
 // Space: O(n)
 int maxFrequency(int* nums, int numsSize, int k){
+	fprintf(stderr, ">>> Entering maxFrequency(nums=%p,numsSize=%d,k=%d)\n", nums, numsSize, k);
     qsort(nums, numsSize, sizeof (int), (int(*) (const void*, const void*)) compare);
     long* prefixSum = malloc(numsSize * sizeof(long));
     
@@ -19,6 +22,7 @@ int maxFrequency(int* nums, int numsSize, int k){
 
     int leftWindowPosition = 0;
     int result = 0;
+	fprintf(stderr, "maxFrequency(nums=%d,numsSize=%d,k=%d): result → %d\n", nums, numsSize, k, result);
     
     for(int rightWindowPosition = 0; rightWindowPosition < numsSize; rightWindowPosition++){
         long rightSum = prefixSum[rightWindowPosition];
@@ -32,5 +36,6 @@ int maxFrequency(int* nums, int numsSize, int k){
     }
 
     free(prefixSum);
+	fprintf(stderr, "<<< Exiting maxFrequency(nums=%p,numsSize=%d,k=%d)\n", nums, numsSize, k);
     return result;
 }

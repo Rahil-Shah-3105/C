@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/multikey_quick_sort.dir/multikey_quick_sort.o -o multikey_quick_sort 

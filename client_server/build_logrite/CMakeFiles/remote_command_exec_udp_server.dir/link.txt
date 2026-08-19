@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/remote_command_exec_udp_server.dir/remote_command_exec_udp_server.o -o remote_command_exec_udp_server 

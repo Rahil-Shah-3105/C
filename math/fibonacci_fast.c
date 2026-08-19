@@ -22,6 +22,7 @@
  */
 void fib(unsigned long n, unsigned long *C, unsigned long *D)
 {
+	fprintf(stderr, ">>> Entering fib(n=%ld,C=%ld,D=%ld)\n", n, C, D);
     // Out of Range checking
     // commented out since `n` is unsigned integer
     // if (n < 0)
@@ -56,6 +57,7 @@ void fib(unsigned long n, unsigned long *C, unsigned long *D)
     C[0] = b;
     if (D) /* if D is not NULL */
         D[0] = a + b;
+	fprintf(stderr, "<<< Exiting fib(n=%ld,C=%ld,D=%ld)\n", n, C, D);
     return;
 }
 
@@ -72,6 +74,7 @@ int main(int argc, char *argv[])
     if (argc == 2)
         number = atoi(argv[1]);
     else
+	fprintf(stderr, "main(argc=%d,argv=%d): number → %d\n", argc, argv, number);
     {
         printf("Enter the value of n(n starts from 0 ): ");
         scanf("%lu", &number);
@@ -81,5 +84,6 @@ int main(int argc, char *argv[])
 
     printf("The nth term is : %'lu \n", result);
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

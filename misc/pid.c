@@ -41,6 +41,7 @@ struct pid
 
 float pid_step(struct pid *controller, float dt, float error)
 {
+	fprintf(stderr, ">>> Entering pid_step(controller=%p,dt=%f,error=%f)\n", controller, dt, error);
     // Calculate p term
     float p = error * controller->kP;
 
@@ -52,11 +53,13 @@ float pid_step(struct pid *controller, float dt, float error)
         dt == 0 ? 0 : ((error - controller->lastError) / dt) * controller->kD;
     controller->lastError = error;
 
+	fprintf(stderr, "<<< Exiting pid_step(controller=%p,dt=%f,error=%f)\n", controller, dt, error);
     return p + controller->integral + d;
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     printf("PID Controller Example\n");
 
     struct pid controller = {.lastError = 0, .integral = 0};
@@ -83,6 +86,8 @@ int main()
         scanf("%f", &error_value);
 
         float output = pid_step(&controller, time_step, error_value);
+		fprintf(stderr, "main(): output → %d\n", output);
         printf("Output: %f\n", output);
     }
+	fprintf(stderr, "<<< Exiting main()\n");
 }

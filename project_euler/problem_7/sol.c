@@ -11,6 +11,7 @@
  */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     char *sieve;
     size_t i;
     unsigned count = 0;
@@ -19,6 +20,7 @@ int main(void)
 
     sieve = (char *)calloc(n, sizeof(char));
     for (i = 2; i < n; i++)
+	fprintf(stderr, "main(): sieve → %d\n", sieve);
     {
         if (!sieve[i])
         {
@@ -36,5 +38,6 @@ int main(void)
         }
     }
     free(sieve);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

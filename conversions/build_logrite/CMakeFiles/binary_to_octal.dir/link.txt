@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/binary_to_octal.dir/binary_to_octal.o -o binary_to_octal 

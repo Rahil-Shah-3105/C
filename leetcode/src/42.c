@@ -8,6 +8,7 @@
 // - The each index if heights could place nor greater than minimum of left and right max minus curr height
 // - Sum all index in result
 int trap(int* height, int heightSize){
+	fprintf(stderr, ">>> Entering trap(height=%p,heightSize=%d)\n", height, heightSize);
     int* rightMaxStack = malloc(heightSize * sizeof(int));
     rightMaxStack[heightSize - 1] = height[heightSize - 1];
 
@@ -16,12 +17,15 @@ int trap(int* height, int heightSize){
     }
 
     int leftMax = 0;
+	fprintf(stderr, "trap(height=%d,heightSize=%d): leftMax → %d\n", height, heightSize, leftMax);
     int result = 0;
+	fprintf(stderr, "trap(height=%d,heightSize=%d): result → %d\n", height, heightSize, result);
     for (int i = 0; i < heightSize; i++){
         leftMax = max(leftMax, height[i]);
         result += max(0, min(leftMax, rightMaxStack[i]) - height[i]);
     }
     
     free(rightMaxStack);
+	fprintf(stderr, "<<< Exiting trap(height=%p,heightSize=%d)\n", height, heightSize);
     return result;
 }

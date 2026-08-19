@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
     unsigned long long n, curr_no, num_steps = 0;
     if (argc == 2)
         n = strtoull(argv[1], NULL, 10);
+		fprintf(stderr, "main(argc=%d,argv=%d): n → %d\n", argc, argv, n);
     else
     {
         printf("Enter starting number: ");
@@ -32,8 +33,10 @@ int main(int argc, char *argv[])
         if (curr_no % 2 == 0)  // condition   for even number
             curr_no = curr_no / 2;
         else
+			fprintf(stderr, "main(argc=%d,argv=%d): curr_no → %d\n", argc, argv, curr_no);
             curr_no = (curr_no * 3) + 1;  // condition for odd number
     }
     printf("1\nNumber of steps: %llu\n", num_steps);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

@@ -41,6 +41,9 @@ struct ASTNode* buildAST(const char* input);
 struct transRule {
     struct NFAState* target; ///< pointer to the state to transit to
     char cond;               ///< the input required to activate this transition
+	fprintf(stderr, ">>> Entering destroyNode(node=%p)\n", node);
+	fprintf(stderr, "Exception in destroyNode(node=%d): %d\n", node, errno);
+	fprintf(stderr, "<<< Exiting destroyNode(node=%p)\n", node);
 };
 
 struct transRule* createRule(struct NFAState* state, char c);
@@ -97,6 +100,8 @@ int isAccepting(const struct NFA* nfa);
  * @returns `0` otherwise
  */
 int isLiteral(const char ch) {
+	fprintf(stderr, ">>> Entering isLiteral(ch=%c)\n", ch);
+    fprintf(stderr, "<<< Exiting isLiteral(ch=%c)\n", ch);
     return !(ch == '(' || ch == ')' || ch == '*' || ch == '\n' || ch == '|');
 }
 
@@ -107,8 +112,10 @@ int isLiteral(const char ch) {
  * @returns pointer to the processing result
  */
 char* preProcessing(const char* input) {
+	fprintf(stderr, ">>> Entering preProcessing(input=%s)\n", input);
     const size_t len = strlen(input);
     if(len == 0) {
+		fprintf(stderr, "preProcessing(input=%d): len → %d\n", input, len);
         char* str = malloc(1);
         str[0] = '\0';
         return str;
@@ -138,6 +145,7 @@ char* preProcessing(const char* input) {
 
     str[op++] = input[len - 1];
     str[op] = '\0';
+	fprintf(stderr, "<<< Exiting preProcessing(input=%s)\n", input);
     return str;
 }
 
@@ -149,6 +157,7 @@ char* preProcessing(const char* input) {
  * @returns the index of its first occurrence, `0` if it could not be found
  */
 size_t indexOf(const char* str, char key) {
+	fprintf(stderr, ">>> Entering indexOf(str=%s,key=%c)\n", str, key);
     int depth = 0;
 
     for (size_t i = 0; i < strlen(str); ++i) {
@@ -164,6 +173,7 @@ size_t indexOf(const char* str, char key) {
     // it's safe to assume the character will not appear as
     // the string's first character
     // thus `0` is used as the `not found` value
+	fprintf(stderr, "<<< Exiting indexOf(str=%s,key=%c)\n", str, key);
     return 0;
 }
 
@@ -175,9 +185,11 @@ size_t indexOf(const char* str, char key) {
  * @returns pointer to the newly created subString
  */
 char* subString(const char* str, size_t begin, size_t end) {
+	fprintf(stderr, ">>> Entering subString(str=%s,begin=%zu,end=%zu)\n", str, begin, end);
     char* res = malloc(end - begin + 2);
     strncpy(res, str + begin, end - begin + 1);
     res[end - begin + 1] = '\0';
+	fprintf(stderr, "<<< Exiting subString(str=%s,begin=%zu,end=%zu)\n", str, begin, end);
     return res;
 }
 
@@ -265,6 +277,7 @@ struct ASTNode* buildAST(const char* input) {
  * @returns void
  */
 void redirect(struct NFA* nfa, struct NFAState* src, struct NFAState* dest) {
+	fprintf(stderr, ">>> Entering redirect(nfa=%p,src=%p,dest=%p)\n", nfa, src, dest);
     for (int i = 0; i < nfa->subCount; ++i) {
         redirect(nfa->subs[i], src, dest);
     }
@@ -274,6 +287,7 @@ void redirect(struct NFA* nfa, struct NFAState* src, struct NFAState* dest) {
             rule->target = dest;
         }
     }
+	fprintf(stderr, "<<< Exiting redirect(nfa=%p,src=%p,dest=%p)\n", nfa, src, dest);
 }
 
 struct NFA* compileFromAST(struct ASTNode* root) {
@@ -367,7 +381,9 @@ struct NFA* compileFromAST(struct ASTNode* root) {
  * @returns void
  */
 void addState(struct NFA* nfa, struct NFAState* state) {
+	fprintf(stderr, ">>> Entering addState(nfa=%p,state=%p)\n", nfa, state);
     nfa->statePool[nfa->stateCount++] = state;
+	fprintf(stderr, "<<< Exiting addState(nfa=%p,state=%p)\n", nfa, state);
 }
 
 /**
@@ -378,9 +394,11 @@ void addState(struct NFA* nfa, struct NFAState* state) {
  * @returns void
  */
 void addRule(struct NFA* nfa, struct transRule* rule, int loc) {
+	fprintf(stderr, ">>> Entering addRule(nfa=%p,rule=%p,loc=%d)\n", nfa, rule, loc);
     nfa->rulePool[nfa->ruleCount++] = rule;
     struct NFAState* state = nfa->statePool[loc];
     state->rules[state->ruleCount++] = rule;
+	fprintf(stderr, "<<< Exiting addRule(nfa=%p,rule=%p,loc=%d)\n", nfa, rule, loc);
 }
 
 /**
@@ -391,6 +409,7 @@ void addRule(struct NFA* nfa, struct transRule* rule, int loc) {
  * @returns void
  */
 void postProcessing(struct NFA* nfa) {
+	fprintf(stderr, ">>> Entering postProcessing(nfa=%p)\n", nfa);
     // Since the sub NFA's states and rules are managed
     // through their own pools, recursion is necessary
     for (int i = 0; i < nfa->subCount; ++i) {
@@ -405,6 +424,7 @@ void postProcessing(struct NFA* nfa) {
 
         struct NFAState* pState = nfa->statePool[i];
         int f = 0;
+		fprintf(stderr, "postProcessing(nfa=%d): f → %d\n", nfa, f);
         for (int j = 0; j < pState->ruleCount; ++j) {
             if(pState->rules[j]->cond == '\0') {
                 f = 1;
@@ -416,6 +436,7 @@ void postProcessing(struct NFA* nfa) {
             addRule(nfa, createRule(pState, '\0'), i);
         }
     }
+	fprintf(stderr, "<<< Exiting postProcessing(nfa=%p)\n", nfa);
 }
 
 /**
@@ -426,13 +447,16 @@ void postProcessing(struct NFA* nfa) {
  * @returns `1` if the element is present, `0` otherwise
  */
 int contains(struct NFAState** states, int len, struct NFAState* state) {
+	fprintf(stderr, ">>> Entering contains(states=%p,len=%d,state=%p)\n", states, len, state);
     int f = 0;
     for (int i = 0; i < len; ++i) {
+		fprintf(stderr, "contains(states=%d,len=%d,state=%d): f → %d\n", states, len, state, f);
         if(states[i] == state) {
             f = 1;
             break;
         }
     }
+	fprintf(stderr, "<<< Exiting contains(states=%p,len=%d,state=%p)\n", states, len, state);
     return f;
 }
 
@@ -444,6 +468,7 @@ int contains(struct NFAState** states, int len, struct NFAState* state) {
  * @returns void
  */
 void findEmpty(struct NFAState* target, struct NFAState** states, int *sc) {
+	fprintf(stderr, ">>> Entering findEmpty(target=%p,states=%p,sc=%p)\n", target, states, sc);
     for (int i = 0; i < target->ruleCount; ++i) {
         const struct transRule *pRule = target->rules[i];
 
@@ -454,6 +479,7 @@ void findEmpty(struct NFAState* target, struct NFAState** states, int *sc) {
             findEmpty(pRule->target, states, sc);
         }
     }
+	fprintf(stderr, "<<< Exiting findEmpty(target=%p,states=%p,sc=%p)\n", target, states, sc);
 }
 
 /**
@@ -463,6 +489,7 @@ void findEmpty(struct NFAState* target, struct NFAState** states, int *sc) {
  * @returns void
  */
 void transit(struct NFA* nfa, char input) {
+	fprintf(stderr, ">>> Entering transit(nfa=%p,input=%c)\n", nfa, input);
     struct NFAState** newStates = malloc(sizeof(struct NFAState*) * 10);
     int NSCount = 0;
 
@@ -511,6 +538,7 @@ void transit(struct NFA* nfa, char input) {
         nfa->currentStates[i] = newStates[i];
     }
     free(newStates);
+	fprintf(stderr, "<<< Exiting transit(nfa=%p,input=%c)\n", nfa, input);
 }
 
 /**
@@ -520,11 +548,13 @@ void transit(struct NFA* nfa, char input) {
  * @returns `0` otherwise
  */
 int isAccepting(const struct NFA* nfa) {
+	fprintf(stderr, ">>> Entering isAccepting(nfa=%p)\n", nfa);
     for (int i = 0; i < nfa->CSCount; ++i) {
         if(nfa->currentStates[i] == nfa->statePool[1]) {
             return 1;
         }
     }
+	fprintf(stderr, "<<< Exiting isAccepting(nfa=%p)\n", nfa);
     return 0;
 }
 
@@ -538,8 +568,10 @@ int isAccepting(const struct NFA* nfa) {
  * @returns void
  */
 void testHelper(const char* regex, const char* string, const int expected) {
+	fprintf(stderr, ">>> Entering testHelper(regex=%s,string=%s,expected=%d)\n", regex, string, expected);
     char* temp = preProcessing(regex);
     struct ASTNode* node = buildAST(temp);
+	fprintf(stderr, "testHelper(regex=%d,string=%d,expected=%d): node → %d\n", regex, string, expected, node);
 
     struct NFA* nfa = compileFromAST(node);
     postProcessing(nfa);
@@ -563,6 +595,7 @@ void testHelper(const char* regex, const char* string, const int expected) {
     destroyNFA(nfa);
     destroyNode(node);
     free(temp);
+	fprintf(stderr, "<<< Exiting testHelper(regex=%s,string=%s,expected=%d)\n", regex, string, expected);
 }
 
 /**
@@ -570,6 +603,7 @@ void testHelper(const char* regex, const char* string, const int expected) {
  * @returns void
  */
 static void test(void) {
+	fprintf(stderr, ">>> Entering test()\n");
     testHelper("(c|a*b)", "c", 1);
     testHelper("(c|a*b)", "aab", 1);
     testHelper("(c|a*b)", "ca", 0);
@@ -584,6 +618,7 @@ static void test(void) {
     testHelper("(0|(1(01*(00)*0)*1)*)*","00000",1);
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -591,7 +626,9 @@ static void test(void) {
  * @returns 0 on exit
  */
 int main(void) {
+	fprintf(stderr, ">>> Entering main()\n");
     test(); // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 
@@ -619,6 +656,7 @@ struct ASTNode* createNode(const char content) {
 void destroyNode(struct ASTNode* node) {
     if(node->left != NULL) {
         destroyNode(node->left);
+		fprintf(stderr, "Exception in destroyNode(node=%d): %d\n", node, errno);
     }
 
     if(node->right != NULL) {
@@ -647,7 +685,9 @@ struct transRule* createRule(struct NFAState* state, char c) {
  * @returns void
  */
 void destroyRule(struct transRule* rule) {
+	fprintf(stderr, ">>> Entering destroyRule(rule=%p)\n", rule);
     free(rule);
+	fprintf(stderr, "<<< Exiting destroyRule(rule=%p)\n", rule);
 }
 
 /**
@@ -667,8 +707,10 @@ struct NFAState* createState(void) {
  * @returns void
  */
 void destroyState(struct NFAState* state) {
+	fprintf(stderr, ">>> Entering destroyState(state=%p)\n", state);
     free(state->rules);
     free(state);
+	fprintf(stderr, "<<< Exiting destroyState(state=%p)\n", state);
 }
 
 /**
@@ -699,6 +741,7 @@ struct NFA* createNFA(void) {
  * @returns void
  */
 void destroyNFA(struct NFA* nfa) {
+	fprintf(stderr, ">>> Entering destroyNFA(nfa=%p)\n", nfa);
     for (int i = 0; i < nfa->subCount; ++i) {
         destroyNFA(nfa->subs[i]);
     }
@@ -718,4 +761,5 @@ void destroyNFA(struct NFA* nfa) {
     free(nfa->rulePool);
     free(nfa->subs);
     free(nfa);
+	fprintf(stderr, "<<< Exiting destroyNFA(nfa=%p)\n", nfa);
 }

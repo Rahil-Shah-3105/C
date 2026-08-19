@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/fibonacci_formula.dir/fibonacci_formula.o -o fibonacci_formula 

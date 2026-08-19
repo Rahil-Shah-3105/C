@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/naval_battle.dir/naval_battle.o -o naval_battle 

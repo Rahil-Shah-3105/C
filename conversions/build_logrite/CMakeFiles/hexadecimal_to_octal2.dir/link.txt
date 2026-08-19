@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/hexadecimal_to_octal2.dir/hexadecimal_to_octal2.o -o hexadecimal_to_octal2 

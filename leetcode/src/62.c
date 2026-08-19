@@ -16,6 +16,7 @@
 
 int uniquePaths(int m, int n)
 {
+	fprintf(stderr, ">>> Entering uniquePaths(m=%d,n=%d)\n", m, n);
     int dp[m][n];
 
     for (int column = 0; column < n; column++)
@@ -35,5 +36,6 @@ int uniquePaths(int m, int n)
             dp[row][column] = dp[row - 1][column] + dp[row][column - 1];
         }
     }
+	fprintf(stderr, "<<< Exiting uniquePaths(m=%d,n=%d)\n", m, n);
     return dp[m - 1][n - 1];
 }

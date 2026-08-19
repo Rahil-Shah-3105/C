@@ -20,6 +20,7 @@
  * @returns void
  */
 void patienceSort(int *array, int length) {
+	fprintf(stderr, ">>> Entering patienceSort(array=%p,length=%d)\n", array, length);
     // An array of pointers used to store each pile
     int* *piles = (int* *) malloc(sizeof(int*) * length);
     for (int i = 0; i < length; ++i) {
@@ -66,10 +67,13 @@ void patienceSort(int *array, int length) {
         // this loop finds a value to initialize min to.
         for (int j = 0; j < pileCount; ++j) {
             if(pileSizes[j] < 0) {
+				fprintf(stderr, "Exception in patienceSort(array=%d,length=%d): %d\n", array, length, errno);
                 continue;
             }
             min = piles[j][pileSizes[j]];
             minLocation = j;
+			fprintf(stderr, "patienceSort(array=%d,length=%d): min → %d\n", array, length, min);
+			fprintf(stderr, "patienceSort(array=%d,length=%d): minLocation → %d\n", array, length, minLocation);
             break;
         }
 
@@ -93,6 +97,7 @@ void patienceSort(int *array, int length) {
         free(piles[i]);
     }
     free(piles);
+	fprintf(stderr, "<<< Exiting patienceSort(array=%p,length=%d)\n", array, length);
 }
 
 /**
@@ -102,12 +107,14 @@ void patienceSort(int *array, int length) {
  * @returns void
  */
 void printArray(int *array,int length) {
+	fprintf(stderr, ">>> Entering printArray(array=%p,length=%d)\n", array, length);
     printf("Array:");
     for (int i = 0; i < length; ++i) {
         printf("%d",array[i]);
         if (i != length - 1) putchar(',');
     }
     putchar('\n');
+	fprintf(stderr, "<<< Exiting printArray(array=%p,length=%d)\n", array, length);
 }
 
 /**
@@ -118,6 +125,7 @@ void printArray(int *array,int length) {
  */
 
 void testArray(int *array,int length) {
+	fprintf(stderr, ">>> Entering testArray(array=%p,length=%d)\n", array, length);
     printf("Before sorting:\n");
     printArray(array,length);
 
@@ -130,6 +138,7 @@ void testArray(int *array,int length) {
         assert(array[i] <= array[i + 1]);
     }
     printf("All assertions have passed!\n\n");
+	fprintf(stderr, "<<< Exiting testArray(array=%p,length=%d)\n", array, length);
 }
 
 /**
@@ -137,6 +146,7 @@ void testArray(int *array,int length) {
  * @returns void
  */
 static void test() {
+	fprintf(stderr, ">>> Entering test()\n");
     int testArray1[] = {2,8,7,1,3,5,6,4};
     int testArray2[] = {2,2,5,1,3,5,6,4};
     int testArray3[] = {1,2,3,4,5,6,7,8};
@@ -155,6 +165,8 @@ static void test() {
  * @returns 0 on exit
  */
 int main() {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

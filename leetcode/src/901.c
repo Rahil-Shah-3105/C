@@ -18,15 +18,19 @@ typedef struct {
 
 
 StockSpanner* stockSpannerCreate() {
+	fprintf(stderr, ">>> Entering stockSpannerCreate()\n");
     Stack* sentry = (Stack *)malloc(sizeof(Stack));
     StockSpanner* result = (StockSpanner *)malloc(sizeof(StockSpanner));
+	fprintf(stderr, "stockSpannerCreate(): result → %d\n", result);
     result->index = 0;
     result->sentry = sentry;
     result->stackPointer = sentry;
+	fprintf(stderr, "<<< Exiting stockSpannerCreate()\n");
     return result;
 }
 
 int stockSpannerNext(StockSpanner* obj, int price) {
+	fprintf(stderr, ">>> Entering stockSpannerNext(obj=%p,price=%d)\n", obj, price);
     while(obj->stackPointer != obj->sentry && obj->stackPointer->price <= price){
         Stack* currStackPointer = obj->stackPointer;
         obj->stackPointer = obj->stackPointer->previous;
@@ -35,6 +39,7 @@ int stockSpannerNext(StockSpanner* obj, int price) {
     
     obj->index += 1;
     int result = obj->index;
+	fprintf(stderr, "stockSpannerNext(obj=%d,price=%d): result → %d\n", obj, price, result);
     if (obj->stackPointer != obj->sentry){
         result -= obj->stackPointer->index;
     }
@@ -45,10 +50,12 @@ int stockSpannerNext(StockSpanner* obj, int price) {
     newStackItem->previous = obj->stackPointer;
     obj->stackPointer = newStackItem;
     
+	fprintf(stderr, "<<< Exiting stockSpannerNext(obj=%p,price=%d)\n", obj, price);
     return result;
 }
 
 void stockSpannerFree(StockSpanner* obj) {
+	fprintf(stderr, ">>> Entering stockSpannerFree(obj=%p)\n", obj);
     while(obj->stackPointer != obj->sentry){
         Stack* currStackPointer = obj->stackPointer;
         obj->stackPointer = obj->stackPointer->previous;
@@ -57,6 +64,7 @@ void stockSpannerFree(StockSpanner* obj) {
 
     free(obj->sentry);
     free(obj);
+	fprintf(stderr, "<<< Exiting stockSpannerFree(obj=%p)\n", obj);
 }
 
 /**

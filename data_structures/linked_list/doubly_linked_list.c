@@ -78,9 +78,11 @@ void example();
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     // examples for better understanding
     example();
     // code here
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 
@@ -89,6 +91,8 @@ int main()
  * @param   value       a value to be saved into the first list node
  * @returns new_list    the list created
  */
+fprintf(stderr, ">>> Entering create(value=%f)\n", value);
+fprintf(stderr, "<<< Exiting create(value=%f)\n", value);
 List *create(double value)
 {
     List *new_list = (List *)malloc(sizeof(List));
@@ -105,11 +109,16 @@ List *create(double value)
  * @param   pos     a position into the list for value insertion
  * @returns list    the input list with a node more or the same list
  */
+fprintf(stderr, ">>> Entering insert(list=%p,value=%f,pos=%d)\n", list, value, pos);
+fprintf(stderr, "Exception in insert(list=%d,value=%d,pos=%d): %d\n", list, value, pos, errno);
+fprintf(stderr, "insert(list=%d,value=%d,pos=%d): list → %d\n", list, value, pos, list);
+fprintf(stderr, "<<< Exiting insert(list=%p,value=%f,pos=%d)\n", list, value, pos);
 List *insert(List *list, double value, int pos)
 {
     // list NULL case
     if (list == NULL)
     {
+		fprintf(stderr, "Exception in insert(list=%d,value=%d,pos=%d): %d\n", list, value, pos, errno);
         list = create(value);
         return list;
     }
@@ -118,6 +127,7 @@ List *insert(List *list, double value, int pos)
     if (pos > 0)
     {
         List *cpy = list, *tmp = cpy;
+		fprintf(stderr, "insert(list=%d,value=%d,pos=%d): cpy → %d\n", list, value, pos, cpy);
         int flag = 1, index = 1, size = 0;
 
         while (tmp != NULL)
@@ -176,10 +186,16 @@ List *insert(List *list, double value, int pos)
  * @param   pos     a position into the list for value Deletion
  * @returns list    the input list with deleted values or the same list
  */
+fprintf(stderr, ">>> Entering delete(list=%p,pos=%d)\n", list, pos);
+fprintf(stderr, "Exception in delete(list=%d,pos=%d): %d\n", list, pos, errno);
+        fprintf(stderr, "<<< Exiting delete(list=%p,pos=%d)\n", list, pos);
+fprintf(stderr, "delete(list=%d,pos=%d): cpy → %d\n", list, pos, cpy);
+fprintf(stderr, "Exception in delete(list=%d,pos=%d): %d\n", list, pos, errno);
 List *delete(List *list, int pos)
 {
     // list NULL case
     if (list == NULL)
+        fprintf(stderr, "<<< Exiting delete(list=%p,pos=%d)\n", list, pos);
         return list;
 
     // position existing case
@@ -219,6 +235,7 @@ List *delete(List *list, int pos)
                 // position into list with no poiting for NULL
                 if (cpy->next != NULL)
                 {
+					fprintf(stderr, "Exception in delete(list=%d,pos=%d): %d\n", list, pos, errno);
                     cpy->prev->next = cpy->next;
                     cpy->next->prev = cpy->prev;
                 }
@@ -241,9 +258,12 @@ List *delete(List *list, int pos)
  */
 int search(List *list, double value)
 {
+	fprintf(stderr, ">>> Entering search(list=%p,value=%f)\n", list, value);
     if (list == NULL)
         return 0;
     if (list->value == value)
+		fprintf(stderr, "Exception in search(list=%d,value=%d): %d\n", list, value, errno);
+        fprintf(stderr, "<<< Exiting search(list=%p,value=%f)\n", list, value);
         return 1;
     search(list->next, value);
 }
@@ -255,11 +275,13 @@ int search(List *list, double value)
  */
 void print(List *list)
 {
+	fprintf(stderr, ">>> Entering print(list=%p)\n", list);
     if (list != NULL)
     {
         printf("%f\t", list->value);
         print(list->next);
     }
+	fprintf(stderr, "<<< Exiting print(list=%p)\n", list);
 }
 
 /**
@@ -268,6 +290,7 @@ void print(List *list)
  */
 void example()
 {
+	fprintf(stderr, ">>> Entering example()\n");
     List *my_list = NULL;
     double node_value = 0;
     int searching;
@@ -278,6 +301,7 @@ void example()
     my_list = insert(my_list, 10, 3);
     my_list = insert(my_list, 20, 3);
 
+	fprintf(stderr, "example(): my_list → %d\n", my_list);
     print(my_list);
     searching = search(my_list, 20);
     printf("\n%d\n", searching);
@@ -288,6 +312,8 @@ void example()
     my_list = delete (my_list, 1);
 
     print(my_list);
+	fprintf(stderr, "example(): searching → %d\n", searching);
     searching = search(my_list, 20);
+	fprintf(stderr, "<<< Exiting example()\n");
     printf("\n%d\n", searching);
 }

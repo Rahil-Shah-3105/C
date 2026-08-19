@@ -56,6 +56,7 @@
  */
 void spirograph(double *x, double *y, double l, double k, size_t N, double rot)
 {
+	fprintf(stderr, ">>> Entering spirograph(x=%f,y=%f,l=%f,k=%f,N=%zu,rot=%f)\n", x, y, l, k, N, rot);
     double dt = rot * 2.f * M_PI / N;
     double t = 0.f, R = 1.f;
     const double k1 = 1.f - k;
@@ -65,6 +66,7 @@ void spirograph(double *x, double *y, double l, double k, size_t N, double rot)
         x[dk] = R * (k1 * cos(t) + l * k * cos(k1 * t / k));
         y[dk] = R * (k1 * sin(t) - l * k * sin(k1 * t / k));
     }
+	fprintf(stderr, "<<< Exiting spirograph(x=%f,y=%f,l=%f,k=%f,N=%zu,rot=%f)\n", x, y, l, k, N, rot);
 }
 
 /**
@@ -73,6 +75,7 @@ void spirograph(double *x, double *y, double l, double k, size_t N, double rot)
  */
 void test(void)
 {
+	fprintf(stderr, ">>> Entering test()\n");
     size_t N = 500;
     double l = 0.3, k = 0.75, rot = 10.;
     char fname[50];
@@ -85,7 +88,9 @@ void test(void)
     }
 
     double *x = (double *)malloc(N * sizeof(double));
+	fprintf(stderr, "test(): x → %d\n", x);
     double *y = (double *)malloc(N * sizeof(double));
+	fprintf(stderr, "test(): y → %d\n", y);
 
     spirograph(x, y, l, k, N, rot);
 
@@ -102,6 +107,7 @@ void test(void)
 
     free(x);
     free(y);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 #ifdef USE_GLUT  // this is set by CMAKE automatically, if available
@@ -123,7 +129,9 @@ static const double num_rot = 20.; /**< number of rotations to simulate */
  */
 static inline void glutBitmapString(void *font, char *string)
 {
+	fprintf(stderr, ">>> Entering glutBitmapString(font=%p,string=%s)\n", font, string);
     for (char *ch = string; *ch != '\0'; ch++) glutBitmapCharacter(font, *ch);
+	fprintf(stderr, "<<< Exiting glutBitmapString(font=%p,string=%s)\n", font, string);
 }
 
 /**
@@ -171,13 +179,18 @@ void display_graph(const double *x, const double *y, size_t N, double l,
  */
 void test2(void)
 {
+	fprintf(stderr, ">>> Entering test2()\n");
     const size_t N = 1000;  // number of samples
 
     static bool direction1 = true;  // increment if true, otherwise decrement
+	fprintf(stderr, "test2(): direction1 → %d\n", direction1);
     static bool direction2 = true;  // increment if true, otherwise decrement
+	fprintf(stderr, "test2(): direction2 → %d\n", direction2);
 
     double *x = (double *)malloc(N * sizeof(double));
+	fprintf(stderr, "test2(): x → %d\n", x);
     double *y = (double *)malloc(N * sizeof(double));
+	fprintf(stderr, "test2(): y → %d\n", y);
 
     spirograph(x, y, l_ratio, k_ratio, N, num_rot);
     display_graph(x, y, N, l_ratio, k_ratio);
@@ -220,6 +233,7 @@ void test2(void)
         else  // no min limit of k_ratio
             k_ratio -= step;
     }
+	fprintf(stderr, "<<< Exiting test2()\n");
 }
 
 /**
@@ -227,8 +241,10 @@ void test2(void)
  */
 void timer_cb(int id)
 {
+	fprintf(stderr, ">>> Entering timer_cb(id=%d)\n", id);
     glutPostRedisplay();
     glutTimerFunc(animation_speed, timer_cb, 0);
+	fprintf(stderr, "<<< Exiting timer_cb(id=%d)\n", id);
 }
 
 /**
@@ -240,6 +256,7 @@ void timer_cb(int id)
  */
 void keyboard_cb(unsigned char key, int x, int y)
 {
+	fprintf(stderr, ">>> Entering keyboard_cb(key=%c,x=%d,y=%d)\n", key, x, y);
     switch (key)
     {
     case ' ':              // spacebar toggles pause
@@ -264,12 +281,15 @@ void keyboard_cb(unsigned char key, int x, int y)
     case 0x1B:  // escape key exits
         exit(EXIT_SUCCESS);
     }
+	fprintf(stderr, "<<< Exiting keyboard_cb(key=%c,x=%d,y=%d)\n", key, x, y);
 }
 #endif
 
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     test();
 
 #ifdef USE_GLUT

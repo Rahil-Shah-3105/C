@@ -4,6 +4,7 @@ void decimal2Hexadecimal(long num);
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     long decimalnum;
 
     printf("Enter decimal number: ");
@@ -11,6 +12,7 @@ int main()
 
     decimal2Hexadecimal(decimalnum);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 
@@ -18,16 +20,19 @@ int main()
  * number****************/
 void decimal2Hexadecimal(long num)
 {
+	fprintf(stderr, ">>> Entering decimal2Hexadecimal(num=%ld)\n", num);
     long decimalnum = num;
     long quotient, remainder;
     int i, j = 0;
     char hexadecimalnum[100];
 
     quotient = decimalnum;
+	fprintf(stderr, "decimal2Hexadecimal(num=%d): quotient → %d\n", num, quotient);
 
     while (quotient != 0)
     {
         remainder = quotient % 16;
+		fprintf(stderr, "decimal2Hexadecimal(num=%d): remainder → %d\n", num, remainder);
         if (remainder < 10)
             hexadecimalnum[j++] = 48 + remainder;
 
@@ -45,4 +50,5 @@ void decimal2Hexadecimal(long num)
     }
 
     printf("\n");
+	fprintf(stderr, "<<< Exiting decimal2Hexadecimal(num=%ld)\n", num);
 }

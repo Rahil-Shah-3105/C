@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/mcnaughton_yamada_thompson.dir/mcnaughton_yamada_thompson.o -o mcnaughton_yamada_thompson 

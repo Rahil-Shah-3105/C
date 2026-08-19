@@ -13,12 +13,16 @@
  */
 int decimal_to_binary(unsigned int number)
 {
+	fprintf(stderr, ">>> Entering decimal_to_binary(number=%u)\n", number);
+    fprintf(stderr, "decimal_to_binary(number=%d): number → %d\n", number, number);
+    fprintf(stderr, "<<< Exiting decimal_to_binary(number=%u)\n", number);
     return number == 0 ? 0 : number % 2 + 10 * decimal_to_binary(number / 2);
 }
 
 /** Test function */
 void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     const int sets[][2] = {
         {0, 0}, {1, 1}, {2, 10}, {3, 11}, {4, 100}, {6, 110}, {7, 111},
         /* add more data sets to test */
@@ -28,11 +32,14 @@ void test()
     {
         assert(decimal_to_binary(sets[i][0]) == sets[i][1]);
     }
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /** Driver Code */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/octal_to_decimal.dir/octal_to_decimal.o -o octal_to_decimal 

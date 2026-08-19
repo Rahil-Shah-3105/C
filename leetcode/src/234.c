@@ -20,8 +20,11 @@ struct ListNode *reverse(struct ListNode *head)
 }
 bool isPalindrome(struct ListNode *head)
 {
+	fprintf(stderr, ">>> Entering isPalindrome(head=%p)\n", head);
     struct ListNode *slow = head;
     struct ListNode *fast = head;
+	fprintf(stderr, "isPalindrome(head=%d): fast → %d\n", head, fast);
+	fprintf(stderr, "isPalindrome(head=%d): slow → %d\n", head, slow);
     struct ListNode *last;
     while (fast && fast->next)
     {
@@ -29,8 +32,10 @@ bool isPalindrome(struct ListNode *head)
         fast = fast->next->next;
     }
     if (fast != NULL)
+		fprintf(stderr, "Exception in isPalindrome(head=%d): %d\n", head, errno);
         slow = slow->next;
     last = reverse(slow);
+	fprintf(stderr, "isPalindrome(head=%d): last → %d\n", head, last);
     while (last)
     {
         if (head->val != last->val)
@@ -38,5 +43,6 @@ bool isPalindrome(struct ListNode *head)
         head = head->next;
         last = last->next;
     }
+	fprintf(stderr, "<<< Exiting isPalindrome(head=%p)\n", head);
     return 1;
 }

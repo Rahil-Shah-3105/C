@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/factorial_trailing_zeroes.dir/factorial_trailing_zeroes.o -o factorial_trailing_zeroes 
