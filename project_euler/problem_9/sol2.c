@@ -22,6 +22,7 @@
 /** Main function */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int N = 1000;
 
     for (int a = 1; a < 300; a++)
@@ -39,5 +40,6 @@ int main(void)
         }
     }
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

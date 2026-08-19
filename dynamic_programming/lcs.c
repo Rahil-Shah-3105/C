@@ -28,6 +28,7 @@ enum {LEFT, UP, DIAG};
  * @returns void
  */
 void lcslen(const char *s1, const char *s2, int l1, int l2, int **L, int **B) {
+	fprintf(stderr, ">>> Entering lcslen(s1=%s,s2=%s,l1=%d,l2=%d,L=%p,B=%p)\n", s1, s2, l1, l2, L, B);
 	/* B is the directions matrix
 	   L is the LCS matrix */
 	int i, j;
@@ -39,6 +40,7 @@ void lcslen(const char *s1, const char *s2, int l1, int l2, int **L, int **B) {
 			if (s1[i-1] == s2[j-1]) {
 				L[i][j] = 1 + L[i-1][j-1];
 				B[i][j] = DIAG;
+				fprintf(stderr, "<<< Exiting lcslen(s1=%s,s2=%s,l1=%d,l2=%d,L=%p,B=%p)\n", s1, s2, l1, l2, L, B);
 			}
 			else if (L[i-1][j] < L[i][j-1]) {
 				L[i][j] = L[i][j-1];
@@ -62,13 +64,16 @@ void lcslen(const char *s1, const char *s2, int l1, int l2, int **L, int **B) {
  * @returns lcs longest common subsequence
  */
 char *lcsbuild(const char *s1, int l1, int l2, int **L, int **B) {
+	fprintf(stderr, ">>> Entering lcsbuild(s1=%s,l1=%d,l2=%d,L=%p,B=%p)\n", s1, l1, l2, L, B);
 	int	 i, j, lcsl;
 	char	*lcs;
 	lcsl = L[l1][l2];
+	fprintf(stderr, "lcsbuild(s1=%d,l1=%d,l2=%d,L=%d,B=%d): lcsl → %d\n", s1, l1, l2, L, B, lcsl);
 	
 	/* my lcs is at least the empty symbol */
 	lcs = (char *)calloc(lcsl+1, sizeof(char)); /* null-terminated \0 */
 	if (!lcs) {
+		fprintf(stderr, "lcsbuild(s1=%d,l1=%d,l2=%d,L=%d,B=%d): lcs → %d\n", s1, l1, l2, L, B, lcs);
 		perror("calloc: ");
 		return NULL;
 	}
@@ -90,6 +95,7 @@ char *lcsbuild(const char *s1, int l1, int l2, int **L, int **B) {
             i = i - 1;
         }
 	}
+	fprintf(stderr, "<<< Exiting lcsbuild(s1=%s,l1=%d,l2=%d,L=%p,B=%p)\n", s1, l1, l2, L, B);
 	return lcs;
 }
 
@@ -98,6 +104,7 @@ char *lcsbuild(const char *s1, int l1, int l2, int **L, int **B) {
  * @returns void
  */
 static void test() {
+	fprintf(stderr, ">>> Entering test()\n");
 	/* https://en.wikipedia.org/wiki/Subsequence#Applications */
 	int **L, **B, j, l1, l2;
 	
@@ -106,10 +113,14 @@ static void test() {
 	char *lcs;
 	
 	l1 = strlen(s1);
+	fprintf(stderr, "test(): l1 → %d\n", l1);
 	l2 = strlen(s2);
+	fprintf(stderr, "test(): l2 → %d\n", l2);
 	
 	L = (int **)calloc(l1+1, sizeof(int *));
+	fprintf(stderr, "test(): L → %d\n", L);
 	B = (int **)calloc(l1+1, sizeof(int *));
+	fprintf(stderr, "test(): B → %d\n", B);
 	
 	if (!L) {
 		perror("calloc: ");
@@ -135,6 +146,7 @@ static void test() {
 	lcslen(s1, s2, l1, l2, L, B);
 	lcs = lcsbuild(s1, l1, l2, L, B);
 	
+	fprintf(stderr, "test(): lcs → %d\n", lcs);
 	assert(L[l1][l2] == 27);
 	assert(strcmp(lcs, "CGTTCGGCTATGCTTCTACTTATTCTA") == 0);
 	
@@ -151,6 +163,7 @@ static void test() {
 	free(B);
 
 	printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -160,6 +173,8 @@ static void test() {
  * @returns 0 on exit
  */
 int main(int argc, char *argv[]) {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
 	test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
 	return 0;
 }

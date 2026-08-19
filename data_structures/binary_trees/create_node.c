@@ -27,6 +27,7 @@ struct node *newNode(int data)
 
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     /* new node can be created here as :-
 
        struct node *nameOfNode = newNode(data);
@@ -35,5 +36,6 @@ int main(void)
        nameOfNode->leftNode and so on.
     */
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

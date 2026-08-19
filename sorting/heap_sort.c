@@ -6,6 +6,7 @@ void build_maxheap(int *a, int n);
 
 void max_heapify(int *a, int i, int n)
 {
+	fprintf(stderr, ">>> Entering max_heapify(a=%p,i=%d,n=%d)\n", a, i, n);
     int j, temp;
     temp = a[i];
     j = 2 * i;
@@ -24,11 +25,13 @@ void max_heapify(int *a, int i, int n)
         }
     }
     a[j / 2] = temp;
+	fprintf(stderr, "<<< Exiting max_heapify(a=%p,i=%d,n=%d)\n", a, i, n);
     return;
 }
 
 void heapsort(int *a, int n)
 {
+	fprintf(stderr, ">>> Entering heapsort(a=%p,n=%d)\n", a, n);
     int i, temp;
     for (i = n; i >= 2; i--)
     {
@@ -37,19 +40,23 @@ void heapsort(int *a, int n)
         a[1] = temp;
         max_heapify(a, 1, i - 1);
     }
+	fprintf(stderr, "<<< Exiting heapsort(a=%p,n=%d)\n", a, n);
 }
 
 void build_maxheap(int *a, int n)
 {
+	fprintf(stderr, ">>> Entering build_maxheap(a=%p,n=%d)\n", a, n);
     int i;
     for (i = n / 2; i >= 1; i--)
     {
         max_heapify(a, i, n);
     }
+	fprintf(stderr, "<<< Exiting build_maxheap(a=%p,n=%d)\n", a, n);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int n, i;
     printf("Enter number of elements of array\n");
     scanf("%d", &n);
@@ -69,4 +76,5 @@ int main()
     }
 
     getchar();
+	fprintf(stderr, "<<< Exiting main()\n");
 }

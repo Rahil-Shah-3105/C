@@ -16,10 +16,12 @@
  */
 void swap(int *a, int *b)
 {
+	fprintf(stderr, ">>> Entering swap(a=%p,b=%p)\n", a, b);
     int t;
     t = *a;
     *a = *b;
     *b = t;
+	fprintf(stderr, "<<< Exiting swap(a=%p,b=%p)\n", a, b);
 }
 
 /**
@@ -32,6 +34,7 @@ void swap(int *a, int *b)
  */
 void merge(int *a, int l, int r, int n)
 {
+	fprintf(stderr, ">>> Entering merge(a=%p,l=%d,r=%d,n=%d)\n", a, l, r, n);
     int *b = (int *)malloc(n * sizeof(int)); /* dynamic memory must be freed */
     if (b == NULL)
     {
@@ -76,6 +79,7 @@ void merge(int *a, int l, int r, int n)
     for (c = l; c < r + 1; c++) a[c] = b[c];
 
     free(b);
+	fprintf(stderr, "<<< Exiting merge(a=%p,l=%d,r=%d,n=%d)\n", a, l, r, n);
 }
 
 /** Merge sort algorithm implementation
@@ -86,6 +90,7 @@ void merge(int *a, int l, int r, int n)
  */
 void merge_sort(int *a, int n, int l, int r)
 {
+	fprintf(stderr, ">>> Entering merge_sort(a=%p,n=%d,l=%d,r=%d)\n", a, n, l, r);
     if (r - l == 1)
     {
         if (a[l] > a[r])
@@ -99,12 +104,14 @@ void merge_sort(int *a, int n, int l, int r)
     }
 
     /* no change if l == r */
+	fprintf(stderr, "<<< Exiting merge_sort(a=%p,n=%d,l=%d,r=%d)\n", a, n, l, r);
 }
 /** @} */
 
 /** Main function */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int *a, n, i;
     printf("Enter Array size: ");
     scanf("%d", &n);
@@ -114,6 +121,7 @@ int main(void)
         return 1;
     }
     a = (int *)malloc(n * sizeof(int));
+	fprintf(stderr, "main(): a → %d\n", a);
     if (a == NULL) /* exit program if can't malloc memory */
     {
         printf("Can't Malloc! Please try again.");
@@ -135,5 +143,6 @@ int main(void)
 
     free(a);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

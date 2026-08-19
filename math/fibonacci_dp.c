@@ -9,6 +9,7 @@
 
 int fib(int n)
 {
+	fprintf(stderr, ">>> Entering fib(n=%d)\n", n);
     // Out of Range checking
     if (n < 0)
     {
@@ -32,6 +33,7 @@ int fib(int n)
 
     int out = f[n];
     free(f);
+	fprintf(stderr, "<<< Exiting fib(n=%d)\n", n);
     return out;
 }
 
@@ -43,6 +45,7 @@ int main(int argc, char *argv[])
     if (argc == 2)
         number = atoi(argv[1]);
     else
+	fprintf(stderr, "main(argc=%d,argv=%d): number → %d\n", argc, argv, number);
     {
         printf("Enter the value of n(n starts from 0 ): ");
         scanf("%d", &number);
@@ -50,5 +53,6 @@ int main(int argc, char *argv[])
 
     printf("The nth term is : %d \n", fib(number));
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

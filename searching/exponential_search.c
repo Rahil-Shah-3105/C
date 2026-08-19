@@ -28,6 +28,7 @@ static void test(); ///< used to run the self-test implementations
  */
 int64_t exponential_search(const int64_t* arr, const uint16_t length, const int64_t n) 
 {
+	fprintf(stderr, ">>> Entering exponential_search(arr=%p,length=%d,n=%d)\n", arr, length, n);
     if ( length == 0 ) { return -1; }
     // find the upperbound
     uint32_t upper_bound = 1;
@@ -36,6 +37,7 @@ int64_t exponential_search(const int64_t* arr, const uint16_t length, const int6
     uint16_t lower_bound = upper_bound/2;
     if ( upper_bound > length ) { upper_bound = length; }
     // apply the binary search in the range
+	fprintf(stderr, "<<< Exiting exponential_search(arr=%p,length=%d,n=%d)\n", arr, length, n);
     return binary_search(arr, lower_bound, upper_bound, n);
 }
 
@@ -55,6 +57,7 @@ int64_t exponential_search(const int64_t* arr, const uint16_t length, const int6
  */
 int64_t binary_search(const int64_t* arr, const uint16_t l_index, const uint16_t r_index, const int64_t n) 
 {
+	fprintf(stderr, ">>> Entering binary_search(arr=%p,l_index=%d,r_index=%d,n=%d)\n", arr, l_index, r_index, n);
     // calculate the middle index of the array
     uint16_t middle_index = l_index + ( r_index - l_index ) / 2;
     // base cases
@@ -62,6 +65,7 @@ int64_t binary_search(const int64_t* arr, const uint16_t l_index, const uint16_t
     if ( arr[middle_index] == n ) { return middle_index; }
     // recursion
     if ( arr[middle_index] > n ) { return binary_search(arr, l_index, middle_index-1, n); } // left
+	fprintf(stderr, "<<< Exiting binary_search(arr=%p,l_index=%d,r_index=%d,n=%d)\n", arr, l_index, r_index, n);
     return binary_search(arr, middle_index+1, r_index, n); // right
 }
 
@@ -71,7 +75,9 @@ int64_t binary_search(const int64_t* arr, const uint16_t l_index, const uint16_t
  */
 int main() 
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 
@@ -81,6 +87,7 @@ int main()
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     // empty array
     int64_t arr_empty[] = { 0 };
     assert(exponential_search(arr_empty, 0, 10) == -1);
@@ -107,4 +114,5 @@ static void test()
     assert(exponential_search(arr_middle, 5, 6) == 3);
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }

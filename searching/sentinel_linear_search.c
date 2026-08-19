@@ -34,6 +34,7 @@
  * @return i if found, otherwise -1 is returned.
  */
 int sentinel_linear_search( int arr[], int len, int key ){
+	fprintf(stderr, ">>> Entering sentinel_linear_search(arr=%p,len=%d,key=%d)\n", arr, len, key);
 	if(key == arr[len-1]){
 		return len-1;
 	}
@@ -48,6 +49,7 @@ int sentinel_linear_search( int arr[], int len, int key ){
 	
 	arr[len-1] = temp;
 	
+	fprintf(stderr, "<<< Exiting sentinel_linear_search(arr=%p,len=%d,key=%d)\n", arr, len, key);
 	return i != len-1 ? i : -1;
 	 
 }
@@ -57,6 +59,7 @@ int sentinel_linear_search( int arr[], int len, int key ){
  * @returns void
  */
 static void test(){
+	fprintf(stderr, ">>> Entering test()\n");
 	int n,i;
 	n = 5;
 	/* init array */
@@ -67,6 +70,7 @@ static void test(){
 	assert(sentinel_linear_search( arr, n, 6 )==3);
 	assert(sentinel_linear_search( arr, n, 101 )==-1);
 	printf("All test cases have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 } 
 
 /**
@@ -74,6 +78,8 @@ static void test(){
  * @returns 0 on exit
  */
 int main(){
+	fprintf(stderr, ">>> Entering main()\n");
 	test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
 	return 0;
 }

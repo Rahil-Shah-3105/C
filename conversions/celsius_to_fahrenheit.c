@@ -15,6 +15,8 @@
  * @returns Double of temperature in degrees Fahrenheit
  */
  double celcius_to_fahrenheit(double celsius) {
+	fprintf(stderr, ">>> Entering celcius_to_fahrenheit(celsius=%f)\n", celsius);
+    fprintf(stderr, "<<< Exiting celcius_to_fahrenheit(celsius=%f)\n", celsius);
     return (celsius * 9.0 / 5.0) + 32.0;
  }
 
@@ -23,11 +25,15 @@
  * @returns void
  */
 static void test() {
+	fprintf(stderr, ">>> Entering test()\n");
     // 1st test
     double input = 0.0;
+	fprintf(stderr, "test(): input → %d\n", input);
     double expected = 32.0;
+	fprintf(stderr, "test(): expected → %d\n", expected);
 
     double output = celcius_to_fahrenheit(input);
+	fprintf(stderr, "test(): output → %d\n", output);
 
     // 1st test
     printf("TEST 1\n");
@@ -62,6 +68,7 @@ static void test() {
     printf("Output: %f\n", output);
     assert(output == expected);
     printf("== TEST PASSED ==\n\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -69,6 +76,8 @@ static void test() {
  * @returns 0 on exit
  */
 int main() {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

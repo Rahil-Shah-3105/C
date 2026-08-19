@@ -11,6 +11,7 @@
 /** Main function */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int t;
     printf("Enter number of times you want to try");
     scanf("%d", &t);
@@ -25,10 +26,12 @@ int main()
             if (i % 3 == 0 || i % 5 == 0)
             {
                 sum = sum + i;
+				fprintf(stderr, "main(): sum → %d\n", sum);
             }
         }
         printf("%lld\n", sum);  // print the sum of all numbers that are
                                 // multiples of 3 & 5 below N
     }
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
