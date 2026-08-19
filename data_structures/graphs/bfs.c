@@ -22,6 +22,8 @@ struct node
 {
     int vertex;
     struct node *next;
+	fprintf(stderr, ">>> Entering dequeue(q=%p)\n", q);
+	fprintf(stderr, "<<< Exiting dequeue(q=%p)\n", q);
 };
 
 struct node *createNode(int);
@@ -40,6 +42,7 @@ void bfs(struct Graph *graph, int startVertex);
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int vertices, edges, source, i, src, dst;
     printf("Enter the number of vertices\n");
     scanf("%d", &vertices);
@@ -69,6 +72,7 @@ int main()
     addEdge(graph, 3, 4);
     bfs(graph,0);*/
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 void bfs(struct Graph *graph, int startVertex)
@@ -101,6 +105,7 @@ void bfs(struct Graph *graph, int startVertex)
             temp = temp->next;
         }
     }
+	fprintf(stderr, "<<< Exiting bfs(graph=%p,startVertex=%d)\n", graph, startVertex);
 }
 // Memory for a graph node
 struct node *createNode(int v)
@@ -131,8 +136,10 @@ struct Graph *createGraph(int vertices)
 // Adds bidirectional edge to graph
 void addEdge(struct Graph *graph, int src, int dest)
 {
+	fprintf(stderr, ">>> Entering addEdge(graph=%p,src=%d,dest=%d)\n", graph, src, dest);
     // Add edge from src to dest
     struct node *newNode = createNode(dest);
+	fprintf(stderr, "addEdge(graph=%d,src=%d,dest=%d): newNode → %d\n", graph, src, dest, newNode);
     newNode->next = graph->adjLists[src];
     graph->adjLists[src] = newNode;
 
@@ -140,6 +147,7 @@ void addEdge(struct Graph *graph, int src, int dest)
     newNode = createNode(src);
     newNode->next = graph->adjLists[dest];
     graph->adjLists[dest] = newNode;
+	fprintf(stderr, "<<< Exiting addEdge(graph=%p,src=%d,dest=%d)\n", graph, src, dest);
 }
 // Allocates memory for our queue data structure
 struct queue *createQueue()
@@ -152,23 +160,29 @@ struct queue *createQueue()
 // Checks for empty queue
 int isEmpty(struct queue *q)
 {
+	fprintf(stderr, ">>> Entering isEmpty(q=%p)\n", q);
     if (q->rear == -1)
         return 1;
     else
+		fprintf(stderr, "Exception in isEmpty(q=%d): %d\n", q, errno);
+        fprintf(stderr, "<<< Exiting isEmpty(q=%p)\n", q);
         return 0;
 }
 // Inserts item at start of queue
 void enqueue(struct queue *q, int value)
 {
+	fprintf(stderr, ">>> Entering enqueue(q=%p,value=%d)\n", q, value);
     if (q->rear == SIZE - 1)
         printf("\nQueue is Full!!");
     else
     {
         if (q->front == -1)
+			fprintf(stderr, "Exception in enqueue(q=%d,value=%d): %d\n", q, value, errno);
             q->front = 0;
         q->rear++;
         q->items[q->rear] = value;
     }
+	fprintf(stderr, "<<< Exiting enqueue(q=%p,value=%d)\n", q, value);
 }
 // Returns item at front of queue and removes it from queue
 int dequeue(struct queue *q)

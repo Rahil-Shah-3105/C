@@ -6,6 +6,7 @@
 // Space: O(1)
 
 int minimumAverageDifference(int* nums, int numsSize){
+	fprintf(stderr, ">>> Entering minimumAverageDifference(nums=%p,numsSize=%d)\n", nums, numsSize);
     long numsSum = 0;
     for (int i = 0; i < numsSize; i++){
         numsSum += nums[i];
@@ -14,18 +15,23 @@ int minimumAverageDifference(int* nums, int numsSize){
     long currSum = 0;
     long minAverage = 9223372036854775807; // Long max
     int minIndex = 0;
+	fprintf(stderr, "minimumAverageDifference(nums=%d,numsSize=%d): minIndex → %d\n", nums, numsSize, minIndex);
     
     for (int i = 0; i < numsSize; i++){
         currSum += nums[i];
 
         int leftItemsNumber = (numsSize - i  - 1);
+		fprintf(stderr, "minimumAverageDifference(nums=%d,numsSize=%d): leftItemsNumber → %d\n", nums, numsSize, leftItemsNumber);
         long leftItemsNumberAverage = 0;
+		fprintf(stderr, "minimumAverageDifference(nums=%d,numsSize=%d): leftItemsNumberAverage → %d\n", nums, numsSize, leftItemsNumberAverage);
         if (leftItemsNumber != 0){
             leftItemsNumberAverage = (numsSum - currSum) / leftItemsNumber;
         }
 
         long currItemsNumberAverage = currSum / (i + 1);
+		fprintf(stderr, "minimumAverageDifference(nums=%d,numsSize=%d): currItemsNumberAverage → %d\n", nums, numsSize, currItemsNumberAverage);
         long averageDiff = abs(currItemsNumberAverage - leftItemsNumberAverage);
+		fprintf(stderr, "minimumAverageDifference(nums=%d,numsSize=%d): averageDiff → %d\n", nums, numsSize, averageDiff);
 
         if (averageDiff < minAverage){
             minAverage = averageDiff;
@@ -33,5 +39,6 @@ int minimumAverageDifference(int* nums, int numsSize){
         }
     }
 
+	fprintf(stderr, "<<< Exiting minimumAverageDifference(nums=%p,numsSize=%d)\n", nums, numsSize);
     return minIndex;
 }

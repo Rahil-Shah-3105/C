@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/octal_to_hexadecimal.dir/octal_to_hexadecimal.o -o octal_to_hexadecimal 

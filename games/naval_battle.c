@@ -24,8 +24,10 @@
  */
 int validEntryLineColumn(int line, char column)
 {
+	fprintf(stderr, ">>> Entering validEntryLineColumn(line=%d,column=%c)\n", line, column);
     if ((line >= 1 && line <= 10) && (column >= 65 && column <= 74))
     {
+	fprintf(stderr, "<<< Exiting validEntryLineColumn(line=%d,column=%c)\n", line, column);
         return 1;
     }
 
@@ -106,6 +108,7 @@ int validatePosition(int mat[10][10], int boat, int line, int column,
 
 int canShoot(int mat[10][10], int line, int column)
 {
+	fprintf(stderr, ">>> Entering canShoot(mat=%d,line=%d,column=%d)\n", mat, line, column);
     if (mat[line][column] == -2 || mat[line][column] == 10 ||
         mat[line][column] == 20 || mat[line][column] == 30 ||
         mat[line][column] == 50)
@@ -113,6 +116,7 @@ int canShoot(int mat[10][10], int line, int column)
         return 0;
     }
 
+	fprintf(stderr, "<<< Exiting canShoot(mat=%d,line=%d,column=%d)\n", mat, line, column);
     return 1;
 }
 /**
@@ -123,6 +127,7 @@ int canShoot(int mat[10][10], int line, int column)
  */
 void positionBoat(int mat[10][10], int boat)
 {
+	fprintf(stderr, ">>> Entering positionBoat(mat=%d,boat=%d)\n", mat, boat);
     int line, j;
     char column, guide;
 
@@ -152,6 +157,7 @@ void positionBoat(int mat[10][10], int boat)
     }
 
     int aux = column - 'A';
+	fprintf(stderr, "positionBoat(mat=%d,boat=%d): aux → %d\n", mat, boat, aux);
     line -= 1;
 
     if (boat == 1)
@@ -257,6 +263,7 @@ void positionBoat(int mat[10][10], int boat)
             }
         }
     }
+	fprintf(stderr, "<<< Exiting positionBoat(mat=%d,boat=%d)\n", mat, boat);
 }
 /**
  * @brief Function printMessage
@@ -265,11 +272,13 @@ void positionBoat(int mat[10][10], int boat)
  */
 void printMessage(char *msg)
 {
+	fprintf(stderr, ">>> Entering printMessage(msg=%s)\n", msg);
     printf("************************\n");
     printf("*\n");
     printf("* %s\n", msg);
     printf("*\n");
     printf("************************\n");
+	fprintf(stderr, "<<< Exiting printMessage(msg=%s)\n", msg);
 }
 /**
  * @brief Function printMessageScore
@@ -279,12 +288,14 @@ void printMessage(char *msg)
  */
 void printMessageScore(int pts1, int pts2)
 {
+	fprintf(stderr, ">>> Entering printMessageScore(pts1=%d,pts2=%d)\n", pts1, pts2);
     printf("************************\n");
     printf("*\n");
     printf("* Player'S SCORE 1: %02d\n", pts1);
     printf("* Player'S SCORE 2: %02d\n", pts2);
     printf("*\n");
     printf("************************\n");
+	fprintf(stderr, "<<< Exiting printMessageScore(pts1=%d,pts2=%d)\n", pts1, pts2);
 }
 /**
  * @brief Function printTable
@@ -295,6 +306,7 @@ void printMessageScore(int pts1, int pts2)
  */
 char printTable(int logic, int stage)
 {
+	fprintf(stderr, ">>> Entering printTable(logic=%d,stage=%d)\n", logic, stage);
     if (stage == 0)
     {
         if (logic == 0)
@@ -342,6 +354,7 @@ char printTable(int logic, int stage)
 
         else
         {
+			fprintf(stderr, "<<< Exiting printTable(logic=%d,stage=%d)\n", logic, stage);
             return 'A';
         }
     }
@@ -354,6 +367,7 @@ char printTable(int logic, int stage)
  */
 void printsTray(int mat[10][10], int stage)
 {
+	fprintf(stderr, ">>> Entering printsTray(mat=%d,stage=%d)\n", mat, stage);
     int logic;
     char imp;
 
@@ -385,8 +399,10 @@ void printsTray(int mat[10][10], int stage)
             if ((i > 0 && i < 11) && (j > 0 && j < 11))
             {
                 logic = mat[i - 1][j - 1];
+				fprintf(stderr, "printsTray(mat=%d,stage=%d): logic → %d\n", mat, stage, logic);
                 imp = printTable(logic, stage);
                 printf("%c", imp);
+				fprintf(stderr, "printsTray(mat=%d,stage=%d): imp → %d\n", mat, stage, imp);
             }
             else
             {
@@ -400,6 +416,7 @@ void printsTray(int mat[10][10], int stage)
         }
         printf("\n");
     }
+	fprintf(stderr, "<<< Exiting printsTray(mat=%d,stage=%d)\n", mat, stage);
 }
 /**
  * @brief Function shoot
@@ -410,6 +427,7 @@ void printsTray(int mat[10][10], int stage)
  */
 void shoot(int mat[10][10], int line, int column)
 {
+	fprintf(stderr, ">>> Entering shoot(mat=%d,line=%d,column=%d)\n", mat, line, column);
     if (mat[line][column] == 0 || mat[line][column] == -1)
     {
         mat[line][column] = -2;
@@ -429,6 +447,7 @@ void shoot(int mat[10][10], int line, int column)
     {
         mat[line][column] = 30;
     }
+	fprintf(stderr, "<<< Exiting shoot(mat=%d,line=%d,column=%d)\n", mat, line, column);
 }
 /**
  * @brief Function calculateScore
@@ -441,8 +460,13 @@ void shoot(int mat[10][10], int line, int column)
 
 int calculateScore(int mat[10][10], int line, int column)
 {
+	fprintf(stderr, ">>> Entering calculateScore(mat=%d,line=%d,column=%d)\n", mat, line, column);
     int c = 0, b = 0, e = 0, d = 0;
 
+	fprintf(stderr, "calculateScore(mat=%d,line=%d,column=%d): b → %d\n", mat, line, column, b);
+	fprintf(stderr, "calculateScore(mat=%d,line=%d,column=%d): d → %d\n", mat, line, column, d);
+	fprintf(stderr, "calculateScore(mat=%d,line=%d,column=%d): e → %d\n", mat, line, column, e);
+	fprintf(stderr, "calculateScore(mat=%d,line=%d,column=%d): c → %d\n", mat, line, column, c);
     if (mat[line][column] == 10)
     {
         mat[line][column] = 50;
@@ -639,6 +663,7 @@ int calculateScore(int mat[10][10], int line, int column)
             }
         }
     }
+	fprintf(stderr, "<<< Exiting calculateScore(mat=%d,line=%d,column=%d)\n", mat, line, column);
     return 0;
 }
 /**
@@ -651,6 +676,7 @@ int calculateScore(int mat[10][10], int line, int column)
  */
 void printPositioning(int Player, int boat, int nm)
 {
+	fprintf(stderr, ">>> Entering printPositioning(Player=%d,boat=%d,nm=%d)\n", Player, boat, nm);
     if (Player == 1)
     {
         char msg1[60] = "Player 1 - Position the size boat 1 (1/6)";
@@ -805,6 +831,7 @@ void printPositioning(int Player, int boat, int nm)
             }
         }
     }
+	fprintf(stderr, "<<< Exiting printPositioning(Player=%d,boat=%d,nm=%d)\n", Player, boat, nm);
 }
 /**
  * @brief Main function
@@ -812,6 +839,7 @@ void printPositioning(int Player, int boat, int nm)
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int Player1[10][10];
     int Player2[10][10];
     int plays = 1;
@@ -893,13 +921,17 @@ int main()
                    canShoot(Player2, line - 1, column - 65) != 1)
             {
                 line = 0;
+				fprintf(stderr, "main(): line → %d\n", line);
                 column = 'a';
                 printf("Position unavailable!\n");
+				fprintf(stderr, "main(): column → %d\n", column);
                 scanf("%d %c", &line, &column);
             }
             lin = line - 1;
             col = column - 65;
             shoot(Player2, lin, col);
+			fprintf(stderr, "main(): lin → %d\n", lin);
+			fprintf(stderr, "main(): col → %d\n", col);
             a1 = pts1;
             pts1 += calculateScore(Player2, lin, col);
 
@@ -942,5 +974,6 @@ int main()
     printMessage("END GAME\n");
     printMessageScore(pts1, pts2);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

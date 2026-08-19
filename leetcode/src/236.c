@@ -14,7 +14,9 @@ struct ListItem {
 };
 
 bool findTargetPath(struct TreeNode* node, struct TreeNode* target, struct ListItem* path){
+	fprintf(stderr, ">>> Entering findTargetPath(node=%p,target=%p,path=%p)\n", node, target, path);
     if (node == NULL){
+		fprintf(stderr, "Exception in findTargetPath(node=%d,target=%d,path=%d): %d\n", node, target, path, errno);
         return false;
     }
     
@@ -37,15 +39,19 @@ bool findTargetPath(struct TreeNode* node, struct TreeNode* target, struct ListI
     
     path->next = NULL;
     free(pathItem);
+	fprintf(stderr, "<<< Exiting findTargetPath(node=%p,target=%p,path=%p)\n", node, target, path);
     return false;
 }
 
 void freeList(struct ListItem* target){
+	fprintf(stderr, ">>> Entering freeList(target=%p)\n", target);
     if (target->next != NULL){
         freeList(target->next);
+		fprintf(stderr, "Exception in freeList(target=%d): %d\n", target, errno);
     }
     
     free(target);
+	fprintf(stderr, "<<< Exiting freeList(target=%p)\n", target);
 }
 
 

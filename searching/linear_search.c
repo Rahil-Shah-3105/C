@@ -3,10 +3,12 @@
 
 int linearsearch(int *arr, int size, int val)
 {
+	fprintf(stderr, ">>> Entering linearsearch(arr=%p,size=%d,val=%d)\n", arr, size, val);
     int i;
     for (i = 0; i < size; i++)
     {
         if (arr[i] == val)
+	fprintf(stderr, "<<< Exiting linearsearch(arr=%p,size=%d,val=%d)\n", arr, size, val);
             return 1;
     }
     return 0;
@@ -14,6 +16,7 @@ int linearsearch(int *arr, int size, int val)
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int n, i, v;
     printf("Enter the size of the array:\n");
     scanf("%d", &n);  // Taking input for the size of Array
@@ -32,5 +35,6 @@ int main()
         printf("Value %d is not in the array.\n", v);
 
     free(a);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

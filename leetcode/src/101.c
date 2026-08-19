@@ -9,9 +9,11 @@
 
 bool checkSymmetric(struct TreeNode *left, struct TreeNode *right)
 {
+	fprintf(stderr, ">>> Entering checkSymmetric(left=%p,right=%p)\n", left, right);
     if (!left || !right)
         return left == right;
     if (left->val != right->val)
+	fprintf(stderr, "<<< Exiting checkSymmetric(left=%p,right=%p)\n", left, right);
         return 0;
     return checkSymmetric(left->left, right->right) &&
            checkSymmetric(left->right, right->left);

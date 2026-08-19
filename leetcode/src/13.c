@@ -1,5 +1,6 @@
 int romanToInt(char *s)
 {
+	fprintf(stderr, ">>> Entering romanToInt(s=%s)\n", s);
     int romanToInt = 0;
     for (int i = 0; i < strlen(s); i++)
     {
@@ -54,5 +55,6 @@ int romanToInt(char *s)
             break;
         }
     }
+	fprintf(stderr, "<<< Exiting romanToInt(s=%s)\n", s);
     return romanToInt;
 }

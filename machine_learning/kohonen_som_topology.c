@@ -64,6 +64,7 @@ struct kohonen_array_3d
  * \param[in] z     third index
  * \returns pointer to (x,y,z)^th location of data
  */
+fprintf(stderr, ">>> Entering kohonen_data_3d(arr=%p,x=%d,y=%d,z=%d)\n", arr, x, y, z);
 double *kohonen_data_3d(const struct kohonen_array_3d *arr, int x, int y, int z)
 {
     int offset = (x * arr->dim2 * arr->dim3) + (y * arr->dim3) + z;
@@ -86,6 +87,8 @@ double *kohonen_data_3d(const struct kohonen_array_3d *arr, int x, int y, int z)
  */
 double _random(double a, double b)
 {
+	fprintf(stderr, ">>> Entering _random(a=%f,b=%f)\n", a, b);
+    fprintf(stderr, "<<< Exiting _random(a=%f,b=%f)\n", a, b);
     return ((b - a) * (rand() % 100) / 100.f) + a;
 }
 
@@ -138,6 +141,7 @@ int save_2d_data(const char *fname, double **X, int num_points,
  */
 int save_u_matrix(const char *fname, struct kohonen_array_3d *W)
 {
+	fprintf(stderr, ">>> Entering save_u_matrix(fname=%s,W=%p)\n", fname, W);
     FILE *fp = fopen(fname, "wt");
     if (!fp)  // error with fopen
     {
@@ -157,9 +161,14 @@ int save_u_matrix(const char *fname, struct kohonen_array_3d *W)
             int k;
 
             int from_x = max(0, i - R);
+			fprintf(stderr, "save_u_matrix(fname=%d,W=%d): from_x → %d\n", fname, W, from_x);
             int to_x = min(W->dim1, i + R + 1);
+			fprintf(stderr, "save_u_matrix(fname=%d,W=%d): to_x → %d\n", fname, W, to_x);
             int from_y = max(0, j - R);
+			fprintf(stderr, "save_u_matrix(fname=%d,W=%d): from_y → %d\n", fname, W, from_y);
             int to_y = min(W->dim2, j + R + 1);
+			fprintf(stderr, "save_u_matrix(fname=%d,W=%d): to_y → %d\n", fname, W, to_y);
+	fprintf(stderr, "<<< Exiting save_u_matrix(fname=%s,W=%p)\n", fname, W);
             int l;
 #ifdef _OPENMP
 #pragma omp parallel for reduction(+ : distance)
@@ -203,6 +212,7 @@ int save_u_matrix(const char *fname, struct kohonen_array_3d *W)
  */
 void get_min_2d(double **X, int N, double *val, int *x_idx, int *y_idx)
 {
+	fprintf(stderr, ">>> Entering get_min_2d(X=%f,N=%d,val=%f,x_idx=%p,y_idx=%p)\n", X, N, val, x_idx, y_idx);
     val[0] = INFINITY;  // initial min value
 
     for (int i = 0; i < N; i++)  // traverse each x-index
@@ -217,6 +227,7 @@ void get_min_2d(double **X, int N, double *val, int *x_idx, int *y_idx)
             }
         }
     }
+	fprintf(stderr, "<<< Exiting get_min_2d(X=%f,N=%d,val=%f,x_idx=%p,y_idx=%p)\n", X, N, val, x_idx, y_idx);
 }
 
 /**
@@ -365,6 +376,7 @@ void kohonen_som(double **X, struct kohonen_array_3d *W, int num_samples,
  */
 void test_2d_classes(double *const *data, int N)
 {
+	fprintf(stderr, ">>> Entering test_2d_classes(data=%f,N=%d)\n", data, N);
     const double R = 0.3;  // radius of cluster
     int i;
     const int num_classes = 4;
@@ -374,6 +386,7 @@ void test_2d_classes(double *const *data, int N)
         {.5, -.5},  // centre of class 2
         {-.5, .5},  // centre of class 3
         {-.5, -.5}  // centre of class 4
+	fprintf(stderr, "<<< Exiting test_2d_classes(data=%f,N=%d)\n", data, N);
     };
 
 #ifdef _OPENMP
@@ -405,6 +418,7 @@ void test_2d_classes(double *const *data, int N)
  */
 void test1()
 {
+	fprintf(stderr, ">>> Entering test1()\n");
     int j, N = 300;
     int features = 2;
     int num_out = 30;  // image size - N x N
@@ -415,6 +429,9 @@ void test1()
     // cluster nodex in 'x' * cluster nodes in 'y' * 2
     struct kohonen_array_3d W;
     W.dim1 = num_out;
+	fprintf(stderr, "test1(): W.dim1 → %d\n", W.dim1);
+	fprintf(stderr, "test1(): W.dim2 → %d\n", W.dim2);
+	fprintf(stderr, "test1(): W.dim3 → %d\n", W.dim3);
     W.dim2 = num_out;
     W.dim3 = features;
     W.data = (double *)malloc(num_out * num_out * features *
@@ -427,6 +444,7 @@ void test1()
         if (i < num_out)  // only add new arrays if i < num_out
         {
             for (int k = 0; k < num_out; k++)
+	fprintf(stderr, "<<< Exiting test1()\n");
             {
 #ifdef _OPENMP
 #pragma omp for
@@ -464,6 +482,7 @@ void test1()
  */
 void test_3d_classes1(double *const *data, int N)
 {
+	fprintf(stderr, ">>> Entering test_3d_classes1(data=%f,N=%d)\n", data, N);
     const double R = 0.2;  // radius of cluster
     int i;
     const int num_classes = 4;
@@ -473,6 +492,7 @@ void test_3d_classes1(double *const *data, int N)
         {.5, -.5, -.5},  // centre of class 2
         {-.5, .5, .5},   // centre of class 3
         {-.5, -.5 - .5}  // centre of class 4
+	fprintf(stderr, "<<< Exiting test_3d_classes1(data=%f,N=%d)\n", data, N);
     };
 
 #ifdef _OPENMP
@@ -505,6 +525,7 @@ void test_3d_classes1(double *const *data, int N)
  */
 void test2()
 {
+	fprintf(stderr, ">>> Entering test2()\n");
     int j, N = 500;
     int features = 3;
     int num_out = 30;  // image size - N x N
@@ -515,6 +536,9 @@ void test2()
     // cluster nodex in 'x' * cluster nodes in 'y' * 2
     struct kohonen_array_3d W;
     W.dim1 = num_out;
+	fprintf(stderr, "test2(): W.dim1 → %d\n", W.dim1);
+	fprintf(stderr, "test2(): W.dim2 → %d\n", W.dim2);
+	fprintf(stderr, "test2(): W.dim3 → %d\n", W.dim3);
     W.dim2 = num_out;
     W.dim3 = features;
     W.data = (double *)malloc(num_out * num_out * features *
@@ -527,6 +551,7 @@ void test2()
         if (i < num_out)  // only add new arrays if i < num_out
         {
             for (int k = 0; k < num_out; k++)
+	fprintf(stderr, "<<< Exiting test2()\n");
             {
 #ifdef _OPENMP
 #pragma omp for
@@ -563,6 +588,7 @@ void test2()
  */
 void test_3d_classes2(double *const *data, int N)
 {
+	fprintf(stderr, ">>> Entering test_3d_classes2(data=%f,N=%d)\n", data, N);
     const double R = 0.2;  // radius of cluster
     int i;
     const int num_classes = 8;
@@ -576,6 +602,7 @@ void test_3d_classes2(double *const *data, int N)
         {-.5, .5, -.5},  // centre of class 6
         {-.5, -.5, .5},  // centre of class 7
         {-.5, -.5, -.5}  // centre of class 8
+	fprintf(stderr, "<<< Exiting test_3d_classes2(data=%f,N=%d)\n", data, N);
     };
 
 #ifdef _OPENMP
@@ -608,6 +635,7 @@ void test_3d_classes2(double *const *data, int N)
  */
 void test3()
 {
+	fprintf(stderr, ">>> Entering test3()\n");
     int j, N = 500;
     int features = 3;
     int num_out = 30;
@@ -616,6 +644,9 @@ void test3()
     // cluster nodex in 'x' * cluster nodes in 'y' * 2
     struct kohonen_array_3d W;
     W.dim1 = num_out;
+	fprintf(stderr, "test3(): W.dim1 → %d\n", W.dim1);
+	fprintf(stderr, "test3(): W.dim2 → %d\n", W.dim2);
+	fprintf(stderr, "test3(): W.dim3 → %d\n", W.dim3);
     W.dim2 = num_out;
     W.dim3 = features;
     W.data = (double *)malloc(num_out * num_out * features *
@@ -628,6 +659,7 @@ void test3()
         if (i < num_out)  // only add new arrays if i < num_out
         {
             for (int k = 0; k < num_out; k++)
+	fprintf(stderr, "<<< Exiting test3()\n");
             {
 #ifdef _OPENMP
 #pragma omp for
@@ -668,6 +700,7 @@ double get_clock_diff(clock_t start_t, clock_t end_t)
 /** Main function */
 int main(int argc, char **argv)
 {
+fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
 #ifdef _OPENMP
     printf("Using OpenMP based parallelization\n");
 #else
@@ -677,9 +710,11 @@ int main(int argc, char **argv)
 
     start_clk = clock();
     test1();
+	fprintf(stderr, "main(argc=%d,argv=%d): start_clk → %d\n", argc, argv, start_clk);
     end_clk = clock();
     printf("Test 1 completed in %.4g sec\n",
            get_clock_diff(start_clk, end_clk));
+		fprintf(stderr, "main(argc=%d,argv=%d): end_clk → %d\n", argc, argv, end_clk);
 
     start_clk = clock();
     test2();

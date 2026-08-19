@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/linear_search.dir/linear_search.o -o linear_search 

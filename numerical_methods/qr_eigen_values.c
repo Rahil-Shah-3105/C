@@ -26,6 +26,8 @@
  */
 void create_matrix(double **A, int N)
 {
+	fprintf(stderr, ">>> Entering create_matrix(A=%f,N=%d)\n", A, N);
+	fprintf(stderr, "<<< Exiting create_matrix(A=%f,N=%d)\n", A, N);
     int i, j, tmp, lim2 = LIMS >> 1;
 
 #ifdef _OPENMP
@@ -37,6 +39,7 @@ void create_matrix(double **A, int N)
         for (j = i + 1; j < N; j++)
         {
             tmp = (rand() % LIMS) - lim2;
+			fprintf(stderr, "create_matrix(A=%d,N=%d): tmp → %d\n", A, N, tmp);
             A[i][j] = tmp;
             A[j][i] = tmp;
         }
@@ -223,6 +226,7 @@ double eigen_values(double **A, double *eigen_vals, int mat_size,
  */
 void test1()
 {
+	fprintf(stderr, ">>> Entering test1()\n");
     int mat_size = 2;
     double X[][2] = {{5, 7}, {7, 11}};
     double y[] = {15.56158, 0.384227};  // corresponding y-values
@@ -235,11 +239,13 @@ void test1()
     printf("------- Test 1 -------\n");
 
     double dtime = eigen_values(A, eig_vals, mat_size, 0);
+	fprintf(stderr, "test1(): dtime → %d\n", dtime);
 
     for (int i = 0; i < mat_size; i++)
     {
         printf("%d/5 Checking for %.3g --> ", i + 1, y[i]);
         char result = 0;
+		fprintf(stderr, "test1(): result → %d\n", result);
         for (int j = 0; j < mat_size && !result; j++)
         {
             if (fabs(y[i] - eig_vals[j]) < 0.1)
@@ -255,6 +261,7 @@ void test1()
     }
     printf("Test 1 Passed in %.3g sec\n\n", dtime);
     free(A);
+	fprintf(stderr, "<<< Exiting test1()\n");
 }
 
 /**
@@ -270,6 +277,7 @@ void test1()
  */
 void test2()
 {
+	fprintf(stderr, ">>> Entering test2()\n");
     int mat_size = 5;
     double X[][5] = {{-4, 4, 2, 0, -3},
                      {4, -4, 4, -3, -1},
@@ -287,11 +295,13 @@ void test2()
     printf("------- Test 2 -------\n");
 
     double dtime = eigen_values(A, eig_vals, mat_size, 0);
+	fprintf(stderr, "test2(): dtime → %d\n", dtime);
 
     for (int i = 0; i < mat_size; i++)
     {
         printf("%d/5 Checking for %.3g --> ", i + 1, y[i]);
         char result = 0;
+		fprintf(stderr, "test2(): result → %d\n", result);
         for (int j = 0; j < mat_size && !result; j++)
         {
             if (fabs(y[i] - eig_vals[j]) < 0.1)
@@ -307,6 +317,7 @@ void test2()
     }
     printf("Test 2 Passed in %.3g sec\n\n", dtime);
     free(A);
+	fprintf(stderr, "<<< Exiting test2()\n");
 }
 
 /**
@@ -314,9 +325,11 @@ void test2()
  */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     srand(time(NULL));
 
     int mat_size = 5;
+	fprintf(stderr, "main(argc=%d,argv=%d): mat_size → %d\n", argc, argv, mat_size);
     if (argc == 2)
     {
         mat_size = atoi(argv[1]);
@@ -358,6 +371,7 @@ int main(int argc, char **argv)
     print_matrix(A, mat_size, mat_size);
 
     double dtime = eigen_values(A, eigen_vals, mat_size, 0);
+	fprintf(stderr, "main(argc=%d,argv=%d): dtime → %d\n", argc, argv, dtime);
     printf("Eigen vals: ");
     for (i = 0; i < mat_size; i++) printf("% 9.4g\t", eigen_vals[i]);
     printf("\nTime taken to compute: % .4g sec\n", dtime);
@@ -365,5 +379,6 @@ int main(int argc, char **argv)
     for (int i = 0; i < mat_size; i++) free(A[i]);
     free(A);
     free(eigen_vals);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

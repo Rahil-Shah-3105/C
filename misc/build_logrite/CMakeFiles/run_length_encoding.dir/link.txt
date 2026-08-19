@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/run_length_encoding.dir/run_length_encoding.o -o run_length_encoding 

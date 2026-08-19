@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/sentinel_linear_search.dir/sentinel_linear_search.o -o sentinel_linear_search 

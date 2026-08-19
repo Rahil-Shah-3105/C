@@ -4,6 +4,7 @@
 // Function that returns the last three digits
 int three_digits(int n)
 {
+	fprintf(stderr, ">>> Entering three_digits(n=%d)\n", n);
     int r, d = 0, p = 1;
 
     for (int i = 0; i < 3; i++)
@@ -13,11 +14,13 @@ int three_digits(int n)
         p *= 10;
         n /= 10;
     }
+	fprintf(stderr, "<<< Exiting three_digits(n=%d)\n", n);
     return d;
 }
 
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int binary_num, d = 0, base = 1, remainder, td, res = 0, ord = 1;
 
     printf("Enter the binary no: ");
@@ -28,6 +31,7 @@ int main(void)
         if (binary_num >
             111)  // Checking if binary number is greater than three digits
             td = three_digits(binary_num);
+			fprintf(stderr, "main(): td → %d\n", td);
 
         else
             td = binary_num;
@@ -40,6 +44,7 @@ int main(void)
         while (td > 0)
         {
             remainder = td % 10;
+			fprintf(stderr, "main(): remainder → %d\n", remainder);
             td /= 10;
             d += (base * remainder);
             base *= 2;
@@ -50,5 +55,6 @@ int main(void)
     }
 
     printf("\nOctal equivalent is: %d", res);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

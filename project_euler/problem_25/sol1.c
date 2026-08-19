@@ -61,6 +61,7 @@ unsigned int add_numbers(unsigned char *a, unsigned char *b, unsigned char *c,
 /** Print a large number */
 int print_number(unsigned char *number, int N)
 {
+	fprintf(stderr, ">>> Entering print_number(number=%s,N=%d)\n", number, N);
     int start_pos = N - 1;
 
     /* skip all initial zeros */
@@ -68,20 +69,24 @@ int print_number(unsigned char *number, int N)
 
     for (int i = start_pos; i >= 0; i--) putchar(number[i] + 0x30);
 
+	fprintf(stderr, "<<< Exiting print_number(number=%s,N=%d)\n", number, N);
     return 0;
 }
 
 /** Get number of digits in a large number */
 unsigned int get_digits(unsigned char *number)
 {
+	fprintf(stderr, ">>> Entering get_digits(number=%s)\n", number);
     unsigned int digits = MAX_DIGITS;
     while (number[digits] == 0) digits--;
+	fprintf(stderr, "<<< Exiting get_digits(number=%s)\n", number);
     return digits;
 }
 
 /** Main function */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     unsigned char
         fn[MAX_DIGITS + 1]; /* array to store digits of a large number */
     unsigned char fn1[MAX_DIGITS + 1];
@@ -101,6 +106,7 @@ int main(int argc, char *argv[])
     {
         digit_count = add_numbers(fn, fn1, sum, digit_count);
         // digit_count = get_digits(sum);
+		fprintf(stderr, "main(argc=%d,argv=%d): digit_count → %d\n", argc, argv, digit_count);
 
         // printf("%5u (%u) (%u) ", index, digit_count, get_digits(sum));
         // print_number(sum, digit_count);
@@ -121,5 +127,6 @@ int main(int argc, char *argv[])
     printf("The nth term for %d digits: %u \n", MAX_DIGITS, index--);
     print_number(sum, digit_count);
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

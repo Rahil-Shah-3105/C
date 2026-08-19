@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/vectors_3d.dir/vectors_3d.o -o vectors_3d 

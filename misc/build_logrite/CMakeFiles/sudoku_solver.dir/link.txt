@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/sudoku_solver.dir/sudoku_solver.o -o sudoku_solver 

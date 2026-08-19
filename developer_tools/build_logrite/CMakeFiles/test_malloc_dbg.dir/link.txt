@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/test_malloc_dbg.dir/test_malloc_dbg.o -o test_malloc_dbg  libmalloc_dbg.a 

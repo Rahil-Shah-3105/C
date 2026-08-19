@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/patience_sort.dir/patience_sort.o -o patience_sort 

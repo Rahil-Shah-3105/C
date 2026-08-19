@@ -40,17 +40,22 @@ void createqueue() { front = rear = NULL; }
 
 int empty()
 {
+	fprintf(stderr, ">>> Entering empty()\n");
     if (front == NULL)
         return 1;
     else
+		fprintf(stderr, "Exception in empty(): %d\n", errno);
+        fprintf(stderr, "<<< Exiting empty()\n");
         return 0;
 }
 
 void insert(int x)
 {
+	fprintf(stderr, ">>> Entering insert(x=%d)\n", x);
     struct node *pnode;
 
     pnode = (struct node *)malloc(sizeof(struct node));
+	fprintf(stderr, "insert(x=%d): pnode → %d\n", x, pnode);
     if (pnode == NULL)
     {
         printf("Memory overflow. Unable to insert.\n");
@@ -62,15 +67,18 @@ void insert(int x)
 
     if (empty())
         front = rear = pnode;
+		fprintf(stderr, "insert(x=%d): front → %d\n", x, front);
     else
     {
         rear->next = pnode;
         rear = pnode;
     }
+	fprintf(stderr, "<<< Exiting insert(x=%d)\n", x);
 }
 
 int removes()
 {
+	fprintf(stderr, ">>> Entering removes()\n");
     int min;
     struct node *follow, *follow1, *p, *p1;
 
@@ -82,9 +90,12 @@ int removes()
 
     /* finding the node with minimum value in the APQ.*/
     p = p1 = front;
+	fprintf(stderr, "removes(): p → %d\n", p);
     follow = follow1 = NULL;
     min = front->data;
     while (p != NULL)
+	fprintf(stderr, "removes(): follow → %d\n", follow);
+	fprintf(stderr, "removes(): min → %d\n", min);
     {
         if (p->data < min)
         {
@@ -103,6 +114,7 @@ int removes()
         front = front->next;
         if (front == NULL) /* Deleting the only one node */
             rear = NULL;
+			fprintf(stderr, "removes(): rear → %d\n", rear);
     }
     else if (p1 == rear) /* Deleting last node */
     {
@@ -113,11 +125,13 @@ int removes()
         follow1->next = p1->next;
 
     free(p1);
+	fprintf(stderr, "<<< Exiting removes()\n");
     return min; /* DONT FORGET LAST 2 STATEMENTS.*/
 }
 
 void show()
 {
+	fprintf(stderr, ">>> Entering show()\n");
     struct node *p;
 
     if (empty())
@@ -127,6 +141,7 @@ void show()
         printf("Queue from front to rear is as shown: \n");
 
         p = front;
+		fprintf(stderr, "show(): p → %d\n", p);
         while (p != NULL)
         {
             printf("%d ", p->data);
@@ -135,12 +150,14 @@ void show()
 
         printf("\n");
     }
+	fprintf(stderr, "<<< Exiting show()\n");
 }
 
 void destroyqueue() { front = rear = NULL; }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int x, ch;
 
     createqueue();
@@ -165,6 +182,7 @@ int main()
 
         case 2:
             x = removes();
+			fprintf(stderr, "main(): x → %d\n", x);
             printf("Element removed is: %d\n", x);
             show();
             break;

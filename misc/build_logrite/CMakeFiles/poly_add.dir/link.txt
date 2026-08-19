@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/poly_add.dir/poly_add.o -o poly_add 

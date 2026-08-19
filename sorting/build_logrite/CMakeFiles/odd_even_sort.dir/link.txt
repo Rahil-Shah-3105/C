@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/odd_even_sort.dir/odd_even_sort.o -o odd_even_sort 

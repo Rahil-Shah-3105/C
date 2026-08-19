@@ -22,6 +22,7 @@ struct node *createnode() // function to create node
 //////////////////////////////////////////////////////////////////
 int insert(int pos, int d)
 {
+	fprintf(stderr, ">>> Entering insert(pos=%d,d=%d)\n", pos, d);
     struct node *new;
     new = createnode();
     new->info = d;
@@ -30,7 +31,9 @@ int insert(int pos, int d)
         new->link = NULL;
         if (start == NULL)
         {
+			fprintf(stderr, "Exception in insert(pos=%d,d=%d): %d\n", pos, d, errno);
             start = new;
+			fprintf(stderr, "insert(pos=%d,d=%d): start → %d\n", pos, d, start);
         }
         else
         {
@@ -57,6 +60,7 @@ int insert(int pos, int d)
         new->link = pre->link;
         pre->link = new;
     }
+	fprintf(stderr, "<<< Exiting insert(pos=%d,d=%d)\n", pos, d);
     return 0;
         }
 
@@ -117,6 +121,7 @@ void viewlist() // function to display values
 //////////////////////////////////////////////////////////////////
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     insert(1, 39);
     assert(start->info == 39);
     insert(2, 10);
@@ -125,10 +130,12 @@ static void test()
     assert(start->info != 39);
 
     printf("Self-tests successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 //////////////////////////////////////////////////////////////////
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int n = 0, pos = 0, p = 0, num = 0, c = 0;
     printf("\n1.self test mode");
     printf("\n2.interactive mode");
@@ -173,5 +180,6 @@ int main()
     {
         printf("Invalid choice");
     }
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

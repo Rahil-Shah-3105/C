@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/alaw.dir/alaw.o -o alaw 

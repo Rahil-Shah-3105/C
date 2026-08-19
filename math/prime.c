@@ -15,6 +15,7 @@
  */
 bool isPrime(int x)
 {
+	fprintf(stderr, ">>> Entering isPrime(x=%d)\n", x);
     if (x == 2)
     {
         return true;
@@ -25,6 +26,7 @@ bool isPrime(int x)
     }
 
     double squareRoot = sqrt(x);
+	fprintf(stderr, "isPrime(x=%d): squareRoot → %d\n", x, squareRoot);
 
     for (int i = 3; i <= squareRoot; i += 2)
     {
@@ -33,6 +35,7 @@ bool isPrime(int x)
             return false;
         }
     }
+	fprintf(stderr, "<<< Exiting isPrime(x=%d)\n", x);
     return true;
 }
 
@@ -42,6 +45,7 @@ bool isPrime(int x)
  */
 void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     /* all the prime numbers less than 100 */
     int primers[] = {2,  3,  5,  7,  11, 13, 17, 19, 23, 29, 31, 37, 41,
                      43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
@@ -58,6 +62,7 @@ void test()
     {
         assert(!isPrime(NonPrimers[i]));
     }
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -66,6 +71,8 @@ void test()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

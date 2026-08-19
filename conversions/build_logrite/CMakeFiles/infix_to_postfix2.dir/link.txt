@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/infix_to_postfix2.dir/infix_to_postfix2.o -o infix_to_postfix2 

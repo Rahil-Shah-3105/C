@@ -8,15 +8,19 @@ char *miroir(char *s);
 
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     char chaine[20];
     saisie(chaine);
     printf("miroir est %s", miroir(chaine));
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
 }
 // this function is used to put a string
 void saisie(char *cpointeur)
 {
+	fprintf(stderr, ">>> Entering saisie(cpointeur=%s)\n", cpointeur);
     printf("saisir une chaine\n");
     scanf("%s", cpointeur);
+	fprintf(stderr, "<<< Exiting saisie(cpointeur=%s)\n", cpointeur);
 }
 /* the function miroir (in french ) it means "mirror" , the major idea is to
 permute the first caractere with the last using an auxilary variable (aux) the
@@ -24,6 +28,8 @@ the 2nd character with the penultimate one and so on . we made a call to the
 function (compte) which counts the length of the string . As you can see clearly
 , I substruct 1 from the equation k = compte(s)-1 ; to get rid of the EOF
 caractere which is '\0' because it is not a caractere from the string typed */
+fprintf(stderr, ">>> Entering miroir(s=%s)\n", s);
+fprintf(stderr, "<<< Exiting miroir(s=%s)\n", s);
 char *miroir(char *s)
 {
     int i;
@@ -34,6 +40,7 @@ char *miroir(char *s)
     while (i <= k)
     {
         aux = s[i];
+		fprintf(stderr, "miroir(s=%d): aux → %d\n", s, aux);
         s[i] = s[k];
         s[k] = aux;
         k--;
@@ -47,6 +54,7 @@ char *miroir(char *s)
 // you want that
 int compte(char *s)
 {
+	fprintf(stderr, ">>> Entering compte(s=%s)\n", s);
     char *p;
     int k;
     p = s;
@@ -56,5 +64,6 @@ int compte(char *s)
         p++;
         k++;
     }
+	fprintf(stderr, "<<< Exiting compte(s=%s)\n", s);
     return k;
 }

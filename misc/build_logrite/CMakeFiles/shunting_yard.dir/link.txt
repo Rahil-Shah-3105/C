@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/shunting_yard.dir/shunting_yard.o -o shunting_yard 

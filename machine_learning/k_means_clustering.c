@@ -68,8 +68,10 @@ typedef struct cluster
  */
 int calculateNearst(observation* o, cluster clusters[], int k)
 {
+	fprintf(stderr, ">>> Entering calculateNearst(o=%p,clusters=%p,k=%d)\n", o, clusters, k);
     double minD = DBL_MAX;
     double dist = 0;
+	fprintf(stderr, "calculateNearst(o=%d,clusters=%d,k=%d): minD → %d\n", o, clusters, k, minD);
     int index = -1;
     int i = 0;
     for (; i < k; i++)
@@ -83,6 +85,7 @@ int calculateNearst(observation* o, cluster clusters[], int k)
             index = i;
         }
     }
+	fprintf(stderr, "<<< Exiting calculateNearst(o=%p,clusters=%p,k=%d)\n", o, clusters, k);
     return index;
 }
 
@@ -131,6 +134,9 @@ void calculateCentroid(observation observations[], size_t size,
  *
  * @returns pointer to cluster object
  */
+fprintf(stderr, ">>> Entering kMeans(observations=%p,size=%zu,k=%d)\n", observations, size, k);
+fprintf(stderr, "kMeans(observations=%d,size=%d,k=%d): clusters → %d\n", observations, size, k, clusters);
+fprintf(stderr, "<<< Exiting kMeans(observations=%p,size=%zu,k=%d)\n", observations, size, k);
 cluster* kMeans(observation observations[], size_t size, int k)
 {
     cluster* clusters = NULL;
@@ -155,10 +161,12 @@ cluster* kMeans(observation observations[], size_t size, int k)
             observations[j].group = rand() % k;
         }
         size_t changed = 0;
+		fprintf(stderr, "kMeans(observations=%d,size=%d,k=%d): changed → %d\n", observations, size, k, changed);
         size_t minAcceptedError =
             size /
             10000;  // Do until 99.99 percent points are in correct cluster
         int t = 0;
+		fprintf(stderr, "kMeans(observations=%d,size=%d,k=%d): t → %d\n", observations, size, k, t);
         do
         {
             /* Initialize clusters */
@@ -236,6 +244,7 @@ cluster* kMeans(observation observations[], size_t size, int k)
  */
 void printEPS(observation pts[], size_t len, cluster cent[], int k)
 {
+	fprintf(stderr, ">>> Entering printEPS(pts=%p,len=%zu,cent=%p,k=%d)\n", pts, len, cent, k);
     int W = 400, H = 400;
     double min_x = DBL_MAX, max_x = DBL_MIN, min_y = DBL_MAX, max_y = DBL_MIN;
     double scale = 0, cx = 0, cy = 0;
@@ -255,6 +264,7 @@ void printEPS(observation pts[], size_t len, cluster cent[], int k)
         if (max_x < pts[j].x)
         {
             max_x = pts[j].x;
+			fprintf(stderr, "printEPS(pts=%d,len=%d,cent=%d,k=%d): max_x → %d\n", pts, len, cent, k, max_x);
         }
         if (min_x > pts[j].x)
         {
@@ -263,10 +273,12 @@ void printEPS(observation pts[], size_t len, cluster cent[], int k)
         if (max_y < pts[j].y)
         {
             max_y = pts[j].y;
+			fprintf(stderr, "printEPS(pts=%d,len=%d,cent=%d,k=%d): max_y → %d\n", pts, len, cent, k, max_y);
         }
         if (min_y > pts[j].y)
         {
             min_y = pts[j].y;
+			fprintf(stderr, "printEPS(pts=%d,len=%d,cent=%d,k=%d): min_y → %d\n", pts, len, cent, k, min_y);
         }
     }
     scale = W / (max_x - min_x);
@@ -305,6 +317,7 @@ void printEPS(observation pts[], size_t len, cluster cent[], int k)
 
     // free accquired memory
     free(colors);
+	fprintf(stderr, "<<< Exiting printEPS(pts=%p,len=%zu,cent=%p,k=%d)\n", pts, len, cent, k);
 }
 
 /*!
@@ -320,12 +333,15 @@ void printEPS(observation pts[], size_t len, cluster cent[], int k)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     size_t size = 100000L;
     observation* observations =
         (observation*)malloc(sizeof(observation) * size);
     double maxRadius = 20.00;
     double radius = 0;
+	fprintf(stderr, "test(): radius → %d\n", radius);
     double ang = 0;
+	fprintf(stderr, "test(): ang → %d\n", ang);
     size_t i = 0;
     for (; i < size; i++)
     {
@@ -336,10 +352,12 @@ static void test()
     }
     int k = 5;  // No of clusters
     cluster* clusters = kMeans(observations, size, k);
+	fprintf(stderr, "test(): clusters → %d\n", clusters);
     printEPS(observations, size, clusters, k);
     // Free the accquired memory
     free(observations);
     free(clusters);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /*!
@@ -355,12 +373,15 @@ static void test()
  */
 void test2()
 {
+	fprintf(stderr, ">>> Entering test2()\n");
     size_t size = 1000000L;
     observation* observations =
         (observation*)malloc(sizeof(observation) * size);
     double maxRadius = 20.00;
     double radius = 0;
+	fprintf(stderr, "test2(): radius → %d\n", radius);
     double ang = 0;
+	fprintf(stderr, "test2(): ang → %d\n", ang);
     size_t i = 0;
     for (; i < size; i++)
     {
@@ -371,10 +392,12 @@ void test2()
     }
     int k = 11;  // No of clusters
     cluster* clusters = kMeans(observations, size, k);
+	fprintf(stderr, "test2(): clusters → %d\n", clusters);
     printEPS(observations, size, clusters, k);
     // Free the accquired memory
     free(observations);
     free(clusters);
+	fprintf(stderr, "<<< Exiting test2()\n");
 }
 
 /*!
@@ -383,8 +406,10 @@ void test2()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     srand(time(NULL));
     test();
     /* test2(); */
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

@@ -29,6 +29,7 @@ static unsigned int divisors[] = {
  */
 static int check_number(unsigned long long n)
 {
+	fprintf(stderr, ">>> Entering check_number(n=%lld)\n", n);
     for (size_t i = 0; i < 7; ++i)
     {
         if (n % divisors[i] != 0)
@@ -37,6 +38,7 @@ static int check_number(unsigned long long n)
         }
     }
 
+	fprintf(stderr, "<<< Exiting check_number(n=%lld)\n", n);
     return 1;
 }
 
@@ -47,6 +49,7 @@ static int check_number(unsigned long long n)
  */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     for (unsigned long long n = 20;; n += 20)
     {
         if (check_number(n))
@@ -55,5 +58,6 @@ int main(void)
             break;
         }
     }
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

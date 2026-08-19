@@ -16,8 +16,10 @@
 
 int interpolationSearch(int arr[], int n, int key)
 {
+	fprintf(stderr, ">>> Entering interpolationSearch(arr=%p,n=%d,key=%d)\n", arr, n, key);
     int low = 0, high = n - 1;
     while (low <= high && key >= arr[low] && key <= arr[high])
+	fprintf(stderr, "interpolationSearch(arr=%d,n=%d,key=%d): low → %d\n", arr, n, key, low);
     {
         /* Calculate the nearest posible position of key */
         int pos =
@@ -26,18 +28,22 @@ int interpolationSearch(int arr[], int n, int key)
             low = pos + 1;
         else if (key < arr[pos])
             high = pos - 1;
+			fprintf(stderr, "interpolationSearch(arr=%d,n=%d,key=%d): high → %d\n", arr, n, key, high);
         else /* Found */
             return pos;
     }
     /* Not found */
+	fprintf(stderr, "<<< Exiting interpolationSearch(arr=%p,n=%d,key=%d)\n", arr, n, key);
     return -1;
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int x;
     int arr[] = {10, 12, 13, 16, 18, 19, 20, 21, 22, 23, 24, 33, 35, 42, 47};
     int n = sizeof(arr) / sizeof(arr[0]);
+	fprintf(stderr, "main(): n → %d\n", n);
 
     printf("Array: ");
     for (int i = 0; i < n; i++) printf("%d ", arr[i]);
@@ -51,5 +57,6 @@ int main()
         printf("Element found at position: %d\n", index);
     else
         printf("Element not found.\n");
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

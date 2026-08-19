@@ -3,6 +3,7 @@
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     float a, b, c, a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3, x1, x2, x3;
 
     printf("Enter values of eq1:");
@@ -12,6 +13,9 @@ int main()
     printf("Enter values of eq3:");
     scanf("%f%f%f%f", &c1, &c2, &c3, &d3);
     x1 = x2 = x3 = 0.0;
+	fprintf(stderr, "main(): x1 → %d\n", x1);
+	fprintf(stderr, "main(): x2 → %d\n", x2);
+	fprintf(stderr, "main(): x3 → %d\n", x3);
     do
     {
         a = x1;
@@ -24,5 +28,6 @@ int main()
              fabs(x3 - c) > 0.0001);
     printf("x1=%f\nx2=%f\nx3=%f", x1, x2, x3);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

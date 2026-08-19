@@ -14,6 +14,7 @@
 /** Check if the given number is prime */
 char isprime(int no)
 {
+	fprintf(stderr, ">>> Entering isprime(no=%d)\n", no);
     int sq;
 
     if (no == 2)
@@ -25,6 +26,7 @@ char isprime(int no)
         return 0;
     }
     sq = ((int)(sqrt(no))) + 1;
+	fprintf(stderr, "isprime(no=%d): sq → %d\n", no, sq);
     for (int i = 3; i < sq; i += 2)
     {
         if (no % i == 0)
@@ -32,14 +34,18 @@ char isprime(int no)
             return 0;
         }
     }
+	fprintf(stderr, "<<< Exiting isprime(no=%d)\n", no);
     return 1;
 }
 
 /** Main function */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int maxNumber = 0;
     int n = 0;
+	fprintf(stderr, "main(): n → %d\n", n);
+	fprintf(stderr, "main(): maxNumber → %d\n", maxNumber);
     int n1;
     scanf("%d", &n);
     if (isprime(n) == 1)
@@ -57,6 +63,7 @@ int main()
         else
         {
             n1 = ((int)(sqrt(n))) + 1;
+			fprintf(stderr, "main(): n1 → %d\n", n1);
             for (int i = 3; i < n1; i += 2)
             {
                 if (n % i == 0)
@@ -75,5 +82,6 @@ int main()
             printf("%d\n", maxNumber);
         }
     }
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

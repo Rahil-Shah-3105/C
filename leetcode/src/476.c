@@ -1,5 +1,6 @@
 int findComplement(int num)
 {
+	fprintf(stderr, ">>> Entering findComplement(num=%d)\n", num);
     int TotalBits = 0;
     int temp = num;
     while (temp)
@@ -20,5 +21,6 @@ int findComplement(int num)
                              // shift more than 31 times, if needed
     }
     num = num ^ flipNumber;
+	fprintf(stderr, "<<< Exiting findComplement(num=%d)\n", num);
     return num;
 }

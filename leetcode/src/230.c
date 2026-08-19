@@ -31,5 +31,7 @@ struct TreeNode* findKthSmallest(struct TreeNode* node, int* k){
 // Runtime: O(n)
 // Space: O(1)
 int kthSmallest(struct TreeNode* root, int k){
+	fprintf(stderr, ">>> Entering kthSmallest(root=%p,k=%d)\n", root, k);
+    fprintf(stderr, "<<< Exiting kthSmallest(root=%p,k=%d)\n", root, k);
     return findKthSmallest(root, &k)->val;
 }

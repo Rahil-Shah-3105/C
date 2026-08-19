@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/counting_sort.dir/counting_sort.o -o counting_sort 

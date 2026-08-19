@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/palindrome.dir/palindrome.o -o palindrome 

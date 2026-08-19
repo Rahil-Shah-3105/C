@@ -2,6 +2,7 @@
 // Runtime: O(n + len(trust))
 // Space: O(n)
 int findJudge(int n, int** trust, int trustSize, int* trustColSize){
+	fprintf(stderr, ">>> Entering findJudge(n=%d,trust=%p,trustSize=%d,trustColSize=%p)\n", n, trust, trustSize, trustColSize);
     int* personsToTrust = calloc(n + 1, sizeof(int));
     int* personsFromTrust = calloc(n + 1, sizeof(int));
 
@@ -12,6 +13,7 @@ int findJudge(int n, int** trust, int trustSize, int* trustColSize){
     }
 
     int potentialJudjeNumber = -1;
+	fprintf(stderr, "findJudge(n=%d,trust=%d,trustSize=%d,trustColSize=%d): potentialJudjeNumber → %d\n", n, trust, trustSize, trustColSize, potentialJudjeNumber);
     for(int i = 1; i < n + 1; i++){
         if (personsToTrust[i] == n - 1 && personsFromTrust[i] == 0){
             if (potentialJudjeNumber > -1){
@@ -25,5 +27,6 @@ int findJudge(int n, int** trust, int trustSize, int* trustColSize){
     free(personsToTrust);
     free(personsFromTrust);
 
+	fprintf(stderr, "<<< Exiting findJudge(n=%d,trust=%p,trustSize=%d,trustColSize=%p)\n", n, trust, trustSize, trustColSize);
     return potentialJudjeNumber;
 }

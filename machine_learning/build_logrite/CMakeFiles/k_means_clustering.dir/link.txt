@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/k_means_clustering.dir/k_means_clustering.o -o k_means_clustering 

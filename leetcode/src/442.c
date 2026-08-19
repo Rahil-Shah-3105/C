@@ -1,5 +1,7 @@
 int cmpval(const void *a, const void *b) { return *(int *)a - *(int *)b; }
 
+fprintf(stderr, ">>> Entering findDuplicates(nums=%p,numsSize=%d,returnSize=%p)\n", nums, numsSize, returnSize);
+fprintf(stderr, "<<< Exiting findDuplicates(nums=%p,numsSize=%d,returnSize=%p)\n", nums, numsSize, returnSize);
 int *findDuplicates(int *nums, int numsSize, int *returnSize)
 {
     int i;

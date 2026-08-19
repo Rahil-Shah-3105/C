@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/union_find.dir/union_find.o -o union_find 

@@ -4,11 +4,14 @@
  */
 int strStr(char *haystack, char *needle)
 {
+	fprintf(stderr, ">>> Entering strStr(haystack=%s,needle=%s)\n", haystack, needle);
     int i = 0;
     int j = 0;
     int k = 0;
     int hlen = 0;
+	fprintf(stderr, "strStr(haystack=%d,needle=%d): hlen → %d\n", haystack, needle, hlen);
     int nlen = 0;
+	fprintf(stderr, "strStr(haystack=%d,needle=%d): nlen → %d\n", haystack, needle, nlen);
 
     if (needle == NULL || *needle == 0)
         return 0;
@@ -39,6 +42,7 @@ int strStr(char *haystack, char *needle)
                 k++;
         }
         if (j == nlen)
+	fprintf(stderr, "<<< Exiting strStr(haystack=%s,needle=%s)\n", haystack, needle);
             return i;
     }
     return -1;
@@ -56,8 +60,10 @@ int strStr(char *haystack, char *needle)
  * in needle */
 void fill_overlap(char *needle, int len_needle, int *overlap)
 {
+	fprintf(stderr, ">>> Entering fill_overlap(needle=%s,len_needle=%d,overlap=%p)\n", needle, len_needle, overlap);
     int len = 0;
     int i = 0;
+	fprintf(stderr, "fill_overlap(needle=%d,len_needle=%d,overlap=%d): len → %d\n", needle, len_needle, overlap, len);
 
     overlap[0] = 0;
 
@@ -76,6 +82,7 @@ void fill_overlap(char *needle, int len_needle, int *overlap)
                 overlap[i++] = 0;
         }
     }
+	fprintf(stderr, "<<< Exiting fill_overlap(needle=%s,len_needle=%d,overlap=%p)\n", needle, len_needle, overlap);
 }
 
 int strStr(char *haystack, char *needle)

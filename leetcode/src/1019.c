@@ -6,6 +6,8 @@
  * };
  */
 
+fprintf(stderr, ">>> Entering nextLargerNodes(head=%p,returnSize=%p)\n", head, returnSize);
+fprintf(stderr, "<<< Exiting nextLargerNodes(head=%p,returnSize=%p)\n", head, returnSize);
 int* nextLargerNodes(struct ListNode* head, int* returnSize)
 {
     int *output, count = 0;
@@ -14,6 +16,7 @@ int* nextLargerNodes(struct ListNode* head, int* returnSize)
         ;
     output = (int*)calloc(count, sizeof(int));
     *returnSize = count;
+	fprintf(stderr, "nextLargerNodes(head=%d,returnSize=%d): output → %d\n", head, returnSize, output);
     for (tmp = head, count = 0; tmp->next != NULL; tmp = tmp->next, count++)
     {
         for (tmp2 = tmp->next; tmp2 != NULL; tmp2 = tmp2->next)

@@ -35,6 +35,8 @@ typedef struct Node
  * param[in] data value to be inserted
  * \returns a pointer to the new node
  */
+fprintf(stderr, ">>> Entering create_node(data=%d)\n", data);
+fprintf(stderr, "<<< Exiting create_node(data=%d)\n", data);
 node *create_node(int data)
 {
     node *ptr = (node *)malloc(sizeof(node));
@@ -50,17 +52,20 @@ node *create_node(int data)
  */
 void insert_bt(node **root, int data)
 {
+	fprintf(stderr, ">>> Entering insert_bt(root=%p,data=%d)\n", root, data);
     node *new_node = create_node(data);
     node *temp;  // to be deleted
     node *prev;  // keeps track of the parent of the element deleted
     if (*root == NULL)
     {
+		fprintf(stderr, "Exception in insert_bt(root=%d,data=%d): %d\n", root, data, errno);
         *root = new_node;
     }
     else
     {
         temp = *root;
         prev = NULL;
+		fprintf(stderr, "insert_bt(root=%d,data=%d): prev → %d\n", root, data, prev);
         while (temp != NULL)
         {
             if (new_node->data > temp->data)
@@ -88,6 +93,7 @@ void insert_bt(node **root, int data)
             prev->llink = new_node;
         }
     }
+	fprintf(stderr, "<<< Exiting insert_bt(root=%p,data=%d)\n", root, data);
 }
 
 /**
@@ -97,6 +103,7 @@ void insert_bt(node **root, int data)
  */
 void search(node *root, int ele)
 {
+	fprintf(stderr, ">>> Entering search(root=%p,ele=%d)\n", root, ele);
     node *temp = root;
     while (temp != NULL)
     {
@@ -120,6 +127,7 @@ void search(node *root, int ele)
     }
     else
         printf("%s\n", "Element found.");
+		fprintf(stderr, "<<< Exiting search(root=%p,ele=%d)\n", root, ele);
 }
 
 /**
@@ -128,12 +136,14 @@ void search(node *root, int ele)
  */
 void inorder_display(node *curr)
 {
+	fprintf(stderr, ">>> Entering inorder_display(curr=%p)\n", curr);
     if (curr != NULL)
     {
         inorder_display(curr->llink);
         printf("%d\t", curr->data);
         inorder_display(curr->rlink);
     }
+	fprintf(stderr, "<<< Exiting inorder_display(curr=%p)\n", curr);
 }
 
 /**
@@ -142,12 +152,14 @@ void inorder_display(node *curr)
  */
 void postorder_display(node *curr)
 {
+	fprintf(stderr, ">>> Entering postorder_display(curr=%p)\n", curr);
     if (curr != NULL)
     {
         postorder_display(curr->llink);
         postorder_display(curr->rlink);
         printf("%d\t", curr->data);
     }
+	fprintf(stderr, "<<< Exiting postorder_display(curr=%p)\n", curr);
 }
 
 /**
@@ -156,12 +168,14 @@ void postorder_display(node *curr)
  */
 void preorder_display(node *curr)
 {
+	fprintf(stderr, ">>> Entering preorder_display(curr=%p)\n", curr);
     if (curr != NULL)
     {
         printf("%d\t", curr->data);
         preorder_display(curr->llink);
         preorder_display(curr->rlink);
     }
+	fprintf(stderr, "<<< Exiting preorder_display(curr=%p)\n", curr);
 }
 
 /**
@@ -172,14 +186,17 @@ void preorder_display(node *curr)
  */
 void delete_bt(node **root, int ele)
 {
+	fprintf(stderr, ">>> Entering delete_bt(root=%p,ele=%d)\n", root, ele);
     node *temp;
     node *prev;
     if (*root == NULL)
+		fprintf(stderr, "Exception in delete_bt(root=%d,ele=%d): %d\n", root, ele, errno);
         return;
     else
     {
         temp = *root;
         prev = NULL;
+		fprintf(stderr, "delete_bt(root=%d,ele=%d): prev → %d\n", root, ele, prev);
         // search
         while (temp != NULL)
         {
@@ -201,6 +218,7 @@ void delete_bt(node **root, int ele)
     }
 
     if (temp == NULL)
+        fprintf(stderr, "<<< Exiting delete_bt(root=%p,ele=%d)\n", root, ele);
         return;
     else
     {
@@ -222,6 +240,7 @@ void delete_bt(node **root, int ele)
         {
             replacement = temp->rlink;  // replaced with inorder successor
             t = replacement;
+			fprintf(stderr, "delete_bt(root=%d,ele=%d): t → %d\n", root, ele, t);
             while (t->llink != NULL)
             {
                 t = t->llink;
@@ -254,16 +273,19 @@ void delete_bt(node **root, int ele)
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     printf("BINARY THREADED TREE: \n");
     node *root = NULL;
     int choice, n;
     do
     {
+		clock_t __logStart = clock();
         printf("%s\n", "1. Insert into BT");
         printf("%s\n", "2. Print BT - inorder");
         printf("%s\n", "3. Print BT - preorder");
         printf("%s\n", "4. print BT - postorder");
         printf("%s\n", "5. delete from BT");
+		fprintf(stderr, "main(): delete query executed in %d ms\n", (int)((clock() - __logStart) * 1000 / CLOCKS_PER_SEC));
         printf("%s\n", "6. search in BT");
         printf("%s\n", "Type 0 to exit");
         scanf("%d", &choice);

@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/hash_djb2.dir/hash_djb2.o -o hash_djb2 

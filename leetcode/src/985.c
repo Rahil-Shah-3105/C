@@ -4,6 +4,7 @@
 
 // collecting sum Runtime: O(len(queries)), Space: O(1)
 int* sumEvenAfterQueries(int* nums, int numsSize, int** queries, int queriesSize, int* queriesColSize, int* returnSize){
+	fprintf(stderr, ">>> Entering sumEvenAfterQueries(nums=%p,numsSize=%d,queries=%p,queriesSize=%d,queriesColSize=%p,returnSize=%p)\n", nums, numsSize, queries, queriesSize, queriesColSize, returnSize);
     int summ = 0;
     int* result = malloc(queriesSize * sizeof(int));
     *returnSize = queriesSize;
@@ -35,5 +36,6 @@ int* sumEvenAfterQueries(int* nums, int numsSize, int** queries, int queriesSize
         result[i] = summ;
     }
     
+	fprintf(stderr, "<<< Exiting sumEvenAfterQueries(nums=%p,numsSize=%d,queries=%p,queriesSize=%d,queriesColSize=%p,returnSize=%p)\n", nums, numsSize, queries, queriesSize, queriesColSize, returnSize);
     return result;
 }

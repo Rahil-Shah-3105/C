@@ -25,8 +25,10 @@
  */
 
 char* run_length_encode(char* str) {
+	fprintf(stderr, ">>> Entering run_length_encode(str=%s)\n", str);
     int str_length = strlen(str);
     int encoded_index = 0;
+	fprintf(stderr, "run_length_encode(str=%d): str_length → %d\n", str, str_length);
 
     //allocate space for worst-case scenario
     char* encoded = malloc(2 * strlen(str));
@@ -36,6 +38,7 @@ char* run_length_encode(char* str) {
 
     for(int i = 0; i < str_length; ++i) {
         int count = 0;
+		fprintf(stderr, "run_length_encode(str=%d): count → %d\n", str, count);
         char current = str[i];
 
         //count occurences
@@ -46,6 +49,7 @@ char* run_length_encode(char* str) {
         //convert occurrence amount to string and write to encoded string
         sprintf(int_str, "%d", count);
         int int_str_length = strlen(int_str);
+		fprintf(stderr, "run_length_encode(str=%d): int_str_length → %d\n", str, int_str_length);
         strncpy(&encoded[encoded_index], int_str, strlen(int_str));
 
         //write current char to encoded string
@@ -61,6 +65,7 @@ char* run_length_encode(char* str) {
     
     free(encoded);
 
+	fprintf(stderr, "<<< Exiting run_length_encode(str=%s)\n", str);
     return compacted_string;
 }
 
@@ -69,9 +74,11 @@ char* run_length_encode(char* str) {
  * @returns void
  */
 static void test() {
+	fprintf(stderr, ">>> Entering test()\n");
     char* test;
     test = run_length_encode("aaaaaaabbbaaccccdefaadr");
     assert(!strcmp(test, "7a3b2a4c1d1e1f2a1d1r"));
+	fprintf(stderr, "test(): test → %d\n", test);
     free(test);
     test = run_length_encode("lidjhvipdurevbeirbgipeahapoeuhwaipefupwieofb");
     assert(!strcmp(test, "1l1i1d1j1h1v1i1p1d1u1r1e1v1b1e1i1r1b1g1i1p1e1a1h1a1p1o1e1u1h1w1a1i1p1e1f1u1p1w1i1e1o1f1bq"));
@@ -79,6 +86,7 @@ static void test() {
     test = run_length_encode("htuuuurwuquququuuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahghghrw");
     assert(!strcmp(test, "1h1t4u1r1w1u1q1u1q1u1q3u76a1h1g1h1g1h1r1w"));
     free(test);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -86,7 +94,9 @@ static void test() {
  * @returns 0 on exit
  */
 int main() {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
     printf("All tests have passed!\n");
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

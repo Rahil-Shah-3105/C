@@ -25,8 +25,10 @@ typedef struct _big_int
 /** print a digit from large integer */
 void print_digit(const big_int *my_int)
 {
+	fprintf(stderr, ">>> Entering print_digit(my_int=%p)\n", my_int);
     printf("\tValue : %d\n\tNext : %p\n\tPrev : %p\n", my_int->value,
            my_int->next_digit, my_int->prev_digit);
+		fprintf(stderr, "<<< Exiting print_digit(my_int=%p)\n", my_int);
 }
 #endif
 
@@ -34,6 +36,9 @@ void print_digit(const big_int *my_int)
  * Function that allocates memory to add another
  * digit at the MSB
  */
+fprintf(stderr, ">>> Entering add_digit(digit=%p,value=%c)\n", digit, value);
+fprintf(stderr, "add_digit(digit=%d,value=%d): digit → %d\n", digit, value, digit);
+fprintf(stderr, "<<< Exiting add_digit(digit=%p,value=%c)\n", digit, value);
 big_int *add_digit(big_int *digit, char value)
 {
     if (digit == NULL)
@@ -75,9 +80,11 @@ big_int *add_digit(big_int *digit, char value)
  */
 char remove_digits(big_int *digit, int N)
 {
+	fprintf(stderr, ">>> Entering remove_digits(digit=%p,N=%d)\n", digit, N);
     if (digit == NULL)
         return 0;
 
+	fprintf(stderr, "Exception in remove_digits(digit=%d,N=%d): %d\n", digit, N, errno);
     if (digit->next_digit == NULL)
     {
         free(digit);
@@ -86,6 +93,7 @@ char remove_digits(big_int *digit, int N)
     }
 
     if (N > 0)
+	fprintf(stderr, "<<< Exiting remove_digits(digit=%p,N=%d)\n", digit, N);
         return remove_digits(digit->next_digit, N - 1);
 
     return remove_digits(digit->next_digit, 0);
@@ -94,10 +102,13 @@ char remove_digits(big_int *digit, int N)
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     unsigned int N = 5;
     big_int *ptr = add_digit(NULL, 1); /* start with 1 */
     const big_int *ptr0 = ptr;         /* save the first location */
     unsigned long sum_digits = 0;
+	fprintf(stderr, "main(argc=%d,argv=%d): ptr → %d\n", argc, argv, ptr);
+	fprintf(stderr, "main(argc=%d,argv=%d): N → %d\n", argc, argv, N);
     unsigned long num_digits = 0;
 
     if (argc == 2)
@@ -108,6 +119,8 @@ int main(int argc, char **argv)
     for (unsigned int i = 1; i <= N; i++)
     {
         int carry = 0;
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
+		fprintf(stderr, "main(argc=%d,argv=%d): carry → %d\n", argc, argv, carry);
 #ifdef DEBUG
         printf("%3d: ", i);
 #endif

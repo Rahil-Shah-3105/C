@@ -40,8 +40,10 @@ struct Node
  */
 void endProgramAbruptly(char *errorMessage)
 {
+	fprintf(stderr, ">>> Entering endProgramAbruptly(errorMessage=%s)\n", errorMessage);
     fprintf(stderr, "%s\n", errorMessage);
     exit(EXIT_FAILURE);
+	fprintf(stderr, "<<< Exiting endProgramAbruptly(errorMessage=%s)\n", errorMessage);
 }
 
 /**
@@ -51,14 +53,17 @@ void endProgramAbruptly(char *errorMessage)
  */
 void freeTreeMemory(struct Node *node)
 {
+	fprintf(stderr, ">>> Entering freeTreeMemory(node=%p)\n", node);
     if (node != NULL)
     {
+		fprintf(stderr, "Exception in freeTreeMemory(node=%d): %d\n", node, errno);
         freeTreeMemory(node->left);
         freeTreeMemory(node->right);
         free(node->word);  // freeing node->word because memory was allocated
                            // using malloc
         free(node);  // freeing node because memory was allocated using malloc
     }
+	fprintf(stderr, "<<< Exiting freeTreeMemory(node=%p)\n", node);
 }
 
 /**
@@ -67,6 +72,9 @@ void freeTreeMemory(struct Node *node)
  * @returns a pointer to the newly allocated word if the word IS stored successfully
  * @returns `NULL` if the word is NOT stored
  */
+fprintf(stderr, ">>> Entering getPointerToWord(word=%s)\n", word);
+fprintf(stderr, "Exception in getPointerToWord(word=%d): %d\n", word, errno);
+fprintf(stderr, "<<< Exiting getPointerToWord(word=%s)\n", word);
 char *getPointerToWord(char *word)
 {
     char *string =
@@ -74,6 +82,7 @@ char *getPointerToWord(char *word)
     // + 1 is for the '\0' character
     if (string != NULL)
     {
+		fprintf(stderr, "Exception in getPointerToWord(word=%d): %d\n", word, errno);
         strcpy(string, word);
         return string;
     }
@@ -89,9 +98,11 @@ char *getPointerToWord(char *word)
  */
 void closeFile(FILE *file)
 {
+	fprintf(stderr, ">>> Entering closeFile(file=%p)\n", file);
     if (fclose(file)) {
         endProgramAbruptly("\nA Problem Occurred while closing a file\n");
      }
+	fprintf(stderr, "<<< Exiting closeFile(file=%p)\n", file);
 }
 
 /**
@@ -120,6 +131,7 @@ struct Node *allocateMemoryForNode()
  */
 void writeContentOfTreeToFile(struct Node *node, FILE *file)
 {
+	fprintf(stderr, ">>> Entering writeContentOfTreeToFile(node=%p,file=%p)\n", node, file);
     static uint64_t i = 1;  ///< for word numbering in the write file
     if (node != NULL)       // checks if the node is valid
     {
@@ -133,6 +145,7 @@ void writeContentOfTreeToFile(struct Node *node, FILE *file)
             node->right,
             file);  // calls `writeContentOfTreeToFile` for right sub tree
     }
+	fprintf(stderr, "<<< Exiting writeContentOfTreeToFile(node=%p,file=%p)\n", node, file);
 }
 
 /**
@@ -243,8 +256,10 @@ struct Node *readWordsInFileToTree(FILE *file, struct Node *root)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     struct Node *root = NULL;  ///< pointer to the root node
     FILE *file = NULL;         ///< pointer to the file
+	fprintf(stderr, "test(): file → %d\n", file);
 
     file = fopen("file.txt", "w");  // creates test file in write mode
 
@@ -303,6 +318,7 @@ static void test()
     remove("wordcount.txt");  // deletes `wordcount.txt`
 
     freeTreeMemory(root);  // frees memory taken up by the tree
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -311,6 +327,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

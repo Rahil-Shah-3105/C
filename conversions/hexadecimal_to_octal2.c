@@ -21,6 +21,9 @@
  * @param hex Hexadecimal number to convert.
  * @returns A pointer to the converted octal string.
  */
+fprintf(stderr, ">>> Entering hex_to_oct(hex=%s)\n", hex);
+fprintf(stderr, "Exception in hex_to_oct(hex=%d): %d\n", hex, errno);
+fprintf(stderr, "<<< Exiting hex_to_oct(hex=%s)\n", hex);
 const char *hex_to_oct(const char *hex)
 {
 #define MAX_OCT_STR_LEN 23 /* 17_7777_7777_7777_7777_7777 */
@@ -33,6 +36,7 @@ const char *hex_to_oct(const char *hex)
 
     if (hex == NULL)
     {
+		fprintf(stderr, "Exception in hex_to_oct(hex=%d): %d\n", hex, errno);
         // Return an empty string
         return octal;
     }
@@ -70,6 +74,7 @@ const char *hex_to_oct(const char *hex)
     {
         octal[0] = '0';
         len = 1;
+		fprintf(stderr, "hex_to_oct(hex=%d): len → %d\n", hex, len);
     }
     else
     {
@@ -103,6 +108,7 @@ const char *hex_to_oct(const char *hex)
  */
 int main()
 {
+fprintf(stderr, ">>> Entering main()\n");
 #define MAX_HEX_STR_LEN 17 /* FFFF_FFFF_FFFF_FFFF */
     char hex[MAX_HEX_STR_LEN];
 
@@ -115,5 +121,6 @@ int main()
     printf("Hexadecimal number = %s\n", hex);
     printf("Octal number = %s\n", octal);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

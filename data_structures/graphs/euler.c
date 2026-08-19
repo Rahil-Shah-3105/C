@@ -6,11 +6,13 @@
 // connected to
 int degree(Graph g, int nV, Vertex v)
 {
+	fprintf(stderr, ">>> Entering degree(g=%d,nV=%d,v=%d)\n", g, nV, v);
     int deg = 0;
     Vertex w;
     for (w = 0; w < nV; w++)
         if (adjacent(g, v, w))
             deg++;
+	fprintf(stderr, "<<< Exiting degree(g=%d,nV=%d,v=%d)\n", g, nV, v);
     return deg;
 }
 
@@ -18,6 +20,7 @@ int degree(Graph g, int nV, Vertex v)
 // graph has euler path
 bool hasEulerPath(Graph g, int nV, Vertex v, Vertex w)
 {
+	fprintf(stderr, ">>> Entering hasEulerPath(g=%d,nV=%d,v=%d,w=%d)\n", g, nV, v, w);
     if (v != w)
     {
         if (degree(g, nV, v) % 2 == 0 || degree(g, nV, w) % 2 == 0)
@@ -30,18 +33,21 @@ bool hasEulerPath(Graph g, int nV, Vertex v, Vertex w)
     Vertex x;
     for (x = 0; x < nV; x++)
         if (x != v && x != w && degree(g, nV, x) % 2 != 0)
+	fprintf(stderr, "<<< Exiting hasEulerPath(g=%d,nV=%d,v=%d,w=%d)\n", g, nV, v, w);
             return false;
     return true;
 }
 
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     Edge e;
     int n;
 
     printf("Enter the number of vertices: ");
     scanf("%d", &n);
     Graph g = newGraph(n);
+	fprintf(stderr, "main(): g → %d\n", g);
 
     Vertex src, dest;
     printf("Enter source node: ");
@@ -67,6 +73,7 @@ int main(void)
     printf(" Euler path from %d to %d.\n", src, dest);
 
     freeGraph(g);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 

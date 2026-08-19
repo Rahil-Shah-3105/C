@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/demonetization.dir/demonetization.o -o demonetization 

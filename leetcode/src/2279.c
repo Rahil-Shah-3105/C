@@ -1,5 +1,7 @@
 int compare(const int* i, const int* j)
 {
+	fprintf(stderr, ">>> Entering compare(i=%p,j=%p)\n", i, j);
+    fprintf(stderr, "<<< Exiting compare(i=%p,j=%p)\n", i, j);
     return *i - *j;
 }
 
@@ -7,6 +9,7 @@ int compare(const int* i, const int* j)
 // Runtime: O(n*log(n))
 // Space: O(n)
 int maximumBags(int* capacity, int capacitySize, int* rocks, int rocksSize, int additionalRocks) {
+	fprintf(stderr, ">>> Entering maximumBags(capacity=%p,capacitySize=%d,rocks=%p,rocksSize=%d,additionalRocks=%d)\n", capacity, capacitySize, rocks, rocksSize, additionalRocks);
     int* capacityLeft = malloc(capacitySize * sizeof(int));
     for (int i = 0; i < capacitySize; i++) {
         capacityLeft[i] = capacity[i] - rocks[i];
@@ -25,5 +28,6 @@ int maximumBags(int* capacity, int capacitySize, int* rocks, int rocksSize, int 
     }
 
     free(capacityLeft);
+	fprintf(stderr, "<<< Exiting maximumBags(capacity=%p,capacitySize=%d,rocks=%p,rocksSize=%d,additionalRocks=%d)\n", capacity, capacitySize, rocks, rocksSize, additionalRocks);
     return bags;
 }

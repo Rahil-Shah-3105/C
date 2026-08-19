@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/to_decimal.dir/to_decimal.o -o to_decimal 

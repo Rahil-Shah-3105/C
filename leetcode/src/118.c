@@ -4,8 +4,10 @@
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
 int** generate(int numRows, int* returnSize, int** returnColumnSizes){
+	fprintf(stderr, ">>> Entering generate(numRows=%d,returnSize=%p,returnColumnSizes=%p)\n", numRows, returnSize, returnColumnSizes);
     *returnSize = numRows;
     int **ans = (int**)malloc(numRows*sizeof(int*));
+	fprintf(stderr, "<<< Exiting generate(numRows=%d,returnSize=%p,returnColumnSizes=%p)\n", numRows, returnSize, returnColumnSizes);
     *returnColumnSizes = (int*)malloc(numRows*sizeof(int)); 
    
    for (int i=0; i<numRows; i++) {

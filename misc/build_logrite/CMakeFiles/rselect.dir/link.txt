@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/rselect.dir/rselect.o -o rselect 

@@ -4,8 +4,10 @@
 
 void sort(int *numbers, int size)
 {
+	fprintf(stderr, ">>> Entering sort(numbers=%p,size=%d)\n", numbers, size);
     int gap = size;
     while (gap > 1)  // gap = 1 means that the array is sorted
+	fprintf(stderr, "sort(numbers=%d,size=%d): gap → %d\n", numbers, size, gap);
     {
         gap = gap / SHRINK;
         int i = 0;
@@ -20,17 +22,21 @@ void sort(int *numbers, int size)
             i++;
         }
     }
+	fprintf(stderr, "<<< Exiting sort(numbers=%p,size=%d)\n", numbers, size);
 }
 
 void display(int *array, int n)
 {
+	fprintf(stderr, ">>> Entering display(array=%p,n=%d)\n", array, n);
     int i;
     for (i = 0; i < n; ++i) printf("%d ", array[i]);
     printf("\n");
+	fprintf(stderr, "<<< Exiting display(array=%p,n=%d)\n", array, n);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int size = 6;
     int *numbers = malloc(size * sizeof(int));
     printf("Insert %d unsorted numbers: \n", size);
@@ -42,5 +48,6 @@ int main()
     printf("Sorted array: ");
     display(numbers, size);
     free(numbers);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

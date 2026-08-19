@@ -155,8 +155,10 @@ void trie_print (
 /*------Demonstrate purposes uses text file called dictionary -------*/
 
 int main() {
+	fprintf(stderr, ">>> Entering main()\n");
     int ret = 0;
     struct trie * root = NULL;
+	fprintf(stderr, "main(): ret → %d\n", ret);
     struct trie * trie = NULL;
     char word[100] = {0};
 
@@ -178,6 +180,7 @@ int main() {
     while (1 == fscanf(fp, "%100s\n", word)) {
         ret = trie_insert(root, word, strnlen(word, 100));
         if (-1 == ret) {
+			clock_t __logStart = clock();
             fprintf(stderr, "Could not insert word into trie\n");
             exit(1);
         }
@@ -203,4 +206,5 @@ int main() {
 
         printf("\n==========================================================\n");
     }
+	fprintf(stderr, "<<< Exiting main()\n");
 }

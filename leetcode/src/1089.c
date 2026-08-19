@@ -1,5 +1,6 @@
 void duplicateZeros(int *arr, int arrSize)
 {
+	fprintf(stderr, ">>> Entering duplicateZeros(arr=%p,arrSize=%d)\n", arr, arrSize);
     int i, start = 0;
     int *tmp = malloc(arrSize * sizeof(int));
     /* Copy arr into tmp arr */
@@ -19,4 +20,5 @@ void duplicateZeros(int *arr, int arrSize)
         }
         i++;
     }
+	fprintf(stderr, "<<< Exiting duplicateZeros(arr=%p,arrSize=%d)\n", arr, arrSize);
 }

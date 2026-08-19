@@ -2,24 +2,31 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 int find(int* sets, int index){
+	fprintf(stderr, ">>> Entering find(sets=%p,index=%d)\n", sets, index);
     while (sets[index] != index){
         index = sets[index];
     }
 
+	fprintf(stderr, "<<< Exiting find(sets=%p,index=%d)\n", sets, index);
     return index;
 }
 
 void unionSet(int* sets, int i1, int i2){
+	fprintf(stderr, ">>> Entering unionSet(sets=%p,i1=%d,i2=%d)\n", sets, i1, i2);
     int i1Parent = find(sets, i1);
     int i2Parent = find(sets, i2);
+	fprintf(stderr, "unionSet(sets=%d,i1=%d,i2=%d): i2Parent → %d\n", sets, i1, i2, i2Parent);
+	fprintf(stderr, "unionSet(sets=%d,i1=%d,i2=%d): i1Parent → %d\n", sets, i1, i2, i1Parent);
     
     sets[i1Parent] = i2Parent;
+	fprintf(stderr, "<<< Exiting unionSet(sets=%p,i1=%d,i2=%d)\n", sets, i1, i2);
 }
 
 // Union find
 // Runtime: O(n)
 // Space: O(n)
 int* findRedundantConnection(int** edges, int edgesSize, int* edgesColSize, int* returnSize){
+	fprintf(stderr, ">>> Entering findRedundantConnection(edges=%p,edgesSize=%d,edgesColSize=%p,returnSize=%p)\n", edges, edgesSize, edgesColSize, returnSize);
     int setsSize = edgesSize + 1;
     int* sets = malloc(setsSize * sizeof(int));
     for (int i = 0; i < setsSize; i++){
@@ -33,7 +40,9 @@ int* findRedundantConnection(int** edges, int edgesSize, int* edgesColSize, int*
         int* edge = edges[i];
 
         int i0Parent = find(sets, edge[0]);
+		fprintf(stderr, "findRedundantConnection(edges=%d,edgesSize=%d,edgesColSize=%d,returnSize=%d): i0Parent → %d\n", edges, edgesSize, edgesColSize, returnSize, i0Parent);
         int i1Parent = find(sets, edge[1]);
+		fprintf(stderr, "findRedundantConnection(edges=%d,edgesSize=%d,edgesColSize=%d,returnSize=%d): i1Parent → %d\n", edges, edgesSize, edgesColSize, returnSize, i1Parent);
 
         if (i0Parent == i1Parent){
             result[0] = edge[0];
@@ -45,5 +54,6 @@ int* findRedundantConnection(int** edges, int edgesSize, int* edgesColSize, int*
     }
 
     free(sets);
+	fprintf(stderr, "<<< Exiting findRedundantConnection(edges=%p,edgesSize=%d,edgesColSize=%p,returnSize=%p)\n", edges, edgesSize, edgesColSize, returnSize);
     return result;
 }

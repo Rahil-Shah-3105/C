@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/quaternions.dir/quaternions.o -o quaternions 
