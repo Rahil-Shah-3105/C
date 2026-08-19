@@ -5,6 +5,8 @@ from os import listdir
 from pathlib import Path
 
 import requests
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -19,30 +21,44 @@ class Task:
 
 def fetch_leetcode_folder_tasks(solutions_folder: Path) -> list[Task]:
     """Fetch leetcode tasks from the Leetcode"""
+    logger.debug(">>> Entering fetch_leetcode_folder_tasks(solutions_folder=%s)", solutions_folder)
+    logger.info("fetch_leetcode_folder_tasks(solutions_folder)=%s: external service call took %s ms", solutions_folder, int((time.time() - __log_start) * 1000))
+    logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): resp → %s", solutions_folder, resp)
 
     # Fetch tasks info from the leetcode API.
     resp = requests.get("https://leetcode.com/api/problems/algorithms/", timeout=10)
     content_dict = resp.json()
+    logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): content_dict → %s", solutions_folder, content_dict)
 
     raw_tasks_id_dict = {}
+    logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): raw_tasks_id_dict → %s", solutions_folder, raw_tasks_id_dict)
 
     for task in content_dict["stat_status_pairs"]:
         task_stat = task["stat"]
+        logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): task_stat → %s", solutions_folder, task_stat)
+        logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): difficulty → %s", solutions_folder, difficulty)
         raw_tasks_id_dict[str(task_stat["frontend_question_id"])] = task
 
     # Generate result tasks info to be inserted into the document
+    logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): solution → %s", solutions_folder, solution)
     tasks_list = []
+    logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): tasks_list → %s", solutions_folder, tasks_list)
 
     difficulty = {1: "Easy", 2: "Medium", 3: "Hard"}
 
     for fl in listdir(solutions_folder):
         task_id = fl.split(".")[0]
+        logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): task_id → %s", solutions_folder, task_id)
 
         raw_task = raw_tasks_id_dict.get(task_id, None)
+        logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): raw_task → %s", solutions_folder, raw_task)
+        logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): title → %s", solutions_folder, title)
+        logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): id → %s", solutions_folder, id)
         if raw_task is None:
             continue
 
         raw_task_stat = raw_task["stat"]
+        logger.debug("fetch_leetcode_folder_tasks(solutions_folder=%s): raw_task_stat → %s", solutions_folder, raw_task_stat)
         tasks_list.append(
             Task(
                 id=f'{raw_task_stat["frontend_question_id"]}',
@@ -52,6 +68,7 @@ def fetch_leetcode_folder_tasks(solutions_folder: Path) -> list[Task]:
             )
         )
 
+    logger.debug("<<< Exiting fetch_leetcode_folder_tasks(solutions_folder=%s)", solutions_folder)
     return tasks_list
 
 
@@ -64,8 +81,12 @@ SEPARATOR = "-"
 
 def print_directory_md(tasks_list: list[Task]) -> None:
     """Print tasks into the stdout"""
+    logger.debug(">>> Entering print_directory_md(tasks_list=%s)", tasks_list)
 
+    logger.debug("<<< Exiting print_directory_md(tasks_list=%s)", tasks_list)
     def get_max_len(get_item):
+        logger.debug(">>> Entering get_max_len(get_item=%s)", get_item)
+        logger.debug("<<< Exiting get_max_len(get_item=%s)", get_item)
         return max(list(map(lambda x: len(get_item(x)), tasks_list)))
 
     id_max_length = max(get_max_len(lambda x: x.id), len(HEADER_ID))
@@ -76,6 +97,8 @@ def print_directory_md(tasks_list: list[Task]) -> None:
     )
 
     def formatted_string(header, title, solution, difficulty):
+        logger.debug(">>> Entering formatted_string(header=%s,title=%s,solution=%s,difficulty=%s)", header, title, solution, difficulty)
+        logger.debug("<<< Exiting formatted_string(header=%s,title=%s,solution=%s,difficulty=%s)", header, title, solution, difficulty)
         return (
             f"| {header.rjust(id_max_length)} "
             + f"| {title.ljust(title_max_length)} "

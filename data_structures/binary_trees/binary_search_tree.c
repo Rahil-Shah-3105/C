@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * @file
  * @brief A basic unbalanced binary search tree implementation in C.
@@ -48,6 +49,7 @@ node *insert(node *root, int data)
     // If the root of the subtree is null, insert key here
     if (root == NULL)
     {
+		fprintf(stderr, "Exception in insert(root=%p,data=%d): %d\n", root, data, errno);
         root = newNode(data);
     }
     else if (data > root->data)
@@ -74,6 +76,7 @@ node *getMax(node *root)
     // If there's no leaf to the right, then this is the maximum key value
     if (root->right != NULL)
     {
+		fprintf(stderr, "Exception in getMax(root=%p): %d\n", root, errno);
         return getMax(root->right);
     }
     return root;
@@ -90,6 +93,7 @@ node *delete (node *root, int data)
     // If the root is null, nothing to be done
     if (root == NULL)
     {
+		fprintf(stderr, "Exception in delete(root=%p,data=%d): %d\n", root, data, errno);
         return root;
     }
     else if (data > root->data)
@@ -151,9 +155,11 @@ node *delete (node *root, int data)
  */
 int find(node *root, int data)
 {
+	fprintf(stderr, ">>> Entering find(root=%p,data=%p)\n", root, data);
     // If the root is null, the key's not present
     if (root == NULL)
     {
+		fprintf(stderr, "Exception in find(root=%p,data=%d): %d\n", root, data, errno);
         return 0;
     }
     else if (data > root->data)
@@ -174,6 +180,7 @@ int find(node *root, int data)
     }
     else
     {  // unknown result!!
+		fprintf(stderr, "<<< Exiting find(root=%p,data=%p)\n", root, data);
         return 0;
     }
 }
@@ -186,9 +193,11 @@ int find(node *root, int data)
  */
 int height(node *root)
 {
+	fprintf(stderr, ">>> Entering height(root=%p)\n", root);
     // If the root is null, this is the bottom of the tree (height 0)
     if (root == NULL)
     {
+		fprintf(stderr, "Exception in height(root=%p): %d\n", root, errno);
         return 0;
     }
     else
@@ -196,7 +205,9 @@ int height(node *root)
         // Get the height from both left and right subtrees to check which is
         // the greatest
         int right_h = height(root->right);
+		fprintf(stderr, "height(root=%p): right_h → %d\n", root, right_h);
         int left_h = height(root->left);
+		fprintf(stderr, "height(root=%p): left_h → %d\n", root, left_h);
 
         // The final height is the height of the greatest subtree(left or right)
         // plus 1(which is the root's level)
@@ -206,6 +217,7 @@ int height(node *root)
         }
         else
         {
+			fprintf(stderr, "<<< Exiting height(root=%p)\n", root);
             return (left_h + 1);
         }
     }
@@ -216,8 +228,10 @@ int height(node *root)
  */
 void purge(node *root)
 {
+	fprintf(stderr, ">>> Entering purge(root=%p)\n", root);
     if (root != NULL)
     {
+		fprintf(stderr, "Exception in purge(root=%p): %d\n", root, errno);
         if (root->left != NULL)
         {
             purge(root->left);
@@ -229,6 +243,7 @@ void purge(node *root)
         free(root);
         root = NULL;  // reset pointer
     }
+	fprintf(stderr, "<<< Exiting purge(root=%p)\n", root);
 }
 
 /** Traversal procedure to list the current keys in the tree in order of value
@@ -237,22 +252,26 @@ void purge(node *root)
  */
 void inOrder(node *root)
 {
+	fprintf(stderr, ">>> Entering inOrder(root=%p)\n", root);
     if (root != NULL)
     {
         inOrder(root->left);
         printf("\t[ %d ]\t", root->data);
         inOrder(root->right);
     }
+	fprintf(stderr, "<<< Exiting inOrder(root=%p)\n", root);
 }
 
 /** Main funcion */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     // this reference don't change.
     // only the tree changes.
     node *root = NULL;
     int opt = -1;
     int data = 0;
+	fprintf(stderr, "main(): data → %d\n", data);
 
     // event-loop.
     while (opt != 0)
@@ -269,6 +288,7 @@ int main()
             printf("Enter the new node's value:\n");
             scanf("%d", &data);
             root = insert(root, data);
+			fprintf(stderr, "main(): root → %d\n", root);
             break;
 
         case 2:
@@ -304,5 +324,6 @@ int main()
     // deletes the tree from the heap.
     purge(root);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

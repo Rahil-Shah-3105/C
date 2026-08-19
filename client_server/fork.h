@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <errno.h>
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) DIGITEO - 2010 - Allan CORNET
@@ -159,15 +161,19 @@ static jmp_buf jenv;
 /* entry point for our child thread process - just longjmp into fork */
 static int child_entry(void)
 {
+	fprintf(stderr, ">>> Entering child_entry()\n");
     longjmp(jenv, 1);
+	fprintf(stderr, "<<< Exiting child_entry()\n");
     return 0;
 }
 /*--------------------------------------------------------------------------*/
 static BOOL haveLoadedFunctionsForFork(void)
 {
+	fprintf(stderr, ">>> Entering haveLoadedFunctionsForFork()\n");
     HMODULE ntdll = GetModuleHandle("ntdll");
     if (ntdll == NULL)
     {
+		fprintf(stderr, "Exception in haveLoadedFunctionsForFork(): %d\n", errno);
         return FALSE;
     }
 
@@ -182,18 +188,23 @@ static BOOL haveLoadedFunctionsForFork(void)
         (ZwCreateProcess_t)GetProcAddress(ntdll, "ZwCreateProcess");
     ZwQuerySystemInformation = (ZwQuerySystemInformation_t)GetProcAddress(
         ntdll, "ZwQuerySystemInformation");
+		fprintf(stderr, "haveLoadedFunctionsForFork(): ZwQuerySystemInformation → %d\n", ZwQuerySystemInformation);
     ZwQueryVirtualMemory =
         (ZwQueryVirtualMemory_t)GetProcAddress(ntdll, "ZwQueryVirtualMemory");
     ZwCreateThread = (ZwCreateThread_t)GetProcAddress(ntdll, "ZwCreateThread");
     ZwGetContextThread =
         (ZwGetContextThread_t)GetProcAddress(ntdll, "ZwGetContextThread");
+		fprintf(stderr, "haveLoadedFunctionsForFork(): ZwCreateThread → %d\n", ZwCreateThread);
     ZwResumeThread = (ZwResumeThread_t)GetProcAddress(ntdll, "ZwResumeThread");
     ZwQueryInformationThread = (ZwQueryInformationThread_t)GetProcAddress(
         ntdll, "ZwQueryInformationThread");
+		fprintf(stderr, "haveLoadedFunctionsForFork(): ZwResumeThread → %d\n", ZwResumeThread);
+		fprintf(stderr, "haveLoadedFunctionsForFork(): ZwQueryInformationThread → %d\n", ZwQueryInformationThread);
     ZwWriteVirtualMemory =
         (ZwWriteVirtualMemory_t)GetProcAddress(ntdll, "ZwWriteVirtualMemory");
     ZwClose = (ZwClose_t)GetProcAddress(ntdll, "ZwClose");
 
+	fprintf(stderr, "haveLoadedFunctionsForFork(): ZwClose → %d\n", ZwClose);
     if (ZwCreateProcess && ZwQuerySystemInformation && ZwQueryVirtualMemory &&
         ZwCreateThread && ZwGetContextThread && ZwResumeThread &&
         ZwQueryInformationThread && ZwWriteVirtualMemory && ZwClose)
@@ -203,22 +214,29 @@ static BOOL haveLoadedFunctionsForFork(void)
     else
     {
         ZwCreateProcess = NULL;
+		fprintf(stderr, "haveLoadedFunctionsForFork(): ZwCreateProcess → %d\n", ZwCreateProcess);
         ZwQuerySystemInformation = NULL;
         ZwQueryVirtualMemory = NULL;
+		fprintf(stderr, "haveLoadedFunctionsForFork(): ZwQueryVirtualMemory → %d\n", ZwQueryVirtualMemory);
         ZwCreateThread = NULL;
         ZwGetContextThread = NULL;
         ZwResumeThread = NULL;
         ZwQueryInformationThread = NULL;
+		fprintf(stderr, "haveLoadedFunctionsForFork(): ZwGetContextThread → %d\n", ZwGetContextThread);
         ZwWriteVirtualMemory = NULL;
         ZwClose = NULL;
     }
+    fprintf(stderr, "haveLoadedFunctionsForFork(): ZwWriteVirtualMemory → %d\n", ZwWriteVirtualMemory);
+    fprintf(stderr, "<<< Exiting haveLoadedFunctionsForFork()\n");
     return FALSE;
 }
 /*--------------------------------------------------------------------------*/
 int fork(void)
 {
+	fprintf(stderr, ">>> Entering fork()\n");
     HANDLE hProcess = 0, hThread = 0;
     OBJECT_ATTRIBUTES oa = {sizeof(oa)};
+	fprintf(stderr, "fork(): oa → %d\n", oa);
     MEMORY_BASIC_INFORMATION mbi;
     CLIENT_ID cid;
     USER_STACK stack;
@@ -249,6 +267,7 @@ int fork(void)
 
     /* In x64 the Eip and Esp are not present, their x64 counterparts are Rip
     and Rsp respectively.
+	fprintf(stderr, "<<< Exiting fork()\n");
     */
 #if _WIN64
     context.Rip = (ULONG)child_entry;
@@ -265,9 +284,13 @@ int fork(void)
 #endif
 
     stack.FixedStackBase = 0;
+	fprintf(stderr, "fork(): stack.FixedStackBase → %d\n", stack.FixedStackBase);
+	fprintf(stderr, "fork(): stack.FixedStackLimit → %d\n", stack.FixedStackLimit);
     stack.FixedStackLimit = 0;
     stack.ExpandableStackBase = (PCHAR)mbi.BaseAddress + mbi.RegionSize;
     stack.ExpandableStackLimit = mbi.BaseAddress;
+	fprintf(stderr, "fork(): stack.ExpandableStackLimit → %d\n", stack.ExpandableStackLimit);
+	fprintf(stderr, "fork(): stack.ExpandableStackBottom → %d\n", stack.ExpandableStackBottom);
     stack.ExpandableStackBottom = mbi.AllocationBase;
 
     /* create thread using the modified context and stack */
@@ -278,6 +301,7 @@ int fork(void)
     ZwQueryInformationThread(NtCurrentThread(), ThreadMemoryPriority, &tbi,
                              sizeof tbi, 0);
     tib = (PNT_TIB)tbi.TebBaseAddress;
+	fprintf(stderr, "fork(): tib → %d\n", tib);
     ZwQueryInformationThread(hThread, ThreadMemoryPriority, &tbi, sizeof tbi,
                              0);
     ZwWriteVirtualMemory(hProcess, tbi.TebBaseAddress, &tib->ExceptionList,

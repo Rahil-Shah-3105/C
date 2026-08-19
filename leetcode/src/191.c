@@ -1,5 +1,7 @@
+#include <stdio.h>
 int hammingWeight(uint32_t n)
 {
+	fprintf(stderr, ">>> Entering hammingWeight(n=%d)\n", n);
     int TotalBits = 32;
     int i, weight = 0;
     for (i = 0; i < TotalBits; i++)
@@ -12,5 +14,6 @@ int hammingWeight(uint32_t n)
                      // as int which cannot be shifted left more than 30 times
             weight += 1;
     }
+	fprintf(stderr, "<<< Exiting hammingWeight(n=%d)\n", n);
     return weight;
 }

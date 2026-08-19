@@ -10,8 +10,10 @@
 /** Main function */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     long n = 100;
     long long sum = 0;
+	fprintf(stderr, "main(argc=%d,argv=%p): n → %d\n", argc, argv, n);
     char *sieve = NULL;
 
     if (argc == 2)         /* if command line argument is provided */
@@ -52,5 +54,6 @@ int main(int argc, char *argv[])
 
     printf("%ld: %lld\n", n, sum);
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

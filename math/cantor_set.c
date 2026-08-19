@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * @file
  * @brief Program to generate [Cantor ternary
@@ -22,6 +23,7 @@ typedef struct _cantor_set
  */
 void propagate(CantorSet *head)
 {
+	fprintf(stderr, ">>> Entering propagate(head=%p)\n", head);
     // if input is NULL, ignore the process
     if (head == NULL)
         return;
@@ -33,6 +35,7 @@ void propagate(CantorSet *head)
 
     // get 1/3rd of interval
     double diff = (((temp->end) - (temp->start)) / 3);
+	fprintf(stderr, "propagate(head=%p): diff → %d\n", head, diff);
 
     // update interval ranges
     newNode->end = temp->end;
@@ -64,6 +67,7 @@ void print(CantorSet *head)
     }
 
     printf("\n");
+	fprintf(stderr, "<<< Exiting print(head=%p)\n", head);
 }
 
 /** Clear memory allocated by ::propagate function.
@@ -71,6 +75,7 @@ void print(CantorSet *head)
  */
 void free_memory(CantorSet *head)
 {
+	fprintf(stderr, ">>> Entering free_memory(head=%p)\n", head);
     if (!head)
         return;
 
@@ -78,6 +83,7 @@ void free_memory(CantorSet *head)
         free_memory(head->next);
 
     free(head);
+	fprintf(stderr, "<<< Exiting free_memory(head=%p)\n", head);
 }
 
 /** Main function */
@@ -96,6 +102,9 @@ int main(int argc, char const *argv[])
         end_num = atoi(argv[2]);
         levels = atoi(argv[3]);
     }
+	fprintf(stderr, "main(argc=%d,argv=%p): start_num → %d\n", argc, argv, start_num);
+	fprintf(stderr, "main(argc=%d,argv=%p): end_num → %d\n", argc, argv, end_num);
+	fprintf(stderr, "main(argc=%d,argv=%p): levels → %d\n", argc, argv, levels);
 
     if (start_num < 0 || end_num < 0 || levels < 0)
     {
@@ -119,5 +128,6 @@ int main(int argc, char const *argv[])
     // delete all memory allocated
     free_memory(head.next);
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

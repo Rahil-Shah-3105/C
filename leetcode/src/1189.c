@@ -1,5 +1,7 @@
+#include <stdio.h>
 int maxNumberOfBalloons(char *text)
 {
+	fprintf(stderr, ">>> Entering maxNumberOfBalloons(text=%s)\n", text);
     /*
         0 -> b,
         1 -> a,
@@ -47,5 +49,6 @@ int maxNumberOfBalloons(char *text)
             min_counter_ballons = count_letters[i];
     }
 
+	fprintf(stderr, "<<< Exiting maxNumberOfBalloons(text=%s)\n", text);
     return min_counter_ballons;
 }

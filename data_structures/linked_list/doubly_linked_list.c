@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * @file
  * @brief Implementation of [Doubly linked list](https://en.wikipedia.org/wiki/Doubly_linked_list)
@@ -78,9 +79,11 @@ void example();
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     // examples for better understanding
     example();
     // code here
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 
@@ -110,6 +113,7 @@ List *insert(List *list, double value, int pos)
     // list NULL case
     if (list == NULL)
     {
+		fprintf(stderr, "Exception in insert(list=%p,value=%f,pos=%d): %d\n", list, value, pos, errno);
         list = create(value);
         return list;
     }
@@ -118,6 +122,7 @@ List *insert(List *list, double value, int pos)
     if (pos > 0)
     {
         List *cpy = list, *tmp = cpy;
+		fprintf(stderr, "insert(list=%p,value=%f,pos=%d): cpy → %d\n", list, value, pos, cpy);
         int flag = 1, index = 1, size = 0;
 
         while (tmp != NULL)
@@ -219,6 +224,7 @@ List *delete(List *list, int pos)
                 // position into list with no poiting for NULL
                 if (cpy->next != NULL)
                 {
+					fprintf(stderr, "Exception in delete(list=%p,pos=%d): %d\n", list, pos, errno);
                     cpy->prev->next = cpy->next;
                     cpy->next->prev = cpy->prev;
                 }
@@ -241,6 +247,7 @@ List *delete(List *list, int pos)
  */
 int search(List *list, double value)
 {
+	fprintf(stderr, ">>> Entering search(list=%p,value=%f)\n", list, value);
     if (list == NULL)
         return 0;
     if (list->value == value)
@@ -255,11 +262,13 @@ int search(List *list, double value)
  */
 void print(List *list)
 {
+	fprintf(stderr, ">>> Entering print(list=%p)\n", list);
     if (list != NULL)
     {
         printf("%f\t", list->value);
         print(list->next);
     }
+	fprintf(stderr, "<<< Exiting print(list=%p)\n", list);
 }
 
 /**
@@ -268,6 +277,7 @@ void print(List *list)
  */
 void example()
 {
+	fprintf(stderr, ">>> Entering example()\n");
     List *my_list = NULL;
     double node_value = 0;
     int searching;
@@ -278,6 +288,7 @@ void example()
     my_list = insert(my_list, 10, 3);
     my_list = insert(my_list, 20, 3);
 
+	fprintf(stderr, "example(): my_list → %d\n", my_list);
     print(my_list);
     searching = search(my_list, 20);
     printf("\n%d\n", searching);
@@ -288,6 +299,8 @@ void example()
     my_list = delete (my_list, 1);
 
     print(my_list);
+	fprintf(stderr, "example(): searching → %d\n", searching);
     searching = search(my_list, 20);
+	fprintf(stderr, "<<< Exiting example()\n");
     printf("\n%d\n", searching);
 }

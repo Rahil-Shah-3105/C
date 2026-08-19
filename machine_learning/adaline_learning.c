@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * \file
  * \brief [Adaptive Linear Neuron
@@ -88,10 +89,13 @@ struct adaline new_adaline(const int num_features, const double eta)
  */
 void delete_adaline(struct adaline *ada)
 {
+	fprintf(stderr, ">>> Entering delete_adaline(ada=%p)\n", ada);
     if (ada == NULL)
         return;
 
+	fprintf(stderr, "Exception in delete_adaline(ada=%p): %d\n", ada, errno);
     free(ada->weights);
+	fprintf(stderr, "<<< Exiting delete_adaline(ada=%p)\n", ada);
 };
 
 /** [Heaviside activation
@@ -135,6 +139,7 @@ char *adaline_get_weights_str(const struct adaline *ada)
  */
 int adaline_predict(struct adaline *ada, const double *x, double *out)
 {
+	fprintf(stderr, ">>> Entering adaline_predict(ada=%p,x=%p,out=%p)\n", ada, x, out);
     double y = ada->weights[ada->num_weights - 1];  // assign bias value
 
     for (int i = 0; i < ada->num_weights - 1; i++) y += x[i] * ada->weights[i];
@@ -143,6 +148,7 @@ int adaline_predict(struct adaline *ada, const double *x, double *out)
         *out = y;
 
     // quantizer: apply ADALINE threshold function
+	fprintf(stderr, "<<< Exiting adaline_predict(ada=%p,x=%p,out=%p)\n", ada, x, out);
     return adaline_activation(y);
 }
 
@@ -157,8 +163,10 @@ int adaline_predict(struct adaline *ada, const double *x, double *out)
  */
 double adaline_fit_sample(struct adaline *ada, const double *x, const int y)
 {
+	fprintf(stderr, ">>> Entering adaline_fit_sample(ada=%p,x=%p,y=%p)\n", ada, x, y);
     /* output of the model with current weights */
     int p = adaline_predict(ada, x, NULL);
+	fprintf(stderr, "adaline_fit_sample(ada=%p,x=%p,y=%d): p → %d\n", ada, x, y, p);
     int prediction_error = y - p;  // error in estimation
     double correction_factor = ada->eta * prediction_error;
 
@@ -169,6 +177,7 @@ double adaline_fit_sample(struct adaline *ada, const double *x, const int y)
     }
     ada->weights[ada->num_weights - 1] += correction_factor;  // update bias
 
+	fprintf(stderr, "<<< Exiting adaline_fit_sample(ada=%p,x=%p,y=%p)\n", ada, x, y);
     return correction_factor;
 }
 
@@ -183,8 +192,10 @@ double adaline_fit_sample(struct adaline *ada, const double *x, const int y)
  */
 void adaline_fit(struct adaline *ada, double **X, const int *y, const int N)
 {
+	fprintf(stderr, ">>> Entering adaline_fit(ada=%p,X=%p,y=%p,N=%p)\n", ada, X, y, N);
     double avg_pred_error = 1.f;
 
+	fprintf(stderr, "adaline_fit(ada=%p,X=%p,y=%p,N=%d): avg_pred_error → %d\n", ada, X, y, N, avg_pred_error);
     int iter;
     for (iter = 0;
          (iter < MAX_ADALINE_ITER) && (avg_pred_error > ADALINE_ACCURACY);
@@ -196,6 +207,7 @@ void adaline_fit(struct adaline *ada, double **X, const int *y, const int N)
         for (int i = 0; i < N; i++)
         {
             double err = adaline_fit_sample(ada, X[i], y[i]);
+			fprintf(stderr, "adaline_fit(ada=%p,X=%p,y=%p,N=%d): err → %d\n", ada, X, y, N, err);
             avg_pred_error += fabs(err);
         }
         avg_pred_error /= N;
@@ -210,6 +222,7 @@ void adaline_fit(struct adaline *ada, double **X, const int *y, const int N)
         printf("Converged after %d iterations.\n", iter);
     else
         printf("Did not converged after %d iterations.\n", iter);
+		fprintf(stderr, "<<< Exiting adaline_fit(ada=%p,X=%p,y=%p,N=%p)\n", ada, X, y, N);
 }
 
 /** @}
@@ -224,6 +237,7 @@ void adaline_fit(struct adaline *ada, double **X, const int *y, const int N)
  */
 void test1(double eta)
 {
+	fprintf(stderr, ">>> Entering test1(eta=%f)\n", eta);
     struct adaline ada = new_adaline(2, eta);  // 2 features
 
     const int N = 10;  // number of sample points
@@ -247,6 +261,7 @@ void test1(double eta)
 
     double test_x[] = {5, -3};
     int pred = adaline_predict(&ada, test_x, NULL);
+	fprintf(stderr, "test1(eta=%f): pred → %d\n", eta, pred);
     printf("Predict for x=(5,-3): % d\n", pred);
     assert(pred == -1);
     printf(" ...passed\n");
@@ -261,6 +276,7 @@ void test1(double eta)
     //     free(X[i]);
     free(X);
     delete_adaline(&ada);
+	fprintf(stderr, "<<< Exiting test1(eta=%f)\n", eta);
 }
 
 /**
@@ -272,6 +288,7 @@ void test1(double eta)
  */
 void test2(double eta)
 {
+	fprintf(stderr, ">>> Entering test2(eta=%f)\n", eta);
     struct adaline ada = new_adaline(2, eta);  // 2 features
 
     const int N = 50;  // number of sample points
@@ -287,7 +304,9 @@ void test2(double eta)
     for (int i = 0; i < N; i++)
     {
         double x0 = ((rand() % range) - range2) / 100.f;
+		fprintf(stderr, "test2(eta=%f): x0 → %d\n", eta, x0);
         double x1 = ((rand() % range) - range2) / 100.f;
+		fprintf(stderr, "test2(eta=%f): x1 → %d\n", eta, x1);
         X[i][0] = x0;
         X[i][1] = x1;
         Y[i] = (x0 + 3. * x1) > -1 ? 1 : -1;
@@ -309,9 +328,11 @@ void test2(double eta)
         test_x[0] = x0;
         test_x[1] = x1;
         int pred = adaline_predict(&ada, test_x, NULL);
+		fprintf(stderr, "test2(eta=%f): pred → %d\n", eta, pred);
         printf("Predict for x=(% 3.2f,% 3.2f): % d\n", x0, x1, pred);
 
         int expected_val = (x0 + 3. * x1) > -1 ? 1 : -1;
+		fprintf(stderr, "test2(eta=%f): expected_val → %d\n", eta, expected_val);
         assert(pred == expected_val);
         printf(" ...passed\n");
     }
@@ -320,6 +341,7 @@ void test2(double eta)
     free(X);
     free(Y);
     delete_adaline(&ada);
+	fprintf(stderr, "<<< Exiting test2(eta=%f)\n", eta);
 }
 
 /**
@@ -335,6 +357,7 @@ void test2(double eta)
  */
 void test3(double eta)
 {
+	fprintf(stderr, ">>> Entering test3(eta=%f)\n", eta);
     struct adaline ada = new_adaline(6, eta);  // 2 features
 
     const int N = 50;  // number of sample points
@@ -350,8 +373,11 @@ void test3(double eta)
     for (int i = 0; i < N; i++)
     {
         double x0 = ((rand() % range) - range2) / 100.f;
+		fprintf(stderr, "test3(eta=%f): x0 → %d\n", eta, x0);
         double x1 = ((rand() % range) - range2) / 100.f;
+		fprintf(stderr, "test3(eta=%f): x1 → %d\n", eta, x1);
         double x2 = ((rand() % range) - range2) / 100.f;
+		fprintf(stderr, "test3(eta=%f): x2 → %d\n", eta, x2);
         X[i][0] = x0;
         X[i][1] = x1;
         X[i][2] = x2;
@@ -381,9 +407,11 @@ void test3(double eta)
         test_x[4] = x1 * x1;
         test_x[5] = x2 * x2;
         int pred = adaline_predict(&ada, test_x, NULL);
+		fprintf(stderr, "test3(eta=%f): pred → %d\n", eta, pred);
         printf("Predict for x=(% 3.2f,% 3.2f): % d\n", x0, x1, pred);
 
         int expected_val = (x0 * x0 + x1 * x1 + x2 * x2) <= 1 ? 1 : -1;
+		fprintf(stderr, "test3(eta=%f): expected_val → %d\n", eta, expected_val);
         assert(pred == expected_val);
         printf(" ...passed\n");
     }
@@ -392,14 +420,17 @@ void test3(double eta)
     free(X);
     free(Y);
     delete_adaline(&ada);
+	fprintf(stderr, "<<< Exiting test3(eta=%f)\n", eta);
 }
 
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     srand(time(NULL));  // initialize random number generator
 
     double eta = 0.1;  // default value of eta
+	fprintf(stderr, "main(argc=%d,argv=%p): eta → %d\n", argc, argv, eta);
     if (argc == 2)     // read eta value from commandline argument if present
         eta = strtof(argv[1], NULL);
 
@@ -415,5 +446,6 @@ int main(int argc, char **argv)
 
     test3(eta);
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

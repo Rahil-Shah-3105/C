@@ -14,6 +14,7 @@
  */
 char get_month_days(short month)
 {
+	fprintf(stderr, ">>> Entering get_month_days(month=%hd)\n", month);
     if (month == 1) /* February has 28 days. Adjust leap year in the loop */
         return 28;
     else if (month <= 6) /* odd months till July have 30 days - Jan = 0 (even)*/
@@ -40,6 +41,7 @@ char get_month_days(short month)
  */
 char is_leap_year(short year)
 {
+	fprintf(stderr, ">>> Entering is_leap_year(year=%hd)\n", year);
     if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0)))
         return 1;
 
@@ -51,6 +53,8 @@ char is_leap_year(short year)
  * \param day integer identifier of day (0 = Sunday and 7 = Saturday
  * \return pointer to string representation)
  */
+fprintf(stderr, ">>> Entering day_string(day=%d)\n", day);
+fprintf(stderr, "<<< Exiting day_string(day=%d)\n", day);
 const char *day_string(int day)
 {
     switch (day)
@@ -78,6 +82,7 @@ const char *day_string(int day)
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     int count_sundays = 0;
     const short start_year = 1901;
     const short end_year = 2000;
@@ -87,10 +92,12 @@ int main(int argc, char **argv)
      * respectively Jan 1 1901 was a Tuesday
      */
     char start_day = 2;
+	fprintf(stderr, "main(argc=%d,argv=%p): start_day → %d\n", argc, argv, start_day);
 
     for (int year = start_year; year <= end_year; year++)
     {
         char is_leap = is_leap_year(year);
+		fprintf(stderr, "main(argc=%d,argv=%p): is_leap → %d\n", argc, argv, is_leap);
         for (char month = 0; month < 12; month++)
         {
             /*
@@ -101,6 +108,7 @@ int main(int argc, char **argv)
                 continue;
 
             int days = get_month_days(month);
+			fprintf(stderr, "main(argc=%d,argv=%p): days → %d\n", argc, argv, days);
 
             if (is_leap && month == 1) /* for a leap year february, add a day */
                 days++;

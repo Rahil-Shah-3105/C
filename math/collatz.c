@@ -35,5 +35,6 @@ int main(int argc, char *argv[])
             curr_no = (curr_no * 3) + 1;  // condition for odd number
     }
     printf("1\nNumber of steps: %llu\n", num_steps);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

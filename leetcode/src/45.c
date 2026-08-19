@@ -1,7 +1,9 @@
+#include <stdio.h>
 // Breadth-first search, imitation.
 // Runtime: O(n)
 // Space: O(n)
 int jump(int* nums, int numsSize) {
+	fprintf(stderr, ">>> Entering jump(nums=%p,numsSize=%p)\n", nums, numsSize);
     if (numsSize == 1) {
         return 0;
     }
@@ -12,6 +14,7 @@ int jump(int* nums, int numsSize) {
     int* queue = malloc(numsSize * sizeof(int));
     queue[0] = 0;
     int queueLength = 1;
+	fprintf(stderr, "jump(nums=%p,numsSize=%d): queueLength → %d\n", nums, numsSize, queueLength);
 
     while (queueLength > 0){
         int* nextQueue = malloc(numsSize * sizeof(int));
@@ -43,8 +46,10 @@ int jump(int* nums, int numsSize) {
         queue = nextQueue;
         queueLength = nextQueueLength;
     }
+	fprintf(stderr, "jump(nums=%p,numsSize=%d): queue → %d\n", nums, numsSize, queue);
 
     free(visitedCells);
     free(queue);
+	fprintf(stderr, "<<< Exiting jump(nums=%p,numsSize=%p)\n", nums, numsSize);
     return -1;
 }

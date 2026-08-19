@@ -1,3 +1,5 @@
+#include <errno.h>
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,6 +18,7 @@ avlNode *newNode(int key)
 {
     avlNode *node = (avlNode *)malloc(sizeof(avlNode));
 
+	fprintf(stderr, "newNode(key=%d): node → %d\n", key, node);
     if (node == NULL)
         printf("!! Out of Space !!\n");
     else
@@ -31,6 +34,7 @@ avlNode *newNode(int key)
 
 int nodeHeight(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering nodeHeight(node=%p)\n", node);
     if (node == NULL)
         return -1;
     else
@@ -39,6 +43,7 @@ int nodeHeight(avlNode *node)
 
 int heightDiff(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering heightDiff(node=%p)\n", node);
     if (node == NULL)
         return 0;
     else
@@ -57,6 +62,7 @@ avlNode *minNode(avlNode *node)
 
 void printAVL(avlNode *node, int level)
 {
+	fprintf(stderr, ">>> Entering printAVL(node=%p,level=%p)\n", node, level);
     int i;
     if (node != NULL)
     {
@@ -69,6 +75,7 @@ void printAVL(avlNode *node, int level)
 
         printAVL(node->left, level + 1);
     }
+	fprintf(stderr, "<<< Exiting printAVL(node=%p,level=%p)\n", node, level);
 }
 
 avlNode *rightRotate(avlNode *z)
@@ -132,6 +139,7 @@ avlNode *insert(avlNode *node, int key)
 
     /*Checking for the balance condition*/
     int balance = heightDiff(node);
+	fprintf(stderr, "insert(node=%p,key=%d): balance → %d\n", node, key, balance);
 
     /*Left Left */
     if (balance > 1 && key < (node->left->key))
@@ -158,6 +166,7 @@ avlNode *insert(avlNode *node, int key)
 
 avlNode *delete (avlNode *node, int queryNum)
 {
+	fprintf(stderr, ">>> Entering delete(node=%p,queryNum=%p)\n", node, queryNum);
     if (node == NULL)
         return node;
 
@@ -195,6 +204,7 @@ avlNode *delete (avlNode *node, int queryNum)
             node->right =
                 delete (node->right,
                         temp->key); /*Delete the smallest in the R subtree.*/
+						fprintf(stderr, "<<< Exiting delete(node=%p,queryNum=%p)\n", node, queryNum);
         }
     }
 
@@ -206,6 +216,7 @@ avlNode *delete (avlNode *node, int queryNum)
     node->height = (max(nodeHeight(node->left), nodeHeight(node->right)) + 1);
 
     int balance = heightDiff(node);
+	fprintf(stderr, "delete(node=%p,queryNum=%d): balance → %d\n", node, queryNum, balance);
 
     /*Left Left */
     if ((balance > 1) && (heightDiff(node->left) >= 0))
@@ -234,6 +245,7 @@ avlNode *findNode(avlNode *node, int queryNum)
 {
     if (node != NULL)
     {
+		fprintf(stderr, "Exception in findNode(node=%p,queryNum=%d): %d\n", node, queryNum, errno);
         if (queryNum < node->key)
             node = findNode(node->left, queryNum);
         else if (queryNum > node->key)
@@ -245,36 +257,44 @@ avlNode *findNode(avlNode *node, int queryNum)
 
 void printPreOrder(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering printPreOrder(node=%p)\n", node);
     if (node == NULL)
         return;
 
     printf("  %d  ", (node->key));
     printPreOrder(node->left);
     printPreOrder(node->right);
+	fprintf(stderr, "<<< Exiting printPreOrder(node=%p)\n", node);
 }
 
 void printInOrder(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering printInOrder(node=%p)\n", node);
     if (node == NULL)
         return;
     printInOrder(node->left);
     printf("  %d  ", (node->key));
     printInOrder(node->right);
+	fprintf(stderr, "<<< Exiting printInOrder(node=%p)\n", node);
 }
 
 void printPostOrder(avlNode *node)
 {
+	fprintf(stderr, ">>> Entering printPostOrder(node=%p)\n", node);
     if (node == NULL)
         return;
     printPostOrder(node->left);
     printPostOrder(node->right);
     printf("  %d  ", (node->key));
+	fprintf(stderr, "<<< Exiting printPostOrder(node=%p)\n", node);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int choice;
     int flag = 1;
+	fprintf(stderr, "main(): flag → %d\n", flag);
     int insertNum;
     int queryNum;
 
@@ -285,6 +305,7 @@ int main()
     {
         printf("\n\nEnter the Step to Run : \n");
 
+		clock_t __logStart = clock();
         printf("\t1: Insert a node into AVL tree\n");
         printf("\t2: Delete a node in AVL tree\n");
         printf("\t3: Search a node into AVL tree\n");
@@ -316,12 +337,14 @@ int main()
                 printf("\n\t %d Already exists in the tree\n", insertNum);
             else
             {
+				fprintf(stderr, "main(): tempNode → %d\n", tempNode);
                 printf("\n\tPrinting AVL Tree\n");
                 printAVL(root, 1);
                 printf("\n");
 
                 root = insert(root, insertNum);
                 printf("\n\tPrinting AVL Tree\n");
+				fprintf(stderr, "main(): root → %d\n", root);
                 printAVL(root, 1);
                 printf("\n");
             }

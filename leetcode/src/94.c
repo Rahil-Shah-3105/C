@@ -1,11 +1,14 @@
+#include <stdio.h>
 void processTraversal(struct TreeNode *root, int *res, int *size)
 {
+	fprintf(stderr, ">>> Entering processTraversal(root=%p,res=%p,size=%p)\n", root, res, size);
     if (!root)
         return;
     processTraversal(root->left, res, size);
     res[*size] = root->val;
     *size = *size + 1;
     processTraversal(root->right, res, size);
+	fprintf(stderr, "<<< Exiting processTraversal(root=%p,res=%p,size=%p)\n", root, res, size);
 }
 
 int *inorderTraversal(struct TreeNode *root, int *returnSize)

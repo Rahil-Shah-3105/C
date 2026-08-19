@@ -1,10 +1,15 @@
+#include <stdio.h>
 // Dynamic Programming
 // Runtime: O(n)
 // Space: O(1)
 int tribonacci(int n){
+	fprintf(stderr, ">>> Entering tribonacci(n=%d)\n", n);
     int t0 = 0;
     int t1 = 1;
+	fprintf(stderr, "tribonacci(n=%d): t1 → %d\n", n, t1);
     int t2 = 1;
+	fprintf(stderr, "tribonacci(n=%d): t2 → %d\n", n, t2);
+	fprintf(stderr, "tribonacci(n=%d): t0 → %d\n", n, t0);
 
     if (n == 0) {
         return t0;
@@ -25,5 +30,6 @@ int tribonacci(int n){
         t2 = nextT;
     }
 
+	fprintf(stderr, "<<< Exiting tribonacci(n=%d)\n", n);
     return t2;
 }

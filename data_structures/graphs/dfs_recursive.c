@@ -9,6 +9,7 @@ int visited[MAX_NODES];  // array to store visiting order
 
 bool dfsPathCheck(Graph g, int nV, Vertex v, Vertex dest)
 {
+	fprintf(stderr, ">>> Entering dfsPathCheck(g=%d,nV=%d,v=%d,dest=%d)\n", g, nV, v, dest);
     Vertex w;
     for (w = 0; w < nV; w++)
         if (adjacent(g, v, w) && visited[w] == -1)
@@ -24,20 +25,26 @@ bool dfsPathCheck(Graph g, int nV, Vertex v, Vertex dest)
 
 bool findPathDFS(Graph g, int nV, Vertex src, Vertex dest)
 {
+	fprintf(stderr, ">>> Entering findPathDFS(g=%d,nV=%d,src=%d,dest=%d)\n", g, nV, src, dest);
     Vertex v;
     for (v = 0; v < nV; v++) visited[v] = -1;
     visited[src] = src;
+	fprintf(stderr, "<<< Exiting findPathDFS(g=%d,nV=%d,src=%d,dest=%d)\n", g, nV, src, dest);
     return dfsPathCheck(g, nV, src, dest);
 }
 
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int V = 6;
     Graph g = newGraph(V);
+	fprintf(stderr, "main(): g → %d\n", g);
 
     Edge e;
     e.v = 0;
     e.w = 1;
+	fprintf(stderr, "main(): e.v → %d\n", e.v);
+	fprintf(stderr, "main(): e.w → %d\n", e.w);
     insertEdge(g, e);
     e.v = 0;
     e.w = 4;
@@ -75,6 +82,7 @@ int main(void)
         }
         printf("%d\n", src);
     }
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 

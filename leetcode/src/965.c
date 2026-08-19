@@ -1,5 +1,8 @@
+#include <stdio.h>
+#include <errno.h>
 bool isUnivalTree(struct TreeNode *root)
 {
+	fprintf(stderr, ">>> Entering isUnivalTree(root=%p)\n", root);
     if (root == NULL)
         return 1;
     if (root->left)

@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * \file
  * \brief [Problem 20](https://projecteuler.net/problem=20) solution
@@ -25,8 +26,10 @@ typedef struct _big_int
 /** print a digit from large integer */
 void print_digit(const big_int *my_int)
 {
+	fprintf(stderr, ">>> Entering print_digit(my_int=%p)\n", my_int);
     printf("\tValue : %d\n\tNext : %p\n\tPrev : %p\n", my_int->value,
            my_int->next_digit, my_int->prev_digit);
+		fprintf(stderr, "<<< Exiting print_digit(my_int=%p)\n", my_int);
 }
 #endif
 
@@ -75,9 +78,11 @@ big_int *add_digit(big_int *digit, char value)
  */
 char remove_digits(big_int *digit, int N)
 {
+	fprintf(stderr, ">>> Entering remove_digits(digit=%p,N=%p)\n", digit, N);
     if (digit == NULL)
         return 0;
 
+	fprintf(stderr, "Exception in remove_digits(digit=%p,N=%d): %d\n", digit, N, errno);
     if (digit->next_digit == NULL)
     {
         free(digit);
@@ -94,10 +99,13 @@ char remove_digits(big_int *digit, int N)
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     unsigned int N = 5;
     big_int *ptr = add_digit(NULL, 1); /* start with 1 */
     const big_int *ptr0 = ptr;         /* save the first location */
     unsigned long sum_digits = 0;
+	fprintf(stderr, "main(argc=%d,argv=%p): ptr → %d\n", argc, argv, ptr);
+	fprintf(stderr, "main(argc=%d,argv=%p): N → %d\n", argc, argv, N);
     unsigned long num_digits = 0;
 
     if (argc == 2)
@@ -108,6 +116,8 @@ int main(int argc, char **argv)
     for (unsigned int i = 1; i <= N; i++)
     {
         int carry = 0;
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
+		fprintf(stderr, "main(argc=%d,argv=%p): carry → %d\n", argc, argv, carry);
 #ifdef DEBUG
         printf("%3d: ", i);
 #endif

@@ -18,6 +18,7 @@
  */
 char get_perfect_number(unsigned long N)
 {
+	fprintf(stderr, ">>> Entering get_perfect_number(N=%ld)\n", N);
     unsigned long sum = 1;
     char ret = 0;
 
@@ -38,6 +39,7 @@ char get_perfect_number(unsigned long N)
     // #ifdef DEBUG
     //     printf("%5lu: %5lu : %d\n", N, sum, ret);
     // #endif
+	fprintf(stderr, "<<< Exiting get_perfect_number(N=%ld)\n", N);
     return ret;
 }
 
@@ -46,6 +48,8 @@ char get_perfect_number(unsigned long N)
  */
 unsigned long is_abundant(unsigned long N)
 {
+	fprintf(stderr, ">>> Entering is_abundant(N=%ld)\n", N);
+    fprintf(stderr, "<<< Exiting is_abundant(N=%ld)\n", N);
     return get_perfect_number(N) == 1 ? 1 : 0;
 }
 
@@ -54,11 +58,13 @@ unsigned long is_abundant(unsigned long N)
  */
 unsigned long get_next_abundant(unsigned long N)
 {
+	fprintf(stderr, ">>> Entering get_next_abundant(N=%ld)\n", N);
     unsigned long i;
     for (i = N + 1; !is_abundant(i); i++)
     {
         ;
     }
+	fprintf(stderr, "<<< Exiting get_next_abundant(N=%ld)\n", N);
     return i;
 }
 
@@ -70,6 +76,7 @@ unsigned long get_next_abundant(unsigned long N)
  */
 char is_sum_of_abundant(unsigned long N)
 {
+	fprintf(stderr, ">>> Entering is_sum_of_abundant(N=%ld)\n", N);
     /* optimized logic:
      * i + j = N   where both i and j should be abundant
      * hence we can simply check for j = N - i as we loop through i
@@ -91,12 +98,15 @@ char is_sum_of_abundant(unsigned long N)
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     unsigned long MAX_N = 28123; /* upper limit of numbers to check */
 
     unsigned long sum = 0;
+	fprintf(stderr, "main(argc=%d,argv=%p): MAX_N → %d\n", argc, argv, MAX_N);
     if (argc == 2)
     {
         MAX_N = strtoul(argv[1], NULL, 10);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     }
 
 #ifdef _OPENMP
