@@ -16,8 +16,10 @@
  * @returns Integer of decimal value for given symbol
  */
 int symbol(char symbol) {
+	fprintf(stderr, ">>> Entering symbol(symbol=%c)\n", symbol);
     int value = 0;
     switch(symbol) {
+		fprintf(stderr, "symbol(symbol=%d): value → %d\n", symbol, value);
         case 'I':
             value = 1;
             break;
@@ -40,6 +42,7 @@ int symbol(char symbol) {
             value = 1000;
             break;
     }
+	fprintf(stderr, "<<< Exiting symbol(symbol=%c)\n", symbol);
     return value;    
 }
 
@@ -49,6 +52,7 @@ int symbol(char symbol) {
  * @returns The converted number in decimal form
  */
 int roman_to_decimal(char input[]) {
+	fprintf(stderr, ">>> Entering roman_to_decimal(input=%s)\n", input);
     int result = 0; // result in decimal
 
     for(int i = 0; i < strlen(input); i++) {
@@ -63,6 +67,7 @@ int roman_to_decimal(char input[]) {
             result += symbol(input[i]); // add value to sum
         }
     }
+	fprintf(stderr, "<<< Exiting roman_to_decimal(input=%s)\n", input);
     return result;
 }
 
@@ -71,11 +76,14 @@ int roman_to_decimal(char input[]) {
  * @returns void
  */
 static void test() {
+	fprintf(stderr, ">>> Entering test()\n");
     // 1st test
     char input[] = "MCMIV";
     int expected = 1904;
+	fprintf(stderr, "test(): expected → %d\n", expected);
     
     int output = roman_to_decimal(input);
+	fprintf(stderr, "test(): output → %d\n", output);
 
     printf("TEST 1\n");
     printf("Input: %s\n", input);
@@ -109,6 +117,7 @@ static void test() {
     printf("Output: %d\n", output);
     assert(output == expected);
     printf("== TEST PASSED ==\n\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -116,6 +125,8 @@ static void test() {
  * @returns 0 on exit
  */
 int main() {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

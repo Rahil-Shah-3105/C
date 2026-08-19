@@ -6,12 +6,14 @@
 
 void cocktailSort(int arr[], int size)
 {
+	fprintf(stderr, ">>> Entering cocktailSort(arr=%p,size=%d)\n", arr, size);
     int i, changed = TRUE, temp, start = 0, end = size - 1;
 
     while (changed)
     {
         changed = FALSE;
         for (i = start; i < end; i++)
+		fprintf(stderr, "cocktailSort(arr=%d,size=%d): changed → %d\n", arr, size, changed);
         {
             if (arr[i] > arr[i + 1])
             {
@@ -41,10 +43,12 @@ void cocktailSort(int arr[], int size)
         }
         start++;
     }
+	fprintf(stderr, "<<< Exiting cocktailSort(arr=%p,size=%d)\n", arr, size);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int i, n;
 
     printf("Enter the size of the array: ");
@@ -71,5 +75,6 @@ int main()
     printf("\n");
 
     free(arr);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

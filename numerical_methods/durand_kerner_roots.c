@@ -67,7 +67,9 @@ const char *complex_str(long double complex x)
 {
     static char msg[50];
     double r = creal(x);
+	fprintf(stderr, "complex_str(x=%d): r → %d\n", x, r);
     double c = cimag(x);
+	fprintf(stderr, "complex_str(x=%d): c → %d\n", x, c);
 
     sprintf(msg, "% 7.04g%+7.04gj", r, c);
 
@@ -82,10 +84,12 @@ const char *complex_str(long double complex x)
  */
 char check_termination(long double delta)
 {
+	fprintf(stderr, ">>> Entering check_termination(delta=%f)\n", delta);
     static long double past_delta = INFINITY;
     if (fabsl(past_delta - delta) <= ACCURACY || delta < ACCURACY)
         return 1;
     past_delta = delta;
+	fprintf(stderr, "<<< Exiting check_termination(delta=%f)\n", delta);
     return 0;
 }
 
@@ -94,9 +98,11 @@ char check_termination(long double delta)
  */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     long double *coeffs = NULL;
     long double complex *s0 = NULL;
     unsigned int degree = 0;
+	fprintf(stderr, "main(argc=%d,argv=%d): degree → %d\n", argc, argv, degree);
     unsigned int n, i;
 
     if (argc < 2)
@@ -114,6 +120,7 @@ int main(int argc, char **argv)
         (degree - 1) *
         sizeof(long double complex)); /* number of roots = degree-1 */
 
+		fprintf(stderr, "main(argc=%d,argv=%d): coeffs → %d\n", argc, argv, coeffs);
     /* initialize random seed: */
     srand(time(NULL));
 
@@ -125,6 +132,7 @@ int main(int argc, char **argv)
         if (s0)
             free(s0);
         return EXIT_FAILURE;
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     }
 
 #if defined(DEBUG) || !defined(NDEBUG)
@@ -158,6 +166,7 @@ int main(int argc, char **argv)
         else
         {
             tmp = coeffs[0];
+			fprintf(stderr, "main(argc=%d,argv=%d): tmp → %d\n", argc, argv, tmp);
             coeffs[0] = 1;
         }
 
@@ -179,6 +188,7 @@ int main(int argc, char **argv)
 #endif
 
     double tol_condition = 1;
+	fprintf(stderr, "main(argc=%d,argv=%d): tol_condition → %d\n", argc, argv, tol_condition);
     unsigned long iter = 0;
 
     clock_t end_time, start_time = clock();
@@ -235,6 +245,7 @@ end:
 
     end_time = clock();
 
+fprintf(stderr, "main(argc=%d,argv=%d): end_time → %d\n", argc, argv, end_time);
 #if defined(DEBUG) || !defined(NDEBUG)
     fclose(log_file);
 #endif

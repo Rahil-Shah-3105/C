@@ -10,6 +10,7 @@
 
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     Dictionary *testObj1;
     Dictionary *testObj2;
 
@@ -18,6 +19,8 @@ int main(void)
     testObj1 = create_dict();
     testObj2 = create_dict();
 
+	fprintf(stderr, "main(): testObj1 → %d\n", testObj1);
+	fprintf(stderr, "main(): testObj2 → %d\n", testObj2);
     add_item_label(testObj1, "age", &value);
     add_item_label(testObj2, "name", "Christian");
 
@@ -45,5 +48,6 @@ int main(void)
     destroy(testObj1);
     destroy(testObj2);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

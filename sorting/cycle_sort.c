@@ -5,6 +5,7 @@
 // Displays the array, passed to this method
 void display(int *arr, int n)
 {
+	fprintf(stderr, ">>> Entering display(arr=%p,n=%d)\n", arr, n);
     int i;
     for (i = 0; i < n; i++)
     {
@@ -12,19 +13,23 @@ void display(int *arr, int n)
     }
 
     printf("\n");
+	fprintf(stderr, "<<< Exiting display(arr=%p,n=%d)\n", arr, n);
 }
 
 // Swap function to swap two values
 void swap(int *first, int *second)
 {
+	fprintf(stderr, ">>> Entering swap(first=%p,second=%p)\n", first, second);
     int temp = *first;
     *first = *second;
     *second = temp;
+	fprintf(stderr, "<<< Exiting swap(first=%p,second=%p)\n", first, second);
 }
 
 // Function sort the array using Cycle sort
 void cycleSort(int *arr, int n)
 {
+	fprintf(stderr, ">>> Entering cycleSort(arr=%p,n=%d)\n", arr, n);
     // count number of memory writes
     int writes = 0;
 
@@ -38,6 +43,7 @@ void cycleSort(int *arr, int n)
         // Find position where we put the item. We basically
         // count all smaller elements on right side of item.
         int pos = cycle_start;
+		fprintf(stderr, "cycleSort(arr=%d,n=%d): pos → %d\n", arr, n, pos);
         for (int i = cycle_start + 1; i < n; i++)
             if (arr[i] < item)
                 pos++;
@@ -77,11 +83,13 @@ void cycleSort(int *arr, int n)
             }
         }
     }
+	fprintf(stderr, "<<< Exiting cycleSort(arr=%p,n=%d)\n", arr, n);
 }
 
 // Driver program to test above function
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int n;  // Size of array elements
 
     printf("Enter size of array:\n");
@@ -103,5 +111,6 @@ int main()
     display(arr, n);
 
     free(arr);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

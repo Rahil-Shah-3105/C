@@ -25,12 +25,14 @@ Implementation:
     // match: search for regexp anywhere in text 
     int match(char *regexp, char *text)
     {
+		fprintf(stderr, ">>> Entering match(regexp=%s,text=%s)\n", regexp, text);
         if (regexp[0] == '^')
             return matchhere(regexp+1, text);
         do {  
             if (matchhere(regexp, text))
                 return 1;
         } while (*text++ != '\0');
+		fprintf(stderr, "<<< Exiting match(regexp=%s,text=%s)\n", regexp, text);
         return 0;
     }
 */

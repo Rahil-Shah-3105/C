@@ -45,8 +45,10 @@
  */
 void error()
 {
+	fprintf(stderr, ">>> Entering error()\n");
     perror("Socket Creation Failed");
     exit(EXIT_FAILURE);
+	fprintf(stderr, "<<< Exiting error()\n");
 }
 
 /**
@@ -55,6 +57,7 @@ void error()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     /** Variable Declarations */
     uint32_t
         sockfd;  ///< socket descriptors - Like file handles but for sockets
@@ -110,6 +113,7 @@ int main()
      */
     bzero(&server_addr, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
+	fprintf(stderr, "main(): server_addr.sin_family → %d\n", server_addr.sin_family);
     server_addr.sin_port = htons(PORT);
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
@@ -152,5 +156,6 @@ int main()
     /// Close Socket
     close(sockfd);
     printf("Client is offline...\n");
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

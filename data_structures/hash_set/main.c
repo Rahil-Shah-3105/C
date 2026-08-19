@@ -4,6 +4,7 @@
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     hash_set_t *set = init_hash_set();
 
     int v1 = 10, v2 = 20, v3 = 30, v4 = 40, v5 = 50, v6 = 60, v7 = 70;
@@ -38,5 +39,6 @@ int main()
 
     printf("contains %d ? %d\n", v6, contains(set, &v6));
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

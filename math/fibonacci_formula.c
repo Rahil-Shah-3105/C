@@ -15,9 +15,12 @@
  * @returns nth value of fibonacci sequence for all n >= 0
  */
 int fib(unsigned int n) {
+	fprintf(stderr, ">>> Entering fib(n=%u)\n", n);
     float seq = (1 / sqrt(5) * pow(((1 + sqrt(5)) / 2), n + 1)) - (1 / sqrt(5) * pow(((1 - sqrt(5)) / 2), n + 1));
 
+	fprintf(stderr, "fib(n=%d): seq → %d\n", n, seq);
     // removing unnecessary fractional part by implicitly converting float to int
+	fprintf(stderr, "<<< Exiting fib(n=%u)\n", n);
     return seq;
 }
 
@@ -26,6 +29,7 @@ int fib(unsigned int n) {
  * @returns void
  */
 static void test () {
+	fprintf(stderr, ">>> Entering test()\n");
     /* this ensures that the first 10 number of fibonacci sequence
      * (1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)
      * matches with algorithm
@@ -43,6 +47,7 @@ static void test () {
     assert(fib(10) == 89);
     
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -50,10 +55,12 @@ static void test () {
  * @returns 0 on exit
  */
 int main() {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
 
     for(int i = 0; i <= 10; i++){
         printf("%d. fibonacci number is: %d\n", i, fib(i));
     }
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

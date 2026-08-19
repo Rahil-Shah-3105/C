@@ -20,6 +20,7 @@
 
 int CArrayTests()
 {
+	fprintf(stderr, ">>> Entering CArrayTests()\n");
     printf("\n");
     printf(" +-------------------------------------+\n");
     printf(" |                                     |\n");
@@ -94,6 +95,7 @@ int CArrayTests()
     bubbleSortCArray(barray);
     clock_t end1 = clock();
     double time_spent1 = (double)(end1 - begin1) / CLOCKS_PER_SEC;
+	fprintf(stderr, "CArrayTests(): time_spent1 → %d\n", time_spent1);
     displayCArray(barray);
 
     printf("\nSelection Sort:");
@@ -102,6 +104,7 @@ int CArrayTests()
     selectionSortCArray(carray);
     clock_t end2 = clock();
     double time_spent2 = (double)(end2 - begin2) / CLOCKS_PER_SEC;
+	fprintf(stderr, "CArrayTests(): time_spent2 → %d\n", time_spent2);
     displayCArray(carray);
 
     printf("\nInsertion Sort:");
@@ -110,6 +113,7 @@ int CArrayTests()
     insertionSortCArray(darray);
     clock_t end3 = clock();
     double time_spent3 = (double)(end3 - begin3) / CLOCKS_PER_SEC;
+	fprintf(stderr, "CArrayTests(): time_spent3 → %d\n", time_spent3);
     displayCArray(carray);
 
     // Descending order
@@ -156,5 +160,6 @@ int CArrayTests()
     free(carray);
     free(darray);
     printf("\n");
+	fprintf(stderr, "<<< Exiting CArrayTests()\n");
     return 0;
 }

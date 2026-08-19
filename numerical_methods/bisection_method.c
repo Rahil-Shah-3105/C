@@ -57,12 +57,14 @@ double func(double x)
  */
 double bisection(double x_left, double x_right, double tolerance)
 {
+	fprintf(stderr, ">>> Entering bisection(x_left=%f,x_right=%f,tolerance=%f)\n", x_left, x_right, tolerance);
     int n = 1;      // step counter
     double middle;  // midpoint
 
     while (n <= NMAX)
     {
         middle = (x_left + x_right) / 2;  // bisect the interval
+		fprintf(stderr, "bisection(x_left=%d,x_right=%d,tolerance=%d): middle → %d\n", x_left, x_right, tolerance, middle);
         double error = middle - x_left;
 
         if (fabs(func(middle)) < EPSILON || error < tolerance)
@@ -81,6 +83,7 @@ double bisection(double x_left, double x_right, double tolerance)
 
         n++;  // increase step counter
     }
+	fprintf(stderr, "<<< Exiting bisection(x_left=%f,x_right=%f,tolerance=%f)\n", x_left, x_right, tolerance);
     return -1;  // method failed (maximum number of steps exceeded)
 }
 
@@ -90,6 +93,7 @@ double bisection(double x_left, double x_right, double tolerance)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     /* Compares root value that is found by the bisection method within a given
      * floating point error*/
     assert(fabs(bisection(1.0, 2.0, 0.0001) - 1.847473) <
@@ -98,6 +102,7 @@ static void test()
            EPSILON);  // the algorithm works as expected
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -106,6 +111,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

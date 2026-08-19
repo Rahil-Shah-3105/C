@@ -20,6 +20,7 @@
  */
 int hamming_distance(char* str1, char* str2)
 {
+	fprintf(stderr, ">>> Entering hamming_distance(str1=%s,str2=%s)\n", str1, str2);
     int i = 0, distance = 0;
 
     while (str1[i] != '\0')
@@ -31,6 +32,7 @@ int hamming_distance(char* str1, char* str2)
         i++;
     }
 
+	fprintf(stderr, "<<< Exiting hamming_distance(str1=%s,str2=%s)\n", str1, str2);
     return distance;
 }
 
@@ -40,6 +42,7 @@ int hamming_distance(char* str1, char* str2)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     char str1[] = "karolin";
     char str2[] = "kathrin";
 
@@ -50,6 +53,7 @@ static void test()
 
     assert(hamming_distance(str3, str4) == 5);
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 /**
  * @brief Main function
@@ -57,6 +61,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
