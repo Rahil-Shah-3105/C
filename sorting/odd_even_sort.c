@@ -25,9 +25,11 @@
  */
 void swap(int32_t *first, int32_t *second)
 {
+	fprintf(stderr, ">>> Entering swap(first=%p,second=%p)\n", first, second);
     int32_t temp = *first;
     *first = *second;
     *second = temp;
+	fprintf(stderr, "<<< Exiting swap(first=%p,second=%p)\n", first, second);
 }
 
 /**
@@ -51,8 +53,10 @@ void swap(int32_t *first, int32_t *second)
  */
 void oddEvenSort(int *arr, int size)
 {
+	fprintf(stderr, ">>> Entering oddEvenSort(arr=%p,size=%p)\n", arr, size);
     bool isSorted = false;
     while(!isSorted)
+	fprintf(stderr, "oddEvenSort(arr=%p,size=%d): isSorted → %d\n", arr, size, isSorted);
     {
         isSorted = true;
         int32_t i;
@@ -77,6 +81,7 @@ void oddEvenSort(int *arr, int size)
             }
         }
     }
+	fprintf(stderr, "<<< Exiting oddEvenSort(arr=%p,size=%p)\n", arr, size);
 }
 
 /**
@@ -89,6 +94,7 @@ void oddEvenSort(int *arr, int size)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     int32_t arr1[] = {-9, 2, 3, 1};
     int32_t arr1Soln[] = {-9, 1, 2, 3};
     int32_t arr2[] = {9, 7, 5, 3, 8, 2, 1, 4, 0, 6};
@@ -107,6 +113,7 @@ static void test()
         assert(arr2[i] == arr2Soln[i]);    
     }
     printf("All tests have passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -115,6 +122,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

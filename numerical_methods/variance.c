@@ -4,15 +4,19 @@
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int *ARRAY = NULL, ARRAY_LENGTH, i, TEMPORARY_ELEMENT, isSorted = 0;
     float MEAN = 0, VARIANCE = 0, STAND;
+	fprintf(stderr, "main(): MEAN → %d\n", MEAN);
 
     printf("Enter no. for Random Numbers :");
+	fprintf(stderr, "main(): isSorted → %d\n", isSorted);
     scanf("%d", &ARRAY_LENGTH);
     ARRAY = (int *)realloc(
         ARRAY,
         ARRAY_LENGTH * (sizeof(int)));  // We allocate the dedicated memory
     for (i = 0; i < ARRAY_LENGTH; i++)  // We generate the random numbers
+		fprintf(stderr, "main(): ARRAY → %d\n", ARRAY);
         ARRAY[i] = rand() % 100;
 
     printf("Random Numbers Generated are :\n");  // We display them
@@ -45,10 +49,13 @@ int main()
     for (i = 0; i < ARRAY_LENGTH; i++)
         VARIANCE = VARIANCE + (pow((ARRAY[i] - MEAN), 2));
 
+	fprintf(stderr, "main(): VARIANCE → %d\n", VARIANCE);
     VARIANCE = VARIANCE / (float)ARRAY_LENGTH;
     STAND = sqrt(VARIANCE);
 
     printf("\n\n- Mean is: %f\n", MEAN);
+	fprintf(stderr, "main(): STAND → %d\n", STAND);
     printf("- Variance is: %f\n", VARIANCE);
     printf("- Standard Deviation is: %f\n", STAND);
+	fprintf(stderr, "<<< Exiting main()\n");
 }

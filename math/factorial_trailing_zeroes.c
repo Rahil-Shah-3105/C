@@ -6,6 +6,7 @@ number n
 #include <stdio.h>
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int i, n, test = 0, count = 0;
     // taking input number n
     scanf("%d", &n);
@@ -26,5 +27,6 @@ int main()
             break;  // break the loop for if test=0
     }
     printf("%d\n", count);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

@@ -2,21 +2,26 @@
 
 int largest(int a[], int n)
 {
+	fprintf(stderr, ">>> Entering largest(a=%p,n=%p)\n", a, n);
     int large = a[0], i;
     for (i = 1; i < n; i++)
+	fprintf(stderr, "largest(a=%p,n=%d): large → %d\n", a, n, large);
     {
         if (large < a[i])
             large = a[i];
     }
+	fprintf(stderr, "<<< Exiting largest(a=%p,n=%p)\n", a, n);
     return large;
 }
 
 void RadixSort(int a[], int n)
 {
+	fprintf(stderr, ">>> Entering RadixSort(a=%p,n=%p)\n", a, n);
     int bucket[10][10], bucket_count[10];
     int i, j, k, remainder, NOP = 0, divisor = 1, large, pass;
 
     large = largest(a, n);
+	fprintf(stderr, "RadixSort(a=%p,n=%d): large → %d\n", a, n, large);
     printf("The large element %d\n", large);
     while (large > 0)
     {
@@ -33,6 +38,7 @@ void RadixSort(int a[], int n)
         for (i = 0; i < n; i++)
         {
             remainder = (a[i] / divisor) % 10;
+			fprintf(stderr, "RadixSort(a=%p,n=%d): remainder → %d\n", a, n, remainder);
             bucket[remainder][bucket_count[remainder]] = a[i];
             bucket_count[remainder] += 1;
         }
@@ -51,10 +57,12 @@ void RadixSort(int a[], int n)
         for (i = 0; i < n; i++) printf("%d  ", a[i]);
         printf("\n");
     }
+	fprintf(stderr, "<<< Exiting RadixSort(a=%p,n=%p)\n", a, n);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int i, n, a[10];
     printf("Enter the number of elements :: ");
     scanf("%d", &n);
@@ -67,5 +75,6 @@ int main()
     printf("The sorted elements are ::  ");
     for (i = 0; i < n; i++) printf("%d  ", a[i]);
     printf("\n");
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

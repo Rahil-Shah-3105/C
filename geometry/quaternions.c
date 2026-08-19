@@ -46,6 +46,7 @@
  */
 quaternion quat_from_euler(const euler *in_euler)
 {
+	fprintf(stderr, ">>> Entering quat_from_euler(in_euler=%p)\n", in_euler);
     quaternion out_quat;
 
     if (!in_euler)  // if null
@@ -57,17 +58,28 @@ quaternion quat_from_euler(const euler *in_euler)
     quaternion temp;
 
     float cy = cosf(in_euler->yaw * 0.5f);
+	fprintf(stderr, "quat_from_euler(in_euler=%p): cy → %d\n", in_euler, cy);
     float sy = sinf(in_euler->yaw * 0.5f);
+	fprintf(stderr, "quat_from_euler(in_euler=%p): sy → %d\n", in_euler, sy);
     float cp = cosf(in_euler->pitch * 0.5f);
+	fprintf(stderr, "quat_from_euler(in_euler=%p): cp → %d\n", in_euler, cp);
     float sp = sinf(in_euler->pitch * 0.5f);
+	fprintf(stderr, "quat_from_euler(in_euler=%p): sp → %d\n", in_euler, sp);
     float cr = cosf(in_euler->roll * 0.5f);
+	fprintf(stderr, "quat_from_euler(in_euler=%p): cr → %d\n", in_euler, cr);
     float sr = sinf(in_euler->roll * 0.5f);
+	fprintf(stderr, "quat_from_euler(in_euler=%p): sr → %d\n", in_euler, sr);
 
     temp.w = cr * cp * cy + sr * sp * sy;
+	fprintf(stderr, "quat_from_euler(in_euler=%p): temp.w → %d\n", in_euler, temp.w);
+	fprintf(stderr, "quat_from_euler(in_euler=%p): temp.q1 → %d\n", in_euler, temp.q1);
+	fprintf(stderr, "quat_from_euler(in_euler=%p): temp.q2 → %d\n", in_euler, temp.q2);
+	fprintf(stderr, "quat_from_euler(in_euler=%p): temp.q3 → %d\n", in_euler, temp.q3);
     temp.q1 = sr * cp * cy - cr * sp * sy;
     temp.q2 = cr * sp * cy + sr * cp * sy;
     temp.q3 = cr * cp * sy - sr * sp * cy;
 
+	fprintf(stderr, "<<< Exiting quat_from_euler(in_euler=%p)\n", in_euler);
     return temp;
 }
 
@@ -87,6 +99,7 @@ quaternion quat_from_euler(const euler *in_euler)
  */
 euler euler_from_quat(const quaternion *in_quat)
 {
+	fprintf(stderr, ">>> Entering euler_from_quat(in_quat=%p)\n", in_quat);
     euler out_euler;
     if (!in_quat)  // if null
     {
@@ -103,6 +116,7 @@ euler euler_from_quat(const quaternion *in_quat)
         2.f * (in_quat->w * in_quat->q3 + in_quat->q1 * in_quat->q2),
         1.f - 2.f * (in_quat->q2 * in_quat->q2 + in_quat->q3 * in_quat->q3));
 
+	fprintf(stderr, "<<< Exiting euler_from_quat(in_quat=%p)\n", in_quat);
     return out_euler;
 }
 
@@ -152,6 +166,7 @@ quaternion quaternion_multiply(const quaternion *in_quat1,
 
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     quaternion quat = {0.7071f, 0.7071f, 0.f, 0.f};
     euler eul = euler_from_quat(&quat);
     printf("Euler: %.4g, %.4g, %.4g\n", eul.pitch, eul.roll, eul.yaw);
@@ -164,10 +179,13 @@ static void test()
     assert(fabsf(test_quat.q1 - quat.q1) < .01);
     assert(fabsf(test_quat.q2 - quat.q2) < .01);
     assert(fabsf(test_quat.q3 - quat.q3) < .01);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

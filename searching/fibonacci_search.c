@@ -3,10 +3,14 @@
 
 int fibMonaccianSearch(int arr[], int x, int n)
 {
+	fprintf(stderr, ">>> Entering fibMonaccianSearch(arr=%p,x=%p,n=%d)\n", arr, x, n);
     /* Initialize fibonacci numbers */
     int fibMMm2 = 0;               // (m-2)'th Fibonacci No.
+	fprintf(stderr, "fibMonaccianSearch(arr=%p,x=%d,n=%d): fibMMm2 → %d\n", arr, x, n, fibMMm2);
     int fibMMm1 = 1;               // (m-1)'th Fibonacci No.
+	fprintf(stderr, "fibMonaccianSearch(arr=%p,x=%d,n=%d): fibMMm1 → %d\n", arr, x, n, fibMMm1);
     int fibM = fibMMm2 + fibMMm1;  // m'th Fibonacci
+	fprintf(stderr, "fibMonaccianSearch(arr=%p,x=%d,n=%d): fibM → %d\n", arr, x, n, fibM);
 
     /* fibM is going to store the smallest Fibonacci
        Number greater than or equal to n */
@@ -19,6 +23,7 @@ int fibMonaccianSearch(int arr[], int x, int n)
 
     // Marks the eliminated range from front
     int offset = -1;
+	fprintf(stderr, "fibMonaccianSearch(arr=%p,x=%d,n=%d): offset → %d\n", arr, x, n, offset);
 
     /* while there are elements to be inspected. Note that
        we compare arr[fibMm2] with x. When fibM becomes 1,
@@ -59,14 +64,18 @@ int fibMonaccianSearch(int arr[], int x, int n)
         return offset + 1;
 
     /*element not found. return -1 */
+	fprintf(stderr, "<<< Exiting fibMonaccianSearch(arr=%p,x=%p,n=%d)\n", arr, x, n);
     return -1;
 }
 
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int arr[] = {10, 22, 35, 40, 45, 50, 80, 82, 85, 90, 100};
     int n = sizeof(arr) / sizeof(arr[0]);
+	fprintf(stderr, "main(): n → %d\n", n);
     int x = 85;
     printf("Found at index: %d", fibMonaccianSearch(arr, x, n));
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
