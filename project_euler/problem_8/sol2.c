@@ -10,12 +10,16 @@
 /** Main function */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     int position = 0, num_bad_chars = 0;
     int num_digits = 4;
+	fprintf(stderr, "main(argc=%d,argv=%p): num_digits → %d\n", argc, argv, num_digits);
+	fprintf(stderr, "main(argc=%d,argv=%p): position → %d\n", argc, argv, position);
     char ch;
     unsigned char num, num_prev;
     unsigned char *buffer = NULL;
     long long int prod = 1, max_prod = 0;
+	fprintf(stderr, "main(argc=%d,argv=%p): prod → %d\n", argc, argv, prod);
 
     /* if second command-line argument is given,
      * use it as the number of digits to compute
@@ -27,6 +31,7 @@ int main(int argc, char *argv[])
     /* allocate memory to store past values */
     buffer = calloc(num_digits, sizeof(unsigned char));
     if (!buffer)
+	fprintf(stderr, "main(argc=%d,argv=%p): buffer → %d\n", argc, argv, buffer);
     {
         perror("Unable to allocate memory for buffer");
         return -1;
@@ -46,6 +51,7 @@ int main(int argc, char *argv[])
     {
         /* get character from file */
         ch = getc(fp);
+		fprintf(stderr, "main(argc=%d,argv=%p): ch → %d\n", argc, argv, ch);
 
         /* the ASCII codes of digits is between 0x30 and 0x39.
          * any character not in this range implies an invalid character
@@ -100,6 +106,7 @@ int main(int argc, char *argv[])
         if (prod > max_prod)
         {
             max_prod = prod;
+			fprintf(stderr, "main(argc=%d,argv=%p): max_prod → %d\n", argc, argv, max_prod);
             position = ftell(fp) - num_bad_chars - num_digits - 1;
         }
     } while (!feof(fp)); /* loop till end of file is reached */
@@ -124,5 +131,6 @@ int main(int argc, char *argv[])
     fclose(fp);   /* close file */
     free(buffer); /* free allocated memory */
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

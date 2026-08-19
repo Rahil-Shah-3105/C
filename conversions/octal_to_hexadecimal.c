@@ -18,6 +18,7 @@
  * @returns a decimal number after conversion
  */
 long octalToDecimal(long octalValue){
+	fprintf(stderr, ">>> Entering octalToDecimal(octalValue=%ld)\n", octalValue);
     long decimalValue = 0;
     int i = 0;
     while (octalValue) {
@@ -26,6 +27,7 @@ long octalToDecimal(long octalValue){
         // Shift right in base 10
         octalValue /= 10;
     }
+	fprintf(stderr, "<<< Exiting octalToDecimal(octalValue=%ld)\n", octalValue);
     return decimalValue;
 }
 
@@ -36,6 +38,7 @@ long octalToDecimal(long octalValue){
  * @returns a hexadecimal value as a string after conversion
  */
 char *octalToHexadecimal(long octalValue){
+	fprintf(stderr, ">>> Entering octalToHexadecimal(octalValue=%ld)\n", octalValue);
     char *hexadecimalValue = malloc(256 * sizeof(char));
     sprintf(hexadecimalValue, "%lX", octalToDecimal(octalValue));
     return hexadecimalValue;
@@ -46,11 +49,13 @@ char *octalToHexadecimal(long octalValue){
  * @returns void
  */
 static void test() {
+	fprintf(stderr, ">>> Entering test()\n");
     /* test that hexadecimal value of octal number 213 is 8B */
     assert(strcmp(octalToHexadecimal(213), "8B") == 0);
 
     /* test that hexadecimal value of octal number 174 is 7C */
     assert(strcmp(octalToHexadecimal(174), "7C") == 0);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -59,6 +64,7 @@ static void test() {
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     // execute the tests
     test();
 
@@ -75,5 +81,6 @@ int main()
     free(hexadecimalValue);
 
     // return 0 and exit
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

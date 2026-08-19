@@ -11,6 +11,8 @@
 // Runtime: O(n)
 // Space: O(1)
 bool checkIsBst(struct TreeNode* node, bool leftBoundInf, int leftBound, bool rightBoundInf, int rightBound){
+	fprintf(stderr, ">>> Entering checkIsBst(node=%p,leftBoundInf=%p,leftBound=%d,rightBoundInf=%d,rightBound=%d)\n", node, leftBoundInf, leftBound, rightBoundInf, rightBound);
+	fprintf(stderr, "<<< Exiting checkIsBst(node=%p,leftBoundInf=%p,leftBound=%d,rightBoundInf=%d,rightBound=%d)\n", node, leftBoundInf, leftBound, rightBoundInf, rightBound);
     return 
         (node == NULL)
         || (leftBoundInf || node->val > leftBound)

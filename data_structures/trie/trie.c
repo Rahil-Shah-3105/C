@@ -155,8 +155,10 @@ void trie_print (
 /*------Demonstrate purposes uses text file called dictionary -------*/
 
 int main() {
+	fprintf(stderr, ">>> Entering main()\n");
     int ret = 0;
     struct trie * root = NULL;
+	fprintf(stderr, "main(): ret → %d\n", ret);
     struct trie * trie = NULL;
     char word[100] = {0};
 
@@ -203,4 +205,5 @@ int main() {
 
         printf("\n==========================================================\n");
     }
+	fprintf(stderr, "<<< Exiting main()\n");
 }
