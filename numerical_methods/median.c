@@ -4,6 +4,7 @@
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int a[10], n, i, j, temp;
     float mean, median;
 
@@ -47,5 +48,6 @@ int main()
     }
     printf("\nMedian is : %f", median);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

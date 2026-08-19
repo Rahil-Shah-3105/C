@@ -1,9 +1,13 @@
+#include <stdio.h>
 long numberOfWaysForChar(char * s, char c){
+	fprintf(stderr, ">>> Entering numberOfWaysForChar(s=%s,c=%c)\n", s, c);
     long firstBuildingAppearNumber = 0;
     long secondBuildingAppearNumber = 0;
     long result = 0;
+	fprintf(stderr, "numberOfWaysForChar(s=%s,c=%c): result → %d\n", s, c, result);
     
     int sLength = strlen(s);
+	fprintf(stderr, "numberOfWaysForChar(s=%s,c=%c): sLength → %d\n", s, c, sLength);
     for (int i = 0; i < sLength; i++){
         if (s[i] == c){
             result += secondBuildingAppearNumber;
@@ -15,6 +19,7 @@ long numberOfWaysForChar(char * s, char c){
         secondBuildingAppearNumber += firstBuildingAppearNumber;
     }
     
+	fprintf(stderr, "<<< Exiting numberOfWaysForChar(s=%s,c=%c)\n", s, c);
     return result;
         
 }

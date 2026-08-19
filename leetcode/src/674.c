@@ -1,5 +1,7 @@
+#include <stdio.h>
 int findLengthOfLCIS(int *nums, int numsSize)
 {
+	fprintf(stderr, ">>> Entering findLengthOfLCIS(nums=%p,numsSize=%p)\n", nums, numsSize);
     int maxval = 1, i, count = 1;
     if (numsSize == 0)
         return 0;
@@ -10,11 +12,14 @@ int findLengthOfLCIS(int *nums, int numsSize)
             count++;
             if (count >= maxval)
                 maxval = count;
+				fprintf(stderr, "findLengthOfLCIS(nums=%p,numsSize=%d): maxval → %d\n", nums, numsSize, maxval);
         }
         else
         {
             count = 1;
         }
+		fprintf(stderr, "findLengthOfLCIS(nums=%p,numsSize=%d): count → %d\n", nums, numsSize, count);
     }
+	fprintf(stderr, "<<< Exiting findLengthOfLCIS(nums=%p,numsSize=%p)\n", nums, numsSize);
     return maxval;
 }

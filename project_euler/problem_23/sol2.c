@@ -30,6 +30,7 @@ char *abundant_flags = NULL;
  */
 char get_perfect_number(unsigned long N)
 {
+	fprintf(stderr, ">>> Entering get_perfect_number(N=%ld)\n", N);
     unsigned long sum = 1;
     char ret = 0;
 
@@ -46,6 +47,7 @@ char get_perfect_number(unsigned long N)
         }
     }
 
+	fprintf(stderr, "<<< Exiting get_perfect_number(N=%ld)\n", N);
     ret = sum == N ? 0 : (sum > N ? 1 : -1);
 #ifdef DEBUG
     printf("%5lu: %5lu : %d\n", N, sum, ret);
@@ -58,7 +60,9 @@ char get_perfect_number(unsigned long N)
  */
 char is_abundant(unsigned long N)
 {
+	fprintf(stderr, ">>> Entering is_abundant(N=%ld)\n", N);
     // return abundant_flags[N >> 3] & (1 << N % 8) ? 1 : 0;
+	fprintf(stderr, "<<< Exiting is_abundant(N=%ld)\n", N);
     return abundant_flags[N >> 3] & (1 << (N & 7))
                ? 1
                : 0; /* optimized modulo operation */
@@ -69,12 +73,14 @@ char is_abundant(unsigned long N)
  */
 unsigned long get_next_abundant(unsigned long N)
 {
+	fprintf(stderr, ">>> Entering get_next_abundant(N=%ld)\n", N);
     unsigned long i;
     /* keep checking successive numbers till an abundant number is found */
     for (i = N + 1; !is_abundant(i); ++i)
     {
         ;
     }
+	fprintf(stderr, "<<< Exiting get_next_abundant(N=%ld)\n", N);
     return i;
 }
 
@@ -86,6 +92,7 @@ unsigned long get_next_abundant(unsigned long N)
  */
 char is_sum_of_abundant(unsigned long N)
 {
+	fprintf(stderr, ">>> Entering is_sum_of_abundant(N=%ld)\n", N);
     /* optimized logic:
      * i + j = N   where both i and j should be abundant
      * hence we can simply check for j = N - i as we loop through i
@@ -107,9 +114,11 @@ char is_sum_of_abundant(unsigned long N)
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     long MAX_N = 28123; /* Limit of numbers to check */
 
     unsigned long sum = 0;
+	fprintf(stderr, "main(argc=%d,argv=%p): MAX_N → %d\n", argc, argv, MAX_N);
     if (argc == 2)
     {
         MAX_N = strtoul(argv[1], NULL, 10);
@@ -123,6 +132,7 @@ int main(int argc, char **argv)
     {
         perror("Unable to allocate memoey!");
         return -1;
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     }
 
 #ifdef _OPENMP
@@ -142,6 +152,7 @@ int main(int argc, char **argv)
     for (N = 1; N <= MAX_N; N++)
     {
         char ret = get_perfect_number(N);
+		fprintf(stderr, "main(argc=%d,argv=%p): ret → %d\n", argc, argv, ret);
         if (ret == 1)
         {
             // int byte_offset = N % 8, index = N >> 3;
@@ -157,6 +168,7 @@ int main(int argc, char **argv)
 
     clock_t end_time = clock();
     double t1 = 1e3 * (end_time - start_time) / CLOCKS_PER_SEC;
+	fprintf(stderr, "main(argc=%d,argv=%p): t1 → %d\n", argc, argv, t1);
     printf("Time taken to get abundant numbers: %.4g ms\n", t1);
 
     clock_t t2 = 0;

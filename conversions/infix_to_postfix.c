@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * @file
  * @brief [Infix to
@@ -35,6 +36,7 @@ void convert(char infix[],
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     char infix[20], postfix[20];  // initialize empty infix and postfix array
 
     printf("Enter infix expression: ");  // example : A+B-C*D/E$F
@@ -43,6 +45,7 @@ int main()
     convert(infix, postfix);
     printf("Postfix expression is %s", postfix);  // output : AB+CD*EF$/-
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 
@@ -54,6 +57,7 @@ int main()
  */
 void push(struct Stack *p, char x)
 {
+	fprintf(stderr, ">>> Entering push(p=%p,x=%c)\n", p, x);
     if (p->tos == 9)  // check if stack has reached its max limit
     {
         printf("Stack Overflow!");
@@ -71,6 +75,7 @@ void push(struct Stack *p, char x)
  */
 char pop(struct Stack *p)
 {
+	fprintf(stderr, ">>> Entering pop(p=%p)\n", p);
     char x;
 
     if (p->tos == -1)
@@ -82,6 +87,7 @@ char pop(struct Stack *p)
     x = p->arr[p->tos];  // assign the value of stack at index tos to x
     p->tos -= 1;         // decrement tos
 
+	fprintf(stderr, "<<< Exiting pop(p=%p)\n", p);
     return x;
 }
 
@@ -92,6 +98,7 @@ char pop(struct Stack *p)
  */
 int isOprnd(char ch)
 {
+	fprintf(stderr, ">>> Entering isOprnd(ch=%c)\n", ch);
     if ((ch >= 65 && ch <= 90) ||
         (ch >= 97 && ch <= 122) ||  // check if ch is an operator or
         (ch >= 48 && ch <= 57))     // operand using ASCII values
@@ -100,6 +107,7 @@ int isOprnd(char ch)
     }
     else
     {
+		fprintf(stderr, "<<< Exiting isOprnd(ch=%c)\n", ch);
         return 0;  // return for false result
     }
 }
@@ -111,12 +119,15 @@ int isOprnd(char ch)
  */
 int isEmpty(struct Stack s)
 {
+	fprintf(stderr, ">>> Entering isEmpty(s=%d)\n", s);
     if (s.tos == -1)  // check if stack is empty
     {
+		fprintf(stderr, "Exception in isEmpty(s=%d): %d\n", s, errno);
         return 1;  // return for true result
     }
     else
     {
+		fprintf(stderr, "<<< Exiting isEmpty(s=%d)\n", s);
         return 0;  // return for false result
     }
 }
@@ -200,6 +211,7 @@ void convert(char infix[], char postfix[])
  */
 int getPrecedence (char op1, char op2)
 {
+	fprintf(stderr, ">>> Entering getPrecedence(op1=%c,op2=%c)\n", op1, op2);
     if (op2 == '$')
     {
         return 0;
@@ -222,6 +234,7 @@ int getPrecedence (char op1, char op2)
     }
     else
     {
+	fprintf(stderr, "<<< Exiting getPrecedence(op1=%c,op2=%c)\n", op1, op2);
         return 1;
     }
 }

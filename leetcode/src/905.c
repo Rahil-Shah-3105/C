@@ -1,3 +1,4 @@
+#include <stdio.h>
 /**
  * 905. Sort Array By Parity
  * Given an array A of non-negative integers, return an array consisting of

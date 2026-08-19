@@ -3,6 +3,7 @@
 
 void sort(int *numbers, int size)
 {
+	fprintf(stderr, ">>> Entering sort(numbers=%p,size=%p)\n", numbers, size);
     int pos = 0;
     while (pos < size)
     {
@@ -19,17 +20,21 @@ void sort(int *numbers, int size)
                 pos = 1;
         }
     }
+	fprintf(stderr, "<<< Exiting sort(numbers=%p,size=%p)\n", numbers, size);
 }
 
 void display(int *array, int n)
 {
+	fprintf(stderr, ">>> Entering display(array=%p,n=%p)\n", array, n);
     int i;
     for (i = 0; i < n; ++i) printf("%d ", array[i]);
     printf("\n");
+	fprintf(stderr, "<<< Exiting display(array=%p,n=%p)\n", array, n);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int size = 6;
     int i;
     int *numbers = malloc(size * sizeof(int));
@@ -41,5 +46,6 @@ int main()
     printf("Sorted array: ");
     display(numbers, size);
     free(numbers);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

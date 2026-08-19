@@ -2,6 +2,7 @@
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int a[16500], T;
     long long int i, j;
 
@@ -37,6 +38,7 @@ int main()
             {
                 count = i;
             }
+			fprintf(stderr, "main(): count → %d\n", count);
         }
 
         for (i = count; i > 0; i--)
@@ -46,5 +48,6 @@ int main()
         printf("\n");
     }
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

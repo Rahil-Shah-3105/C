@@ -57,9 +57,11 @@
  */
 void problem(const double *x, double *y, double *dy)
 {
+	fprintf(stderr, ">>> Entering problem(x=%p,y=%p,dy=%p)\n", x, y, dy);
     const double omega = 1.F;       // some const for the problem
     dy[0] = y[1];                   // x dot
     dy[1] = -omega * omega * y[0];  // y dot
+	fprintf(stderr, "<<< Exiting problem(x=%p,y=%p,dy=%p)\n", x, y, dy);
 }
 
 /**
@@ -70,8 +72,10 @@ void problem(const double *x, double *y, double *dy)
  */
 void exact_solution(const double *x, double *y)
 {
+	fprintf(stderr, ">>> Entering exact_solution(x=%p,y=%p)\n", x, y);
     y[0] = cos(x[0]);
     y[1] = -sin(x[0]);
+	fprintf(stderr, "<<< Exiting exact_solution(x=%p,y=%p)\n", x, y);
 }
 
 /**
@@ -84,6 +88,7 @@ void exact_solution(const double *x, double *y)
  */
 void semi_implicit_euler_step(double dx, double *x, double *y, double *dy)
 {
+	fprintf(stderr, ">>> Entering semi_implicit_euler_step(dx=%f,x=%p,y=%p,dy=%p)\n", dx, x, y, dy);
     int o;
 
     problem(x, y, dy);   // update dy once
@@ -94,6 +99,7 @@ void semi_implicit_euler_step(double dx, double *x, double *y, double *dy)
     for (o = 1; o < order; o++)
         y[o] += dx * dy[o];  // update remaining using new dy
     *x += dx;
+	fprintf(stderr, "<<< Exiting semi_implicit_euler_step(dx=%f,x=%p,y=%p,dy=%p)\n", dx, x, y, dy);
 }
 
 /**
@@ -146,6 +152,7 @@ double semi_implicit_euler(double dx, double x0, double x_max, double *y,
 */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     double X0 = 0.f;          /* initial value of x0 */
     double X_MAX = 10.F;      /* upper limit of integration */
     double Y0[] = {1.f, 0.f}; /* initial value Y = y(x = x_0) */
@@ -160,12 +167,15 @@ int main(int argc, char *argv[])
         // use commandline argument as independent variable step size
         step_size = atof(argv[1]);
 
+	fprintf(stderr, "main(argc=%d,argv=%p): step_size → %d\n", argc, argv, step_size);
     // get approximate solution
     double total_time = semi_implicit_euler(step_size, X0, X_MAX, Y0, 1);
+	fprintf(stderr, "main(argc=%d,argv=%p): total_time → %d\n", argc, argv, total_time);
     printf("\tTime = %.6g ms\n", total_time);
 
     /* compute exact solution for comparion */
     FILE *fp = fopen("exact.csv", "w+");
+	fprintf(stderr, "main(argc=%d,argv=%p): fp → %d\n", argc, argv, fp);
     if (fp == NULL)
     {
         perror("Error! ");
@@ -188,5 +198,6 @@ int main(int argc, char *argv[])
     printf("\tTime = %.6g ms\n", total_time);
     fclose(fp);
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

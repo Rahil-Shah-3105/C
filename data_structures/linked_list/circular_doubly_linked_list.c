@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * @file
  *
@@ -56,6 +57,7 @@ ListNode *insert_at_head(ListNode *head, uint64_t data)
 {
     if (head == NULL)
     {
+		fprintf(stderr, "Exception in insert_at_head(head=%p,data=%d): %d\n", head, data, errno);
         head = create_node(data);
         return head;
     }
@@ -85,6 +87,7 @@ ListNode *insert_at_tail(ListNode *head, uint64_t data)
 {
     if (head == NULL)
     {
+		fprintf(stderr, "Exception in insert_at_tail(head=%p,data=%d): %d\n", head, data, errno);
         head = create_node(data);
         return head;
     }
@@ -168,6 +171,7 @@ ListNode *delete_from_tail(ListNode *head)
  */
 int getsize(ListNode *head)
 {
+	fprintf(stderr, ">>> Entering getsize(head=%p)\n", head);
     if (!head)
     {
         return 0;
@@ -179,6 +183,7 @@ int getsize(ListNode *head)
         temp = temp->next;
         size++;
     }
+	fprintf(stderr, "<<< Exiting getsize(head=%p)\n", head);
     return size;
 }
 
@@ -190,6 +195,7 @@ int getsize(ListNode *head)
 
 void display_list(ListNode *head)
 {
+	fprintf(stderr, ">>> Entering display_list(head=%p)\n", head);
     printf("\nContents of your linked list: ");
     ListNode *temp;
     temp = head;
@@ -210,6 +216,7 @@ void display_list(ListNode *head)
         printf("The list is empty");
     }
     printf("\n");
+	fprintf(stderr, "<<< Exiting display_list(head=%p)\n", head);
 }
 
 /**
@@ -222,6 +229,7 @@ void display_list(ListNode *head)
  */
 uint64_t get(ListNode *list, const int index)
 {
+	fprintf(stderr, ">>> Entering get(list=%p,index=%p)\n", list, index);
     if (list == NULL || index < 0)
     {
         exit(EXIT_FAILURE);
@@ -231,6 +239,7 @@ uint64_t get(ListNode *list, const int index)
     {
         temp = temp->next;
     }
+	fprintf(stderr, "<<< Exiting get(list=%p,index=%p)\n", list, index);
     return temp->value;
 }
 
@@ -240,8 +249,10 @@ uint64_t get(ListNode *list, const int index)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     ListNode *testList = NULL;
     unsigned int array[] = {2, 3, 4, 5, 6};
+	fprintf(stderr, "test(): testList → %d\n", testList);
 
     assert(getsize(testList) == 0);
 
@@ -282,6 +293,7 @@ static void test()
         // will wrap around to the list head
         if (testList != NULL)
         {
+			fprintf(stderr, "Exception in test(): %d\n", errno);
             assert(get(testList, i) == testList->value);
         }
         else
@@ -291,6 +303,7 @@ static void test()
             assert(i == 0);
         }
     }
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -299,6 +312,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

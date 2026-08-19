@@ -1,7 +1,9 @@
+#include <stdio.h>
 #include <limits.h>
 
 int reverse(int x)
 {
+	fprintf(stderr, ">>> Entering reverse(x=%d)\n", x);
     int rev = 0;
     while (x != 0)
     {
@@ -13,5 +15,6 @@ int reverse(int x)
             return 0;
         rev = rev * 10 + pop;
     }
+	fprintf(stderr, "<<< Exiting reverse(x=%d)\n", x);
     return rev;
 }

@@ -1,3 +1,4 @@
+#include <stdio.h>
 /**
  * @file
  * @brief Implementation of a [function](https://www.geeksforgeeks.org/variable-length-argument-c) similar to `printf`
@@ -47,9 +48,11 @@ typedef struct buffer {
  */
 int power_of_ten(int a)
 {
+	fprintf(stderr, ">>> Entering power_of_ten(a=%d)\n", a);
 	int n = 1; ///< This number will be returned as ten to power of a
 	for (int i = 1; i <= a; ++i)
 		n *= 10 ;
+	fprintf(stderr, "<<< Exiting power_of_ten(a=%d)\n", a);
 	return n;
 }
 
@@ -73,8 +76,10 @@ int is_number(char *c)
  */
 char get_ch(char *p, Buffer *buffer)
 {
+	fprintf(stderr, ">>> Entering get_ch(p=%s,buffer=%p)\n", p, buffer);
 	if (buffer->buf_size) {
 		buffer->buf_size = 0; ///< Since character is used, this sets `buffer->buf_size` to zero
+	fprintf(stderr, "<<< Exiting get_ch(p=%s,buffer=%p)\n", p, buffer);
 		return buffer->buffr_char; // Returns character inside buffer->buffr_char
 	}
 	return *p++;
@@ -87,8 +92,10 @@ char get_ch(char *p, Buffer *buffer)
 */
 void unget_ch(char *c, Buffer *buffer)
 {
+	fprintf(stderr, ">>> Entering unget_ch(c=%s,buffer=%p)\n", c, buffer);
 	buffer->buffr_char = *c;	// Character initializes inside buffer->buffr_char
 	buffer->buf_size = 1; // Sets bufsize to one as new character is stored in buffr_char
+	fprintf(stderr, "<<< Exiting unget_ch(c=%s,buffer=%p)\n", c, buffer);
 }
 
 
@@ -99,11 +106,13 @@ void unget_ch(char *c, Buffer *buffer)
 */
 int get_number_of_digits(int n)
 {
+	fprintf(stderr, ">>> Entering get_number_of_digits(n=%d)\n", n);
 	int digits = 0; // Stores encountered number of digits
 	while (n > 0) {
 		++digits; // Since number still contains a digit, so increment digit variable
 		n /= 10; // Removes last digit from number
 	}
+	fprintf(stderr, "<<< Exiting get_number_of_digits(n=%d)\n", n);
 	return digits;
 }
 
@@ -113,12 +122,14 @@ int get_number_of_digits(int n)
 */
 void put_char(char s)
 {
+	fprintf(stderr, ">>> Entering put_char(s=%c)\n", s);
 	/* buf used for storing character to be printed in an array (+1 for '\0')*/
 	char *buf = (char *) malloc(sizeof(char) + 1); 
 	*buf = s;
 	*(buf + 1) = '\0';
 	write(1, buf, 1);
 	free(buf);
+	fprintf(stderr, "<<< Exiting put_char(s=%c)\n", s);
 }
 
 /**
@@ -127,6 +138,7 @@ void put_char(char s)
 */
 void reverse_str(char *p)
 {
+	fprintf(stderr, ">>> Entering reverse_str(p=%s)\n", p);
 	char *l = p; // Points to first character of p
 	char *h = p; // Will be used to point to last character of p
 	char temp; // Temporarily stores a character, Used in swapping
@@ -143,6 +155,7 @@ void reverse_str(char *p)
 		++l; // Increment lower to next character
 		--h; // Decrement higher to previous character from current character
 	}
+	fprintf(stderr, "<<< Exiting reverse_str(p=%s)\n", p);
 }
 
 /**
@@ -157,6 +170,7 @@ void reverse_str(char *p)
 */
 void print_int_value(int n, int width, int precision)
 {
+	fprintf(stderr, ">>> Entering print_int_value(n=%d,width=%d,precision=%d)\n", n, width, precision);
 	char *p = (char *) malloc(INT_MAX_LENGTH * sizeof(char) + 1); /* +1 for '\0' */
 	char *s = p; // Temporary pointer
 	int size = 0; //!< Used to store number of digits in number
@@ -190,6 +204,7 @@ void print_int_value(int n, int width, int precision)
 		put_char(*s++);
 
 	free(p);
+	fprintf(stderr, "<<< Exiting print_int_value(n=%d,width=%d,precision=%d)\n", n, width, precision);
 }
 
 /**
@@ -209,6 +224,7 @@ void print_int_value(int n, int width, int precision)
  */
 void print_double_value(double dval, int width, int precision)
 {
+	fprintf(stderr, ">>> Entering print_double_value(dval=%f,width=%f,precision=%d)\n", dval, width, precision);
 	int ndigits = get_number_of_digits((int) dval); // Store number of digits before decimal in dval
 	int reqd_blanks = width - (precision + 1) - ndigits; // Blanks to be printed before printing dval, just to cover the width
 	
@@ -224,6 +240,7 @@ void print_double_value(double dval, int width, int precision)
 	dval *= power_of_ten(precision); // Brings precision number of digits after decimal to before decimal
 	
 	print_int_value((int) dval, 0, precision); // Prints the remaining number
+	fprintf(stderr, "<<< Exiting print_double_value(dval=%f,width=%f,precision=%d)\n", dval, width, precision);
 }
 
 /**
@@ -237,6 +254,7 @@ void print_double_value(double dval, int width, int precision)
 */
 void print_string(char *p, int width, int precision)
 {
+	fprintf(stderr, ">>> Entering print_string(p=%s,width=%s,precision=%d)\n", p, width, precision);
 	int size = 0; // Stores number of character in string
 	char *s = p; // Temporary pointer
 
@@ -272,6 +290,8 @@ void print_string(char *p, int width, int precision)
 * @param precision variable in which precision will be stored
 * @return character pointer to the current pointer of string p (used to update value of p)
 */
+fprintf(stderr, ">>> Entering get_width_and_precision(p=%s,buffer=%p,width=%p,precision=%p)\n", p, buffer, width, precision);
+fprintf(stderr, "<<< Exiting get_width_and_precision(p=%s,buffer=%p,width=%p,precision=%p)\n", p, buffer, width, precision);
 char *get_width_and_precision(char *p, Buffer *buffer, int *width, int *precision)
 {
 	/* Skip % if p is pointing to it.*/
@@ -298,6 +318,7 @@ char *get_width_and_precision(char *p, Buffer *buffer, int *width, int *precisio
 */
 void min_printf(char *fmt, ...)
 {
+	fprintf(stderr, ">>> Entering min_printf(fmt=%s)\n", fmt);
 	va_list ap; // Points to each unnamed arg in turn
 	char *p, *sval; // p will be used to point to fmt and sval will store string value
 	char cval; // Stores character value
@@ -310,6 +331,7 @@ void min_printf(char *fmt, ...)
 	buffer->buf_size = 0; // Initially set buffer size to zero as no character is inserted
 
 	for (p = fmt; *p != '\0'; ++p) {
+		fprintf(stderr, "min_printf(fmt=%s): p → %d\n", fmt, p);
 		
 		/* If p != '%' then the character is printed to screen. */
 		if (*p != '%') {
@@ -328,14 +350,17 @@ void min_printf(char *fmt, ...)
 			case 'd': // Integer
 				ival = va_arg(ap, int);
 				print_int_value(ival, width, precision);
+				fprintf(stderr, "min_printf(fmt=%s): ival → %d\n", fmt, ival);
 				break;
 			case 'c': // Character
 				cval = va_arg(ap, int);
 				put_char(cval);
+				fprintf(stderr, "min_printf(fmt=%s): cval → %d\n", fmt, cval);
 				break;
 			case 'f': // Float or Double
 				dval = va_arg(ap, double);
 
+				fprintf(stderr, "min_printf(fmt=%s): dval → %d\n", fmt, dval);
 				// If precision is not specified then default value is applied
 				if (precision == 0)
 					precision = PRECISION_FOR_FLOAT;
@@ -344,6 +369,7 @@ void min_printf(char *fmt, ...)
 			case 's': // String pointer
 				sval = va_arg(ap, char *);
 				print_string(sval, width, precision);
+				fprintf(stderr, "min_printf(fmt=%s): sval → %d\n", fmt, sval);
 				break;
 			default:
 				put_char(*p);
@@ -351,6 +377,7 @@ void min_printf(char *fmt, ...)
 		}
 	}
 	va_end(ap);
+	fprintf(stderr, "<<< Exiting min_printf(fmt=%s)\n", fmt);
 }
 
 #endif /* MIN_PRINTF_H */

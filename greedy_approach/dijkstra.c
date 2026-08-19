@@ -16,6 +16,7 @@ void enqueue(int v) { q[qp++] = v; }
 
 int cf(void *a, void *b)
 {
+	fprintf(stderr, ">>> Entering cf(a=%p,b=%p)\n", a, b);
     int *x = (int *)a;
     int *y = (int *)b;
     return *y - *x;
@@ -23,7 +24,9 @@ int cf(void *a, void *b)
 
 int dequeue()
 {
+	fprintf(stderr, ">>> Entering dequeue()\n");
     qsort(q, qp, sizeof(int), cf);
+	fprintf(stderr, "<<< Exiting dequeue()\n");
     return q[--qp];
 }
 
@@ -34,6 +37,7 @@ int vp = 0;
 
 void dijkstra(int s)
 {
+	fprintf(stderr, ">>> Entering dijkstra(s=%d)\n", s);
     dist[s] = 0;
     int i;
     for (i = 0; i < V; ++i)
@@ -47,6 +51,7 @@ void dijkstra(int s)
     while (queue_has_something())
     {
         int u = dequeue();
+		fprintf(stderr, "dijkstra(s=%d): u → %d\n", s, u);
         visited[vp++] = u;
         for (i = 0; i < V; ++i)
         {
@@ -59,10 +64,12 @@ void dijkstra(int s)
             }
         }
     }
+	fprintf(stderr, "<<< Exiting dijkstra(s=%d)\n", s);
 }
 
 int main(int argc, char const *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     printf("Enter the number of vertices: ");
     scanf(" %d", &V);
     printf("Enter the adj matrix: ");
@@ -83,5 +90,6 @@ int main(int argc, char const *argv[])
         printf("%d\t%d\n", i, dist[i]);
     }
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }
