@@ -18,15 +18,20 @@
 /** comparison function for use with internal `qsort` algorithm */
 int compare(const void *a, const void *b)
 {
+	fprintf(stderr, ">>> Entering compare(a=%p,b=%p)\n", a, b);
+    fprintf(stderr, "<<< Exiting compare(a=%p,b=%p)\n", a, b);
     return (*(unsigned short *)a - *(unsigned short *)b);
 }
 
 /** Main function */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     unsigned short max_digits = 0, max_idx_number = 0;
 
+	fprintf(stderr, "main(argc=%d,argv=%s): max_digits → %d\n", argc, argv, max_digits);
     clock_t start_time = clock();
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     short deno;
 #ifdef _OPENMP
 #pragma omp for
@@ -35,6 +40,7 @@ int main(int argc, char *argv[])
     {
         unsigned short remainders[MAX_LEN];
         unsigned short rem = 1, *rem_ptr = remainders;
+		fprintf(stderr, "main(argc=%d,argv=%s): rem → %d\n", argc, argv, rem);
         memset(remainders, (unsigned short)-1,
                MAX_LEN * sizeof(unsigned short));
         // remainders[0] = 1;
@@ -51,6 +57,7 @@ int main(int argc, char *argv[])
             }
             rem_ptr = (unsigned short *)bsearch(
                 &rem, remainders, MAX_LEN, sizeof(unsigned short), compare);
+				fprintf(stderr, "main(argc=%d,argv=%s): rem_ptr → %d\n", argc, argv, rem_ptr);
             // printf("%2d, ", rem);
             // printf("(%14p), ", rem_ptr);
             if (rem_ptr != NULL)
@@ -62,6 +69,7 @@ int main(int argc, char *argv[])
 
         num_digits = index - (rem_ptr - remainders);
         // printf("\n\t(%14p, %14p, %4u, %4u)\n", rem_ptr, remainders, index,
+		fprintf(stderr, "main(argc=%d,argv=%s): num_digits → %d\n", argc, argv, num_digits);
         // num_digits);
 #ifdef _OPENMP
 #pragma omp critical
@@ -71,6 +79,7 @@ int main(int argc, char *argv[])
             {
                 max_digits = num_digits;
                 max_idx_number = deno;
+				fprintf(stderr, "main(argc=%d,argv=%s): max_idx_number → %d\n", argc, argv, max_idx_number);
                 // printf("\t (%u, %u)\n ", max_digits, max_idx_number);
             }
 #ifdef _OPENMP

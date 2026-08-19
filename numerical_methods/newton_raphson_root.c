@@ -36,8 +36,11 @@ double complex d_func(double complex x) { return 2. * x; }
  */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     double delta = 1;
     double complex cdelta = 1;
+	fprintf(stderr, "main(argc=%d,argv=%s): cdelta → %d\n", argc, argv, cdelta);
+	fprintf(stderr, "main(argc=%d,argv=%s): delta → %d\n", argc, argv, delta);
 
     /* initialize random seed: */
     srand(time(NULL));
@@ -52,13 +55,16 @@ int main(int argc, char **argv)
         cdelta = func(root) / d_func(root);
         root += -cdelta;
         counter++;
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
         delta = fabs(cabs(cdelta));
 
 #if defined(DEBUG) || !defined(NDEBUG)
         if (counter % 50 == 0)
         {
             double r = creal(root);
+			fprintf(stderr, "main(argc=%d,argv=%s): r → %d\n", argc, argv, r);
             double c = cimag(root);
+			fprintf(stderr, "main(argc=%d,argv=%s): c → %d\n", argc, argv, c);
 
             printf("Iter %5lu: Root: %4.4g%c%4.4gi\t\tdelta: %.4g\n", counter,
                    r, c >= 0 ? '+' : '-', c >= 0 ? c : -c, delta);

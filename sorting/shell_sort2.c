@@ -15,8 +15,10 @@
 /** Helper function to print array values */
 void show_data(int *arr, long len)
 {
+	fprintf(stderr, ">>> Entering show_data(arr=%p,len=%ld)\n", arr, len);
     for (long i = 0; i < len; i++) printf("%3d ", arr[i]);
     printf("\n");
+	fprintf(stderr, "<<< Exiting show_data(arr=%p,len=%ld)\n", arr, len);
 }
 
 /** Function to swap values of two integers
@@ -25,11 +27,14 @@ void show_data(int *arr, long len)
  */
 inline void swap(int *a, int *b)
 {
+	fprintf(stderr, ">>> Entering swap(a=%p,b=%p)\n", a, b);
     int tmp;
 
     tmp = *a;
+	fprintf(stderr, "swap(a=%p,b=%p): tmp → %d\n", a, b, tmp);
     *a = *b;
     *b = tmp;
+	fprintf(stderr, "<<< Exiting swap(a=%p,b=%p)\n", a, b);
 }
 
 /**
@@ -40,6 +45,7 @@ inline void swap(int *a, int *b)
  */
 void shell_sort(int *array, long LEN)
 {
+	fprintf(stderr, ">>> Entering shell_sort(array=%p,LEN=%ld)\n", array, LEN);
     const int gaps[] = {701, 301, 132, 57, 23, 10, 4, 1};
     const int gap_len = 8;
     long i, j, g;
@@ -55,6 +61,7 @@ void shell_sort(int *array, long LEN)
                 array[j] = array[j - gap];
             array[j] = tmp;
         }
+	fprintf(stderr, "<<< Exiting shell_sort(array=%p,LEN=%ld)\n", array, LEN);
     }
 #ifdef DEBUG
     for (i = 0; i < LEN; i++) printf("%s\t", data[i]);
@@ -65,8 +72,10 @@ void shell_sort(int *array, long LEN)
 /** Main function */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     int i;
     long size = 500;
+	fprintf(stderr, "main(argc=%d,argv=%s): size → %d\n", argc, argv, size);
     if (argc == 2)
         size = atol(argv[1]);
     else if (argc > 2)
@@ -92,5 +101,6 @@ int main(int argc, char *argv[])
     printf("Time spent sorting: %.4g s\n", (t2 - t1) / CLOCKS_PER_SEC);
 
     free(array);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

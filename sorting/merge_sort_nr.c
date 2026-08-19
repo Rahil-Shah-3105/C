@@ -18,21 +18,27 @@ void show(int x[], int n);
 
 void mergesort(int x[], int n)
 {
+	fprintf(stderr, ">>> Entering mergesort(x=%p,n=%p)\n", x, n);
     int temp[50], i, j, k, lb1, lb2, ub1, ub2, size;
 
     size = 1;
     while (size < n)
+	fprintf(stderr, "mergesort(x=%p,n=%d): size → %d\n", x, n, size);
     {
         lb1 = 0;
         k = 0;
+		fprintf(stderr, "mergesort(x=%p,n=%d): lb1 → %d\n", x, n, lb1);
 
         while (lb1 + size < n)
         {
             lb2 = lb1 + size;
+			fprintf(stderr, "mergesort(x=%p,n=%d): lb2 → %d\n", x, n, lb2);
             ub1 = lb2 - 1;
+			fprintf(stderr, "mergesort(x=%p,n=%d): ub1 → %d\n", x, n, ub1);
             if (ub1 + size < n)
                 ub2 = ub1 + size;
             else
+				fprintf(stderr, "mergesort(x=%p,n=%d): ub2 → %d\n", x, n, ub2);
                 ub2 = n - 1;
 
             i = lb1;
@@ -57,14 +63,17 @@ void mergesort(int x[], int n)
 
         show(x, n);
     }
+	fprintf(stderr, "<<< Exiting mergesort(x=%p,n=%p)\n", x, n);
 }
 
 // function to show each pass
 void show(int x[], int n)
 {
+	fprintf(stderr, ">>> Entering show(x=%p,n=%p)\n", x, n);
     int i;
     for (i = 0; i < n; i++) printf("%d ", x[i]);
     printf("\n\n");
+	fprintf(stderr, "<<< Exiting show(x=%p,n=%p)\n", x, n);
 }
 
 int main()  // main function

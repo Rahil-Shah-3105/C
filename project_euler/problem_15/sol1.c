@@ -29,13 +29,16 @@ unsigned long long number_of_paths(int N)
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     int N = 20;
 
+	fprintf(stderr, "main(argc=%d,argv=%s): N → %d\n", argc, argv, N);
     if (argc == 2)
         N = atoi(argv[1]);
 
     printf("Number of ways to traverse diagonal of %dx%d grid = %llu\n", N, N,
            number_of_paths(N));
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

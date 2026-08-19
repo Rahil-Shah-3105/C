@@ -7,8 +7,10 @@
 
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     int *a, n = 10, i, j, temp, sum = 0;
     float mean;
+	fprintf(stderr, "main(argc=%d,argv=%s): n → %d\n", argc, argv, n);
 
     if (argc == 2)
     {
@@ -21,6 +23,7 @@ int main(int argc, char **argv)
     }
     
     a = (int *)malloc(n * sizeof(int));
+	fprintf(stderr, "main(argc=%d,argv=%s): a → %d\n", argc, argv, a);
 
     printf("Random Numbers Generated are: ");
     for (i = 0; i < n; i++)
@@ -34,8 +37,10 @@ int main(int argc, char **argv)
 
     mean = sum / (float)n;
     printf("\nMean: ");
+	fprintf(stderr, "main(argc=%d,argv=%s): mean → %d\n", argc, argv, mean);
     printf("%f\n", mean);
 
     free(a);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

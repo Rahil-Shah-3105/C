@@ -22,12 +22,14 @@
  */
 void display(const int *arr, int n)
 {
+	fprintf(stderr, ">>> Entering display(arr=%p,n=%p)\n", arr, n);
     for (int i = 0; i < n; i++)
     {
         printf("%d ", arr[i]);
     }
 
     printf("\n");
+	fprintf(stderr, "<<< Exiting display(arr=%p,n=%p)\n", arr, n);
 }
 
 /** This is where the sorting of the array takes place
@@ -36,15 +38,18 @@ void display(const int *arr, int n)
  */
 void bead_sort(int *a, size_t len)
 {
+	fprintf(stderr, ">>> Entering bead_sort(a=%p,len=%zu)\n", a, len);
     int i, j, max, sum;
     unsigned char *beads;
 
     for (i = 1, max = a[0]; i < len; i++)
         if (a[i] > max)
             max = a[i];
+			fprintf(stderr, "bead_sort(a=%p,len=%zu): max → %d\n", a, len, max);
 
     beads = calloc(1, max * len);
 
+	fprintf(stderr, "bead_sort(a=%p,len=%zu): beads → %d\n", a, len, beads);
     /* mark the beads */
     for (i = 0; i < len; i++)
         for (j = 0; j < a[i]; j++) BEAD(i, j) = 1;
@@ -68,12 +73,14 @@ void bead_sort(int *a, size_t len)
         a[i] = j;
     }
     free(beads);
+	fprintf(stderr, "<<< Exiting bead_sort(a=%p,len=%zu)\n", a, len);
 }
 /** @} */
 
 /** Main function */
 int main(int argc, const char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     int n;
     printf("Enter size of array:\n");
     scanf("%d", &n);  // E.g. 8 1 2 3
@@ -95,5 +102,6 @@ int main(int argc, const char *argv[])
     display(arr, n);
 
     free(arr);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

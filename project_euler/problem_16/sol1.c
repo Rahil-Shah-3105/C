@@ -11,19 +11,23 @@
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%s)\n", argc, argv);
     const double tmp = log(10) / log(2); /* required to get number of digits */
     unsigned long MAX_NUM_DIGITS;
     uint8_t *digits =
         NULL; /* array to store individual digits. index 0 = units place */
     int N = 1000, sum = 0;
+	fprintf(stderr, "main(argc=%d,argv=%s): N → %d\n", argc, argv, N);
 
     if (argc == 2)
         N = atoi(argv[1]);
 
     MAX_NUM_DIGITS = (N + tmp) / tmp;
 
+	fprintf(stderr, "main(argc=%d,argv=%s): MAX_NUM_DIGITS → %d\n", argc, argv, MAX_NUM_DIGITS);
     digits = calloc(MAX_NUM_DIGITS, sizeof(uint8_t));
     digits[0] = 1;
+	fprintf(stderr, "main(argc=%d,argv=%s): digits → %d\n", argc, argv, digits);
 
     if (!digits)
     {
@@ -34,6 +38,7 @@ int main(int argc, char **argv)
     for (int i = 0; i < N; i++)
     {
         int carry = 0;
+		fprintf(stderr, "main(argc=%d,argv=%s): carry → %d\n", argc, argv, carry);
         for (int j = 0; j < MAX_NUM_DIGITS; j++)
         {
             digits[j] = (digits[j] << 1) + carry; /* digit * 2 + carry */
@@ -58,5 +63,6 @@ int main(int argc, char **argv)
     printf("\n\t Sum: %d\t Num. digits: %lu\n", sum, MAX_NUM_DIGITS);
 
     free(digits);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }

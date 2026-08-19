@@ -13,6 +13,7 @@
 /** Main function */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int n = 0;
     int sum = 0;
     int num = 0;
@@ -51,5 +52,6 @@ int main()
     }
 
     printf("%d\n", sum);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

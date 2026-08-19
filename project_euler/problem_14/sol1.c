@@ -45,6 +45,7 @@ int main(int argc, char **argv)
 {
     long long max_len = 0, max_len_num = 0;
     long long MAX_NUM = 1000000;
+	fprintf(stderr, "main(argc=%d,argv=%s): MAX_NUM → %d\n", argc, argv, MAX_NUM);
 
     if (argc ==
         2) /* set commandline argumnet as the maximum iteration number */
@@ -75,5 +76,6 @@ int main(int argc, char **argv)
 
     printf("Start: %3lld: \tLength: %5lld\n", max_len_num, max_len);
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%s)\n", argc, argv);
     return 0;
 }
