@@ -3,6 +3,7 @@
 
 void longestSub(int *ARRAY, int ARRAY_LENGTH, int **RESULT, int *RESULT_LENGTH)
 {  // RESULT and RESULT_LENGTH will be modified by their pointers
+fprintf(stderr, ">>> Entering longestSub(ARRAY=%p,ARRAY_LENGTH=%p,RESULT=%p,RESULT_LENGTH=%p)\n", ARRAY, ARRAY_LENGTH, RESULT, RESULT_LENGTH);
 
     if (ARRAY_LENGTH <= 1)
     {
@@ -15,6 +16,7 @@ void longestSub(int *ARRAY, int ARRAY_LENGTH, int **RESULT, int *RESULT_LENGTH)
         int *LONGEST_SUB = NULL;
         int i, j, LONGEST_SUB_LENGTH = 0;
         int TEMPORARY_ARRAY_LENGTH = 0, *TEMPORARY_ARRAY = NULL;
+		fprintf(stderr, "longestSub(ARRAY=%p,ARRAY_LENGTH=%d,RESULT=%p,RESULT_LENGTH=%p): TEMPORARY_ARRAY_LENGTH → %d\n", ARRAY, ARRAY_LENGTH, RESULT, RESULT_LENGTH, TEMPORARY_ARRAY_LENGTH);
 
         for (i = 1; i < ARRAY_LENGTH; i++)
         {
@@ -23,6 +25,7 @@ void longestSub(int *ARRAY, int ARRAY_LENGTH, int **RESULT, int *RESULT_LENGTH)
                 TEMPORARY_ARRAY_LENGTH = 0;
                 TEMPORARY_ARRAY = NULL;
 
+				fprintf(stderr, "longestSub(ARRAY=%p,ARRAY_LENGTH=%d,RESULT=%p,RESULT_LENGTH=%p): TEMPORARY_ARRAY → %d\n", ARRAY, ARRAY_LENGTH, RESULT, RESULT_LENGTH, TEMPORARY_ARRAY);
                 for (j = i + 1; j < ARRAY_LENGTH; j++)
                 {
                     if (ARRAY[j] >= ARRAY[i])
@@ -42,6 +45,8 @@ void longestSub(int *ARRAY, int ARRAY_LENGTH, int **RESULT, int *RESULT_LENGTH)
                     LONGEST_SUB_LENGTH = TEMPORARY_ARRAY_LENGTH + 1;
                     LONGEST_SUB = (int *)realloc(
                         LONGEST_SUB, LONGEST_SUB_LENGTH * sizeof(int));
+						fprintf(stderr, "longestSub(ARRAY=%p,ARRAY_LENGTH=%d,RESULT=%p,RESULT_LENGTH=%p): LONGEST_SUB → %d\n", ARRAY, ARRAY_LENGTH, RESULT, RESULT_LENGTH, LONGEST_SUB);
+						fprintf(stderr, "longestSub(ARRAY=%p,ARRAY_LENGTH=%d,RESULT=%p,RESULT_LENGTH=%p): LONGEST_SUB_LENGTH → %d\n", ARRAY, ARRAY_LENGTH, RESULT, RESULT_LENGTH, LONGEST_SUB_LENGTH);
                     LONGEST_SUB[0] = ARRAY[i];
 
                     for (i = 1; i < LONGEST_SUB_LENGTH; i++)
@@ -77,10 +82,12 @@ void longestSub(int *ARRAY, int ARRAY_LENGTH, int **RESULT, int *RESULT_LENGTH)
         *RESULT = LONGEST_SUB;
         *RESULT_LENGTH = LONGEST_SUB_LENGTH;
     }
+	fprintf(stderr, "<<< Exiting longestSub(ARRAY=%p,ARRAY_LENGTH=%p,RESULT=%p,RESULT_LENGTH=%p)\n", ARRAY, ARRAY_LENGTH, RESULT, RESULT_LENGTH);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int EXAMPLE_LENGTH = 8;
     int EXAMPLE[] = {18, 2, 15, 4, 30, 0, 11, 12};
 
@@ -93,5 +100,6 @@ int main()
     for (i = 0; i < RESULT_LENGTH; i++) printf("%d ", RESULT[i]);
     printf("\n");
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

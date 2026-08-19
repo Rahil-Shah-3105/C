@@ -1,9 +1,11 @@
 #include <stdio.h>
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int a[200], n, counter, temp, i;
     a[0] = 1;
     counter = 0;
+	fprintf(stderr, "main(): counter → %d\n", counter);
     printf("Enter a whole number to Find its Factorial: ");
     scanf("%d", &n);
     if (n < 0)
@@ -27,5 +29,6 @@ int main()
         }
         for (i = counter; i >= 0; i--) printf("%d", a[i]);
     }
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

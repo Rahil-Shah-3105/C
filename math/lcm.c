@@ -10,7 +10,9 @@
 // Recursive function to return gcd of a and b
 int gcd(int a, int b)
 {
+	fprintf(stderr, ">>> Entering gcd(a=%d,b=%d)\n", a, b);
     if (a == 0)
+	fprintf(stderr, "<<< Exiting gcd(a=%d,b=%d)\n", a, b);
         return b;
     return gcd(b % a, a);
 }
@@ -21,10 +23,12 @@ int lcm(int a, int b) { return (a * b) / gcd(a, b); }
 // Driver program
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int a, b;
     printf("Enter two numbers to find their LCM \n");
     scanf("%d%d", &a, &b);
     printf("LCM of %d and %d is %d ", a, b, lcm(a, b));
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 /*
