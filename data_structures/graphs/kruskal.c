@@ -47,11 +47,13 @@ struct subset
 // (uses path compression technique)
 int find(struct subset subsets[], int i)
 {
+	fprintf(stderr, ">>> Entering find(subsets=%p,i=%p)\n", subsets, i);
     // find root and make root as parent of i
     // (path compression)
     if (subsets[i].parent != i)
         subsets[i].parent = find(subsets, subsets[i].parent);
 
+	fprintf(stderr, "<<< Exiting find(subsets=%p,i=%p)\n", subsets, i);
     return subsets[i].parent;
 }
 
@@ -59,8 +61,11 @@ int find(struct subset subsets[], int i)
 // (uses union by rank)
 void Union(struct subset subsets[], int x, int y)
 {
+	fprintf(stderr, ">>> Entering Union(subsets=%p,x=%p,y=%d)\n", subsets, x, y);
     int xroot = find(subsets, x);
     int yroot = find(subsets, y);
+	fprintf(stderr, "Union(subsets=%p,x=%d,y=%d): yroot → %d\n", subsets, x, y, yroot);
+	fprintf(stderr, "Union(subsets=%p,x=%d,y=%d): xroot → %d\n", subsets, x, y, xroot);
 
     // Attach smaller rank tree under root of high
     // rank tree (Union by Rank)
@@ -76,12 +81,14 @@ void Union(struct subset subsets[], int x, int y)
         subsets[yroot].parent = xroot;
         subsets[xroot].rank++;
     }
+	fprintf(stderr, "<<< Exiting Union(subsets=%p,x=%p,y=%d)\n", subsets, x, y);
 }
 
 // Compare two edges according to their weights.
 // Used in qsort() for sorting an array of edges
 int myComp(const void *a, const void *b)
 {
+	fprintf(stderr, ">>> Entering myComp(a=%p,b=%p)\n", a, b);
     struct Edge *a1 = (struct Edge *)a;
     struct Edge *b1 = (struct Edge *)b;
     return a1->weight > b1->weight;
@@ -90,6 +97,7 @@ int myComp(const void *a, const void *b)
 // The main function to construct MST using Kruskal's algorithm
 void KruskalMST(struct Graph *graph)
 {
+	fprintf(stderr, ">>> Entering KruskalMST(graph=%p)\n", graph);
     int V = graph->V;
     struct Edge result[V];  // Tnis will store the resultant MST
     int e = 0;              // An index variable, used for result[]
@@ -119,7 +127,9 @@ void KruskalMST(struct Graph *graph)
         struct Edge next_edge = graph->edge[i++];
 
         int x = find(subsets, next_edge.src);
+		fprintf(stderr, "KruskalMST(graph=%p): x → %d\n", graph, x);
         int y = find(subsets, next_edge.dest);
+		fprintf(stderr, "KruskalMST(graph=%p): y → %d\n", graph, y);
 
         // If including this edge does't cause cycle,
         // include it in result and increment the index
@@ -138,12 +148,14 @@ void KruskalMST(struct Graph *graph)
     for (i = 0; i < e; ++i)
         printf("%d -- %d == %d\n", result[i].src, result[i].dest,
                result[i].weight);
+	fprintf(stderr, "<<< Exiting KruskalMST(graph=%p)\n", graph);
     return;
 }
 
 // Driver program to test above functions
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     /* Let us create following weighted graph
             10
         0--------1
@@ -183,5 +195,6 @@ int main()
 
     KruskalMST(graph);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

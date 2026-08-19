@@ -19,6 +19,7 @@ struct  node  *last=NULL ;
 /* This function is responsible for creating the Circularly Linked List right from the BEGINNING. */
 void  create()
 {
+fprintf(stderr, ">>> Entering create()\n");
   int  i , n ;
   struct  node  *pnode , *p ;
 
@@ -29,6 +30,7 @@ void  create()
   for(i=1 ; i<=n ; i++)
   {
     pnode=(struct node*)malloc(sizeof(struct node)) ;
+	fprintf(stderr, "create(): pnode → %d\n", pnode);
     if(pnode==NULL)
     {
       printf("Memory overflow. Unable to create.\n") ;
@@ -38,7 +40,9 @@ void  create()
     scanf("%d",&pnode->data) ;
 
     if(first==NULL)
+	fprintf(stderr, "Exception in create(): %d\n", errno);
 	 first=last=pnode ;
+	fprintf(stderr, "create(): first → %d\n", first);
     else
     {
 	  last->next=pnode ;
@@ -47,16 +51,20 @@ void  create()
 
     last->next=first ;
   }
+fprintf(stderr, "<<< Exiting create()\n");
 }
 
 /* This function will delete a node with value k from the Linked List if such a node exists */
 void  deletenode(int  k)
 {
+fprintf(stderr, ">>> Entering deletenode(k=%d)\n", k);
   struct  node  *p , *follow ;
 
   /* searching the required node */
   p=first ;
+fprintf(stderr, "deletenode(k=%d): p → %d\n", k, p);
   follow=NULL ;
+fprintf(stderr, "deletenode(k=%d): follow → %d\n", k, follow);
   while(follow!=last)
   {
     if(p->data==k)
@@ -71,6 +79,7 @@ void  deletenode(int  k)
   {
     if(p==first&&p==last)  /* deleting the one and the only node */
 	  first=last=NULL ;
+	fprintf(stderr, "deletenode(k=%d): first → %d\n", k, first);
     else if(p==first)       /* deleting the first node */
     {
       first=first->next ;
@@ -86,11 +95,13 @@ void  deletenode(int  k)
 
     free(p) ;
   }
+fprintf(stderr, "<<< Exiting deletenode(k=%d)\n", k);
 }
 
 /* This function will go through all the nodes of Linked List exactly once and will display data value of each node */
 void  traverse()
 {
+fprintf(stderr, ">>> Entering traverse()\n");
   struct  node  *p , *follow ;
   if(first==NULL)
     printf("Circularly Linked List Empty") ;
@@ -99,8 +110,10 @@ void  traverse()
     printf("Circularly Linked List is as shown: \n") ;
 
     p=first ;
+	fprintf(stderr, "traverse(): p → %d\n", p);
     follow = NULL ;
     while(follow!=last)
+	fprintf(stderr, "traverse(): follow → %d\n", follow);
     {
       printf("%d " , p->data) ;
       follow=p ;
@@ -109,10 +122,12 @@ void  traverse()
 
     printf("\n") ;
   }
+fprintf(stderr, "<<< Exiting traverse()\n");
 }
 
 void main()
 {
+fprintf(stderr, ">>> Entering main()\n");
   int  x , k , ch ;
   clrscr() ;
   do

@@ -10,8 +10,10 @@ int visited[MAX_NODES];  // array to store visiting order
 
 bool findPathBFS(Graph g, int nV, Vertex src, Vertex dest)
 {
+	fprintf(stderr, ">>> Entering findPathBFS(g=%d,nV=%d,src=%d,dest=%d)\n", g, nV, src, dest);
     Vertex v;
     for (v = 0; v < nV; v++) visited[v] = -1;
+	fprintf(stderr, "findPathBFS(g=%d,nV=%d,src=%d,dest=%d): v → %d\n", g, nV, src, dest, v);
 
     visited[src] = src;
     queue Q = newQueue();
@@ -30,17 +32,22 @@ bool findPathBFS(Graph g, int nV, Vertex src, Vertex dest)
                     QueueEnqueue(Q, w);
             }
     }
+	fprintf(stderr, "<<< Exiting findPathBFS(g=%d,nV=%d,src=%d,dest=%d)\n", g, nV, src, dest);
     return false;
 }
 
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int V = 10;
     Graph g = newGraph(V);
+	fprintf(stderr, "main(): g → %d\n", g);
 
     Edge e;
     e.v = 0;
     e.w = 1;
+	fprintf(stderr, "main(): e.v → %d\n", e.v);
+	fprintf(stderr, "main(): e.w → %d\n", e.w);
     insertEdge(g, e);
     e.v = 0;
     e.w = 2;
@@ -96,6 +103,7 @@ int main(void)
         }
         printf("%d\n", src);
     }
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 

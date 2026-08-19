@@ -45,12 +45,19 @@ int16_t r_decoded[LEN] = {1008, -1008, 1248, 3264, -1312, 8, 32256, -32256};
  */
 void encode(uint8_t *out, int16_t *in, size_t len)
 {
+	fprintf(stderr, ">>> Entering encode(out=%p,in=%p,len=%zu)\n", out, in, len);
     uint8_t alaw = 0;
     int16_t pcm = 0;
+	fprintf(stderr, "encode(out=%p,in=%p,len=%zu): pcm → %d\n", out, in, len, pcm);
     int32_t sign = 0;
+	fprintf(stderr, "encode(out=%p,in=%p,len=%zu): sign → %d\n", out, in, len, sign);
     int32_t abcd = 0;
+	fprintf(stderr, "encode(out=%p,in=%p,len=%zu): abcd → %d\n", out, in, len, abcd);
     int32_t eee = 0;
+	fprintf(stderr, "encode(out=%p,in=%p,len=%zu): eee → %d\n", out, in, len, eee);
     int32_t mask = 0;
+	fprintf(stderr, "encode(out=%p,in=%p,len=%zu): mask → %d\n", out, in, len, mask);
+	fprintf(stderr, "encode(out=%p,in=%p,len=%zu): alaw → %d\n", out, in, len, alaw);
     for (size_t i = 0; i < len; i++)
     {
         pcm = *in++;
@@ -95,6 +102,7 @@ void encode(uint8_t *out, int16_t *in, size_t len)
          * octets. (Reference from wiki above) */
         *out++ = alaw ^ 0xD5;
     }
+	fprintf(stderr, "<<< Exiting encode(out=%p,in=%p,len=%zu)\n", out, in, len);
 }
 
 /**
@@ -106,10 +114,15 @@ void encode(uint8_t *out, int16_t *in, size_t len)
  */
 void decode(int16_t *out, uint8_t *in, size_t len)
 {
+	fprintf(stderr, ">>> Entering decode(out=%p,in=%p,len=%zu)\n", out, in, len);
     uint8_t alaw = 0;
     int32_t pcm = 0;
+	fprintf(stderr, "decode(out=%p,in=%p,len=%zu): pcm → %d\n", out, in, len, pcm);
     int32_t sign = 0;
+	fprintf(stderr, "decode(out=%p,in=%p,len=%zu): sign → %d\n", out, in, len, sign);
     int32_t eee = 0;
+	fprintf(stderr, "decode(out=%p,in=%p,len=%zu): eee → %d\n", out, in, len, eee);
+	fprintf(stderr, "decode(out=%p,in=%p,len=%zu): alaw → %d\n", out, in, len, alaw);
     for (size_t i = 0; i < len; i++)
     {
         alaw = *in++;
@@ -135,6 +148,7 @@ void decode(int16_t *out, uint8_t *in, size_t len)
         /* Use the right sign */
         *out++ = sign ? -pcm : pcm;
     }
+	fprintf(stderr, "<<< Exiting decode(out=%p,in=%p,len=%zu)\n", out, in, len);
 }
 
 /**
@@ -147,6 +161,7 @@ void decode(int16_t *out, uint8_t *in, size_t len)
  */
 static void test(int16_t *pcm, uint8_t *coded, int16_t *decoded, size_t len)
 {
+	fprintf(stderr, ">>> Entering test(pcm=%p,coded=%p,decoded=%p,len=%zu)\n", pcm, coded, decoded, len);
     /* run encode */
     encode(coded, pcm, len);
 
@@ -164,6 +179,7 @@ static void test(int16_t *pcm, uint8_t *coded, int16_t *decoded, size_t len)
     {
         assert(decoded[i] == r_decoded[i]);
     }
+	fprintf(stderr, "<<< Exiting test(pcm=%p,coded=%p,decoded=%p,len=%zu)\n", pcm, coded, decoded, len);
 }
 
 /**
@@ -174,6 +190,7 @@ static void test(int16_t *pcm, uint8_t *coded, int16_t *decoded, size_t len)
  */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     /* output alaw encoded by encode() */
     uint8_t coded[LEN];
 
@@ -212,5 +229,6 @@ int main(int argc, char *argv[])
      * decoding. The reason why it is not exactly the same is that there is
      * precision loss during encode / decode.  */
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

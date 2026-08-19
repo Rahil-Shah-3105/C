@@ -17,13 +17,16 @@
  */
 uint64_t sdbm(const char* s)
 {
+	fprintf(stderr, ">>> Entering sdbm(s=%s)\n", s);
     uint64_t hash = 0;
     size_t i = 0;
+	fprintf(stderr, "sdbm(s=%s): hash → %d\n", s, hash);
     while (s[i] != '\0')
     {
         hash = s[i] + (hash << 6) + (hash << 16) - hash;
         i++;
     }
+	fprintf(stderr, "<<< Exiting sdbm(s=%s)\n", s);
     return hash;
 }
 
@@ -33,11 +36,13 @@ uint64_t sdbm(const char* s)
  */
 void test_sdbm()
 {
+	fprintf(stderr, ">>> Entering test_sdbm()\n");
     assert(sdbm("Hello World") == 12881824461405877380U);
     assert(sdbm("Hello World!") == 7903571203300273309);
     assert(sdbm("Hello world") == 15154913742888948900U);
     assert(sdbm("Hello world!") == 15254999417003201661U);
     printf("Tests passed\n");
+	fprintf(stderr, "<<< Exiting test_sdbm()\n");
 }
 
 /** @} */
@@ -45,6 +50,8 @@ void test_sdbm()
 /** Main function */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test_sdbm();
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

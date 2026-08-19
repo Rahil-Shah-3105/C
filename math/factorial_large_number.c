@@ -36,8 +36,10 @@ large_num *new_number(void)
  */
 void delete_number(large_num *num)
 {
+	fprintf(stderr, ">>> Entering delete_number(num=%p)\n", num);
     free(num->digits);
     free(num);
+	fprintf(stderr, "<<< Exiting delete_number(num=%p)\n", num);
 }
 
 /**
@@ -47,6 +49,7 @@ void delete_number(large_num *num)
  */
 void add_digit(large_num *num, unsigned int value)
 {
+	fprintf(stderr, ">>> Entering add_digit(num=%p,value=%u)\n", num, value);
     if (value > 9)
     {
         fprintf(stderr, "digit > 9!!\n");
@@ -57,6 +60,7 @@ void add_digit(large_num *num, unsigned int value)
     num->num_digits++;
     num->digits = (char *)realloc(num->digits, num->num_digits * sizeof(char));
     num->digits[num->num_digits - 1] = value;
+	fprintf(stderr, "<<< Exiting add_digit(num=%p,value=%u)\n", num, value);
 }
 
 /**
@@ -65,8 +69,10 @@ void add_digit(large_num *num, unsigned int value)
  */
 void multiply(large_num *num, unsigned long n)
 {
+	fprintf(stderr, ">>> Entering multiply(num=%p,n=%ld)\n", num, n);
     int i;
     unsigned long carry = 0, temp;
+	fprintf(stderr, "multiply(num=%p,n=%ld): carry → %d\n", num, n, carry);
     for (i = 0; i < num->num_digits; i++)
     {
         temp = num->digits[i] * n;
@@ -86,6 +92,7 @@ void multiply(large_num *num, unsigned long n)
         add_digit(num, carry % 10);
         carry /= 10;
     }
+	fprintf(stderr, "<<< Exiting multiply(num=%p,n=%ld)\n", num, n);
 }
 
 /**
@@ -99,6 +106,7 @@ int main(int argc, char *argv[])
     if (argc == 2)
         number = atoi(argv[1]);
     else
+	fprintf(stderr, "main(argc=%d,argv=%p): number → %d\n", argc, argv, number);
     {
         printf("Enter the value of n(n starts from 0 ): ");
         scanf("%d", &number);
@@ -110,6 +118,7 @@ int main(int argc, char *argv[])
     for (i = 2; i <= number; i++) /* Multiply every number from 2 thru N */
         multiply(result, i);
     double time_taken = (clock() - start_time) * (double)1e3 / CLOCKS_PER_SEC;
+	fprintf(stderr, "main(argc=%d,argv=%p): time_taken → %d\n", argc, argv, time_taken);
     // time_taken = (clock() - start_time) / (double) CLOCKS_PER_SEC;
 
     printf("%d! = ", number);
@@ -118,5 +127,6 @@ int main(int argc, char *argv[])
     printf("\nTime taken: %.4g ms\n", time_taken);
 
     delete_number(result);
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }
