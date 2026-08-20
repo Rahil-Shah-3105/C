@@ -12,6 +12,7 @@ void display(struct node *);
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int x = 0, item;
     printf("\t****stack using linked list****\n");
     while (x != 4)
@@ -38,6 +39,7 @@ int main()
 
 void push(struct node *p)
 {
+	fprintf(stderr, ">>> Entering push(p=%p)\n", p);
     int item;
     struct node *temp;
     temp = (struct node *)malloc(sizeof(struct node));
@@ -47,11 +49,14 @@ void push(struct node *p)
 
     temp->link = top;
     top = temp;
+	fprintf(stderr, "push(p=%p): top → %d\n", p, top);
 
     printf("Inserted successfully.\n");
+	fprintf(stderr, "<<< Exiting push(p=%p)\n", p);
 }
 void pop(struct node *p)
 {
+	fprintf(stderr, ">>> Entering pop(p=%p)\n", p);
     int item;
     struct node *temp;
 
@@ -60,11 +65,13 @@ void pop(struct node *p)
     else
     {
         item = top->info;
+		fprintf(stderr, "pop(p=%p): item → %d\n", p, item);
         temp = top;
         top = top->link;
         free(temp);
         printf("\nElement popped is %d.\n", item);
     }
+	fprintf(stderr, "<<< Exiting pop(p=%p)\n", p);
 }
 
 void display(struct node *p)

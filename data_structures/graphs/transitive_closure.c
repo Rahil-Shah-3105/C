@@ -9,6 +9,7 @@ int tc[NODES][NODES];
 
 void warshall()
 {
+	fprintf(stderr, ">>> Entering warshall()\n");
     int i, s, t;
     for (s = 0; s < NODES; s++)
         for (t = 0; t < NODES; t++) tc[s][t] = digraph[s][t];
@@ -18,10 +19,12 @@ void warshall()
             for (t = 0; t < NODES; t++)
                 if (tc[s][i] && tc[i][t])
                     tc[s][t] = 1;
+					fprintf(stderr, "<<< Exiting warshall()\n");
 }
 
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     warshall();
     int i, j;
     for (i = 0; i < NODES; i++)
@@ -32,6 +35,7 @@ int main(void)
         }
         putchar('\n');
     }
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
 

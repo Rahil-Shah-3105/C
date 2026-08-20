@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * @file
  * @author [jucollet972](https://github.com/jucollet972)
@@ -18,6 +19,7 @@
  * @return int64_t as success or not
  */
 bool isbad_alphabet(const char* alphabet) {
+	fprintf(stderr, ">>> Entering isbad_alphabet(alphabet=%s)\n", alphabet);
 	uint64_t len = strlen(alphabet);
 	
 	/* Checking th lenght */	
@@ -40,8 +42,10 @@ bool isbad_alphabet(const char* alphabet) {
  * @return Converted nb string length 
  */
 uint64_t converted_len(uint64_t nb, short base) {
+	fprintf(stderr, ">>> Entering converted_len(nb=%d,base=%hd)\n", nb, base);
 	/* Counting the number of characters translated to the base*/
 	if (nb > base - 1) {
+	fprintf(stderr, "<<< Exiting converted_len(nb=%d,base=%hd)\n", nb, base);
 		return (converted_len(nb/base, base) + 1);
 	}
 	return 1;
@@ -56,11 +60,13 @@ uint64_t converted_len(uint64_t nb, short base) {
  * @return void
  */
 void convertion(uint64_t nb, const char* alphabet, short base, char* converted) {
+	fprintf(stderr, ">>> Entering convertion(nb=%d,alphabet=%s,base=%hd,converted=%s)\n", nb, alphabet, base, converted);
 	/* Recursive convertion */
 	*(converted) = *(alphabet + nb%base);
 	if (nb > base - 1) {
 		convertion(nb/base, alphabet, base, --converted);
 	}
+	fprintf(stderr, "<<< Exiting convertion(nb=%d,alphabet=%s,base=%hd,converted=%s)\n", nb, alphabet, base, converted);
 }
 
 /**
@@ -71,6 +77,7 @@ void convertion(uint64_t nb, const char* alphabet, short base, char* converted) 
  * @returns NULL on error
  */
 char* decimal_to_anybase(uint64_t nb, const char* alphabet) {
+	fprintf(stderr, ">>> Entering decimal_to_anybase(nb=%d,alphabet=%s)\n", nb, alphabet);
 	char* converted;
 
 	/* Verify that alphabet is valid */
@@ -79,10 +86,13 @@ char* decimal_to_anybase(uint64_t nb, const char* alphabet) {
 	}
 	/* Convertion */
 	uint64_t base = strlen(alphabet);
+	fprintf(stderr, "decimal_to_anybase(nb=%d,alphabet=%s): base → %d\n", nb, alphabet, base);
 	uint64_t final_len = converted_len(nb, base);
 	converted = malloc(sizeof(char) * (final_len + 1));
 	converted[final_len] = 0;
+	fprintf(stderr, "decimal_to_anybase(nb=%d,alphabet=%s): converted → %d\n", nb, alphabet, converted);
 	convertion(nb, alphabet, base, converted + final_len - 1);
+	fprintf(stderr, "<<< Exiting decimal_to_anybase(nb=%d,alphabet=%s)\n", nb, alphabet);
 	return converted;
 }
 
@@ -93,6 +103,7 @@ char* decimal_to_anybase(uint64_t nb, const char* alphabet) {
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
 	char* ret = NULL;
 	char* reference = NULL;
 
@@ -100,9 +111,12 @@ static void test()
 	reference = "0";
 	ret = decimal_to_anybase(0, "0123456789");
 	for (int i = 0; i < strlen(reference) && i < strlen(ret); i++) {
+		fprintf(stderr, "test(): reference → %d\n", reference);
+		fprintf(stderr, "test(): ret → %d\n", ret);
 		assert(ret[i] == reference[i]);
 	}
 	if (ret != NULL) {
+		fprintf(stderr, "Exception in test(): %d\n", errno);
 		free(ret);
 	}
 	
@@ -156,6 +170,7 @@ static void test()
 		free(ret);
 	}
 	printf("[+] All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -164,6 +179,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
 	test(); // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
 	return 0;
 }

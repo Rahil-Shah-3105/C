@@ -1,3 +1,4 @@
+#include <errno.h>
 /* Circularly Linked List (Basic Operations) - Program to create a Circularly linked list abstract data type and perform various operations on it (Variable first and last declared globally) */
 
 #include  <stdio.h>
@@ -19,6 +20,7 @@ struct  node  *last=NULL ;
 /* This function is responsible for creating the Circularly Linked List right from the BEGINNING. */
 void  create()
 {
+fprintf(stderr, ">>> Entering create()\n");
   int  i , n ;
   struct  node  *pnode , *p ;
 
@@ -29,6 +31,7 @@ void  create()
   for(i=1 ; i<=n ; i++)
   {
     pnode=(struct node*)malloc(sizeof(struct node)) ;
+	fprintf(stderr, "create(): pnode → %d\n", pnode);
     if(pnode==NULL)
     {
       printf("Memory overflow. Unable to create.\n") ;
@@ -47,16 +50,20 @@ void  create()
 
     last->next=first ;
   }
+fprintf(stderr, "<<< Exiting create()\n");
 }
 
 /* This function will delete a node with value k from the Linked List if such a node exists */
 void  deletenode(int  k)
 {
+fprintf(stderr, ">>> Entering deletenode(k=%d)\n", k);
   struct  node  *p , *follow ;
 
   /* searching the required node */
   p=first ;
+fprintf(stderr, "deletenode(k=%d): p → %d\n", k, p);
   follow=NULL ;
+fprintf(stderr, "deletenode(k=%d): follow → %d\n", k, follow);
   while(follow!=last)
   {
     if(p->data==k)
@@ -86,11 +93,13 @@ void  deletenode(int  k)
 
     free(p) ;
   }
+fprintf(stderr, "<<< Exiting deletenode(k=%d)\n", k);
 }
 
 /* This function will go through all the nodes of Linked List exactly once and will display data value of each node */
 void  traverse()
 {
+fprintf(stderr, ">>> Entering traverse()\n");
   struct  node  *p , *follow ;
   if(first==NULL)
     printf("Circularly Linked List Empty") ;
@@ -99,6 +108,7 @@ void  traverse()
     printf("Circularly Linked List is as shown: \n") ;
 
     p=first ;
+	fprintf(stderr, "traverse(): p → %d\n", p);
     follow = NULL ;
     while(follow!=last)
     {
@@ -109,10 +119,12 @@ void  traverse()
 
     printf("\n") ;
   }
+fprintf(stderr, "<<< Exiting traverse()\n");
 }
 
 void main()
 {
+fprintf(stderr, ">>> Entering main()\n");
   int  x , k , ch ;
   clrscr() ;
   do
