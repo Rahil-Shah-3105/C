@@ -13,6 +13,7 @@ struct Graph
 // Constructs a graph with V vertices and E edges
 void createGraph(struct Graph *G, int V)
 {
+	fprintf(stderr, ">>> Entering createGraph(G=%p,V=%p)\n", G, V);
     G->vertexNum = V;
     G->edges = (int **)malloc(V * sizeof(int *));
     for (int i = 0; i < V; i++)
@@ -21,19 +22,24 @@ void createGraph(struct Graph *G, int V)
         for (int j = 0; j < V; j++) G->edges[i][j] = INT_MAX;
         G->edges[i][i] = 0;
     }
+	fprintf(stderr, "<<< Exiting createGraph(G=%p,V=%p)\n", G, V);
 }
 
 // Adds the given edge to the graph
 void addEdge(struct Graph *G, int src, int dst, int weight)
 {
+	fprintf(stderr, ">>> Entering addEdge(G=%p,src=%p,dst=%d,weight=%d)\n", G, src, dst, weight);
     G->edges[src][dst] = weight;
+	fprintf(stderr, "<<< Exiting addEdge(G=%p,src=%p,dst=%d,weight=%d)\n", G, src, dst, weight);
 }
 
 // Utility function to find minimum distance vertex in mdist
 int minDistance(int mdist[], int vset[], int V)
 {
+	fprintf(stderr, ">>> Entering minDistance(mdist=%p,vset=%p,V=%p)\n", mdist, vset, V);
     int minVal = INT_MAX;
     static int minInd = -1; //remembers the previous value if not modified in the loop
+	fprintf(stderr, "minDistance(mdist=%p,vset=%p,V=%d): minVal → %d\n", mdist, vset, V, minVal);
     for (int i = 0; i < V; i++)
         if (vset[i] == 0 && mdist[i] < minVal)
         {
@@ -41,12 +47,14 @@ int minDistance(int mdist[], int vset[], int V)
             minInd = i;
         }
 
+	fprintf(stderr, "<<< Exiting minDistance(mdist=%p,vset=%p,V=%p)\n", mdist, vset, V);
     return minInd;
 }
 
 // Utility function to print distances
 void print(int dist[], int V)
 {
+	fprintf(stderr, ">>> Entering print(dist=%p,V=%p)\n", dist, V);
     printf("\nVertex  Distance\n");
     for (int i = 0; i < V; i++)
     {
@@ -55,6 +63,7 @@ void print(int dist[], int V)
         else
             printf("%d\tINF", i);
     }
+	fprintf(stderr, "<<< Exiting print(dist=%p,V=%p)\n", dist, V);
 }
 
 // The main function that finds the shortest path from given source
@@ -62,6 +71,7 @@ void print(int dist[], int V)
 // weights
 void Dijkstra(struct Graph *graph, int src)
 {
+	fprintf(stderr, ">>> Entering Dijkstra(graph=%p,src=%p)\n", graph, src);
     int V = graph->vertexNum;
     int mdist[V];  // Stores updated distances to vertex
     int vset[V];   // vset[i] is true if the vertex i included
@@ -76,6 +86,7 @@ void Dijkstra(struct Graph *graph, int src)
     for (int count = 0; count < V - 1; count++)
     {
         int u = minDistance(mdist, vset, V);
+		fprintf(stderr, "Dijkstra(graph=%p,src=%d): u → %d\n", graph, src, u);
         vset[u] = 1;
 
         for (int v = 0; v < V; v++)
@@ -88,12 +99,14 @@ void Dijkstra(struct Graph *graph, int src)
 
     print(mdist, V);
 
+	fprintf(stderr, "<<< Exiting Dijkstra(graph=%p,src=%p)\n", graph, src);
     return;
 }
 
 // Driver Function
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int V, E, gsrc;
     int src, dst, weight;
     struct Graph G;
@@ -116,5 +129,6 @@ int main()
     scanf("%d", &gsrc);
     Dijkstra(&G, gsrc);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }
