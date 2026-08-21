@@ -13,9 +13,11 @@
 /** Main function */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int n = 0;
     scanf("%d", &n);
     int prime = 1;
+	fprintf(stderr, "main(): prime → %d\n", prime);
     int i = 2;
     while (i * i <= n)
     {
@@ -29,5 +31,6 @@ int main()
     if (n > 1)
         prime = n;
     printf("%d\n", prime);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

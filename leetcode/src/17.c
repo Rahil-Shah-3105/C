@@ -1,3 +1,4 @@
+#include <stdio.h>
 /**
  * Letter Combinations of a Phone Number problem
  * The algorithm determines the final size of the return array (combs) and allocates
@@ -13,6 +14,7 @@
 #include <string.h> // for the strlen() function
 
 char *get_letters(char digit) {
+	fprintf(stderr, ">>> Entering get_letters(digit=%c)\n", digit);
     switch (digit) {
         case '2':
             return "abc";
@@ -31,11 +33,13 @@ char *get_letters(char digit) {
         case '9':
             return "wxyz";
         default:
+			fprintf(stderr, "<<< Exiting get_letters(digit=%c)\n", digit);
             return "";
     }
 }
 
 char **letterCombinations(char *digits, int *return_size) {
+	fprintf(stderr, ">>> Entering letterCombinations(digits=%s,return_size=%p)\n", digits, return_size);
     char *cp;
     int i, j, k, l, ind, k_tot, l_tot, digits_size = 0;
 
@@ -46,6 +50,7 @@ char **letterCombinations(char *digits, int *return_size) {
 
     *return_size = 1;
     cp = digits;
+	fprintf(stderr, "letterCombinations(digits=%s,return_size=%p): cp → %d\n", digits, return_size, cp);
     while (*cp != '\0') {
         *return_size *= strlen(get_letters(*cp));
         digits_size++;
@@ -59,8 +64,10 @@ char **letterCombinations(char *digits, int *return_size) {
     }
 
     k_tot = 1;
+	fprintf(stderr, "letterCombinations(digits=%s,return_size=%p): k_tot → %d\n", digits, return_size, k_tot);
     l_tot = (*return_size);
     for (i = 0; i < digits_size; i++) { // loop accross digits
+		fprintf(stderr, "letterCombinations(digits=%s,return_size=%p): l_tot → %d\n", digits, return_size, l_tot);
         cp = get_letters(digits[i]);
         l_tot /= strlen(cp);
         for (j = 0; j < strlen(cp); j++) { // loop accross letters of the digit
@@ -68,11 +75,13 @@ char **letterCombinations(char *digits, int *return_size) {
                 for (l = 0; l < l_tot; l++) { // loop accross each subset positions for each letter
                     ind = k * l_tot * strlen(cp) + l + l_tot * j;
                     combs[ind][i] = cp[j];
+					fprintf(stderr, "letterCombinations(digits=%s,return_size=%p): ind → %d\n", digits, return_size, ind);
                 }
             }
         }
         k_tot *= strlen(cp);
     }
 
+	fprintf(stderr, "<<< Exiting letterCombinations(digits=%s,return_size=%p)\n", digits, return_size);
     return combs;
 }

@@ -5,6 +5,7 @@
 
 void display(float a[ARRAY_SIZE][ARRAY_SIZE], int n)
 {
+	fprintf(stderr, ">>> Entering display(a=%p,n=%p)\n", a, n);
     int i, j;
     for (i = 0; i < n; i++)
     {
@@ -14,12 +15,15 @@ void display(float a[ARRAY_SIZE][ARRAY_SIZE], int n)
         }
         printf("\n");
     }
+	fprintf(stderr, "<<< Exiting display(a=%p,n=%p)\n", a, n);
 }
 
 float interchange(float m[ARRAY_SIZE][ARRAY_SIZE], int i, int n)
 {
+	fprintf(stderr, ">>> Entering interchange(m=%p,i=%p,n=%d)\n", m, i, n);
     float tmp[ARRAY_SIZE][ARRAY_SIZE];
     float max = fabs(m[i][i]);
+	fprintf(stderr, "interchange(m=%p,i=%d,n=%d): max → %d\n", m, i, n, max);
     int j, k = i;
 
     for (j = i; j < n; j++)
@@ -36,25 +40,30 @@ float interchange(float m[ARRAY_SIZE][ARRAY_SIZE], int i, int n)
         m[i][j] = m[k][j];
         m[k][j] = tmp[i][j];
     }
+	fprintf(stderr, "<<< Exiting interchange(m=%p,i=%p,n=%d)\n", m, i, n);
     return m[ARRAY_SIZE - 1][ARRAY_SIZE - 1];
 }
 float eliminate(float m[ARRAY_SIZE][ARRAY_SIZE], int i, int n)
 {
+	fprintf(stderr, ">>> Entering eliminate(m=%p,i=%p,n=%d)\n", m, i, n);
     float tmp;
     int k = 1, l, j;
     for (j = i; j < n - 1; j++)
     {
         tmp = -((m[i + k][i]) / (m[i][i]));
+		fprintf(stderr, "eliminate(m=%p,i=%d,n=%d): tmp → %d\n", m, i, n, tmp);
         for (l = 0; l <= n; l++)
         {
             m[i + k][l] = (m[i + k][l]) + (m[i][l] * tmp);
         }
         k++;
     }
+	fprintf(stderr, "<<< Exiting eliminate(m=%p,i=%p,n=%d)\n", m, i, n);
     return m[ARRAY_SIZE - 1][ARRAY_SIZE - 1];
 }
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int i, j, n, k = 0, l;
     float m[ARRAY_SIZE][ARRAY_SIZE], mul, tmp[ARRAY_SIZE][ARRAY_SIZE], val,
         ans[ARRAY_SIZE];
@@ -100,5 +109,6 @@ int main(void)
         printf("X%d = %.2f\n", i + 1, ans[i]);
     }
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

@@ -24,12 +24,14 @@ int getBucketIndex(int value);
 
 void BucketSort(int arr[])
 {
+	fprintf(stderr, ">>> Entering BucketSort(arr=%p)\n", arr);
     int i, j;
     struct Node **buckets;
 
     /* allocate memory for array of pointers to the buckets */
     buckets = (struct Node **)malloc(sizeof(struct Node *) * NBUCKET);
 
+	fprintf(stderr, "BucketSort(arr=%p): buckets → %d\n", arr, buckets);
     /* initialize pointers to the buckets */
     for (i = 0; i < NBUCKET; ++i)
     {
@@ -42,7 +44,9 @@ void BucketSort(int arr[])
     {
         struct Node *current;
         int pos = getBucketIndex(arr[i]);
+		fprintf(stderr, "BucketSort(arr=%p): pos → %d\n", arr, pos);
         current = (struct Node *)malloc(sizeof(struct Node));
+		fprintf(stderr, "BucketSort(arr=%p): current → %d\n", arr, current);
         current->data = arr[i];
         current->next = buckets[pos];
         buckets[pos] = current;
@@ -77,6 +81,7 @@ void BucketSort(int arr[])
     {
         struct Node *node;
         node = buckets[i];
+		fprintf(stderr, "BucketSort(arr=%p): node → %d\n", arr, node);
         while (node)
         {
             // precondition for avoiding out of bounds by the array
@@ -95,11 +100,13 @@ void BucketSort(int arr[])
         {
             struct Node *tmp;
             tmp = node;
+			fprintf(stderr, "BucketSort(arr=%p): tmp → %d\n", arr, tmp);
             node = node->next;
             free(tmp);
         }
     }
     free(buckets);
+	fprintf(stderr, "<<< Exiting BucketSort(arr=%p)\n", arr);
     return;
 }
 
@@ -163,12 +170,14 @@ int getBucketIndex(int value) { return value / INTERVAL; }
 
 void print(int ar[])
 {
+	fprintf(stderr, ">>> Entering print(ar=%p)\n", ar);
     int i;
     for (i = 0; i < NARRAY; ++i)
     {
         printf("%d ", ar[i]);
     }
     printf("\n");
+	fprintf(stderr, "<<< Exiting print(ar=%p)\n", ar);
 }
 
 void printBuckets(struct Node *list)
@@ -183,6 +192,7 @@ void printBuckets(struct Node *list)
 
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int array[NARRAY] = {29, 25, -1, 49, 9, 37, 21, 43};
 
     printf("Initial array\n");
@@ -193,5 +203,6 @@ int main(void)
     printf("------------\n");
     printf("Sorted array\n");
     print(array);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

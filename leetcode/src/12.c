@@ -1,5 +1,7 @@
+#include <stdio.h>
 char *getOne(char c)
 {
+	fprintf(stderr, ">>> Entering getOne(c=%c)\n", c);
     switch (c)
     {
     case '9':
@@ -33,12 +35,14 @@ char *getOne(char c)
         return "";
 
     default:
+		fprintf(stderr, "<<< Exiting getOne(c=%c)\n", c);
         return NULL;
     }
 }
 
 char *getTen(char c)
 {
+	fprintf(stderr, ">>> Entering getTen(c=%c)\n", c);
     switch (c)
     {
     case '9':
@@ -72,12 +76,14 @@ char *getTen(char c)
         return "";
 
     default:
+		fprintf(stderr, "<<< Exiting getTen(c=%c)\n", c);
         return NULL;
     }
 }
 
 char *getHundred(char c)
 {
+	fprintf(stderr, ">>> Entering getHundred(c=%c)\n", c);
     switch (c)
     {
     case '9':
@@ -111,12 +117,14 @@ char *getHundred(char c)
         return "";
 
     default:
+		fprintf(stderr, "<<< Exiting getHundred(c=%c)\n", c);
         return NULL;
     }
 }
 
 char *getThousand(char c)
 {
+	fprintf(stderr, ">>> Entering getThousand(c=%c)\n", c);
     switch (c)
     {
     case '3':
@@ -129,20 +137,24 @@ char *getThousand(char c)
         return "M";
 
     default:
+		fprintf(stderr, "<<< Exiting getThousand(c=%c)\n", c);
         return NULL;
     }
 }
 
 char *intToRoman(int num)
 {
+	fprintf(stderr, ">>> Entering intToRoman(num=%d)\n", num);
     int length;
     char number[5];
     char *s = malloc(16 * sizeof(char));
+	fprintf(stderr, "intToRoman(num=%d): s → %d\n", num, s);
 
     sprintf(number, "%i", num);
 
     length = strlen(number);
 
+	fprintf(stderr, "intToRoman(num=%d): length → %d\n", num, length);
     switch (length)
     {
     case 4:
@@ -168,5 +180,6 @@ char *intToRoman(int num)
     default:
         break;
     }
+	fprintf(stderr, "<<< Exiting intToRoman(num=%d)\n", num);
     return s;
 }

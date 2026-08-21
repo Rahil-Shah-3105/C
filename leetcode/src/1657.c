@@ -1,17 +1,23 @@
+#include <stdio.h>
 const charLength = 26;
 
 int* charsCount(char* word){
+	fprintf(stderr, ">>> Entering charsCount(word=%s)\n", word);
     int* result = calloc(charLength, sizeof(int));
     int wordLen = strlen(word);
+	fprintf(stderr, "charsCount(word=%s): wordLen → %d\n", word, wordLen);
     for (int i = 0; i < wordLen; i++){
         result[word[i] - 'a']++;
     }
 
+	fprintf(stderr, "<<< Exiting charsCount(word=%s)\n", word);
     return result;
 }
 
 int diff(const int *i, const int *j)
 {
+	fprintf(stderr, ">>> Entering diff(i=%p,j=%p)\n", i, j);
+    fprintf(stderr, "<<< Exiting diff(i=%p,j=%p)\n", i, j);
     return *i - *j;
 }
 
@@ -19,6 +25,7 @@ int diff(const int *i, const int *j)
 // Runtime: O(n)
 // Space: O(1)
 bool closeStrings(char * word1, char * word2){
+	fprintf(stderr, ">>> Entering closeStrings(word1=%s,word2=%s)\n", word1, word2);
     int* word1CharsCounter = charsCount(word1);
     int* word2CharsCounter = charsCount(word2);
 
@@ -47,5 +54,6 @@ bool closeStrings(char * word1, char * word2){
 
     free(word1CharsCounter);
     free(word2CharsCounter);
+	fprintf(stderr, "<<< Exiting closeStrings(word1=%s,word2=%s)\n", word1, word2);
     return true;
 }

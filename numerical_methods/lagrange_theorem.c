@@ -30,6 +30,7 @@ int main()
     for (i = 0; i < n; i++)
     {
         p = 1.0;
+		fprintf(stderr, "main(): p → %d\n", p);
         for (j = 0; j < n; j++)
         {
             if (i != j)
@@ -40,6 +41,7 @@ int main()
         }
         printf("ans is->%f", sum);
 
+		fprintf(stderr, "<<< Exiting main()\n");
         return 0;
     }
 }

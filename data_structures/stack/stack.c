@@ -33,6 +33,7 @@ int offset = -1;
 
 void initStack()
 {
+	fprintf(stderr, ">>> Entering initStack()\n");
     array = malloc(sizeof(void *) * max);
     assert(array); /* tests whether pointer is assigned to memory. */
 }
@@ -43,6 +44,7 @@ void initStack()
 */
 void grow()
 {
+	fprintf(stderr, ">>> Entering grow()\n");
     max += 10; /* increases the capacity */
 
     int i;  // for the loop
@@ -56,11 +58,14 @@ void grow()
     /*free the memory */
     free(array);
     array = tmp;
+	fprintf(stderr, "grow(): array → %d\n", array);
+fprintf(stderr, "<<< Exiting grow()\n");
 }
 
 /* push: pushs the argument onto the stack */
 void push(void *object)
 {
+	fprintf(stderr, ">>> Entering push(object=%p)\n", object);
     assert(object); /* tests whether pointer isn't null */
 
     if (counter < max)
@@ -81,6 +86,7 @@ void push(void *object)
         grow();       /* lets grow stack */
         push(object); /* recursive call */
     }
+	fprintf(stderr, "<<< Exiting push(object=%p)\n", object);
 }
 
 /*
@@ -88,6 +94,7 @@ void push(void *object)
 */
 void *pop()
 {
+	fprintf(stderr, ">>> Entering pop()\n");
     void *top = *(array + offset);
 
     /* check pointers */
@@ -103,6 +110,7 @@ void *pop()
     /* decreases the inner counter */
     counter--;
 
+	fprintf(stderr, "<<< Exiting pop()\n");
     return top;
 }
 
@@ -121,6 +129,8 @@ int isEmpty() { return counter == 0; }
 */
 void *top()
 {
+	fprintf(stderr, ">>> Entering top()\n");
     /* offset address points to the top element */
+	fprintf(stderr, "<<< Exiting top()\n");
     return array[offset];
 }

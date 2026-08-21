@@ -1,3 +1,4 @@
+#include <stdio.h>
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -7,6 +8,7 @@
  */
 bool hasCycle(struct ListNode *head)
 {
+	fprintf(stderr, ">>> Entering hasCycle(head=%p)\n", head);
     struct ListNode *fast = head, *slow = head;
     while (slow && fast && fast->next)
     {

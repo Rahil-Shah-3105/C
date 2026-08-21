@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -6,6 +7,7 @@
    q: prime number for hashing */
 void rabin_karp_search(char *str, char *pattern, int d, int q)
 {
+	fprintf(stderr, ">>> Entering rabin_karp_search(str=%s,pattern=%s,d=%s,q=%s)\n", str, pattern, d, q);
     int len_str = strlen(str);
     int len_pat = strlen(pattern);
     int i, h = 1;
@@ -44,10 +46,12 @@ void rabin_karp_search(char *str, char *pattern, int d, int q)
         if (hash_s < 0)
             hash_s = hash_s + q;
     }
+	fprintf(stderr, "<<< Exiting rabin_karp_search(str=%s,pattern=%s,d=%s,q=%s)\n", str, pattern, d, q);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     char str[] = "AABCAB12AFAABCABFFEGABCAB";
     char pat1[] = "ABCAB";
     char pat2[] = "FFF"; /* not found */
@@ -60,5 +64,6 @@ int main()
     rabin_karp_search(str, pat2, 256, 29);
     printf("Test3: search pattern %s\n", pat3);
     rabin_karp_search(str, pat3, 256, 29);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

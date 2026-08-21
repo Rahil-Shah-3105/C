@@ -35,8 +35,10 @@ typedef struct euclidean_result
  */
 static inline void xy_push(int arr[2], int newval)
 {
+	fprintf(stderr, ">>> Entering xy_push(arr=%p,newval=%p)\n", arr, newval);
     arr[1] = arr[0];
     arr[0] = newval;
+	fprintf(stderr, "<<< Exiting xy_push(arr=%p,newval=%p)\n", arr, newval);
 }
 
 /**
@@ -53,8 +55,11 @@ static inline void xy_push(int arr[2], int newval)
  */
 static inline void calculate_next_xy(int quotient, int prev[2])
 {
+	fprintf(stderr, ">>> Entering calculate_next_xy(quotient=%d,prev=%p)\n", quotient, prev);
     int next = prev[1] - (prev[0] * quotient);
     xy_push(prev, next);
+	fprintf(stderr, "calculate_next_xy(quotient=%d,prev=%p): next → %d\n", quotient, prev, next);
+fprintf(stderr, "<<< Exiting calculate_next_xy(quotient=%d,prev=%p)\n", quotient, prev);
 }
 
 /**
@@ -68,8 +73,10 @@ static inline void calculate_next_xy(int quotient, int prev[2])
  */
 euclidean_result_t extended_euclidean_algorithm(int a, int b)
 {
+	fprintf(stderr, ">>> Entering extended_euclidean_algorithm(a=%d,b=%d)\n", a, b);
     int previous_remainder = 1;
     int previous_x_values[2] = {0, 1};
+	fprintf(stderr, "extended_euclidean_algorithm(a=%d,b=%d): previous_remainder → %d\n", a, b, previous_remainder);
     int previous_y_values[2] = {1, 0};
     div_t div_result;
     euclidean_result_t result;
@@ -83,11 +90,13 @@ euclidean_result_t extended_euclidean_algorithm(int a, int b)
     }
 
     div_result.rem = b;
+	fprintf(stderr, "extended_euclidean_algorithm(a=%d,b=%d): div_result.rem → %d\n", a, b, div_result.rem);
 
     while (div_result.rem > 0)
     {
         div_result = div(a, b);
 
+		fprintf(stderr, "extended_euclidean_algorithm(a=%d,b=%d): div_result → %d\n", a, b, div_result);
         previous_remainder = b;
 
         a = b;
@@ -98,9 +107,13 @@ euclidean_result_t extended_euclidean_algorithm(int a, int b)
     }
 
     result.gcd = previous_remainder;
+	fprintf(stderr, "extended_euclidean_algorithm(a=%d,b=%d): result.gcd → %d\n", a, b, result.gcd);
+	fprintf(stderr, "extended_euclidean_algorithm(a=%d,b=%d): result.x → %d\n", a, b, result.x);
+	fprintf(stderr, "extended_euclidean_algorithm(a=%d,b=%d): result.y → %d\n", a, b, result.y);
     result.x = previous_x_values[1];
     result.y = previous_y_values[1];
 
+	fprintf(stderr, "<<< Exiting extended_euclidean_algorithm(a=%d,b=%d)\n", a, b);
     return result;
 }
 
@@ -120,12 +133,15 @@ euclidean_result_t extended_euclidean_algorithm(int a, int b)
  */
 static inline void single_test(int a, int b, int gcd, int x, int y)
 {
+	fprintf(stderr, ">>> Entering single_test(a=%d,b=%d,gcd=%d,x=%d,y=%d)\n", a, b, gcd, x, y);
     euclidean_result_t result;
 
     result = extended_euclidean_algorithm(a, b);
+	fprintf(stderr, "single_test(a=%d,b=%d,gcd=%d,x=%d,y=%d): result → %d\n", a, b, gcd, x, y, result);
     assert(result.gcd == gcd);
     assert(result.x == x);
     assert(result.y == y);
+	fprintf(stderr, "<<< Exiting single_test(a=%d,b=%d,gcd=%d,x=%d,y=%d)\n", a, b, gcd, x, y);
 }
 
 /**
@@ -134,6 +150,7 @@ static inline void single_test(int a, int b, int gcd, int x, int y)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     single_test(40, 27, 1, -2, 3);
     single_test(71, 41, 1, -15, 26);
     single_test(48, 18, 6, -1, 3);
@@ -141,6 +158,7 @@ static void test()
     single_test(14005, 3507, 1, -305, 1218);
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -149,6 +167,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

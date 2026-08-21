@@ -1,5 +1,7 @@
+#include <stdio.h>
 char *reverseOnlyLetters(char *S)
 {
+	fprintf(stderr, ">>> Entering reverseOnlyLetters(S=%s)\n", S);
     int last = strlen(S) - 1, i;
     for (i = 0; i < last;)
     {
@@ -19,5 +21,6 @@ char *reverseOnlyLetters(char *S)
         i++;
         last--;
     }
+	fprintf(stderr, "<<< Exiting reverseOnlyLetters(S=%s)\n", S);
     return S;
 }
