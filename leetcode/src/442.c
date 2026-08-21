@@ -1,7 +1,9 @@
+#include <stdio.h>
 int cmpval(const void *a, const void *b) { return *(int *)a - *(int *)b; }
 
 int *findDuplicates(int *nums, int numsSize, int *returnSize)
 {
+	fprintf(stderr, ">>> Entering findDuplicates(nums=%p,numsSize=%p,returnSize=%p)\n", nums, numsSize, returnSize);
     int i;
     qsort(nums, numsSize, sizeof(int), cmpval);
     int *retArr = malloc(numsSize * sizeof(int));
@@ -19,5 +21,6 @@ int *findDuplicates(int *nums, int numsSize, int *returnSize)
             i = i + 1;
         }
     }
+	fprintf(stderr, "<<< Exiting findDuplicates(nums=%p,numsSize=%p,returnSize=%p)\n", nums, numsSize, returnSize);
     return retArr;
 }

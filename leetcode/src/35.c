@@ -1,5 +1,7 @@
+#include <stdio.h>
 int searchInsert(int *nums, int numsSize, int target)
 {
+	fprintf(stderr, ">>> Entering searchInsert(nums=%p,numsSize=%p,target=%d)\n", nums, numsSize, target);
     int low = 0, high = numsSize - 1, mid;
     while (low <= high)
     {

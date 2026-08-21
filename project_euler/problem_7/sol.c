@@ -11,6 +11,7 @@
  */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     char *sieve;
     size_t i;
     unsigned count = 0;
@@ -36,5 +37,6 @@ int main(void)
         }
     }
     free(sieve);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

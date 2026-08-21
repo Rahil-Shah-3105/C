@@ -25,6 +25,7 @@
  */
 unsigned int fib(int number)
 {
+	fprintf(stderr, ">>> Entering fib(number=%d)\n", number);
     // Check for negative integers
     if (number <= 0)
     {
@@ -49,6 +50,7 @@ unsigned int fib(int number)
  */
 int getInput(void)
 {
+	fprintf(stderr, ">>> Entering getInput()\n");
     int num, excess_len;
     char buffer[3], *endPtr;
 
@@ -58,6 +60,7 @@ int getInput(void)
         fgets(buffer, 3, stdin);  // Inputs the value from user
 
         excess_len = 0;
+		fprintf(stderr, "getInput(): excess_len → %d\n", excess_len);
         if (!(buffer[0] == '\n' ||
             buffer[1] == '\n' ||
             buffer[2] == '\n')) {
@@ -67,6 +70,7 @@ int getInput(void)
         num = strtol(buffer, &endPtr,
                      10);  // Attempts to convert the string to integer
 
+					fprintf(stderr, "getInput(): num → %d\n", num);
         // Checking the input
         if (  // The number is too large
             (excess_len > 0 || num > 48) ||
@@ -82,6 +86,7 @@ int getInput(void)
     }
 
     printf("\nEntered digit: %d (it might take sometime)\n", num);
+	fprintf(stderr, "<<< Exiting getInput()\n");
     return num;
 }
 
@@ -91,9 +96,11 @@ int getInput(void)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     assert(fib(5) == 3);
     assert(fib(2) == 1);
     assert(fib(9) == 21);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -113,12 +120,16 @@ int main()
         "than or equal to 48 ) is entered.\n");
 
     int number = getInput();
+	fprintf(stderr, "main(): number → %d\n", number);
     clock_t start, end;
 
     start = clock();
+	fprintf(stderr, "main(): start → %d\n", start);
     printf("Fibonacci element %d is %u ", number, fib(number));
     end = clock();
 
+	fprintf(stderr, "main(): end → %d\n", end);
     printf("in %.3f seconds.\n", ((double)(end - start)) / CLOCKS_PER_SEC );
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

@@ -1,3 +1,4 @@
+#include <stdio.h>
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -8,12 +9,14 @@
 
 int* nextLargerNodes(struct ListNode* head, int* returnSize)
 {
+	fprintf(stderr, ">>> Entering nextLargerNodes(head=%p,returnSize=%p)\n", head, returnSize);
     int *output, count = 0;
     struct ListNode *tmp = head, *tmp2;
     for (; tmp != NULL; tmp = tmp->next, count++)
         ;
     output = (int*)calloc(count, sizeof(int));
     *returnSize = count;
+	fprintf(stderr, "nextLargerNodes(head=%p,returnSize=%p): output → %d\n", head, returnSize, output);
     for (tmp = head, count = 0; tmp->next != NULL; tmp = tmp->next, count++)
     {
         for (tmp2 = tmp->next; tmp2 != NULL; tmp2 = tmp2->next)
@@ -25,5 +28,6 @@ int* nextLargerNodes(struct ListNode* head, int* returnSize)
             }
         }
     }
+	fprintf(stderr, "<<< Exiting nextLargerNodes(head=%p,returnSize=%p)\n", head, returnSize);
     return output;
 }

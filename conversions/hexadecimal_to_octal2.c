@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * @file
  * @brief Convert hexadecimal number to octal number (with decimal intermediary)
@@ -23,6 +24,7 @@
  */
 const char *hex_to_oct(const char *hex)
 {
+fprintf(stderr, ">>> Entering hex_to_oct(hex=%s)\n", hex);
 #define MAX_OCT_STR_LEN 23 /* 17_7777_7777_7777_7777_7777 */
     static char octal[MAX_OCT_STR_LEN];
     memset(octal, '\0', MAX_OCT_STR_LEN); // Initialize as NULL string
@@ -33,6 +35,7 @@ const char *hex_to_oct(const char *hex)
 
     if (hex == NULL)
     {
+		fprintf(stderr, "Exception in hex_to_oct(hex=%s): %d\n", hex, errno);
         // Return an empty string
         return octal;
     }
@@ -70,6 +73,7 @@ const char *hex_to_oct(const char *hex)
     {
         octal[0] = '0';
         len = 1;
+		fprintf(stderr, "hex_to_oct(hex=%s): len → %d\n", hex, len);
     }
     else
     {
@@ -94,6 +98,7 @@ const char *hex_to_oct(const char *hex)
         octal[len - i - 1] = tmp;
     }
 
+	fprintf(stderr, "<<< Exiting hex_to_oct(hex=%s)\n", hex);
     return octal;
 }
 
@@ -103,6 +108,7 @@ const char *hex_to_oct(const char *hex)
  */
 int main()
 {
+fprintf(stderr, ">>> Entering main()\n");
 #define MAX_HEX_STR_LEN 17 /* FFFF_FFFF_FFFF_FFFF */
     char hex[MAX_HEX_STR_LEN];
 
@@ -115,5 +121,6 @@ int main()
     printf("Hexadecimal number = %s\n", hex);
     printf("Octal number = %s\n", octal);
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

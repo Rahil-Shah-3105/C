@@ -1,3 +1,4 @@
+#include <stdio.h>
 /**
  * Return an array of arrays of size *returnSize.
  * The sizes of the arrays are returned as *returnColumnSizes array.
@@ -8,6 +9,7 @@
 // Runtime: O(n * m)
 // Space: O(n + m)
 int** onesMinusZeros(int** grid, int gridSize, int* gridColSize, int* returnSize, int** returnColumnSizes){
+	fprintf(stderr, ">>> Entering onesMinusZeros(grid=%p,gridSize=%p,gridColSize=%p,returnSize=%p,returnColumnSizes=%p)\n", grid, gridSize, gridColSize, returnSize, returnColumnSizes);
     int n = gridSize;
     int m = gridColSize[0];
 
@@ -38,5 +40,6 @@ int** onesMinusZeros(int** grid, int gridSize, int* gridColSize, int* returnSize
 
     *returnSize = gridSize;
     *returnColumnSizes = gridColSize;
+	fprintf(stderr, "<<< Exiting onesMinusZeros(grid=%p,gridSize=%p,gridColSize=%p,returnSize=%p,returnColumnSizes=%p)\n", grid, gridSize, gridColSize, returnSize, returnColumnSizes);
     return result;
 }

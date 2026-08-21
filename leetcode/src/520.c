@@ -1,5 +1,7 @@
+#include <stdio.h>
 bool detectCapitalUse(char *word)
 {
+	fprintf(stderr, ">>> Entering detectCapitalUse(word=%s)\n", word);
     int len = strlen(word);
     if (len == 1)
         return 1;
@@ -23,6 +25,7 @@ bool detectCapitalUse(char *word)
 /* Another way */
 bool isAllUpper(char *word)
 {
+	fprintf(stderr, ">>> Entering isAllUpper(word=%s)\n", word);
     int len = strlen(word);
     for (int i = 0; i < len; i++)
     {

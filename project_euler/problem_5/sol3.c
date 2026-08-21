@@ -17,18 +17,22 @@
  */
 unsigned long gcd(unsigned long a, unsigned long b)
 {
+	fprintf(stderr, ">>> Entering gcd(a=%ld,b=%ld)\n", a, b);
     unsigned long r;
     if (a > b)
     {
         unsigned long t = a;
         a = b;
+		fprintf(stderr, "gcd(a=%ld,b=%ld): a → %ld\n", a, b, a);
         b = t;
+		fprintf(stderr, "gcd(a=%ld,b=%ld): b → %ld\n", a, b, b);
     }
     while ((r = (a % b)))
     {
         a = b;
         b = r;
     }
+	fprintf(stderr, "<<< Exiting gcd(a=%ld,b=%ld)\n", a, b);
     return b;
 }
 
@@ -40,7 +44,9 @@ unsigned long gcd(unsigned long a, unsigned long b)
  */
 unsigned long lcm(unsigned long a, unsigned long b)
 {
+	fprintf(stderr, ">>> Entering lcm(a=%ld,b=%ld)\n", a, b);
     unsigned long long p = (unsigned long long)a * b;
+	fprintf(stderr, "<<< Exiting lcm(a=%ld,b=%ld)\n", a, b);
     return p / gcd(a, b);
 }
 
@@ -49,12 +55,15 @@ unsigned long lcm(unsigned long a, unsigned long b)
  */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     unsigned long ans = 1;
     unsigned long i;
+	fprintf(stderr, "main(): ans → %d\n", ans);
     for (i = 1; i <= 20; i++)
     {
         ans = lcm(ans, i);
     }
     printf("%lu\n", ans);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

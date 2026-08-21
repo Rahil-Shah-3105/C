@@ -12,6 +12,7 @@ O(nlog(n)).
 
 int getBig(int *a, int i, int right, int pivot)
 {
+	fprintf(stderr, ">>> Entering getBig(a=%p,i=%p,right=%d,pivot=%d)\n", a, i, right, pivot);
     for (int k = i; k <= right; k++)
     {
         if (a[k] > pivot)
@@ -22,6 +23,7 @@ int getBig(int *a, int i, int right, int pivot)
 
 int getSmall(int *a, int j, int left, int pivot)
 {
+	fprintf(stderr, ">>> Entering getSmall(a=%p,j=%p,left=%d,pivot=%d)\n", a, j, left, pivot);
     for (int k = j; k >= left; k--)
     {
         if (a[k] < pivot)
@@ -32,13 +34,16 @@ int getSmall(int *a, int j, int left, int pivot)
 
 void swap(int *a, int *b)
 {
+	fprintf(stderr, ">>> Entering swap(a=%p,b=%p)\n", a, b);
     int t = *a;
     *a = *b;
     *b = t;
+	fprintf(stderr, "<<< Exiting swap(a=%p,b=%p)\n", a, b);
 }
 
 void random_quick(int *a, int left, int right)
 {
+	fprintf(stderr, ">>> Entering random_quick(a=%p,left=%p,right=%d)\n", a, left, right);
     if (left >= right)
         return;
     int index = left + (rand() % (right - left)), i = left, j = right;
@@ -76,10 +81,12 @@ void random_quick(int *a, int left, int right)
         random_quick(a, left, pivot_index - 1);
         random_quick(a, pivot_index + 1, right);
     }
+	fprintf(stderr, "<<< Exiting random_quick(a=%p,left=%p,right=%d)\n", a, left, right);
 }
 
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     srand(time(0));
     int num;
     scanf("%d", &num);
@@ -96,4 +103,5 @@ int main()
 
     free(arr);
     printf("\n");
+	fprintf(stderr, "<<< Exiting main()\n");
 }

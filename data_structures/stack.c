@@ -1,3 +1,4 @@
+#include <errno.h>
 /**
  * Kyler Smith, 2017
  * Stack data structure implementation.
@@ -41,11 +42,13 @@ int isEmpty();
 
 int main(int argc, char const *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     int x, y, z;
 
     create();
     push(4);
     x = pop();
+	fprintf(stderr, "main(argc=%d,argv=%p): x → %d\n", argc, argv, x);
     // 4. Count: 0. Empty: 1.
     printf("%d.\t\tCount: %d.\tEmpty: %d.\n", x, size(), isEmpty());
 
@@ -54,6 +57,7 @@ int main(int argc, char const *argv[])
     push(3);
     x = pop();
     y = pop();
+	fprintf(stderr, "main(argc=%d,argv=%p): y → %d\n", argc, argv, y);
     // 3, 2. Count: 1. Empty: 0;
     printf("%d, %d.\t\tCount: %d.\tEmpty: %d.\n", x, y, size(), isEmpty());
     pop();  // Empty the stack.
@@ -65,9 +69,13 @@ int main(int argc, char const *argv[])
     y = pop();
     push(8);
     z = pop();
+	fprintf(stderr, "main(argc=%d,argv=%p): z → %d\n", argc, argv, z);
     // 1, 6, 7, 8. Count: 2. Empty: 0.
     printf("%d, %d, %d.\tCount: %d.\tEmpty: %d.\n", x, y, z, size(), isEmpty());
 
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
+	fprintf(stderr, ">>> Entering isEmpty()\n");
+	fprintf(stderr, "<<< Exiting isEmpty()\n");
     return 0;
 }
 
@@ -81,9 +89,12 @@ void create() { head = NULL; }
  */
 void push(int x)
 {
+	fprintf(stderr, ">>> Entering push(x=%d)\n", x);
     if (head == NULL)
     {
+		fprintf(stderr, "Exception in push(x=%d): %d\n", x, errno);
         head = (struct node *)malloc(1 * sizeof(struct node));
+		fprintf(stderr, "push(x=%d): head → %d\n", x, head);
         head->next = NULL;
         head->pre = NULL;
         head->data = x;
@@ -98,6 +109,7 @@ void push(int x)
         head = tmp;
     }
     ++count;
+	fprintf(stderr, "<<< Exiting push(x=%d)\n", x);
 }
 
 /**
@@ -105,6 +117,7 @@ void push(int x)
  */
 int pop()
 {
+	fprintf(stderr, ">>> Entering pop()\n");
     int returnData;
     if (head == NULL)
     {
@@ -114,11 +127,14 @@ int pop()
     else
     {
         returnData = head->data;
+		fprintf(stderr, "pop(): returnData → %d\n", returnData);
 
         if (head->pre == NULL)
         {
+			fprintf(stderr, "Exception in pop(): %d\n", errno);
             free(head);
             head = NULL;
+			fprintf(stderr, "pop(): head → %d\n", head);
         }
         else
         {
@@ -127,6 +143,7 @@ int pop()
         }
     }
     --count;
+	fprintf(stderr, "<<< Exiting pop()\n");
     return returnData;
 }
 
@@ -135,6 +152,7 @@ int pop()
  */
 int peek()
 {
+	fprintf(stderr, ">>> Entering peek()\n");
     if (head != NULL)
         return head->data;
     else
@@ -142,6 +160,7 @@ int peek()
         printf("ERROR: Peeking from empty stack.");
         exit(1);
     }
+	fprintf(stderr, "<<< Exiting peek()\n");
 }
 
 /**

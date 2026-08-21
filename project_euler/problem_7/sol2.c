@@ -10,6 +10,7 @@
  */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int n;
     scanf("%d", &n);
     int number_of_prime = 0;
@@ -34,5 +35,6 @@ int main()
         }
     }
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

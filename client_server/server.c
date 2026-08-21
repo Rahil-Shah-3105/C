@@ -46,6 +46,7 @@ void cleanup() { WSACleanup(); }
  */
 void func(int sockfd)
 {
+	fprintf(stderr, ">>> Entering func(sockfd=%d)\n", sockfd);
     char buff[MAX];
     int n;
     // infinite loop for chat
@@ -111,6 +112,7 @@ int main()
 
     // assign IP, PORT
     servaddr.sin_family = AF_INET;
+	fprintf(stderr, "main(): servaddr.sin_family → %d\n", servaddr.sin_family);
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(PORT);
 
@@ -137,6 +139,7 @@ int main()
     }
     len = sizeof(cli);
 
+	fprintf(stderr, "main(): len → %d\n", len);
     // Accept the data packet from client and verification
     connfd = accept(sockfd, (SA *)&cli, &len);
     if (connfd < 0)
@@ -154,5 +157,6 @@ int main()
 
     // After chatting close the socket
     close(sockfd);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

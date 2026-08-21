@@ -1,8 +1,11 @@
+#include <stdio.h>
+#include <errno.h>
 #define MAP_SIZE 2048
 
 int cmpvalue(const void *a, const void *b) { return *(int *)b - *(int *)a; }
 bool uniqueOccurrences(int *arr, int arrSize)
 {
+	fprintf(stderr, ">>> Entering uniqueOccurrences(arr=%p,arrSize=%p)\n", arr, arrSize);
     int *map = calloc(MAP_SIZE, sizeof(int));
     int i;
     for (i = 0; i < arrSize; i++)
@@ -22,5 +25,6 @@ bool uniqueOccurrences(int *arr, int arrSize)
             return 0;
         i++;
     }
+	fprintf(stderr, "<<< Exiting uniqueOccurrences(arr=%p,arrSize=%p)\n", arr, arrSize);
     return 1;
 }

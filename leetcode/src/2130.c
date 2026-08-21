@@ -1,3 +1,4 @@
+#include <stdio.h>
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -8,8 +9,11 @@
 
 int pairSum(struct ListNode* head)
 {
+	fprintf(stderr, ">>> Entering pairSum(head=%p)\n", head);
     struct ListNode* dup = head;
     int count = 0, i = 0, max = 0;
+	fprintf(stderr, "pairSum(head=%p): count → %d\n", head, count);
+	fprintf(stderr, "pairSum(head=%p): dup → %d\n", head, dup);
     while (head != NULL)
     {
         count++;
@@ -25,6 +29,8 @@ int pairSum(struct ListNode* head)
     {
         if (arr[i] + arr[count - i - 1] > max)
             max = arr[i] + arr[count - i - 1];
+			fprintf(stderr, "pairSum(head=%p): max → %d\n", head, max);
     }
+	fprintf(stderr, "<<< Exiting pairSum(head=%p)\n", head);
     return max;
 }

@@ -28,8 +28,10 @@
  */
 char* convert(char* in, uint16_t numRows)
 {
+	fprintf(stderr, ">>> Entering convert(in=%s,numRows=%s)\n", in, numRows);
     uint16_t len = strlen(in);
 
+	fprintf(stderr, "convert(in=%s,numRows=%d): len → %d\n", in, numRows, len);
     if (len < numRows)
     {
         numRows = len;
@@ -47,6 +49,7 @@ char* convert(char* in, uint16_t numRows)
     uint16_t i = 0;
     uint16_t o = 0;
     uint16_t delta = 0;
+	fprintf(stderr, "convert(in=%s,numRows=%d): delta → %d\n", in, numRows, delta);
 
     // first row
     while (i < len)
@@ -76,6 +79,7 @@ char* convert(char* in, uint16_t numRows)
         i += rr;
     }
 
+	fprintf(stderr, "<<< Exiting convert(in=%s,numRows=%s)\n", in, numRows);
     return out;
 }
 
@@ -85,12 +89,16 @@ char* convert(char* in, uint16_t numRows)
  */
 static void testZigZag(char* s, int numRows, char* expected)
 {
+	fprintf(stderr, ">>> Entering testZigZag(s=%s,numRows=%s,expected=%s)\n", s, numRows, expected);
     char* ret = convert(s, numRows);
     int len = strlen(s);
+	fprintf(stderr, "testZigZag(s=%s,numRows=%d,expected=%s): len → %d\n", s, numRows, expected, len);
     int cmp = strncmp(ret, expected, len);
+	fprintf(stderr, "testZigZag(s=%s,numRows=%d,expected=%s): cmp → %d\n", s, numRows, expected, cmp);
     assert(!cmp);
 
     free(ret);
+	fprintf(stderr, "<<< Exiting testZigZag(s=%s,numRows=%s,expected=%s)\n", s, numRows, expected);
 }
 
 /**
@@ -99,6 +107,7 @@ static void testZigZag(char* s, int numRows, char* expected)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     char* s01 = "PAYPALISHIRING";
 
     char* r01 = "PINALSIGYAHRPI";
@@ -138,6 +147,7 @@ static void test()
         "xpdbsqzsjvctwdrwploufdisxgbahuinogzf";
 
     testZigZag(s04, 472, r04);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -146,6 +156,8 @@ static void test()
  */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

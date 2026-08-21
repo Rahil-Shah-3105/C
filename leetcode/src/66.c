@@ -1,8 +1,10 @@
+#include <stdio.h>
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
 int *plusOne(int *digits, int digitsSize, int *returnSize)
 {
+	fprintf(stderr, ">>> Entering plusOne(digits=%p,digitsSize=%p,returnSize=%p)\n", digits, digitsSize, returnSize);
     for (int i = digitsSize - 1; i >= 0; i--)
     {
         if (digits[i] < 9)
@@ -24,5 +26,6 @@ int *plusOne(int *digits, int digitsSize, int *returnSize)
         newdigit[i] = digits[i - 1];
     }
     *returnSize = digitsSize + 1;
+	fprintf(stderr, "<<< Exiting plusOne(digits=%p,digitsSize=%p,returnSize=%p)\n", digits, digitsSize, returnSize);
     return newdigit;
 }

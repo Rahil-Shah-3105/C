@@ -17,6 +17,7 @@
  */
 int binarySearch(const int **mat, int i, int j_low, int j_high, int x)
 {
+	fprintf(stderr, ">>> Entering binarySearch(mat=%p,i=%p,j_low=%d,j_high=%d,x=%d)\n", mat, i, j_low, j_high, x);
     while (j_low <= j_high)
     {
         int j_mid = (j_low + j_high) / 2;
@@ -35,6 +36,7 @@ int binarySearch(const int **mat, int i, int j_low, int j_high, int x)
 
     // element not found
     printf("element not found\n");
+	fprintf(stderr, "<<< Exiting binarySearch(mat=%p,i=%p,j_low=%d,j_high=%d,x=%d)\n", mat, i, j_low, j_high, x);
     return -1;
 }
 
@@ -47,6 +49,7 @@ int binarySearch(const int **mat, int i, int j_low, int j_high, int x)
  */
 void modifiedBinarySearch(const int **mat, int n, int m, int x)
 {  // If Single row matrix
+	fprintf(stderr, ">>> Entering modifiedBinarySearch(mat=%p,n=%p,m=%d,x=%d)\n", mat, n, m, x);
     if (n == 1)
     {
         binarySearch(mat, 0, 0, m - 1, x);
@@ -91,11 +94,13 @@ void modifiedBinarySearch(const int **mat, int n, int m, int x)
     // search element on 2nd half of 2nd row
     else
         binarySearch(mat, i_low + 1, j_mid + 1, m - 1, x);
+		fprintf(stderr, "<<< Exiting modifiedBinarySearch(mat=%p,n=%p,m=%d,x=%d)\n", mat, n, m, x);
 }
 
 /** Main function */
 int main()
 {
+	fprintf(stderr, ">>> Entering main()\n");
     int x;     // element to be searched
     int m, n;  // m = columns, n = rows
 
@@ -116,5 +121,6 @@ int main()
 
     for (int i = 0; i < n; i++) free(mat[i]);
     free(mat);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

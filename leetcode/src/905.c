@@ -1,3 +1,4 @@
+#include <stdio.h>
 /**
  * 905. Sort Array By Parity
  * Given an array A of non-negative integers, return an array consisting of
@@ -12,6 +13,7 @@
  */
 int *sortArrayByParity(int *A, int ASize, int *returnSize)
 {
+	fprintf(stderr, ">>> Entering sortArrayByParity(A=%p,ASize=%p,returnSize=%p)\n", A, ASize, returnSize);
     int *retArr = malloc(ASize * sizeof(int));
     int oddIndex = ASize - 1;
     int evenIndex = 0;
@@ -30,5 +32,6 @@ int *sortArrayByParity(int *A, int ASize, int *returnSize)
         }
     }
 
+	fprintf(stderr, "<<< Exiting sortArrayByParity(A=%p,ASize=%p,returnSize=%p)\n", A, ASize, returnSize);
     return retArr;
 }

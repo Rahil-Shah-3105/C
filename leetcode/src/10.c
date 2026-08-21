@@ -1,3 +1,4 @@
+#include <stdio.h>
 /*
 Prompt:
 
@@ -31,20 +32,24 @@ Implementation:
             if (matchhere(regexp, text))
                 return 1;
         } while (*text++ != '\0');
+		fprintf(stderr, "<<< Exiting match(regexp=%s,text=%s)\n", regexp, text);
         return 0;
     }
 */
 
 bool matchStar(char ch, char* s, char* p) {
+fprintf(stderr, ">>> Entering matchStar(ch=%c,s=%s,p=%s)\n", ch, s, p);
   do {
     if (isMatch(s, p))
       return true;
   } while (*s != '\0' && (*s++ == ch || ch == '.'));
 
+fprintf(stderr, "<<< Exiting matchStar(ch=%c,s=%s,p=%s)\n", ch, s, p);
   return false;
 }
 
 bool isMatch(char* s, char* p) {
+fprintf(stderr, ">>> Entering isMatch(s=%s,p=%s)\n", s, p);
   if (*p == '\0')
     return *s == '\0';
 
@@ -52,6 +57,7 @@ bool isMatch(char* s, char* p) {
     return matchStar(p[0], s, p + 2);
 
   if (*s != '\0' && (p[0] == '.' || *p == *s)) {
+fprintf(stderr, "<<< Exiting isMatch(s=%s,p=%s)\n", s, p);
     return isMatch(s + 1, p + 1);
   }
 

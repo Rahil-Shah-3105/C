@@ -17,6 +17,7 @@
  */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     double **A;
     unsigned int ROWS, COLUMNS;
 
@@ -33,6 +34,7 @@ int main(void)
     printf("Enter matrix elements row-wise:\n");
 
     A = (double **)malloc(ROWS * sizeof(double *));
+	fprintf(stderr, "main(): A → %d\n", A);
     for (int i = 0; i < ROWS; i++)
         A[i] = (double *)malloc(COLUMNS * sizeof(double));
 
@@ -62,6 +64,7 @@ int main(void)
     clock_t t1 = clock();
     qr_decompose(A, Q, R, ROWS, COLUMNS);
     double dtime = (double)(clock() - t1) / CLOCKS_PER_SEC;
+	fprintf(stderr, "main(): dtime → %d\n", dtime);
 
     print_matrix(R, ROWS, COLUMNS);
     print_matrix(Q, ROWS, COLUMNS);
@@ -76,5 +79,6 @@ int main(void)
     free(A);
     free(R);
     free(Q);
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

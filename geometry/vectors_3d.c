@@ -30,11 +30,16 @@
  */
 vec_3d vector_sub(const vec_3d *a, const vec_3d *b)
 {
+	fprintf(stderr, ">>> Entering vector_sub(a=%p,b=%p)\n", a, b);
+	fprintf(stderr, "<<< Exiting vector_sub(a=%p,b=%p)\n", a, b);
     vec_3d out;
 #ifdef LIBQUAT_ARM
     arm_sub_f32((float *)a, (float *)b, (float *)&out);
 #else
     out.x = a->x - b->x;
+	fprintf(stderr, "vector_sub(a=%p,b=%p): out.x → %d\n", a, b, out.x);
+	fprintf(stderr, "vector_sub(a=%p,b=%p): out.y → %d\n", a, b, out.y);
+	fprintf(stderr, "vector_sub(a=%p,b=%p): out.z → %d\n", a, b, out.z);
     out.y = a->y - b->y;
     out.z = a->z - b->z;
 #endif
@@ -52,11 +57,16 @@ vec_3d vector_sub(const vec_3d *a, const vec_3d *b)
  */
 vec_3d vector_add(const vec_3d *a, const vec_3d *b)
 {
+	fprintf(stderr, ">>> Entering vector_add(a=%p,b=%p)\n", a, b);
+	fprintf(stderr, "<<< Exiting vector_add(a=%p,b=%p)\n", a, b);
     vec_3d out;
 #ifdef LIBQUAT_ARM
     arm_add_f32((float *)a, (float *)b, (float *)&out);
 #else
     out.x = a->x + b->x;
+	fprintf(stderr, "vector_add(a=%p,b=%p): out.x → %d\n", a, b, out.x);
+	fprintf(stderr, "vector_add(a=%p,b=%p): out.y → %d\n", a, b, out.y);
+	fprintf(stderr, "vector_add(a=%p,b=%p): out.z → %d\n", a, b, out.z);
     out.y = a->y + b->y;
     out.z = a->z + b->z;
 #endif
@@ -75,11 +85,14 @@ vec_3d vector_add(const vec_3d *a, const vec_3d *b)
  */
 float dot_prod(const vec_3d *a, const vec_3d *b)
 {
+	fprintf(stderr, ">>> Entering dot_prod(a=%p,b=%p)\n", a, b);
+	fprintf(stderr, "<<< Exiting dot_prod(a=%p,b=%p)\n", a, b);
     float dot;
 #ifdef LIBQUAT_ARM
     arm_dot_prod_f32((float *)a, (float *)b, &dot);
 #else
     dot = a->x * b->x;
+	fprintf(stderr, "dot_prod(a=%p,b=%p): dot → %d\n", a, b, dot);
     dot += a->y * b->y;
     dot += a->z * b->z;
 #endif
@@ -104,12 +117,17 @@ float dot_prod(const vec_3d *a, const vec_3d *b)
  */
 vec_3d vector_prod(const vec_3d *a, const vec_3d *b)
 {
+	fprintf(stderr, ">>> Entering vector_prod(a=%p,b=%p)\n", a, b);
     vec_3d out;  // better this way to avoid copying results to input
                  // vectors themselves
     out.x = a->y * b->z - a->z * b->y;
+	fprintf(stderr, "vector_prod(a=%p,b=%p): out.x → %d\n", a, b, out.x);
+	fprintf(stderr, "vector_prod(a=%p,b=%p): out.y → %d\n", a, b, out.y);
+	fprintf(stderr, "vector_prod(a=%p,b=%p): out.z → %d\n", a, b, out.z);
     out.y = -a->x * b->z + a->z * b->x;
     out.z = a->x * b->y - a->y * b->x;
 
+	fprintf(stderr, "<<< Exiting vector_prod(a=%p,b=%p)\n", a, b);
     return out;
 }
 
@@ -121,11 +139,13 @@ vec_3d vector_prod(const vec_3d *a, const vec_3d *b)
  */
 const char *print_vector(const vec_3d *a, const char *name)
 {
+	fprintf(stderr, ">>> Entering print_vector(a=%p,name=%s)\n", a, name);
     static char vec_str[100];  // static to ensure the string life extends the
                                // life of function
 
     snprintf(vec_str, 99, "vec(%s) = (%.3g)i + (%.3g)j + (%.3g)k\n", name, a->x,
              a->y, a->z);
+	fprintf(stderr, "<<< Exiting print_vector(a=%p,name=%s)\n", a, name);
     return vec_str;
 }
 
@@ -137,8 +157,11 @@ const char *print_vector(const vec_3d *a, const char *name)
  */
 float vector_norm(const vec_3d *a)
 {
+	fprintf(stderr, ">>> Entering vector_norm(a=%p)\n", a);
+	fprintf(stderr, "<<< Exiting vector_norm(a=%p)\n", a);
     float n = dot_prod(a, a);
 #ifdef LIBQUAT_ARM
+	fprintf(stderr, "vector_norm(a=%p): n → %d\n", a, n);
     arm_sqrt_f32(*n, n);
 #else
     n = sqrtf(n);
@@ -155,9 +178,11 @@ float vector_norm(const vec_3d *a)
  */
 vec_3d unit_vec(const vec_3d *a)
 {
+	fprintf(stderr, ">>> Entering unit_vec(a=%p)\n", a);
     vec_3d n = {0};
 
     float norm = vector_norm(a);
+	fprintf(stderr, "unit_vec(a=%p): norm → %d\n", a, norm);
     if (fabsf(norm) < EPSILON)
     {  // detect possible divide by 0
         return n;
@@ -166,9 +191,13 @@ vec_3d unit_vec(const vec_3d *a)
     if (norm != 1.F)  // perform division only if needed
     {
         n.x = a->x / norm;
+		fprintf(stderr, "unit_vec(a=%p): n.x → %d\n", a, n.x);
+		fprintf(stderr, "unit_vec(a=%p): n.y → %d\n", a, n.y);
+		fprintf(stderr, "unit_vec(a=%p): n.z → %d\n", a, n.z);
         n.y = a->y / norm;
         n.z = a->z / norm;
     }
+	fprintf(stderr, "<<< Exiting unit_vec(a=%p)\n", a);
     return n;
 }
 
@@ -187,7 +216,9 @@ vec_3d unit_vec(const vec_3d *a)
  */
 mat_3x3 get_cross_matrix(const vec_3d *a)
 {
+	fprintf(stderr, ">>> Entering get_cross_matrix(a=%p)\n", a);
     mat_3x3 A = {0., -a->z, a->y, a->z, 0., -a->x, -a->y, a->x, 0.};
+	fprintf(stderr, "<<< Exiting get_cross_matrix(a=%p)\n", a);
     return A;
 }
 
@@ -201,6 +232,7 @@ mat_3x3 get_cross_matrix(const vec_3d *a)
 
 double get_angle(const vec_3d *a, const vec_3d *b)
 {
+	fprintf(stderr, ">>> Entering get_angle(a=%p,b=%p)\n", a, b);
     double alpha, cos_alpha;
     float norm_a = vector_norm(a); ///< The norm of vector a
     float norm_b = vector_norm(b); ///< The norm of vector b
@@ -210,6 +242,7 @@ double get_angle(const vec_3d *a, const vec_3d *b)
     }
 
     cos_alpha = dot_prod(a, b) / (norm_a * norm_b);
+	fprintf(stderr, "get_angle(a=%p,b=%p): cos_alpha → %d\n", a, b, cos_alpha);
     alpha = acos(cos_alpha); // delivers the radian
     return alpha; // in range from -1 to 1
 }
@@ -222,6 +255,7 @@ double get_angle(const vec_3d *a, const vec_3d *b)
  */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     vec_3d a = {1., 2., 3.};
     vec_3d b = {1., 1., 1.};
     float d;
@@ -230,6 +264,7 @@ static void test()
     // printf("%s", print_vector(&b, "b"));
 
     d = vector_norm(&a);
+	fprintf(stderr, "test(): d → %d\n", d);
     // printf("|a| = %.4g\n", d);
     assert(fabsf(d - 3.742f) < 0.01);
     d = vector_norm(&b);
@@ -248,8 +283,10 @@ static void test()
     assert(fabsf(c.z - (-1.f)) < 0.01);
 
     double alpha = get_angle(&a, &b);
+	fprintf(stderr, "test(): alpha → %d\n", alpha);
     // printf("The angle is %f\n", alpha);
     assert(fabsf(alpha - 0.387597) < 0.01);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 
 /**
@@ -259,7 +296,9 @@ static void test()
  */
 int main(void)
 {
+	fprintf(stderr, ">>> Entering main()\n");
     test();
 
+	fprintf(stderr, "<<< Exiting main()\n");
     return 0;
 }

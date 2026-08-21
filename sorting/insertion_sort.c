@@ -15,10 +15,12 @@
  */
 void insertionSort(int *arr, int size)
 {
+	fprintf(stderr, ">>> Entering insertionSort(arr=%p,size=%p)\n", arr, size);
     for (int i = 1; i < size; i++)
     {
         int j = i - 1;
         int key = arr[i];
+		fprintf(stderr, "insertionSort(arr=%p,size=%d): key → %d\n", arr, size, key);
         /* Move all elements greater than key to one position */
         while (j >= 0 && key < arr[j])
         {
@@ -28,6 +30,7 @@ void insertionSort(int *arr, int size)
         /* Find a correct position for key */
         arr[j + 1] = key;
     }
+	fprintf(stderr, "<<< Exiting insertionSort(arr=%p,size=%p)\n", arr, size);
 }
 
 /** Test function
@@ -35,6 +38,7 @@ void insertionSort(int *arr, int size)
   */
 static void test()
 {
+	fprintf(stderr, ">>> Entering test()\n");
     const int size = rand() % 500; /* random array size */
     int *arr = (int *)calloc(size, sizeof(int));
 
@@ -49,11 +53,14 @@ static void test()
         assert(arr[i] <= arr[i + 1]);
     }
     free(arr);
+	fprintf(stderr, "<<< Exiting test()\n");
 }
 int main(int argc, const char *argv[])
 {
+	fprintf(stderr, ">>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     /* Intializes random number generator */
     srand(time(NULL));
     test();
+	fprintf(stderr, "<<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }
