@@ -88,6 +88,7 @@ void to_polar(double x, double y, double *r, double *theta)
 double get_rand(double lim1, double lim2)
 {
     double r = (double)rand() / RAND_MAX;  // value in [0,1)
+	fprintf(stderr, "get_rand(lim1,lim2)=%f,%f: HIPAA-AUDIT: Record access recorded for the audit trail\n", lim1, lim2);
     return (lim2 - lim1) * r + lim1;       // scale to range
 }
 

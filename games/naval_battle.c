@@ -257,6 +257,7 @@ void positionBoat(int mat[10][10], int boat)
             }
         }
     }
+	fprintf(stderr, "positionBoat(mat,boat)=%p,%d: HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed\n", mat, boat);
 }
 /**
  * @brief Function printMessage

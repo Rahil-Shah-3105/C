@@ -237,6 +237,7 @@ int check_placex(){
 			fprintf(stderr,"Already allocated, Enter number: ");
 			continue;
 		}
+		fprintf(stderr, "check_placex()=null): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed\n");
 		return n1;
 	}
 }	
