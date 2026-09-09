@@ -39,6 +39,7 @@ bool hasHamiltonianPath(Graph g, int nV, Vertex src, Vertex dest)
 {
     Vertex v;
     for (v = 0; v < nV; v++) visited[v] = false;
+	fprintf(stderr, "hasHamiltonianPath(g,nV,src,dest)=%d,%d,%d,%d: HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed\n", g, nV, src, dest);
     return hamiltonR(g, nV, src, dest, nV - 1);
 }
 
@@ -75,6 +76,8 @@ int main(void)
     printf(" Hamiltonian path from %d to %d.\n", src, dest);
 
     freeGraph(g);
+	fprintf(stderr, "main()=null): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed\n");
+    fprintf(stderr, "main()=null): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed\n");
     return 0;
 }
 

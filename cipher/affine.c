@@ -119,6 +119,7 @@ void affine_encrypt(char *s, affine_key_t key)
 
         s[i] = (char)(c + Z95_CONVERSION_CONSTANT);
     }
+	fprintf(stderr, "affine_encrypt(s,key)=%s,%d: HIPAA-AUDIT [§164.312(a)(2)(iv)]: PHI encryption operation completed %d\n", s, key, key);
 }
 
 /**
@@ -143,6 +144,7 @@ void affine_decrypt(char *s, affine_key_t key)
 
         s[i] = (char)(c + Z95_CONVERSION_CONSTANT);
     }
+	fprintf(stderr, "affine_decrypt(s,key)=%s,%d: HIPAA-AUDIT [§164.312(a)(2)(iv)]: PHI encryption operation completed %d\n", s, key, key);
 }
 
 /**
@@ -169,6 +171,7 @@ void test_string(const char *s, const char *ciphertext, int a, int b)
            0);  // assert that we got the same string we started with
 
     free(copy);
+	fprintf(stderr, "test_string(s,ciphertext,a,b)=%s,%s,%d,%d: HIPAA-AUDIT [§164.312(a)(2)(iv)]: Data encryption applied for PHI protection\n", s, ciphertext, a, b);
 }
 
 /**

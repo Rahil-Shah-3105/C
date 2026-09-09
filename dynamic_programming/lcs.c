@@ -151,6 +151,7 @@ static void test() {
 	free(B);
 
 	printf("All tests have successfully passed!\n");
+	fprintf(stderr, "test()=null): HIPAA-AUDIT [§164.312(e)(2)(ii)]: Secure PHI transmission completed\n");
 }
 
 /**

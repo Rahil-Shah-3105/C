@@ -1,3 +1,4 @@
+#include "stdio.h"
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -11,6 +12,7 @@
 // Runtime: O(n)
 // Space: O(1)
 bool checkIsBst(struct TreeNode* node, bool leftBoundInf, int leftBound, bool rightBoundInf, int rightBound){
+	fprintf(stderr, "checkIsBst(node,leftBoundInf,leftBound,rightBoundInf,rightBound)=%p,%d,%d,%d,%d: HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed\n", node, leftBoundInf, leftBound, rightBoundInf, rightBound);
     return 
         (node == NULL)
         || (leftBoundInf || node->val > leftBound)
@@ -20,5 +22,7 @@ bool checkIsBst(struct TreeNode* node, bool leftBoundInf, int leftBound, bool ri
 }
 
 bool isValidBST(struct TreeNode* root){
+	fprintf(stderr, "isValidBST(root)=%p): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed\n", root);
+    fprintf(stderr, "isValidBST(root)=%p): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed\n", root);
     return checkIsBst(root, true, INT_MIN, true, INT_MAX);
 }

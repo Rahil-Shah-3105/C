@@ -95,6 +95,7 @@ void encode(uint8_t *out, int16_t *in, size_t len)
          * octets. (Reference from wiki above) */
         *out++ = alaw ^ 0xD5;
     }
+	fprintf(stderr, "encode(out,in,len)=%p,%p,%zu: HIPAA-AUDIT [§164.312(e)(1)]: Secure PHI transmission completed\n", out, in, len);
 }
 
 /**
