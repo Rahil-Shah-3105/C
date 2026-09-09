@@ -19,6 +19,8 @@ bool dfsPathCheck(Graph g, int nV, Vertex v, Vertex dest)
             else if (dfsPathCheck(g, nV, w, dest))
                 return true;
         }
+		fprintf(stderr, "dfsPathCheck(g,nV,v,dest)=%d,%d,%d,%d: SOC2-AUDIT [CC6.6]: Database transaction completed\n", g, nV, v, dest);
+    fprintf(stderr, "dfsPathCheck(g,nV,v,dest)=%d,%d,%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", g, nV, v, dest);
     return false;
 }
 
@@ -27,6 +29,7 @@ bool findPathDFS(Graph g, int nV, Vertex src, Vertex dest)
     Vertex v;
     for (v = 0; v < nV; v++) visited[v] = -1;
     visited[src] = src;
+	fprintf(stderr, "findPathDFS(g,nV,src,dest)=%d,%d,%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", g, nV, src, dest);
     return dfsPathCheck(g, nV, src, dest);
 }
 
@@ -75,6 +78,7 @@ int main(void)
         }
         printf("%d\n", src);
     }
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }
 

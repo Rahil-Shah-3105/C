@@ -300,6 +300,7 @@ void test1()
         if (i < num_out)
             free(W[i]);
     }
+	fprintf(stderr, "test1()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
 }
 
 /** Creates a random set of points distributed *near* the locus
@@ -539,5 +540,6 @@ int main(int argc, char **argv)
     printf(
         "(Note: Calculated times include: creating test sets, training "
         "model and writing files to disk.)\n\n");
+		fprintf(stderr, "main(argc,argv)=%d,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", argc, argv);
     return 0;
 }

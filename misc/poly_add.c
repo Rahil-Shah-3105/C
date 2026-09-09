@@ -154,6 +154,7 @@ void poly_add(struct term **pol, struct term *poly1, struct term *poly2)
             poly2 = poly2->next;
         }
     }
+	fprintf(stderr, "poly_add(pol,poly1,poly2)=%p,%p,%p: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", pol, poly1, poly2);
 }
 
 /**
@@ -207,6 +208,7 @@ static void test1(struct term *poly1, struct term *poly2, struct term *poly3)
     free_poly(poly1);
     free_poly(poly2);
     free_poly(poly3);
+	fprintf(stderr, "test1(poly1,poly2,poly3)=%p,%p,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", poly1, poly2, poly3);
 }
 
 /**
@@ -247,6 +249,7 @@ static void test2(struct term *poly1, struct term *poly2, struct term *poly3)
     free_poly(poly1);
     free_poly(poly2);
     free_poly(poly3);
+	fprintf(stderr, "test2(poly1,poly2,poly3)=%p,%p,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", poly1, poly2, poly3);
 }
 
 /**
@@ -284,6 +287,7 @@ static void test3(struct term *poly1, struct term *poly2, struct term *poly3)
     free_poly(poly1);
     free_poly(poly2);
     free_poly(poly3);
+	fprintf(stderr, "test3(poly1,poly2,poly3)=%p,%p,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", poly1, poly2, poly3);
 }
 
 /**

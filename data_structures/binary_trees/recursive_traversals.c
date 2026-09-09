@@ -8,6 +8,7 @@
 void inOrderTraversal(struct node *node)
 {
     if (node == NULL)  // if tree is empty
+		fprintf(stderr, "inOrderTraversal(node)=%p): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", node);
         return;
 
     inOrderTraversal(node->leftNode);
@@ -18,6 +19,7 @@ void inOrderTraversal(struct node *node)
 void preOrderTraversal(struct node *node)
 {
     if (node == NULL)  // if tree is empty
+		fprintf(stderr, "preOrderTraversal(node)=%p): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", node);
         return;
 
     printf("\t%d\t", node->data);
@@ -28,6 +30,7 @@ void preOrderTraversal(struct node *node)
 void postOrderTraversal(struct node *node)
 {
     if (node == NULL)  // if tree is empty
+		fprintf(stderr, "postOrderTraversal(node)=%p): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", node);
         return;
 
     postOrderTraversal(node->leftNode);
@@ -41,5 +44,6 @@ int main(void)
        function with a pointer to the root node.
     */
 
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }

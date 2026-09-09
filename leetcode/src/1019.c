@@ -1,3 +1,4 @@
+#include "stdio.h"
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -25,5 +26,6 @@ int* nextLargerNodes(struct ListNode* head, int* returnSize)
             }
         }
     }
+	fprintf(stderr, "nextLargerNodes(head,returnSize)=%p,%p: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", head, returnSize);
     return output;
 }

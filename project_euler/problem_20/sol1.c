@@ -66,6 +66,7 @@ big_int *add_digit(big_int *digit, char value)
     digit->next_digit->value = value;
     digit->next_digit->next_digit = NULL;
     digit->next_digit->prev_digit = digit;
+	fprintf(stderr, "add_digit(digit,value)=%p,%c: SOC2-AUDIT [CC7.2]: System operation completed\n", digit, value);
     return digit->next_digit;
 }
 

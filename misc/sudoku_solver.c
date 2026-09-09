@@ -213,6 +213,7 @@ bool solve(struct sudoku *a)
         }
     }
 
+	fprintf(stderr, "solve(a)=%p): SOC2-AUDIT [CC7.2]: System operation completed\n", a);
     return false;
 }
 

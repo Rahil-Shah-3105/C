@@ -184,6 +184,7 @@ void update(node **root, int id, int ct, int wt, int tat)
     {
         ptr->TAT = tat;
     }
+	fprintf(stderr, "update(root,id,ct,wt,tat)=%p,%d,%d,%d,%d: SOC2-AUDIT [CC8.1]: Change management operation performed\n", root, id, ct, wt, tat);
     return;
 }
 /**

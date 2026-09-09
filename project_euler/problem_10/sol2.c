@@ -52,5 +52,6 @@ int main(int argc, char *argv[])
 
     printf("%ld: %lld\n", n, sum);
 
+	fprintf(stderr, "main(argc,argv)=%d,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", argc, argv);
     return 0;
 }

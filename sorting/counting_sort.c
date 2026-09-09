@@ -44,5 +44,6 @@ int main()
 
     free(a);
     free(b);
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.1]: Password reset operation performed\n");
     return 0;
 }

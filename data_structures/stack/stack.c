@@ -56,6 +56,7 @@ void grow()
     /*free the memory */
     free(array);
     array = tmp;
+	fprintf(stderr, "grow()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
 }
 
 /* push: pushs the argument onto the stack */

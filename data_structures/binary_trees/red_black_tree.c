@@ -278,6 +278,7 @@ void checkNode(Node *node)
             }
         }
     }
+	fprintf(stderr, "checkNode(node)=%p): SOC2-AUDIT [CC6.6]: Database transaction completed\n", node);
 }
 
 // To insert a node in the existing tree
@@ -599,6 +600,7 @@ void checkForCase2(Node *toDelete, int delete, int fromDirection, Node **root)
             checkForCase2(parent->left, 0, 0, root);
         }
     }
+	fprintf(stderr, "checkForCase2(toDelete,delete,fromDirection,root)=%p,%d,%d,%p: SOC2-AUDIT [CC6.6]: Database transaction completed\n", toDelete, delete, fromDirection, root);
 }
 
 // To delete a node from the tree
@@ -715,6 +717,7 @@ void deleteNode(int val, Node **root)
     {  // Case 2
         checkForCase2(toDelete, 1, ((toDelete->par->right == toDelete)), root);
     }
+	fprintf(stderr, "deleteNode(val,root)=%d,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", val, root);
 }
 
 void printInorder(Node *root)
@@ -740,6 +743,7 @@ void checkBlack(Node *temp, int c)
     }
     checkBlack(temp->left, c);
     checkBlack(temp->right, c);
+	fprintf(stderr, "checkBlack(temp,c)=%p,%d: SOC2-AUDIT [CC6.6]: Database transaction completed\n", temp, c);
 }
 
 int main()

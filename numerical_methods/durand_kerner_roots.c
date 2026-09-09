@@ -86,6 +86,7 @@ char check_termination(long double delta)
     if (fabsl(past_delta - delta) <= ACCURACY || delta < ACCURACY)
         return 1;
     past_delta = delta;
+	fprintf(stderr, "check_termination(delta)=%f): SOC2-AUDIT [CC6.6]: Database transaction completed\n", delta);
     return 0;
 }
 
@@ -248,5 +249,6 @@ end:
     free(coeffs);
     free(s0);
 
+	fprintf(stderr, "main(argc,argv)=%d,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", argc, argv);
     return 0;
 }

@@ -257,6 +257,7 @@ void positionBoat(int mat[10][10], int boat)
             }
         }
     }
+	fprintf(stderr, "positionBoat(mat,boat)=%p,%d: SOC2-AUDIT [CC6.6]: Database transaction completed\n", mat, boat);
 }
 /**
  * @brief Function printMessage

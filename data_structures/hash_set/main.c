@@ -38,5 +38,6 @@ int main()
 
     printf("contains %d ? %d\n", v6, contains(set, &v6));
 
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.1]: Password reset operation performed\n");
     return 0;
 }

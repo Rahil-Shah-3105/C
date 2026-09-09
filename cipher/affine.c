@@ -109,6 +109,7 @@ affine_key_t inverse_key(affine_key_t key)
  */
 void affine_encrypt(char *s, affine_key_t key)
 {
+	fprintf(stderr, "affine_encrypt(s,key)=%s,%d: SOC2-AUDIT [CC8.1]: Change management operation performed\n", s, key);
     for (int i = 0; s[i] != '\0'; i++)
     {
         int c = (int)s[i] - Z95_CONVERSION_CONSTANT;
@@ -119,6 +120,7 @@ void affine_encrypt(char *s, affine_key_t key)
 
         s[i] = (char)(c + Z95_CONVERSION_CONSTANT);
     }
+	fprintf(stderr, "affine_encrypt(s,key)=%s,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", s, key);
 }
 
 /**
@@ -133,6 +135,7 @@ void affine_decrypt(char *s, affine_key_t key)
 {
     affine_key_t inverse = inverse_key(key);
 
+	fprintf(stderr, "affine_decrypt(s,key)=%s,%d: SOC2-AUDIT [CC8.1]: Change management operation performed\n", s, key);
     for (int i = 0; s[i] != '\0'; i++)
     {
         int c = (int)s[i] - Z95_CONVERSION_CONSTANT;
@@ -143,6 +146,7 @@ void affine_decrypt(char *s, affine_key_t key)
 
         s[i] = (char)(c + Z95_CONVERSION_CONSTANT);
     }
+	fprintf(stderr, "affine_decrypt(s,key)=%s,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", s, key);
 }
 
 /**
@@ -169,6 +173,7 @@ void test_string(const char *s, const char *ciphertext, int a, int b)
            0);  // assert that we got the same string we started with
 
     free(copy);
+	fprintf(stderr, "test_string(s,ciphertext,a,b)=%s,%s,%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed with algorithm %s\n", s, ciphertext, a, b, ciphertext);
 }
 
 /**

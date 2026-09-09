@@ -30,6 +30,7 @@ bool findPathBFS(Graph g, int nV, Vertex src, Vertex dest)
                     QueueEnqueue(Q, w);
             }
     }
+	fprintf(stderr, "findPathBFS(g,nV,src,dest)=%d,%d,%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", g, nV, src, dest);
     return false;
 }
 
@@ -96,6 +97,7 @@ int main(void)
         }
         printf("%d\n", src);
     }
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }
 

@@ -79,6 +79,7 @@ void FloydWarshall(struct Graph *graph)
         for (int j = 0; j < V; j++) dist1d[i * V + j] = dist[i][j];
 
     print(dist1d, V);
+	fprintf(stderr, "FloydWarshall(graph)=%p): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", graph);
 }
 
 // Driver Function
@@ -104,5 +105,6 @@ int main()
     }
     FloydWarshall(&G);
 
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }

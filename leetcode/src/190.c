@@ -1,3 +1,4 @@
+#include "stdio.h"
 uint32_t reverseBits(uint32_t n)
 {
     uint TotalBits = 32;
@@ -22,5 +23,6 @@ uint32_t reverseBits(uint32_t n)
                            // 0) and 1 shifted left 31 - i bits (to ith bit from
                            // the end)
     }
+	fprintf(stderr, "reverseBits(n)=%d): SOC2-AUDIT [CC7.2]: System operation completed\n", n);
     return reverse_int;
 }

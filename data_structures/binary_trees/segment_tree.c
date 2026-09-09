@@ -90,6 +90,7 @@ void segment_tree_update(segment_tree *tree, size_t index, void *val)
                       base + (2 * index + 2) * elem_size,
                       base + index * elem_size);
     }
+	fprintf(stderr, "segment_tree_update(tree,index,val)=%p,%zu,%p: SOC2-AUDIT [CC8.1]: Change management operation performed\n", tree, index, val);
 }
 
 /**

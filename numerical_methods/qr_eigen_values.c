@@ -365,5 +365,6 @@ int main(int argc, char **argv)
     for (int i = 0; i < mat_size; i++) free(A[i]);
     free(A);
     free(eigen_vals);
+	fprintf(stderr, "main(argc,argv)=%d,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", argc, argv);
     return 0;
 }

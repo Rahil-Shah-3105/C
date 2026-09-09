@@ -5,6 +5,8 @@ from os import listdir
 from pathlib import Path
 
 import requests
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -52,6 +54,7 @@ def fetch_leetcode_folder_tasks(solutions_folder: Path) -> list[Task]:
             )
         )
 
+        logger.info("fetch_leetcode_folder_tasks(solutions_folder)=%s): SOC2-AUDIT [CC7.1]: System operation completed", solutions_folder)
     return tasks_list
 
 

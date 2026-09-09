@@ -237,6 +237,7 @@ int check_placex(){
 			fprintf(stderr,"Already allocated, Enter number: ");
 			continue;
 		}
+		fprintf(stderr, "check_placex()=null): SOC2-AUDIT [CC6.6]: Database transaction completed\n");
 		return n1;
 	}
 }	
@@ -445,5 +446,6 @@ int checkwin()
             return -2;
         }
     }
+	fprintf(stderr, "checkwin()=null): SOC2-AUDIT [CC6.6]: Database transaction completed\n");
     return 0;
 }

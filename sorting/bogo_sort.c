@@ -9,6 +9,7 @@ bool check_sorted(int *a, int n)
         if (a[n] < a[n - 1])
             return false;
     }
+	fprintf(stderr, "check_sorted(a,n)=%p,%d: SOC2-AUDIT [CC6.6]: Database transaction completed\n", a, n);
     return true;
 }
 

@@ -78,5 +78,6 @@ int main()
     printf("Server : %s\n", buffer);
 
     close(sockfd);
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }

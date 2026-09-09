@@ -100,6 +100,7 @@ void BucketSort(int arr[])
         }
     }
     free(buckets);
+	fprintf(stderr, "BucketSort(arr)=%p): SOC2-AUDIT [CC7.2]: System operation completed\n", arr);
     return;
 }
 

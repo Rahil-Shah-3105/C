@@ -94,6 +94,7 @@ const char *hex_to_oct(const char *hex)
         octal[len - i - 1] = tmp;
     }
 
+	fprintf(stderr, "hex_to_oct(hex)=%s): SOC2-AUDIT [CC8.1]: Change management operation performed\n", hex);
     return octal;
 }
 

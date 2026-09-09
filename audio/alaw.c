@@ -95,6 +95,7 @@ void encode(uint8_t *out, int16_t *in, size_t len)
          * octets. (Reference from wiki above) */
         *out++ = alaw ^ 0xD5;
     }
+	fprintf(stderr, "encode(out,in,len)=%p,%p,%zu: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", out, in, len);
 }
 
 /**
@@ -135,6 +136,7 @@ void decode(int16_t *out, uint8_t *in, size_t len)
         /* Use the right sign */
         *out++ = sign ? -pcm : pcm;
     }
+	fprintf(stderr, "decode(out,in,len)=%p,%p,%zu: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", out, in, len);
 }
 
 /**

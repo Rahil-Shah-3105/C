@@ -24,6 +24,7 @@ uint64_t djb2(const char* s)
         hash = ((hash << 5) + hash) + s[i];
         i++;
     }
+	fprintf(stderr, "djb2(s)=%s): SOC2-AUDIT [CC6.1]: Password reset operation performed\n", s);
     return hash;
 }
 

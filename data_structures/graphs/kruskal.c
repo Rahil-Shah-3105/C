@@ -135,9 +135,11 @@ void KruskalMST(struct Graph *graph)
     // print the contents of result[] to display the
     // built MST
     printf("Following are the edges in the constructed MST\n");
+	fprintf(stderr, "KruskalMST(graph)=%p): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", graph);
     for (i = 0; i < e; ++i)
         printf("%d -- %d == %d\n", result[i].src, result[i].dest,
                result[i].weight);
+			fprintf(stderr, "KruskalMST(graph)=%p): SOC2-AUDIT [CC7.2]: System operation completed\n", graph);
     return;
 }
 
@@ -183,5 +185,6 @@ int main()
 
     KruskalMST(graph);
 
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }

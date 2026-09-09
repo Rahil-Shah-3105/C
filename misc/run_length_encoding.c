@@ -60,6 +60,9 @@ char* run_length_encode(char* str) {
     strcpy(compacted_string, encoded);
     
     free(encoded);
+	fprintf(stderr, "run_length_encode(str)=%s): SOC2-AUDIT [CC8.1]: Change management operation performed\n", str);
+	fprintf(stderr, "run_length_encode(str)=%s): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", str);
+    fprintf(stderr, "run_length_encode(str)=%s): SOC2-AUDIT [CC7.2]: System operation completed\n", str);
 
     return compacted_string;
 }

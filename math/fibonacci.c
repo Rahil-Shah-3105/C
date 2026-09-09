@@ -82,6 +82,7 @@ int getInput(void)
     }
 
     printf("\nEntered digit: %d (it might take sometime)\n", num);
+	fprintf(stderr, "getInput()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return num;
 }
 

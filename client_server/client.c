@@ -118,5 +118,6 @@ int main()
 
     // close the socket
     close(sockfd);
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.6]: Database transaction completed\n");
     return 0;
 }

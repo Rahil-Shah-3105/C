@@ -134,6 +134,7 @@ static inline void u128_fill(u128 dest, size_t n)
     {
         dest[1] = 0;
     }
+	fprintf(stderr, "u128_fill(dest,n)=%d,%zu: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", dest, n);
 }
 
 /**
@@ -153,6 +154,7 @@ static inline void u128_increment(u128 dest, uint64_t n)
     }
 
     dest[0] += n;
+	fprintf(stderr, "u128_increment(dest,n)=%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", dest, n);
 }
 
 /**

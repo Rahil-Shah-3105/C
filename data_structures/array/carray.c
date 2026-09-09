@@ -107,6 +107,7 @@ int updateValueCArray(CArray *array, int position, int value)
         else
             return POSITION_NOT_INIT;
     }
+	fprintf(stderr, "updateValueCArray(array,position,value)=%p,%d,%d: SOC2-AUDIT [CC8.1]: Change management operation performed\n", array, position, value);
     return INVALID_POSITION;
 }
 

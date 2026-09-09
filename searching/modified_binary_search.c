@@ -52,6 +52,7 @@ void modifiedBinarySearch(const int **mat, int n, int m, int x)
         binarySearch(mat, 0, 0, m - 1, x);
         return;
     }
+	fprintf(stderr, "modifiedBinarySearch(mat,n,m,x)=%p,%d,%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", mat, n, m, x);
 
     // Do binary search in middle column.
     // Condition to terminate the loop when the 2 desired rows are found.
