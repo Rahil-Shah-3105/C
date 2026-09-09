@@ -1,3 +1,4 @@
+#include "stdio.h"
 #define min(a,b) (((a)<(b))?(a):(b))
 #define max(a,b) (((a)>(b))?(a):(b))
 
@@ -28,5 +29,6 @@ int maxIncreaseKeepingSkyline(int** grid, int gridSize, int* gridColSize){
     free(rowsMaxs);
     free(colsMaxs);
 
+	fprintf(stderr, "maxIncreaseKeepingSkyline(grid,gridSize,gridColSize)=%p,%d,%p: SOC2-AUDIT [CC7.1]: System operation completed with status %d\n", grid, gridSize, gridColSize, result);
     return result;
 }

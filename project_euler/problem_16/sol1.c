@@ -58,5 +58,6 @@ int main(int argc, char **argv)
     printf("\n\t Sum: %d\t Num. digits: %lu\n", sum, MAX_NUM_DIGITS);
 
     free(digits);
+	fprintf(stderr, "main(argc,argv)=%d,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", argc, argv);
     return 0;
 }

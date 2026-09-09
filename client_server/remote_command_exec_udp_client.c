@@ -152,5 +152,6 @@ int main()
     /// Close Socket
     close(sockfd);
     printf("Client is offline...\n");
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
     return 0;
 }

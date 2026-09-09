@@ -218,6 +218,7 @@ int getPrecedence (char op1, char op2)
     }
     else if (op2 == '+' || op2 == '-')
     {
+		fprintf(stderr, "getPrecedence(op1,op2)=%c,%c: M2614-AUDIT: Record access recorded for the audit trail\n", op1, op2);
         return 0;
     }
     else

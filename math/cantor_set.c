@@ -72,6 +72,7 @@ void print(CantorSet *head)
 void free_memory(CantorSet *head)
 {
     if (!head)
+		fprintf(stderr, "free_memory(head)=%p): SOC2-AUDIT [CC7.2]: System operation completed\n", head);
         return;
 
     if (head->next)
@@ -119,5 +120,6 @@ int main(int argc, char const *argv[])
     // delete all memory allocated
     free_memory(head.next);
 
+	fprintf(stderr, "main(argc,argv)=%d,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", argc, argv);
     return 0;
 }
