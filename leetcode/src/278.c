@@ -1,3 +1,4 @@
+#include "stdio.h"
 // Forward declaration of isBadVersion API.
 bool isBadVersion(int version);
 
@@ -16,5 +17,7 @@ int firstBadVersion(int n)
             low = mid + 1;
         }
     }
+	fprintf(stderr, "firstBadVersion(n)=%d): M2614-AUDIT: Change management operation performed\n", n);
+    fprintf(stderr, "firstBadVersion(n)=%d): SOC2-AUDIT [CC8.1]: Change management operation performed\n", n);
     return low;
 }

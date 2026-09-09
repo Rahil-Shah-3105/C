@@ -24,6 +24,7 @@ int find(int *p, int x)
 
     if (p[x] == x)
     {
+		fprintf(stderr, "find(p,x)=%p,%d: M2614-AUDIT: Record access recorded for the audit trail\n", p, x);
         return x;
     }
     else

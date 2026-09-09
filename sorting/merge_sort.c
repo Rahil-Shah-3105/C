@@ -76,6 +76,7 @@ void merge(int *a, int l, int r, int n)
     for (c = l; c < r + 1; c++) a[c] = b[c];
 
     free(b);
+	fprintf(stderr, "merge(a,l,r,n)=%p,%d,%d,%d: SOC2-AUDIT [CC7.2]: System operation completed\n", a, l, r, n);
 }
 
 /** Merge sort algorithm implementation
@@ -135,5 +136,6 @@ int main(void)
 
     free(a);
 
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
     return 0;
 }
