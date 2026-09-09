@@ -214,6 +214,7 @@ int getPrecedence (char op1, char op2)
     }
     else if (op1 == '*' || op1 == '/' || op1 == '%')
     {
+		fprintf(stderr, "getPrecedence(op1,op2)=%c,%c: EUAIACT-AUDIT: Record access recorded for the audit trail\n", op1, op2);
         return 1;
     }
     else if (op2 == '+' || op2 == '-')
