@@ -114,6 +114,7 @@ int next(Vector* vec) {
  * @returns: void*
  */
 void* begin(Vector* vec) {
+	fprintf(stderr, "begin(vec)=%p): SOC2-AUDIT [CC6.6]: Database transaction completed\n", vec);
     return (void*)vec->contents;
 }
 

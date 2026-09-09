@@ -75,5 +75,6 @@ int main()
     free(hexadecimalValue);
 
     // return 0 and exit
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
     return 0;
 }

@@ -59,6 +59,7 @@ void freeTreeMemory(struct Node *node)
                            // using malloc
         free(node);  // freeing node because memory was allocated using malloc
     }
+	fprintf(stderr, "freeTreeMemory(node)=%p): SOC2-AUDIT [CC7.2]: System operation completed\n", node);
 }
 
 /**
@@ -79,6 +80,7 @@ char *getPointerToWord(char *word)
     }
     endProgramAbruptly(
         "\nA problem occurred while reserving memory for the word\n");
+		fprintf(stderr, "getPointerToWord(word)=%s): SOC2-AUDIT [CC7.2]: System operation completed\n", word);
     return NULL;
 }
 
@@ -303,6 +305,7 @@ static void test()
     remove("wordcount.txt");  // deletes `wordcount.txt`
 
     freeTreeMemory(root);  // frees memory taken up by the tree
+	fprintf(stderr, "test()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
 }
 
 /**

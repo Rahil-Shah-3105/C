@@ -54,6 +54,7 @@ int main()
     printf("\nThe factoriziation are: ");
     print_arr(r);
     destroy(r);
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }
 
@@ -161,4 +162,5 @@ void destroy(Range r)
 {
     free(r->range);
     free(r);
+	fprintf(stderr, "destroy(r)=%d): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", r);
 }

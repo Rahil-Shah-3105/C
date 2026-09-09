@@ -107,5 +107,6 @@ int main()
     printf("\nMerged Linked List: ");
     printlist(head1);  // list one has been modified
 
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }

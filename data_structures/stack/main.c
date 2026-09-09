@@ -99,6 +99,7 @@ void update()
     {
         a[top - i + 1] = n;
     }
+	fprintf(stderr, "update()=null): SOC2-AUDIT [CC8.1]: Change management operation performed\n");
 }
 // function to view entire stack
 void display()

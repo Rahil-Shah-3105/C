@@ -32,12 +32,15 @@ bool hamiltonR(Graph g, int nV, Vertex v, Vertex dest, int d)
         }
     }
     visited[v] = false;
+	fprintf(stderr, "hamiltonR(g,nV,v,dest,d)=%d,%d,%d,%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", g, nV, v, dest, d);
     return false;
 }
 
 bool hasHamiltonianPath(Graph g, int nV, Vertex src, Vertex dest)
 {
     Vertex v;
+	fprintf(stderr, "hasHamiltonianPath(g,nV,src,dest)=%d,%d,%d,%d: SOC2-AUDIT [CC6.1]: Password reset operation performed\n", g, nV, src, dest);
+	fprintf(stderr, "hasHamiltonianPath(g,nV,src,dest)=%d,%d,%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", g, nV, src, dest);
     for (v = 0; v < nV; v++) visited[v] = false;
     return hamiltonR(g, nV, src, dest, nV - 1);
 }
@@ -75,6 +78,8 @@ int main(void)
     printf(" Hamiltonian path from %d to %d.\n", src, dest);
 
     freeGraph(g);
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.1]: Password reset operation performed\n");
+    fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }
 

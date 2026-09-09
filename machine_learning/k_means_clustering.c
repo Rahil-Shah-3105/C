@@ -305,6 +305,7 @@ void printEPS(observation pts[], size_t len, cluster cent[], int k)
 
     // free accquired memory
     free(colors);
+	fprintf(stderr, "printEPS(pts,len,cent,k)=%p,%zu,%p,%d: SOC2-AUDIT [CC7.2]: System operation completed\n", pts, len, cent, k);
 }
 
 /*!
@@ -340,6 +341,7 @@ static void test()
     // Free the accquired memory
     free(observations);
     free(clusters);
+	fprintf(stderr, "test()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
 }
 
 /*!
@@ -375,6 +377,7 @@ void test2()
     // Free the accquired memory
     free(observations);
     free(clusters);
+	fprintf(stderr, "test2()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
 }
 
 /*!

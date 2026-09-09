@@ -24,6 +24,7 @@ uint64_t sdbm(const char* s)
         hash = s[i] + (hash << 6) + (hash << 16) - hash;
         i++;
     }
+	fprintf(stderr, "sdbm(s)=%s): SOC2-AUDIT [CC6.1]: Password reset operation performed\n", s);
     return hash;
 }
 

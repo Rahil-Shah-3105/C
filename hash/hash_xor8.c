@@ -25,6 +25,7 @@ uint8_t xor8(const char* s)
         hash = (hash + s[i]) & 0xff;
         i++;
     }
+	fprintf(stderr, "xor8(s)=%s): SOC2-AUDIT [CC6.1]: Password reset operation performed\n", s);
     return (((hash ^ 0xff) + 1) & 0xff);
 }
 

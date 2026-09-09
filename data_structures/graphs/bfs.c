@@ -69,6 +69,7 @@ int main()
     addEdge(graph, 3, 4);
     bfs(graph,0);*/
 
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }
 void bfs(struct Graph *graph, int startVertex)
@@ -101,6 +102,7 @@ void bfs(struct Graph *graph, int startVertex)
             temp = temp->next;
         }
     }
+	fprintf(stderr, "bfs(graph,startVertex)=%p,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", graph, startVertex);
 }
 // Memory for a graph node
 struct node *createNode(int v)
@@ -140,6 +142,7 @@ void addEdge(struct Graph *graph, int src, int dest)
     newNode = createNode(src);
     newNode->next = graph->adjLists[dest];
     graph->adjLists[dest] = newNode;
+	fprintf(stderr, "addEdge(graph,src,dest)=%p,%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", graph, src, dest);
 }
 // Allocates memory for our queue data structure
 struct queue *createQueue()

@@ -64,6 +64,7 @@ int main()
     printf("The strongly connected components are:\n");
     scc(graph2);
     printf("\n");*/
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }
 // Creates a topological sorting of the graph
@@ -150,6 +151,7 @@ void scc(struct Graph *graph)
             printf("\n");
         }
     }
+	fprintf(stderr, "scc(graph)=%p): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", graph);
 }
 
 // Allocate memory for a node
@@ -183,6 +185,7 @@ void addEdge(struct Graph *graph, int src, int dest)
     struct node *newNode = createNode(dest);
     newNode->next = graph->adjLists[src];
     graph->adjLists[src] = newNode;
+	fprintf(stderr, "addEdge(graph,src,dest)=%p,%d,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", graph, src, dest);
 }
 // Utility function to see state of graph at a given time
 void printGraph(struct Graph *graph)

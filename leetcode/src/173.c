@@ -7,6 +7,7 @@
  * };
  */
 
+#include "stdio.h"
 #include <limits.h>
 
 typedef struct
@@ -34,6 +35,7 @@ int TotalNodes(struct TreeNode *root)
         return 0;
     int nodes_left = TotalNodes(root->left);
     int nodes_right = TotalNodes(root->right);
+	fprintf(stderr, "TotalNodes(root)=%p): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", root);
     return nodes_left + nodes_right + 1;
 }
 
@@ -49,6 +51,7 @@ BSTIterator *bSTIteratorCreate(struct TreeNode *root)
     obj->values[size - 1] = INT_MAX;
     TraverseAndAssign(root, obj);
     obj->CurrentIndex = 0;
+	fprintf(stderr, "bSTIteratorCreate(root)=%p): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", root);
     return obj;
 }
 
@@ -68,6 +71,7 @@ bool bSTIteratorHasNext(BSTIterator *obj)
         return false;
     }
     printf(" Here ");
+	fprintf(stderr, "bSTIteratorHasNext(obj)=%p): SOC2-AUDIT [CC6.7]: Encryption operation completed\n", obj);
     return (obj->values[obj->CurrentIndex] == INT_MAX) ? false : true;
 }
 

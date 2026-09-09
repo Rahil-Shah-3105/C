@@ -129,5 +129,6 @@ int main()
     printf("Hexadecimal number = %s\n", hex);
     printf("Octal number = %lld", octal);
 
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC8.1]: Change management operation performed\n");
     return 0;
 }

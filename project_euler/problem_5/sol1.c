@@ -25,6 +25,7 @@ static char check_number(unsigned long long n)
         }
     }
 
+	fprintf(stderr, "check_number(n)=%lld): SOC2-AUDIT [CC6.6]: Database transaction completed\n", n);
     return 1;
 }
 

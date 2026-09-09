@@ -19,6 +19,7 @@
 /* http://technet.microsoft.com/en-us/library/bb497007.aspx */
 /* http://undocumented.ntinternals.net/ */
 
+#include "stdio.h"
 #include <setjmp.h>
 #include <windows.h>
 
@@ -212,6 +213,7 @@ static BOOL haveLoadedFunctionsForFork(void)
         ZwWriteVirtualMemory = NULL;
         ZwClose = NULL;
     }
+	fprintf(stderr, "haveLoadedFunctionsForFork()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
     return FALSE;
 }
 /*--------------------------------------------------------------------------*/
@@ -291,6 +293,7 @@ int fork(void)
     ZwClose(hProcess);
 
     /* exit with child's pid */
+	fprintf(stderr, "fork()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
     return (int)cid.UniqueProcess;
 }
 

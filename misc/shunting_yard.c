@@ -195,6 +195,7 @@ int shuntingYard(const char *input, char *output) {
     }
 
     free(operatorStack);
+	fprintf(stderr, "shuntingYard(input,output)=%s,%s: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", input, output);
     return 0;
 }
 

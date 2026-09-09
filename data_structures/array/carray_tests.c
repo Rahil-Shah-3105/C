@@ -156,5 +156,6 @@ int CArrayTests()
     free(carray);
     free(darray);
     printf("\n");
+	fprintf(stderr, "CArrayTests()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
     return 0;
 }

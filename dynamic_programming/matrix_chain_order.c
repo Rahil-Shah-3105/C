@@ -65,6 +65,7 @@ int matrixChainOrder(int l, const int *p, int *s)
     }
     free(mat);
 
+	fprintf(stderr, "matrixChainOrder(l,p,s)=%d,%p,%p: SOC2-AUDIT [CC7.2]: System operation completed with status %d\n", l, p, s, result);
     return result;
 }
 

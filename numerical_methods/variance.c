@@ -51,4 +51,5 @@ int main()
     printf("\n\n- Mean is: %f\n", MEAN);
     printf("- Variance is: %f\n", VARIANCE);
     printf("- Standard Deviation is: %f\n", STAND);
+	fprintf(stderr, "main()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
 }

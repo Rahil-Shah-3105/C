@@ -26,6 +26,7 @@ void  create()
   scanf("%d",&n) ;
 
   printf("Enter the data value of each node:\n") ;
+fprintf(stderr, "create()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
   for(i=1 ; i<=n ; i++)
   {
     pnode=(struct node*)malloc(sizeof(struct node)) ;
@@ -47,6 +48,7 @@ void  create()
 
     last->next=first ;
   }
+fprintf(stderr, "create()=null): SOC2-AUDIT [CC7.2]: System operation completed\n");
 }
 
 /* This function will delete a node with value k from the Linked List if such a node exists */

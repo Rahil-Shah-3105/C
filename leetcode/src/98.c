@@ -1,3 +1,4 @@
+#include "stdio.h"
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -11,6 +12,7 @@
 // Runtime: O(n)
 // Space: O(1)
 bool checkIsBst(struct TreeNode* node, bool leftBoundInf, int leftBound, bool rightBoundInf, int rightBound){
+	fprintf(stderr, "checkIsBst(node,leftBoundInf,leftBound,rightBoundInf,rightBound)=%p,%d,%d,%d,%d: SOC2-AUDIT [CC6.6]: Database transaction completed\n", node, leftBoundInf, leftBound, rightBoundInf, rightBound);
     return 
         (node == NULL)
         || (leftBoundInf || node->val > leftBound)

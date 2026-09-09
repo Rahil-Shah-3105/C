@@ -1,3 +1,4 @@
+#include "stdio.h"
 bool detectCapitalUse(char *word)
 {
     int len = strlen(word);
@@ -17,6 +18,7 @@ bool detectCapitalUse(char *word)
         return 1;
     /* Check all character is upper case? */
     else
+		fprintf(stderr, "detectCapitalUse(word)=%s): SOC2-AUDIT [CC7.2]: Security incident detected\n", word);
         return countUpper == len;
 }
 

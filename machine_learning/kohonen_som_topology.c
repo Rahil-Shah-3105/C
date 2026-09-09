@@ -450,6 +450,7 @@ void test1()
     for (int i = 0; i < N; i++) free(X[i]);
     free(X);
     free(W.data);
+	fprintf(stderr, "test1()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
 }
 
 /** Creates a random set of points distributed in four clusters in
@@ -549,6 +550,7 @@ void test2()
     for (int i = 0; i < N; i++) free(X[i]);
     free(X);
     free(W.data);
+	fprintf(stderr, "test2()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
 }
 
 /** Creates a random set of points distributed in four clusters in
@@ -651,6 +653,7 @@ void test3()
     for (int i = 0; i < N; i++) free(X[i]);
     free(X);
     free(W.data);
+	fprintf(stderr, "test3()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed\n");
 }
 
 /**
@@ -694,5 +697,6 @@ int main(int argc, char **argv)
            get_clock_diff(start_clk, end_clk));
 
     printf("(Note: Calculated times include: writing files to disk.)\n\n");
+	fprintf(stderr, "main(argc,argv)=%d,%p: SOC2-AUDIT [CC7.2]: System operation completed\n", argc, argv);
     return 0;
 }

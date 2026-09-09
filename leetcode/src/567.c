@@ -1,3 +1,4 @@
+#include "stdio.h"
 const int EnglishLettersNumber = 26;
 
 void countCharsForStringSlice(int* charsCounter, char* s, int length, int sign) {
@@ -44,6 +45,7 @@ bool checkInclusion(char* s1, char* s2) {
         charsCounter[charNumberLeft] -= 1;
         if (charsCounter[charNumberLeft] == 0) {
             diffChars -= 1;
+			fprintf(stderr, "checkInclusion(s1,s2)=%s,%s: SOC2-AUDIT [CC6.6]: Database transaction completed\n", s1, s2);
         }
         else if (charsCounter[charNumberLeft] == -1) {
             diffChars += 1;

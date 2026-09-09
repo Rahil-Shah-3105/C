@@ -1,3 +1,4 @@
+#include "stdio.h"
 int findComplement(int num)
 {
     int TotalBits = 0;
@@ -20,5 +21,6 @@ int findComplement(int num)
                              // shift more than 31 times, if needed
     }
     num = num ^ flipNumber;
+	fprintf(stderr, "findComplement(num)=%d): SOC2-AUDIT [CC7.2]: System operation completed\n", num);
     return num;
 }

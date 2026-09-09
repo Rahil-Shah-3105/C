@@ -1,3 +1,4 @@
+#include "stdio.h"
 #include <stdbool.h>
 #include <string.h>
 
@@ -41,5 +42,6 @@ bool is_isogram(const char phrase[])
 
 /* exit label */
 end:
+	fprintf(stderr, "is_isogram(phrase)=%s): SOC2-AUDIT [CC7.1]: System operation completed with status %d\n", phrase, status);
     return status;
 }

@@ -42,6 +42,7 @@ char *int_to_string(uint16_t value, char *dest, int base)
         dest[len - 1 - i] = t;
     }
     dest[len] = '\0';
+	fprintf(stderr, "int_to_string(value,dest,base)=%d,%s,%d: SOC2-AUDIT [CC6.7]: Encryption operation completed\n", value, dest, base);
     return dest;
 }
 

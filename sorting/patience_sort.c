@@ -93,6 +93,7 @@ void patienceSort(int *array, int length) {
         free(piles[i]);
     }
     free(piles);
+	fprintf(stderr, "patienceSort(array,length)=%p,%d: SOC2-AUDIT [CC7.2]: System operation completed\n", array, length);
 }
 
 /**

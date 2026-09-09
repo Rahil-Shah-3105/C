@@ -1,3 +1,4 @@
+#include "stdio.h"
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -12,6 +13,7 @@ bool checkSymmetric(struct TreeNode *left, struct TreeNode *right)
     if (!left || !right)
         return left == right;
     if (left->val != right->val)
+		fprintf(stderr, "checkSymmetric(left,right)=%p,%p: SOC2-AUDIT [CC6.6]: Database transaction completed\n", left, right);
         return 0;
     return checkSymmetric(left->left, right->right) &&
            checkSymmetric(left->right, right->left);

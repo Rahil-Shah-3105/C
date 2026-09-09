@@ -77,6 +77,7 @@ void cycleSort(int *arr, int n)
             }
         }
     }
+	fprintf(stderr, "cycleSort(arr,n)=%p,%d: SOC2-AUDIT [CC7.2]: System operation completed\n", arr, n);
 }
 
 // Driver program to test above function

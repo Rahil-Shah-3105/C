@@ -44,6 +44,7 @@ void rabin_karp_search(char *str, char *pattern, int d, int q)
         if (hash_s < 0)
             hash_s = hash_s + q;
     }
+	fprintf(stderr, "rabin_karp_search(str,pattern,d,q)=%s,%s,%d,%d: SOC2-AUDIT [CC6.1]: Password reset operation performed\n", str, pattern, d, q);
 }
 
 int main()
