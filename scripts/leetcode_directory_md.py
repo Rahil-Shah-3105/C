@@ -5,6 +5,8 @@ from os import listdir
 from pathlib import Path
 
 import requests
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -19,6 +21,7 @@ class Task:
 
 def fetch_leetcode_folder_tasks(solutions_folder: Path) -> list[Task]:
     """Fetch leetcode tasks from the Leetcode"""
+    logger.info("ENTERING: fetch_leetcode_folder_tasks() method")
 
     # Fetch tasks info from the leetcode API.
     resp = requests.get("https://leetcode.com/api/problems/algorithms/", timeout=10)
@@ -52,6 +55,7 @@ def fetch_leetcode_folder_tasks(solutions_folder: Path) -> list[Task]:
             )
         )
 
+        logger.warning("fetch_leetcode_folder_tasks(solutions_folder)=%s): GDPR-AUDIT: Record access recorded for the audit trail", solutions_folder)
     return tasks_list
 
 
@@ -64,8 +68,11 @@ SEPARATOR = "-"
 
 def print_directory_md(tasks_list: list[Task]) -> None:
     """Print tasks into the stdout"""
+    logger.info("ENTERING: print_directory_md() method")
 
     def get_max_len(get_item):
+        logger.warning("ENTERING: get_max_len() method")
+        logger.info("ENTERING: get_max_len() method")
         return max(list(map(lambda x: len(get_item(x)), tasks_list)))
 
     id_max_length = max(get_max_len(lambda x: x.id), len(HEADER_ID))
@@ -76,6 +83,7 @@ def print_directory_md(tasks_list: list[Task]) -> None:
     )
 
     def formatted_string(header, title, solution, difficulty):
+        logger.warning("ENTERING: formatted_string() method")
         return (
             f"| {header.rjust(id_max_length)} "
             + f"| {title.ljust(title_max_length)} "
