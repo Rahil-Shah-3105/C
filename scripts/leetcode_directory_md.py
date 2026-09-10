@@ -5,6 +5,8 @@ from os import listdir
 from pathlib import Path
 
 import requests
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -52,6 +54,7 @@ def fetch_leetcode_folder_tasks(solutions_folder: Path) -> list[Task]:
             )
         )
 
+        logger.warning("fetch_leetcode_folder_tasks(solutions_folder)=%s): PCI-AUDIT: Record access recorded for the audit trail", solutions_folder)
     return tasks_list
 
 
@@ -66,6 +69,7 @@ def print_directory_md(tasks_list: list[Task]) -> None:
     """Print tasks into the stdout"""
 
     def get_max_len(get_item):
+        logger.warning("get_max_len(get_item)=%s): PCI-AUDIT: Record access recorded for the audit trail", get_item)
         return max(list(map(lambda x: len(get_item(x)), tasks_list)))
 
     id_max_length = max(get_max_len(lambda x: x.id), len(HEADER_ID))
