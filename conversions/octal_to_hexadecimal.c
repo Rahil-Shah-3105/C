@@ -41,6 +41,7 @@ char *octalToHexadecimal(long octalValue){
 	fprintf(stderr, "[ERROR] >>> Entering octalToHexadecimal(octalValue=%ld)\n", octalValue);
     char *hexadecimalValue = malloc(256 * sizeof(char));
     sprintf(hexadecimalValue, "%lX", octalToDecimal(octalValue));
+	fprintf(stderr, "[WARN] <<< Exiting octalToHexadecimal(octalValue=%ld)\n", octalValue);
     return hexadecimalValue;
 }
 

@@ -268,6 +268,7 @@ void delete_bt(node **root, int ele)
             prev->rlink = replacement;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting delete_bt(root=%p,ele=%p)\n", root, ele);
 }
 
 /**
