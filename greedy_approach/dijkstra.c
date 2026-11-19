@@ -19,6 +19,7 @@ int cf(void *a, void *b)
 	fprintf(stderr, "[ERROR] >>> Entering cf(a=%p,b=%p)\n", a, b);
     int *x = (int *)a;
     int *y = (int *)b;
+	fprintf(stderr, "[WARN] <<< Exiting cf(a=%p,b=%p)\n", a, b);
     return *y - *x;
 }
 

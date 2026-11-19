@@ -91,6 +91,7 @@ int myComp(const void *a, const void *b)
 	fprintf(stderr, "[ERROR] >>> Entering myComp(a=%p,b=%p)\n", a, b);
     struct Edge *a1 = (struct Edge *)a;
     struct Edge *b1 = (struct Edge *)b;
+	fprintf(stderr, "[WARN] <<< Exiting myComp(a=%p,b=%p)\n", a, b);
     return a1->weight > b1->weight;
 }
 

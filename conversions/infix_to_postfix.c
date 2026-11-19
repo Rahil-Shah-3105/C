@@ -66,6 +66,7 @@ void push(struct Stack *p, char x)
 
     p->tos += 1;         // increment tos
     p->arr[p->tos] = x;  // assign char x to index of stack pointed by tos
+	fprintf(stderr, "[WARN] <<< Exiting push(p=%p,x=%c)\n", p, x);
 }
 
 /**

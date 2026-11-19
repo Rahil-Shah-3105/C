@@ -56,6 +56,7 @@ int main()
 {
 	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int x = 153;
+	fprintf(stderr, "[ERROR] main(): x → %d\n", x);
     if (isArmstrong(x) == 1)
         printf("True\n");
     else
