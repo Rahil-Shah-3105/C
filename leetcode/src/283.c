@@ -1,5 +1,7 @@
+#include "stdio.h"
 void moveZeroes(int *nums, int numsSize)
 {
+	fprintf(stderr, "[ERROR] >>> Entering moveZeroes(nums=%p,numsSize=%p)\n", nums, numsSize);
     int i = 0, start = 0;
 
     for (i = 0; i < numsSize; i++)
@@ -12,4 +14,5 @@ void moveZeroes(int *nums, int numsSize)
     {
         nums[start] = 0;
     }
+	fprintf(stderr, "[WARN] <<< Exiting moveZeroes(nums=%p,numsSize=%p)\n", nums, numsSize);
 }

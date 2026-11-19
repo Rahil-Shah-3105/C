@@ -11,11 +11,13 @@
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     const double tmp = log(10) / log(2); /* required to get number of digits */
     unsigned long MAX_NUM_DIGITS;
     uint8_t *digits =
         NULL; /* array to store individual digits. index 0 = units place */
     int N = 1000, sum = 0;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): N → %d\n", argc, argv, N);
 
     if (argc == 2)
         N = atoi(argv[1]);
@@ -41,6 +43,7 @@ int main(int argc, char **argv)
             if (digits[j] > 9)
             {
                 carry = 1;
+				fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): carry → %d\n", argc, argv, carry);
                 digits[j] -= 10;
             }
             else
@@ -58,5 +61,6 @@ int main(int argc, char **argv)
     printf("\n\t Sum: %d\t Num. digits: %lu\n", sum, MAX_NUM_DIGITS);
 
     free(digits);
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

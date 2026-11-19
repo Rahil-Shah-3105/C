@@ -21,11 +21,13 @@
  */
 int main(int argc, char* argv[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
 	int* iptr = malloc(10 * sizeof(int));
 	char* cptr = calloc(256, sizeof(char));
 
 	free(iptr);
 	// free(cptr);
 
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
 	return 0;
 }

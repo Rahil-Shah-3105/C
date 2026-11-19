@@ -8,6 +8,7 @@ bool visited[MAX_NODES];
 
 bool hamiltonR(Graph g, int nV, Vertex v, Vertex dest, int d)
 {
+	fprintf(stderr, "[ERROR] >>> Entering hamiltonR(g=%d,nV=%d,v=%d,dest=%d,d=%d)\n", g, nV, v, dest, d);
     // v = current vertex considered
     // dest = destination vertex
     // d = distance "remaining" until path found
@@ -32,24 +33,29 @@ bool hamiltonR(Graph g, int nV, Vertex v, Vertex dest, int d)
         }
     }
     visited[v] = false;
+	fprintf(stderr, "[WARN] <<< Exiting hamiltonR(g=%d,nV=%d,v=%d,dest=%d,d=%d)\n", g, nV, v, dest, d);
     return false;
 }
 
 bool hasHamiltonianPath(Graph g, int nV, Vertex src, Vertex dest)
 {
+	fprintf(stderr, "[ERROR] >>> Entering hasHamiltonianPath(g=%d,nV=%d,src=%d,dest=%d)\n", g, nV, src, dest);
     Vertex v;
     for (v = 0; v < nV; v++) visited[v] = false;
+	fprintf(stderr, "[WARN] <<< Exiting hasHamiltonianPath(g=%d,nV=%d,src=%d,dest=%d)\n", g, nV, src, dest);
     return hamiltonR(g, nV, src, dest, nV - 1);
 }
 
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     Edge e;
     int n;
 
     printf("Enter the number of vertices: ");
     scanf("%d", &n);
     Graph g = newGraph(n);
+	fprintf(stderr, "[ERROR] main(): g → %d\n", g);
 
     Vertex src, dest;
     printf("Enter source node: ");
@@ -75,6 +81,7 @@ int main(void)
     printf(" Hamiltonian path from %d to %d.\n", src, dest);
 
     freeGraph(g);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
 

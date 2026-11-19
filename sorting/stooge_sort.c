@@ -3,6 +3,7 @@ void stoogesort(int[], int, int);
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int arr[100], i, n;
 
     printf("How many elements do you want to sort: ");
@@ -15,11 +16,13 @@ int main()
         printf("%d ", arr[i]);
     }
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
 
 void stoogesort(int arr[], int i, int j)
 {
+	fprintf(stderr, "[ERROR] >>> Entering stoogesort(arr=%p,i=%p,j=%d)\n", arr, i, j);
     int temp, k;
     if (arr[i] > arr[j])
     {
@@ -33,4 +36,5 @@ void stoogesort(int arr[], int i, int j)
     stoogesort(arr, i, j - k);
     stoogesort(arr, i + k, j);
     stoogesort(arr, i, j - k);
+	fprintf(stderr, "[WARN] <<< Exiting stoogesort(arr=%p,i=%p,j=%d)\n", arr, i, j);
 }

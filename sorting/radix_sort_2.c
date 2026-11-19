@@ -7,18 +7,22 @@
 // Utility function to get the maximum value in ar[]
 int MAX(int *ar, int size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering MAX(ar=%p,size=%p)\n", ar, size);
     int i, max = ar[0];
     for (i = 0; i < size; i++)
     {
         if (ar[i] > max)
             max = ar[i];
+			fprintf(stderr, "[INFO] MAX(ar=%p,size=%d): max → %d\n", ar, size, max);
     }
+	fprintf(stderr, "[WARN] <<< Exiting MAX(ar=%p,size=%p)\n", ar, size);
     return max;
 }
 
 // Counting sort according to the digit represented by place
 void countSort(int *arr, int n, int place)
 {
+	fprintf(stderr, "[ERROR] >>> Entering countSort(arr=%p,n=%p,place=%d)\n", arr, n, place);
     int i, freq[range] = {0};
     int *output = (int *)malloc(n * sizeof(int));
 
@@ -40,6 +44,7 @@ void countSort(int *arr, int n, int place)
     // current digit
     for (i = 0; i < n; i++) arr[i] = output[i];
     free(output);
+	fprintf(stderr, "[WARN] <<< Exiting countSort(arr=%p,n=%p,place=%d)\n", arr, n, place);
 }
 
 /*This is where the sorting of the array takes place
@@ -61,12 +66,15 @@ void radixsort2(int *arr, int n,
 
 void display(int *arr, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering display(arr=%p,N=%p)\n", arr, N);
     for (int i = 0; i < N; i++) printf("%d, ", arr[i]);
     putchar('\n');
+	fprintf(stderr, "[WARN] <<< Exiting display(arr=%p,N=%p)\n", arr, N);
 }
 
 int main(int argc, const char *argv[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     int n;
     printf("Enter size of array:\n");
     scanf("%d", &n);  // E.g. 8
@@ -84,6 +92,8 @@ int main(int argc, const char *argv[])
 
     int max;
     max = MAX(arr, n);
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): max → %d\n", argc, argv, max);
+	fprintf(stderr, "[INFO] main(argc=%d,argv=%p): max → %d\n", argc, argv, max);
 
     radixsort2(arr, n, max);
 
@@ -91,5 +101,6 @@ int main(int argc, const char *argv[])
     display(arr, n);  // Sorted array : 3 4 7 8 8 9 10 11
 
     free(arr);
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

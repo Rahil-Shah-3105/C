@@ -119,6 +119,7 @@ static const uint8_t blake2b_sigma[12][16] = {
  */
 static inline void u128_fill(u128 dest, size_t n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering u128_fill(dest=%d,n=%zu)\n", dest, n);
     dest[0] = n & UINT64_MAX;
 
     if (sizeof(n) > 8)
@@ -134,6 +135,7 @@ static inline void u128_fill(u128 dest, size_t n)
     {
         dest[1] = 0;
     }
+	fprintf(stderr, "[WARN] <<< Exiting u128_fill(dest=%d,n=%zu)\n", dest, n);
 }
 
 /**
@@ -146,6 +148,7 @@ static inline void u128_fill(u128 dest, size_t n)
  */
 static inline void u128_increment(u128 dest, uint64_t n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering u128_increment(dest=%d,n=%d)\n", dest, n);
     /* Check for overflow */
     if (UINT64_MAX - dest[0] <= n)
     {
@@ -153,6 +156,7 @@ static inline void u128_increment(u128 dest, uint64_t n)
     }
 
     dest[0] += n;
+	fprintf(stderr, "[WARN] <<< Exiting u128_increment(dest=%d,n=%d)\n", dest, n);
 }
 
 /**
@@ -202,6 +206,7 @@ static void G(block_t v, uint8_t a, uint8_t b, uint8_t c, uint8_t d, uint64_t x,
  */
 static void F(uint64_t h[8], block_t m, u128 t, int f)
 {
+	fprintf(stderr, "[ERROR] >>> Entering F(h=%p,m=%p,t=%d,f=%d)\n", h, m, t, f);
     int i;
     block_t v;
 
@@ -243,6 +248,7 @@ static void F(uint64_t h[8], block_t m, u128 t, int f)
     {
         h[i] ^= v[i] ^ v[i + 8];
     }
+	fprintf(stderr, "[WARN] <<< Exiting F(h=%p,m=%p,t=%d,f=%d)\n", h, m, t, f);
 }
 
 /**
@@ -451,6 +457,7 @@ static void assert_bytes(const uint8_t *expected, const uint8_t *actual,
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     uint8_t *digest = NULL;
 
     /* "abc" example straight out of RFC-7693 */
@@ -464,6 +471,7 @@ static void test()
         0x5A, 0xB9, 0x23, 0x86, 0xED, 0xD4, 0x00, 0x99, 0x23};
 
     digest = blake2b(abc, 3, NULL, 0, 64);
+	fprintf(stderr, "[ERROR] test(): digest → %p\n", digest);
     assert_bytes(abc_answer, digest, 64);
 
     free(digest);
@@ -537,6 +545,7 @@ static void test()
     free(digest);
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -546,6 +555,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

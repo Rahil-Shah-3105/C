@@ -14,11 +14,13 @@
 /** Main function */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int n = 0;
     int sum = 0;
     scanf("%d", &n);
 
     int terms = (n - 1) / 3;
+	fprintf(stderr, "[ERROR] main(): terms → %d\n", terms);
     sum += ((terms) * (6 + (terms - 1) * 3)) / 2;  // sum of an A.P.
     terms = (n - 1) / 5;
     sum += ((terms) * (10 + (terms - 1) * 5)) / 2;
@@ -26,4 +28,5 @@ int main()
     sum -= ((terms) * (30 + (terms - 1) * 15)) / 2;
 
     printf("%d\n", sum);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
 }

@@ -10,8 +10,10 @@
 /** Main function */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     long n = 100;
     long long sum = 0;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): n → %ld\n", argc, argv, n);
     char *sieve = NULL;
 
     if (argc == 2)         /* if command line argument is provided */
@@ -19,6 +21,7 @@ int main(int argc, char *argv[])
 
     /* allocate memory for the sieve */
     sieve = calloc(n, sizeof(*sieve));
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): sieve → %p\n", argc, argv, sieve);
     if (!sieve)
     {
         perror("Unable to allocate memory!");
@@ -52,5 +55,6 @@ int main(int argc, char *argv[])
 
     printf("%ld: %lld\n", n, sum);
 
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

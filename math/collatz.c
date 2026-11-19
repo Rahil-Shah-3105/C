@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
         n = strtoull(argv[1], NULL, 10);
     else
     {
+		fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): n → %llu\n", argc, argv, n);
         printf("Enter starting number: ");
         scanf("%lu", &n);  // input number
     }
@@ -33,7 +34,10 @@ int main(int argc, char *argv[])
             curr_no = curr_no / 2;
         else
             curr_no = (curr_no * 3) + 1;  // condition for odd number
+			fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): curr_no → %llu\n", argc, argv, curr_no);
+			fprintf(stderr, "[DEBUG] main(argc=%d,argv=%p): curr_no → %llu\n", argc, argv, curr_no);
     }
     printf("1\nNumber of steps: %llu\n", num_steps);
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

@@ -46,6 +46,7 @@ typedef struct
  */
 int modular_multiplicative_inverse(unsigned int a, unsigned int m)
 {
+	fprintf(stderr, "[ERROR] >>> Entering modular_multiplicative_inverse(a=%u,m=%u)\n", a, m);
     int x[2] = {1, 0};
     div_t div_result;
 
@@ -58,21 +59,26 @@ int modular_multiplicative_inverse(unsigned int a, unsigned int m)
     }
 
     div_result.rem = a;
+	fprintf(stderr, "[DEBUG] modular_multiplicative_inverse(a=%u,m=%u): div_result.rem → %d\n", a, m, div_result.rem);
 
     while (div_result.rem > 0)
     {
         div_result = div(m, a);
+		fprintf(stderr, "[ERROR] modular_multiplicative_inverse(a=%u,m=%u): div_result → %d\n", a, m, div_result);
+		fprintf(stderr, "[DEBUG] modular_multiplicative_inverse(a=%u,m=%u): div_result → %d\n", a, m, div_result);
 
         m = a;
         a = div_result.rem;
 
         // Calculate value of x for this iteration
         int next = x[1] - (x[0] * div_result.quot);
+		fprintf(stderr, "[ERROR] modular_multiplicative_inverse(a=%u,m=%u): next → %d\n", a, m, next);
 
         x[1] = x[0];
         x[0] = next;
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting modular_multiplicative_inverse(a=%u,m=%u)\n", a, m);
     return x[1];
 }
 
@@ -86,6 +92,7 @@ int modular_multiplicative_inverse(unsigned int a, unsigned int m)
  */
 affine_key_t inverse_key(affine_key_t key)
 {
+	fprintf(stderr, "[ERROR] >>> Entering inverse_key(key=%d)\n", key);
     affine_key_t inverse;
 
     inverse.a = modular_multiplicative_inverse(key.a, ALPHABET_SIZE);
@@ -96,6 +103,7 @@ affine_key_t inverse_key(affine_key_t key)
 
     inverse.b = -(key.b % ALPHABET_SIZE) + ALPHABET_SIZE;
 
+	fprintf(stderr, "[WARN] <<< Exiting inverse_key(key=%d)\n", key);
     return inverse;
 }
 
@@ -109,9 +117,11 @@ affine_key_t inverse_key(affine_key_t key)
  */
 void affine_encrypt(char *s, affine_key_t key)
 {
+	fprintf(stderr, "[ERROR] >>> Entering affine_encrypt(s=%s,key=%s)\n", s, key);
     for (int i = 0; s[i] != '\0'; i++)
     {
         int c = (int)s[i] - Z95_CONVERSION_CONSTANT;
+		fprintf(stderr, "[ERROR] affine_encrypt(s=%s,key=%d): c → %d\n", s, key, c);
 
         c *= key.a;
         c += key.b;
@@ -119,6 +129,7 @@ void affine_encrypt(char *s, affine_key_t key)
 
         s[i] = (char)(c + Z95_CONVERSION_CONSTANT);
     }
+	fprintf(stderr, "[WARN] <<< Exiting affine_encrypt(s=%s,key=%s)\n", s, key);
 }
 
 /**
@@ -131,11 +142,13 @@ void affine_encrypt(char *s, affine_key_t key)
  */
 void affine_decrypt(char *s, affine_key_t key)
 {
+	fprintf(stderr, "[ERROR] >>> Entering affine_decrypt(s=%s,key=%s)\n", s, key);
     affine_key_t inverse = inverse_key(key);
 
     for (int i = 0; s[i] != '\0'; i++)
     {
         int c = (int)s[i] - Z95_CONVERSION_CONSTANT;
+		fprintf(stderr, "[ERROR] affine_decrypt(s=%s,key=%d): c → %d\n", s, key, c);
 
         c += inverse.b;
         c *= inverse.a;
@@ -143,6 +156,7 @@ void affine_decrypt(char *s, affine_key_t key)
 
         s[i] = (char)(c + Z95_CONVERSION_CONSTANT);
     }
+	fprintf(stderr, "[WARN] <<< Exiting affine_decrypt(s=%s,key=%s)\n", s, key);
 }
 
 /**
@@ -156,6 +170,7 @@ void affine_decrypt(char *s, affine_key_t key)
  */
 void test_string(const char *s, const char *ciphertext, int a, int b)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_string(s=%s,ciphertext=%s,a=%s,b=%s)\n", s, ciphertext, a, b);
     char *copy = malloc((strlen(s) + 1) * sizeof(char));
     strcpy(copy, s);
 
@@ -169,6 +184,7 @@ void test_string(const char *s, const char *ciphertext, int a, int b)
            0);  // assert that we got the same string we started with
 
     free(copy);
+	fprintf(stderr, "[WARN] <<< Exiting test_string(s=%s,ciphertext=%s,a=%s,b=%s)\n", s, ciphertext, a, b);
 }
 
 /**
@@ -178,6 +194,7 @@ void test_string(const char *s, const char *ciphertext, int a, int b)
  */
 static void tests()
 {
+	fprintf(stderr, "[ERROR] >>> Entering tests()\n");
     test_string("Hello!", "&3ddy2", 7, 11);
     test_string("TheAlgorithms/C", "DNC}=jHS2zN!7;E", 67, 67);
     test_string("0123456789", "840,($ {ws", 91, 88);
@@ -193,6 +210,7 @@ static void tests()
         51, 18);
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "[WARN] <<< Exiting tests()\n");
 }
 
 /**
@@ -202,6 +220,8 @@ static void tests()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     tests();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

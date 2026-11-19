@@ -23,6 +23,7 @@
 */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     // print strings using `printf` and `min_printf`
     min_printf(":%d: :%1.6d:\n", 12, 56);
     printf(":%d: :%1.6d:\n", 12, 56);
@@ -37,6 +38,7 @@ int main()
 
     // print integers `printf` and `min_printf`
     min_printf(":%s: :%4.3s:\n", "Hello, World!", "Hello, World!");
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     printf(":%s: :%4.3s:\n", "Hello, World!", "Hello, World!");
 
 }

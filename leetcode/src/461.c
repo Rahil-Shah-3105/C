@@ -1,5 +1,7 @@
+#include "stdio.h"
 int hammingDistance(int x, int y)
 {
+	fprintf(stderr, "[ERROR] >>> Entering hammingDistance(x=%d,y=%d)\n", x, y);
     int difference =
         x ^ y;  // The XOR operator generates the bitwise difference in the
                 // binary representation of two numbers If bit in ith position
@@ -16,5 +18,6 @@ int hammingDistance(int x, int y)
                      // which cannot be shifted left more than 30 times
             distance += 1;
     }
+	fprintf(stderr, "[WARN] <<< Exiting hammingDistance(x=%d,y=%d)\n", x, y);
     return distance;
 }

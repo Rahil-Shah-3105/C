@@ -68,8 +68,10 @@ typedef struct cluster
  */
 int calculateNearst(observation* o, cluster clusters[], int k)
 {
+	fprintf(stderr, "[ERROR] >>> Entering calculateNearst(o=%p,clusters=%p,k=%p)\n", o, clusters, k);
     double minD = DBL_MAX;
     double dist = 0;
+	fprintf(stderr, "[ERROR] calculateNearst(o=%p,clusters=%p,k=%d): minD → %f\n", o, clusters, k, minD);
     int index = -1;
     int i = 0;
     for (; i < k; i++)
@@ -83,6 +85,7 @@ int calculateNearst(observation* o, cluster clusters[], int k)
             index = i;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting calculateNearst(o=%p,clusters=%p,k=%p)\n", o, clusters, k);
     return index;
 }
 
@@ -133,6 +136,7 @@ void calculateCentroid(observation observations[], size_t size,
  */
 cluster* kMeans(observation observations[], size_t size, int k)
 {
+	fprintf(stderr, "[ERROR] >>> Entering kMeans(observations=%p,size=%zu,k=%p)\n", observations, size, k);
     cluster* clusters = NULL;
     if (k <= 1)
     {
@@ -142,6 +146,7 @@ cluster* kMeans(observation observations[], size_t size, int k)
         that will be a ingle cluster
         */
         clusters = (cluster*)malloc(sizeof(cluster));
+		fprintf(stderr, "[ERROR] kMeans(observations=%p,size=%zu,k=%d): clusters → %p\n", observations, size, k, clusters);
         memset(clusters, 0, sizeof(cluster));
         calculateCentroid(observations, size, clusters);
     }
@@ -172,6 +177,7 @@ cluster* kMeans(observation observations[], size_t size, int k)
             for (size_t j = 0; j < size; j++)
             {
                 t = observations[j].group;
+				fprintf(stderr, "[ERROR] kMeans(observations=%p,size=%zu,k=%d): t → %d\n", observations, size, k, t);
                 clusters[t].x += observations[j].x;
                 clusters[t].y += observations[j].y;
                 clusters[t].count++;
@@ -183,6 +189,7 @@ cluster* kMeans(observation observations[], size_t size, int k)
             }
             /* STEP 3 and 4 */
             changed = 0;  // this variable stores change in clustering
+			fprintf(stderr, "[ERROR] kMeans(observations=%p,size=%zu,k=%d): changed → %zu\n", observations, size, k, changed);
             for (size_t j = 0; j < size; j++)
             {
                 t = calculateNearst(observations + j, clusters, k);
@@ -210,6 +217,7 @@ cluster* kMeans(observation observations[], size_t size, int k)
             observations[j].group = j;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting kMeans(observations=%p,size=%zu,k=%p)\n", observations, size, k);
     return clusters;
 }
 
@@ -236,6 +244,7 @@ cluster* kMeans(observation observations[], size_t size, int k)
  */
 void printEPS(observation pts[], size_t len, cluster cent[], int k)
 {
+	fprintf(stderr, "[ERROR] >>> Entering printEPS(pts=%p,len=%zu,cent=%p,k=%p)\n", pts, len, cent, k);
     int W = 400, H = 400;
     double min_x = DBL_MAX, max_x = DBL_MIN, min_y = DBL_MAX, max_y = DBL_MIN;
     double scale = 0, cx = 0, cy = 0;
@@ -255,6 +264,7 @@ void printEPS(observation pts[], size_t len, cluster cent[], int k)
         if (max_x < pts[j].x)
         {
             max_x = pts[j].x;
+			fprintf(stderr, "[DEBUG] printEPS(pts=%p,len=%zu,cent=%p,k=%d): max_x → %f\n", pts, len, cent, k, max_x);
         }
         if (min_x > pts[j].x)
         {
@@ -263,10 +273,12 @@ void printEPS(observation pts[], size_t len, cluster cent[], int k)
         if (max_y < pts[j].y)
         {
             max_y = pts[j].y;
+			fprintf(stderr, "[DEBUG] printEPS(pts=%p,len=%zu,cent=%p,k=%d): max_y → %f\n", pts, len, cent, k, max_y);
         }
         if (min_y > pts[j].y)
         {
             min_y = pts[j].y;
+			fprintf(stderr, "[DEBUG] printEPS(pts=%p,len=%zu,cent=%p,k=%d): min_y → %f\n", pts, len, cent, k, min_y);
         }
     }
     scale = W / (max_x - min_x);
@@ -305,6 +317,7 @@ void printEPS(observation pts[], size_t len, cluster cent[], int k)
 
     // free accquired memory
     free(colors);
+	fprintf(stderr, "[WARN] <<< Exiting printEPS(pts=%p,len=%zu,cent=%p,k=%p)\n", pts, len, cent, k);
 }
 
 /*!
@@ -320,6 +333,7 @@ void printEPS(observation pts[], size_t len, cluster cent[], int k)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     size_t size = 100000L;
     observation* observations =
         (observation*)malloc(sizeof(observation) * size);
@@ -330,16 +344,20 @@ static void test()
     for (; i < size; i++)
     {
         radius = maxRadius * ((double)rand() / RAND_MAX);
+		fprintf(stderr, "[ERROR] test(): radius → %f\n", radius);
         ang = 2 * M_PI * ((double)rand() / RAND_MAX);
+		fprintf(stderr, "[ERROR] test(): ang → %f\n", ang);
         observations[i].x = radius * cos(ang);
         observations[i].y = radius * sin(ang);
     }
     int k = 5;  // No of clusters
     cluster* clusters = kMeans(observations, size, k);
+	fprintf(stderr, "[ERROR] test(): clusters → %p\n", clusters);
     printEPS(observations, size, clusters, k);
     // Free the accquired memory
     free(observations);
     free(clusters);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /*!
@@ -355,6 +373,7 @@ static void test()
  */
 void test2()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test2()\n");
     size_t size = 1000000L;
     observation* observations =
         (observation*)malloc(sizeof(observation) * size);
@@ -365,16 +384,20 @@ void test2()
     for (; i < size; i++)
     {
         radius = maxRadius * ((double)rand() / RAND_MAX);
+		fprintf(stderr, "[ERROR] test2(): radius → %f\n", radius);
         ang = 2 * M_PI * ((double)rand() / RAND_MAX);
+		fprintf(stderr, "[ERROR] test2(): ang → %f\n", ang);
         observations[i].x = radius * cos(ang);
         observations[i].y = radius * sin(ang);
     }
     int k = 11;  // No of clusters
     cluster* clusters = kMeans(observations, size, k);
+	fprintf(stderr, "[ERROR] test2(): clusters → %p\n", clusters);
     printEPS(observations, size, clusters, k);
     // Free the accquired memory
     free(observations);
     free(clusters);
+	fprintf(stderr, "[WARN] <<< Exiting test2()\n");
 }
 
 /*!
@@ -383,8 +406,10 @@ void test2()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     srand(time(NULL));
     test();
     /* test2(); */
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

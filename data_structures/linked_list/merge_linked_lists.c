@@ -1,3 +1,4 @@
+#include "errno.h"
 #include <stdio.h>
 #include <stdlib.h>
 struct node
@@ -13,6 +14,7 @@ struct node *head2 = NULL;
 
 void merge()
 {
+	fprintf(stderr, "[ERROR] >>> Entering merge()\n");
     struct node *temp1 = head1;
     struct node *temp2 = head2;
 
@@ -24,6 +26,7 @@ void merge()
     while (temp1 != NULL && temp2 != NULL)
     {
         holder1 = temp1->next;
+		fprintf(stderr, "[ERROR] merge(): holder1 → %p\n", holder1);
         // Storing the address of next node of first linked list
         temp1->next = temp2;
         // Making the first node of first linked list point to first node of
@@ -31,9 +34,11 @@ void merge()
 
         if (holder1 != NULL)
         {
+			fprintf(stderr, "[ERROR] Exception in merge(): %d\n", errno);
             // Making the first node of second linked list point to second node
             // of first linked list
             holder2 = temp2->next;
+			fprintf(stderr, "[ERROR] merge(): holder2 → %p\n", holder2);
             temp2->next = holder1;
         }
         temp1 = holder1;
@@ -41,10 +46,12 @@ void merge()
         // Updating the address location of two pointer variables temp1 and
         // temp2
     }
+	fprintf(stderr, "[WARN] <<< Exiting merge()\n");
 }
 
 void printlist(struct node *temp)
 {
+	fprintf(stderr, "[ERROR] >>> Entering printlist(temp=%p)\n", temp);
     printf("%d", temp->data);
     temp = temp->next;
     while (temp != NULL)
@@ -53,10 +60,12 @@ void printlist(struct node *temp)
         temp = temp->next;
     }
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting printlist(temp=%p)\n", temp);
 }
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     // Linked List 1: 1->3->5->7   :   Linked List 2: 2->4->6
     //  making lists
     struct node *one = (struct node *)malloc(sizeof(struct node));
@@ -69,7 +78,9 @@ int main()
     // Seven nodes are created
 
     head1 = one;
+	fprintf(stderr, "[DEBUG] main(): head1 → %d\n", head1);
     head2 = two;
+	fprintf(stderr, "[DEBUG] main(): head2 → %d\n", head2);
     // head1 points to first node of first linked list
     // head2 points to first node of second linked list
 
@@ -107,5 +118,6 @@ int main()
     printf("\nMerged Linked List: ");
     printlist(head1);  // list one has been modified
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

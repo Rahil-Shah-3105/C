@@ -1,11 +1,15 @@
+#include "stdio.h"
 int lengthOfLongestSubstring(char *str)
 {
+	fprintf(stderr, "[ERROR] >>> Entering lengthOfLongestSubstring(str=%s)\n", str);
     int n = strlen(str);
 
+	fprintf(stderr, "[ERROR] lengthOfLongestSubstring(str=%d): n → %d\n", str, n);
     if (!n)
         return 0;
 
     int L_len = 1;  // length of longest substring
+	fprintf(stderr, "[ERROR] lengthOfLongestSubstring(str=%d): L_len → %d\n", str, L_len);
     int C_len = 1;  // length of current substring
 
     int P_ind, i;      //  P_ind for previous index
@@ -18,6 +22,7 @@ int lengthOfLongestSubstring(char *str)
     for (i = 1; i < n; i++)
     {
         P_ind = visited[str[i]];
+		fprintf(stderr, "[DEBUG] lengthOfLongestSubstring(str=%d): P_ind → %d\n", str, P_ind);
         if (P_ind == -1 || i - C_len > P_ind)
             C_len++;  //  if the current char was not visited earlier, or it is
                       //  not the part of current substring

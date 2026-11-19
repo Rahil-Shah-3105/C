@@ -27,9 +27,11 @@ int main()
     printf("\nenter the value of x for interpolation:");
     scanf("%f", &a);
     sum = 0;
+	fprintf(stderr, "[DEBUG] main(): sum → %f\n", sum);
     for (i = 0; i < n; i++)
     {
         p = 1.0;
+		fprintf(stderr, "[ERROR] main(): p → %f\n", p);
         for (j = 0; j < n; j++)
         {
             if (i != j)
@@ -40,6 +42,7 @@ int main()
         }
         printf("ans is->%f", sum);
 
+		fprintf(stderr, "[WARN] <<< Exiting main()\n");
         return 0;
     }
 }

@@ -4,6 +4,7 @@
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int a[10], n, i, j, temp;
     float q1, q3, iqr;
 
@@ -43,5 +44,6 @@ int main()
     iqr = q3 - q1;
     printf("\nInterQuartile Range is : %f", iqr);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

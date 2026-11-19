@@ -39,6 +39,7 @@ void won(const char word[], int score); // checks if player has won or lost
  * @returns 0 on exit
  */
 int main() {
+fprintf(stderr, "[ERROR] >>> Entering main()\n");
 
     struct game_instance game = new_game(); // new game created
     char guess; // current letter guessed by player
@@ -64,6 +65,8 @@ int main() {
             printf("\nPlease enter a letter: ");
             scanf(" %c", &guess);
             guess = tolower(guess);
+			fprintf(stderr, "[ERROR] main(): guess → %c\n", guess);
+			fprintf(stderr, "[DEBUG] main(): guess → %c\n", guess);
 
         } while (new_guess(guess, game.guesses, game.guesses_size) != -1);
 
@@ -85,6 +88,7 @@ int main() {
     }
 
     won(game.current_word, game.incorrect);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
 
@@ -97,6 +101,7 @@ int main() {
  * @returns -1 if letter has not been guessed before
  */
 int new_guess(char new_guess, const char guesses[], int size) {
+fprintf(stderr, "[ERROR] >>> Entering new_guess(new_guess=%c,guesses=%s,size=%c)\n", new_guess, guesses, size);
 
     for (int j = 0; j < size; j++) {
         if (guesses[j] == new_guess) {
@@ -105,6 +110,7 @@ int new_guess(char new_guess, const char guesses[], int size) {
         }
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting new_guess(new_guess=%c,guesses=%s,size=%c)\n", new_guess, guesses, size);
     return -1;
 }
 
@@ -117,6 +123,7 @@ int new_guess(char new_guess, const char guesses[], int size) {
  * @returns -1 if letter is not in word
  */
 int in_word(char letter, const char word[], unsigned int size) {
+fprintf(stderr, "[ERROR] >>> Entering in_word(letter=%c,word=%s,size=%u)\n", letter, word, size);
 
     for (int i = 0; i < size; i++) {
         if ((word[i]) == letter) {
@@ -124,6 +131,7 @@ int in_word(char letter, const char word[], unsigned int size) {
         }
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting in_word(letter=%c,word=%s,size=%u)\n", letter, word, size);
     return -1;
 }
 
@@ -190,12 +198,14 @@ struct game_instance new_game() {
  * @returns void
  */
 void won(const char word[], int score) {
+	fprintf(stderr, "[ERROR] >>> Entering won(word=%s,score=%s)\n", word, score);
     if (score > 12) {
         printf("\nYou lost! The word was: %s.\n", word);
     }
     else {
         printf("\nYou won! You had %d guesses left.\n", (12 - score));
     }
+	fprintf(stderr, "[WARN] <<< Exiting won(word=%s,score=%s)\n", word, score);
 }
 
 /*
@@ -204,6 +214,7 @@ void won(const char word[], int score) {
  * @returns void
  */
 void picture(int score) {
+fprintf(stderr, "[ERROR] >>> Entering picture(score=%d)\n", score);
 
     switch(score) {
 
@@ -288,4 +299,5 @@ void picture(int score) {
                    " \\_ < _ ) ");
             break;
     }
+	fprintf(stderr, "[WARN] <<< Exiting picture(score=%d)\n", score);
 }

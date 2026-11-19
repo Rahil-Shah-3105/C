@@ -9,6 +9,7 @@
 
 int fib(int n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering fib(n=%d)\n", n);
     // Out of Range checking
     if (n < 0)
     {
@@ -32,6 +33,7 @@ int fib(int n)
 
     int out = f[n];
     free(f);
+	fprintf(stderr, "[WARN] <<< Exiting fib(n=%d)\n", n);
     return out;
 }
 
@@ -50,5 +52,6 @@ int main(int argc, char *argv[])
 
     printf("The nth term is : %d \n", fib(number));
 
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

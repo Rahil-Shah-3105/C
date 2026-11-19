@@ -63,6 +63,7 @@ int main()
 
     // Filling server information
     servaddr.sin_family = AF_INET;  // IPv4
+	fprintf(stderr, "[DEBUG] main(): servaddr.sin_family → %d\n", servaddr.sin_family);
     servaddr.sin_addr.s_addr = INADDR_ANY;
     servaddr.sin_port = htons(PORT);
 
@@ -85,5 +86,6 @@ int main()
 
     close(sockfd);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

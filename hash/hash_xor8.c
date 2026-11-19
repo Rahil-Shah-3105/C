@@ -18,6 +18,7 @@
  */
 uint8_t xor8(const char* s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering xor8(s=%s)\n", s);
     uint8_t hash = 0;
     size_t i = 0;
     while (s[i] != '\0')
@@ -25,6 +26,7 @@ uint8_t xor8(const char* s)
         hash = (hash + s[i]) & 0xff;
         i++;
     }
+	fprintf(stderr, "[WARN] <<< Exiting xor8(s=%s)\n", s);
     return (((hash ^ 0xff) + 1) & 0xff);
 }
 
@@ -34,11 +36,13 @@ uint8_t xor8(const char* s)
  */
 void test_xor8()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_xor8()\n");
     assert(xor8("Hello World") == 228);
     assert(xor8("Hello World!") == 195);
     assert(xor8("Hello world") == 196);
     assert(xor8("Hello world!") == 163);
     printf("Tests passed\n");
+	fprintf(stderr, "[WARN] <<< Exiting test_xor8()\n");
 }
 
 /** @} */
@@ -46,6 +50,8 @@ void test_xor8()
 /** Main function */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test_xor8();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

@@ -1,3 +1,4 @@
+#include "stdio.h"
 #include <stdbool.h>
 #include <string.h>
 
@@ -6,18 +7,21 @@
 */
 bool is_isogram(const char phrase[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering is_isogram(phrase=%s)\n", phrase);
     /* use 'unsigned' because of the function strlen(...) */
     unsigned int i = 0;
     unsigned int j = 0;
 
     /* the current read character in the first for-loop */
     char current_char = ' ';
+	fprintf(stderr, "[ERROR] is_isogram(phrase=%s): current_char → %c\n", phrase, current_char);
 
     /* return status */
     bool status = true;
 
     /* contains the length of the given string */
     unsigned int len_phrase = strlen(phrase);
+	fprintf(stderr, "[ERROR] is_isogram(phrase=%s): len_phrase → %u\n", phrase, len_phrase);
 
     for (i = 0; i < len_phrase; i++)
     {
@@ -29,6 +33,7 @@ bool is_isogram(const char phrase[])
             if (current_char == phrase[j])
             {
                 status = false;
+				fprintf(stderr, "[ERROR] is_isogram(phrase=%s): status → %d\n", phrase, status);
 
                 /*
                     because the given string is none isogram.

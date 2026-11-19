@@ -5,6 +5,7 @@ queue 3)  Delete from the queue 4)  destroyqueue
 
 /* queue q declared globally */
 
+#include "errno.h"
 #include <stdio.h>
 #include <stdlib.h>
 #define NULL 0
@@ -28,6 +29,7 @@ void createqueue() { q.front = q.rear = NULL; }
 
 int empty()
 {
+	fprintf(stderr, "[ERROR] >>> Entering empty()\n");
     if (q.front == NULL)
         return 1;
     else
@@ -36,9 +38,11 @@ int empty()
 
 void insert(int x)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insert(x=%d)\n", x);
     struct node *pnode;
 
     pnode = (struct node *)malloc(sizeof(struct node));
+	fprintf(stderr, "[ERROR] insert(x=%d): pnode → %p\n", x, pnode);
     if (pnode == NULL)
     {
         printf("Memory overflow. Unable to insert.\n");
@@ -52,13 +56,17 @@ void insert(int x)
         q.front = q.rear = pnode;
     else
     {
+		fprintf(stderr, "[DEBUG] insert(x=%d): q.front → %d\n", x, q.front);
         (q.rear)->next = pnode;
         q.rear = pnode;
+		fprintf(stderr, "[DEBUG] insert(x=%d): q.rear → %d\n", x, q.rear);
     }
+	fprintf(stderr, "[WARN] <<< Exiting insert(x=%d)\n", x);
 }
 
 int removes()
 {
+	fprintf(stderr, "[ERROR] >>> Entering removes()\n");
     int x;
     struct node *p;
 
@@ -70,15 +78,19 @@ int removes()
 
     p = q.front;
     x = (q.front)->data;
+	fprintf(stderr, "[ERROR] removes(): x → %d\n", x);
     q.front = (q.front)->next;
     if (q.front == NULL) /* Queue contained only one node */
         q.rear = NULL;
+		fprintf(stderr, "[DEBUG] removes(): q.rear → %d\n", q.rear);
     free(p);
+	fprintf(stderr, "[WARN] <<< Exiting removes()\n");
     return x;
 }
 
 void show()
 {
+	fprintf(stderr, "[ERROR] >>> Entering show()\n");
     struct node *p;
 
     if (empty())
@@ -92,16 +104,19 @@ void show()
         {
             printf("%d ", p->data);
             p = p->next;
+			fprintf(stderr, "[ERROR] show(): p → %p\n", p);
         }
 
         printf("\n");
     }
+	fprintf(stderr, "[WARN] <<< Exiting show()\n");
 }
 
 void destroyqueue() { q.front = q.rear = NULL; }
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int x, ch;
 
     createqueue();

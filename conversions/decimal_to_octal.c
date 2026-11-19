@@ -4,6 +4,7 @@ void decimal2Octal(long decimalnum);
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     long decimalnum;
 
     printf("Enter the decimal number: ");
@@ -11,16 +12,20 @@ int main()
 
     decimal2Octal(decimalnum);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
 
 /********function for convert decimal numbers to octal numbers************/
 void decimal2Octal(long decimalnum)
 {
+	fprintf(stderr, "[ERROR] >>> Entering decimal2Octal(decimalnum=%ld)\n", decimalnum);
     long remainder, quotient;
 
     int octalNumber[100], i = 1, j;
     quotient = decimalnum;
+	fprintf(stderr, "[ERROR] decimal2Octal(decimalnum=%ld): quotient → %ld\n", decimalnum, quotient);
+	fprintf(stderr, "[DEBUG] decimal2Octal(decimalnum=%ld): quotient → %ld\n", decimalnum, quotient);
 
     while (quotient != 0)
     {
@@ -32,4 +37,5 @@ void decimal2Octal(long decimalnum)
     for (j = i - 1; j > 0; j--) printf("%d", octalNumber[j]);
 
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting decimal2Octal(decimalnum=%ld)\n", decimalnum);
 }

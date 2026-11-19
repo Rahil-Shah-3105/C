@@ -1,19 +1,25 @@
+#include "stdio.h"
 int** initSet(int size){
+	fprintf(stderr, "[ERROR] >>> Entering initSet(size=%d)\n", size);
     int** result = (int**) malloc(size * sizeof(int*));
     for (int i = 0; i < size; i++) {
         result[i] = (int*)calloc(size, sizeof(int));
     }
     
+	fprintf(stderr, "[WARN] <<< Exiting initSet(size=%d)\n", size);
     return result;    
 }
 
 // Returns the id of triplet which the point (i, j) belongs to
 int getTripletId(int i, int j){
+	fprintf(stderr, "[ERROR] >>> Entering getTripletId(i=%d,j=%d)\n", i, j);
+    fprintf(stderr, "[WARN] <<< Exiting getTripletId(i=%d,j=%d)\n", i, j);
     return (i / 3) * 3 + (j / 3);
 }
 
 // Recursive function which populates sudoku board.
 bool sudokuSolver(int startI, int startJ, char** board, int boardSize, int* boardColSize, int** horizontalsSets, int** verticalsSets, int** tripletsSets){
+	fprintf(stderr, "[ERROR] >>> Entering sudokuSolver(startI=%d,startJ=%d,board=%p,boardSize=%p,boardColSize=%p,horizontalsSets=%p,verticalsSets=%p,tripletsSets=%p)\n", startI, startJ, board, boardSize, boardColSize, horizontalsSets, verticalsSets, tripletsSets);
     for (int i = startI; i < boardSize; i++) {
         for (int j = startJ; j < boardColSize[i]; j++) {
             if (board[i][j] != '.'){
@@ -54,11 +60,13 @@ bool sudokuSolver(int startI, int startJ, char** board, int boardSize, int* boar
     }
     
     // Reach it when the end of the board - then all previous values are setup correctly.
+	fprintf(stderr, "[WARN] <<< Exiting sudokuSolver(startI=%d,startJ=%d,board=%p,boardSize=%p,boardColSize=%p,horizontalsSets=%p,verticalsSets=%p,tripletsSets=%p)\n", startI, startJ, board, boardSize, boardColSize, horizontalsSets, verticalsSets, tripletsSets);
     return true;
 }
 
 // Use backtracking
 void solveSudoku(char** board, int boardSize, int* boardColSize){
+	fprintf(stderr, "[ERROR] >>> Entering solveSudoku(board=%p,boardSize=%p,boardColSize=%p)\n", board, boardSize, boardColSize);
     // Declare sets for cheking occupation of numbers by horizontals, verticals lines and triplets.
     int** horizontalsSets = initSet(boardSize + 1);
     int** verticalsSets = initSet(boardSize + 1);
@@ -72,6 +80,7 @@ void solveSudoku(char** board, int boardSize, int* boardColSize){
             }
             
             int value = board[i][j] - '0';
+			fprintf(stderr, "[ERROR] solveSudoku(board=%p,boardSize=%d,boardColSize=%p): value → %d\n", board, boardSize, boardColSize, value);
             horizontalsSets[i][value] = 1;
             verticalsSets[j][value] = 1;
             tripletsSets[getTripletId(i, j)][value] = 1;
@@ -85,4 +94,5 @@ void solveSudoku(char** board, int boardSize, int* boardColSize){
     free(horizontalsSets);
     free(verticalsSets);
     free(tripletsSets);
+	fprintf(stderr, "[WARN] <<< Exiting solveSudoku(board=%p,boardSize=%p,boardColSize=%p)\n", board, boardSize, boardColSize);
 }

@@ -23,10 +23,12 @@ typedef struct _large_num
  */
 large_num *new_number(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering new_number()\n");
     large_num *new_num = (large_num *)malloc(sizeof(large_num));
     new_num->num_digits = 1;
     new_num->digits = (char *)malloc(1 * sizeof(char));
     new_num->digits[0] = 1;
+	fprintf(stderr, "[WARN] <<< Exiting new_number()\n");
     return new_num;
 }
 
@@ -36,8 +38,10 @@ large_num *new_number(void)
  */
 void delete_number(large_num *num)
 {
+	fprintf(stderr, "[ERROR] >>> Entering delete_number(num=%p)\n", num);
     free(num->digits);
     free(num);
+	fprintf(stderr, "[WARN] <<< Exiting delete_number(num=%p)\n", num);
 }
 
 /**
@@ -47,6 +51,7 @@ void delete_number(large_num *num)
  */
 void add_digit(large_num *num, unsigned int value)
 {
+	fprintf(stderr, "[ERROR] >>> Entering add_digit(num=%p,value=%u)\n", num, value);
     if (value > 9)
     {
         fprintf(stderr, "digit > 9!!\n");
@@ -57,6 +62,7 @@ void add_digit(large_num *num, unsigned int value)
     num->num_digits++;
     num->digits = (char *)realloc(num->digits, num->num_digits * sizeof(char));
     num->digits[num->num_digits - 1] = value;
+	fprintf(stderr, "[WARN] <<< Exiting add_digit(num=%p,value=%u)\n", num, value);
 }
 
 /**
@@ -65,8 +71,10 @@ void add_digit(large_num *num, unsigned int value)
  */
 void multiply(large_num *num, unsigned long n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering multiply(num=%p,n=%lu)\n", num, n);
     int i;
     unsigned long carry = 0, temp;
+	fprintf(stderr, "[ERROR] multiply(num=%p,n=%lu): carry → %lu\n", num, n, carry);
     for (i = 0; i < num->num_digits; i++)
     {
         temp = num->digits[i] * n;
@@ -86,6 +94,7 @@ void multiply(large_num *num, unsigned long n)
         add_digit(num, carry % 10);
         carry /= 10;
     }
+	fprintf(stderr, "[WARN] <<< Exiting multiply(num=%p,n=%lu)\n", num, n);
 }
 
 /**
@@ -118,5 +127,6 @@ int main(int argc, char *argv[])
     printf("\nTime taken: %.4g ms\n", time_taken);
 
     delete_number(result);
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

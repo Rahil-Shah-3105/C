@@ -1,3 +1,4 @@
+#include "errno.h"
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX_SIZE 40  // Assume 40 nodes at max in graph
@@ -35,6 +36,7 @@ int pop(struct Stack *);
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int vertices, edges, i, src, dst;
     printf("Enter the number of vertices\n");
     scanf("%d", &vertices);
@@ -62,11 +64,13 @@ int main()
     printf("One topological sort is:\n");
     topologicalSort(graph2);
     printf("\n");*/
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
 
 void topologicalSortHelper(int vertex, struct Graph *graph, struct Stack *stack)
 {
+	fprintf(stderr, "[ERROR] >>> Entering topologicalSortHelper(vertex=%d,graph=%p,stack=%p)\n", vertex, graph, stack);
     graph->visited[vertex] = 1;
     struct node *adjList = graph->adjLists[vertex];
     struct node *temp = adjList;
@@ -82,11 +86,13 @@ void topologicalSortHelper(int vertex, struct Graph *graph, struct Stack *stack)
     }
     // and then add itself
     push(stack, vertex);
+	fprintf(stderr, "[WARN] <<< Exiting topologicalSortHelper(vertex=%d,graph=%p,stack=%p)\n", vertex, graph, stack);
 }
 
 // Recursive topologial sort approach
 void topologicalSort(struct Graph *graph)
 {
+	fprintf(stderr, "[ERROR] >>> Entering topologicalSort(graph=%p)\n", graph);
     struct Stack *stack = createStack();
     int i = 0;
     for (i = 0; i < graph->numVertices; i++)
@@ -98,6 +104,7 @@ void topologicalSort(struct Graph *graph)
         }
     }
     while (stack->top != -1) printf("%d ", pop(stack));
+	fprintf(stderr, "[WARN] <<< Exiting topologicalSort(graph=%p)\n", graph);
 }
 // Allocate memory for a node
 struct node *createNode(int v)
@@ -126,14 +133,17 @@ struct Graph *createGraph(int vertices)
 // Creates a unidirectional graph
 void addEdge(struct Graph *graph, int src, int dest)
 {
+	fprintf(stderr, "[ERROR] >>> Entering addEdge(graph=%p,src=%p,dest=%d)\n", graph, src, dest);
     // Add edge from src to dest
     struct node *newNode = createNode(dest);
     newNode->next = graph->adjLists[src];
     graph->adjLists[src] = newNode;
+	fprintf(stderr, "[WARN] <<< Exiting addEdge(graph=%p,src=%p,dest=%d)\n", graph, src, dest);
 }
 // Utility function to see state of graph at a given time
 void printGraph(struct Graph *graph)
 {
+	fprintf(stderr, "[ERROR] >>> Entering printGraph(graph=%p)\n", graph);
     int v;
     for (v = 0; v < graph->numVertices; v++)
     {
@@ -146,6 +156,7 @@ void printGraph(struct Graph *graph)
         }
         printf("\n");
     }
+	fprintf(stderr, "[WARN] <<< Exiting printGraph(graph=%p)\n", graph);
 }
 // Creates a stack
 struct Stack *createStack()
@@ -157,12 +168,15 @@ struct Stack *createStack()
 // Pushes element into stack
 void push(struct Stack *stack, int element)
 {
+	fprintf(stderr, "[ERROR] >>> Entering push(stack=%p,element=%p)\n", stack, element);
     stack->arr[++stack->top] =
         element;  // Increment then add, as we start from -1
+		fprintf(stderr, "[WARN] <<< Exiting push(stack=%p,element=%p)\n", stack, element);
 }
 // Removes element from stack, or returns INT_MIN if stack empty
 int pop(struct Stack *stack)
 {
+	fprintf(stderr, "[ERROR] >>> Entering pop(stack=%p)\n", stack);
     if (stack->top == -1)
         return INT_MIN;
     else

@@ -21,6 +21,7 @@
  */
 void to_polar(double x, double y, double *r, double *theta)
 {
+	fprintf(stderr, "[ERROR] >>> Entering to_polar(x=%f,y=%f,r=%p,theta=%p)\n", x, y, r, theta);
     double thetaFinal = 0.f;
 
     *r = sqrt(x * x + y * y);
@@ -76,6 +77,7 @@ void to_polar(double x, double y, double *r, double *theta)
     }
 
     *theta = thetaFinal;
+	fprintf(stderr, "[WARN] <<< Exiting to_polar(x=%f,y=%f,r=%p,theta=%p)\n", x, y, r, theta);
 }
 
 /**
@@ -87,7 +89,9 @@ void to_polar(double x, double y, double *r, double *theta)
  */
 double get_rand(double lim1, double lim2)
 {
+	fprintf(stderr, "[ERROR] >>> Entering get_rand(lim1=%f,lim2=%f)\n", lim1, lim2);
     double r = (double)rand() / RAND_MAX;  // value in [0,1)
+	fprintf(stderr, "[WARN] <<< Exiting get_rand(lim1=%f,lim2=%f)\n", lim1, lim2);
     return (lim2 - lim1) * r + lim1;       // scale to range
 }
 
@@ -97,6 +101,7 @@ double get_rand(double lim1, double lim2)
  */
 void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     srand(10);
     int NUM_TESTS = 5;
 
@@ -112,12 +117,15 @@ void test()
         assert(fabs(theta - atan2(y, x)) < 0.01);
         printf("passed\n");
     }
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /** Main function */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

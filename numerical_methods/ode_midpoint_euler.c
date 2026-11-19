@@ -53,9 +53,11 @@
  */
 void problem(const double *x, double *y, double *dy)
 {
+	fprintf(stderr, "[ERROR] >>> Entering problem(x=%p,y=%p,dy=%p)\n", x, y, dy);
     const double omega = 1.F;       // some const for the problem
     dy[0] = y[1];                   // x dot
     dy[1] = -omega * omega * y[0];  // y dot
+	fprintf(stderr, "[WARN] <<< Exiting problem(x=%p,y=%p,dy=%p)\n", x, y, dy);
 }
 
 /**
@@ -66,8 +68,10 @@ void problem(const double *x, double *y, double *dy)
  */
 void exact_solution(const double *x, double *y)
 {
+	fprintf(stderr, "[ERROR] >>> Entering exact_solution(x=%p,y=%p)\n", x, y);
     y[0] = cos(x[0]);
     y[1] = -sin(x[0]);
+	fprintf(stderr, "[WARN] <<< Exiting exact_solution(x=%p,y=%p)\n", x, y);
 }
 
 /**
@@ -82,8 +86,10 @@ void exact_solution(const double *x, double *y)
  */
 void midpoint_euler_step(double dx, double *x, double *y, double *dy)
 {
+	fprintf(stderr, "[ERROR] >>> Entering midpoint_euler_step(dx=%f,x=%p,y=%p,dy=%p)\n", dx, x, y, dy);
     problem(x, y, dy);
     double tmp_x = (*x) + 0.5 * dx;
+	fprintf(stderr, "[ERROR] midpoint_euler_step(dx=%f,x=%p,y=%p,dy=%p): tmp_x → %f\n", dx, x, y, dy, tmp_x);
     double tmp_y[order];
     int o;
     for (o = 0; o < order; o++) tmp_y[o] = y[o] + 0.5 * dx * dy[o];
@@ -91,6 +97,7 @@ void midpoint_euler_step(double dx, double *x, double *y, double *dy)
     problem(&tmp_x, tmp_y, dy);
 
     for (o = 0; o < order; o++) y[o] += dx * dy[o];
+	fprintf(stderr, "[WARN] <<< Exiting midpoint_euler_step(dx=%f,x=%p,y=%p,dy=%p)\n", dx, x, y, dy);
 }
 
 /**
@@ -143,6 +150,7 @@ double midpoint_euler(double dx, double x0, double x_max, double *y,
 */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     double X0 = 0.f;          /* initial value of x0 */
     double X_MAX = 10.F;      /* upper limit of integration */
     double Y0[] = {1.f, 0.f}; /* initial value Y = y(x = x_0) */
@@ -156,6 +164,8 @@ int main(int argc, char *argv[])
     else
         // use commandline argument as independent variable step size
         step_size = atof(argv[1]);
+		fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): step_size → %f\n", argc, argv, step_size);
+		fprintf(stderr, "[DEBUG] main(argc=%d,argv=%p): step_size → %f\n", argc, argv, step_size);
 
     // get approximate solution
     double total_time = midpoint_euler(step_size, X0, X_MAX, Y0, 1);
@@ -163,6 +173,7 @@ int main(int argc, char *argv[])
 
     /* compute exact solution for comparion */
     FILE *fp = fopen("exact.csv", "w+");
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): fp → %p\n", argc, argv, fp);
     if (fp == NULL)
     {
         perror("Error! ");
@@ -185,5 +196,6 @@ int main(int argc, char *argv[])
     printf("\tTime = %.6g ms\n", total_time);
     fclose(fp);
 
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

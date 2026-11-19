@@ -15,6 +15,7 @@
  */
 int get_number(FILE *fp, char *buffer, uint8_t *out_int)
 {
+	fprintf(stderr, "[ERROR] >>> Entering get_number(fp=%p,buffer=%s,out_int=%p)\n", fp, buffer, out_int);
     long l = fscanf(fp, "%s\n", buffer);
     if (!l)
     {
@@ -38,6 +39,7 @@ int get_number(FILE *fp, char *buffer, uint8_t *out_int)
         }
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting get_number(fp=%p,buffer=%s,out_int=%p)\n", fp, buffer, out_int);
     return 0;
 }
 
@@ -47,6 +49,7 @@ int get_number(FILE *fp, char *buffer, uint8_t *out_int)
  */
 int add_numbers(uint8_t *a, uint8_t *b, uint8_t N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering add_numbers(a=%p,b=%p,N=%p)\n", a, b, N);
     int carry = 0;
     uint8_t *c = b; /* accumulate the result in the array 'b' */
 
@@ -85,12 +88,14 @@ int add_numbers(uint8_t *a, uint8_t *b, uint8_t N)
         }
         // printf("= %d, %d\n", carry, c[i]);
     }
+	fprintf(stderr, "[WARN] <<< Exiting add_numbers(a=%p,b=%p,N=%p)\n", a, b, N);
     return 0;
 }
 
 /** Function to print a long number */
 int print_number(uint8_t *number, uint8_t N, int8_t num_digits_to_print)
 {
+	fprintf(stderr, "[ERROR] >>> Entering print_number(number=%p,N=%p,num_digits_to_print=%d)\n", number, N, num_digits_to_print);
     uint8_t start_pos = N - 1;
     uint8_t end_pos;
 
@@ -101,6 +106,7 @@ int print_number(uint8_t *number, uint8_t N, int8_t num_digits_to_print)
     if (num_digits_to_print < 0)
     {
         end_pos = 0;
+		fprintf(stderr, "[DEBUG] print_number(number=%p,N=%d,num_digits_to_print=%d): end_pos → %d\n", number, N, num_digits_to_print, end_pos);
     }
     else if (num_digits_to_print <= start_pos)
     {
@@ -116,12 +122,14 @@ int print_number(uint8_t *number, uint8_t N, int8_t num_digits_to_print)
 
     putchar('\n');
 
+	fprintf(stderr, "[WARN] <<< Exiting print_number(number=%p,N=%p,num_digits_to_print=%d)\n", number, N, num_digits_to_print);
     return 0;
 }
 
 /** Main function */
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     /* number of digits of the large number */
     const int N = 10;
     /* number of digits in output number */
@@ -132,6 +140,7 @@ int main(void)
         (char *)calloc(N + 5, sizeof(char)); /* temporary buffer */
     uint8_t *number = (uint8_t *)calloc(
         N, sizeof(uint8_t)); /* array to store digits of a large number */
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     uint8_t *sum = (uint8_t *)calloc(
         N2, sizeof(uint8_t)); /* array to store the sum of the large
 numbers. For safety, we make it twice the length of a number. */
@@ -147,6 +156,7 @@ numbers. For safety, we make it twice the length of a number. */
     }
 
     int count = 0;
+	fprintf(stderr, "[ERROR] main(): count → %d\n", count);
     get_number(fp, txt_buffer, sum); /* 0 + = first_number = first_number */
     do
     {

@@ -20,9 +20,11 @@
  */
 int binarysearch1(const int *arr, int l, int r, int x)
 {
+	fprintf(stderr, "[ERROR] >>> Entering binarysearch1(arr=%p,l=%p,r=%d,x=%d)\n", arr, l, r, x);
     if (r >= l)
     {
         int mid = l + (r - l) / 2;
+		fprintf(stderr, "[ERROR] binarysearch1(arr=%p,l=%d,r=%d,x=%d): mid → %d\n", arr, l, r, x, mid);
 
         // If element is present at middle
         if (arr[mid] == x)
@@ -37,6 +39,7 @@ int binarysearch1(const int *arr, int l, int r, int x)
     }
 
     // When element is not present in array
+	fprintf(stderr, "[WARN] <<< Exiting binarysearch1(arr=%p,l=%p,r=%d,x=%d)\n", arr, l, r, x);
     return -1;
 }
 
@@ -50,8 +53,10 @@ int binarysearch1(const int *arr, int l, int r, int x)
  */
 int binarysearch2(const int *arr, int l, int r, int x)
 {
+	fprintf(stderr, "[ERROR] >>> Entering binarysearch2(arr=%p,l=%p,r=%d,x=%d)\n", arr, l, r, x);
     int mid = l + (r - l) / 2;
 
+	fprintf(stderr, "[ERROR] binarysearch2(arr=%p,l=%d,r=%d,x=%d): mid → %d\n", arr, l, r, x, mid);
     while (arr[mid] != x)
     {
         if (r <= l || r < 0)
@@ -68,22 +73,27 @@ int binarysearch2(const int *arr, int l, int r, int x)
     }
 
     // When element is not present in array
+	fprintf(stderr, "[WARN] <<< Exiting binarysearch2(arr=%p,l=%p,r=%d,x=%d)\n", arr, l, r, x);
     return mid;
 }
 
 /** Test implementations */
 void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     // give function an array to work with
     int arr[] = {2, 3, 4, 10, 40};
     // get size of array
     int n = sizeof(arr) / sizeof(arr[0]);
+	fprintf(stderr, "[ERROR] test(): n → %d\n", n);
 
     printf("Test 1.... ");
     // set value to look for
     int x = 10;
+	fprintf(stderr, "[ERROR] test(): x → %d\n", x);
     // set result to what is returned from binarysearch
     int result = binarysearch1(arr, 0, n - 1, x);
+	fprintf(stderr, "[ERROR] test(): result → %d\n", result);
     assert(result == 3);
     printf("passed recursive... ");
     result = binarysearch2(arr, 0, n - 1, x);
@@ -99,11 +109,14 @@ void test()
     result = binarysearch2(arr, 0, n - 1, x);
     assert(result == -1);
     printf("passed iterative...\n");
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /** Main function */
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

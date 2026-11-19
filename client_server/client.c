@@ -36,6 +36,7 @@
  */
 void func(int sockfd)
 {
+	fprintf(stderr, "[ERROR] >>> Entering func(sockfd=%d)\n", sockfd);
     char buff[MAX];
     int n;
     for (;;)
@@ -86,6 +87,8 @@ int main()
 
     // socket create and verification
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	fprintf(stderr, "[ERROR] main(): sockfd → %d\n", sockfd);
+    fprintf(stderr, "[DEBUG] main(): sockfd → %d\n", sockfd);
     if (sockfd == -1)
     {
         printf("socket creation failed...\n");
@@ -99,6 +102,7 @@ int main()
 
     // assign IP, PORT
     servaddr.sin_family = AF_INET;
+	fprintf(stderr, "[DEBUG] main(): servaddr.sin_family → %d\n", servaddr.sin_family);
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     servaddr.sin_port = htons(PORT);
 
@@ -118,5 +122,6 @@ int main()
 
     // close the socket
     close(sockfd);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

@@ -46,6 +46,7 @@ void cleanup() { WSACleanup(); }
  */
 void func(int sockfd)
 {
+	fprintf(stderr, "[ERROR] >>> Entering func(sockfd=%d)\n", sockfd);
     char buff[MAX];
     int n;
     // infinite loop for chat
@@ -98,6 +99,8 @@ int main()
 
     // socket create and verification
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	fprintf(stderr, "[ERROR] main(): sockfd → %d\n", sockfd);
+    fprintf(stderr, "[DEBUG] main(): sockfd → %d\n", sockfd);
     if (sockfd == -1)
     {
         perror("socket creation failed...\n");
@@ -111,6 +114,7 @@ int main()
 
     // assign IP, PORT
     servaddr.sin_family = AF_INET;
+	fprintf(stderr, "[DEBUG] main(): servaddr.sin_family → %d\n", servaddr.sin_family);
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(PORT);
 
@@ -136,9 +140,13 @@ int main()
         printf("Server listening..\n");
     }
     len = sizeof(cli);
+	fprintf(stderr, "[ERROR] main(): len → %u\n", len);
+	fprintf(stderr, "[DEBUG] main(): len → %u\n", len);
 
     // Accept the data packet from client and verification
     connfd = accept(sockfd, (SA *)&cli, &len);
+	fprintf(stderr, "[ERROR] main(): connfd → %d\n", connfd);
+    fprintf(stderr, "[DEBUG] main(): connfd → %d\n", connfd);
     if (connfd < 0)
     {
         perror("server acccept failed...\n");
@@ -154,5 +162,6 @@ int main()
 
     // After chatting close the socket
     close(sockfd);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

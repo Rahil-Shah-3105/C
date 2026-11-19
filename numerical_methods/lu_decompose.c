@@ -19,6 +19,7 @@
  */
 int lu_decomposition(double **A, double **L, double **U, int mat_size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering lu_decomposition(A=%p,L=%p,U=%p,mat_size=%p)\n", A, L, U, mat_size);
     int row, col, j;
 
     // regularize each row
@@ -65,6 +66,7 @@ int lu_decomposition(double **A, double **L, double **U, int mat_size)
 /** Function to display square matrix */
 void display(double **A, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering display(A=%p,N=%p)\n", A, N);
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
@@ -73,13 +75,16 @@ void display(double **A, int N)
         }
         putchar('\n');
     }
+	fprintf(stderr, "[WARN] <<< Exiting display(A=%p,N=%p)\n", A, N);
 }
 
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     int mat_size = 3;  // default matrix size
     const int range = 10;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): mat_size → %d\n", argc, argv, mat_size);
     const int range2 = range >> 1;
 
     if (argc == 2)
@@ -122,5 +127,6 @@ int main(int argc, char **argv)
     free(L);
     free(U);
 
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

@@ -16,6 +16,7 @@
 /** Main function */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int n = 0;
     int sum = 0;
     int i = 1;
@@ -33,5 +34,6 @@ int main()
     }
 
     printf("%d\n", sum);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

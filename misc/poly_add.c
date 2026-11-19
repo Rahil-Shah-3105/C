@@ -30,12 +30,14 @@ struct term
  */
 void free_poly(struct term *poly)
 {
+	fprintf(stderr, "[ERROR] >>> Entering free_poly(poly=%p)\n", poly);
     while (poly)
     {
         struct term *next = poly->next;
         free(poly);
         poly = next;
     }
+	fprintf(stderr, "[WARN] <<< Exiting free_poly(poly=%p)\n", poly);
 }
 
 /**
@@ -47,6 +49,7 @@ void free_poly(struct term *poly)
  */
 void create_polynomial(struct term **poly, int coef, int pow)
 {
+	fprintf(stderr, "[ERROR] >>> Entering create_polynomial(poly=%p,coef=%p,pow=%d)\n", poly, coef, pow);
     // Creating the polynomial using temporary linked lists
     struct term **temp1 = poly;
 
@@ -61,6 +64,7 @@ void create_polynomial(struct term **poly, int coef, int pow)
     (*temp1)->coef = coef;
     (*temp1)->pow = pow;
     (*temp1)->next = NULL;
+	fprintf(stderr, "[WARN] <<< Exiting create_polynomial(poly=%p,coef=%p,pow=%d)\n", poly, coef, pow);
 }
 
 /**
@@ -72,6 +76,7 @@ void create_polynomial(struct term **poly, int coef, int pow)
 
 void poly_add(struct term **pol, struct term *poly1, struct term *poly2)
 {
+	fprintf(stderr, "[ERROR] >>> Entering poly_add(pol=%p,poly1=%p,poly2=%p)\n", pol, poly1, poly2);
     // Creating a temporary linked list to store the resultant polynomial
     struct term *temp = (struct term *)malloc(sizeof(struct term));
     temp->next = NULL;
@@ -91,6 +96,7 @@ void poly_add(struct term **pol, struct term *poly1, struct term *poly2)
             temp->coef = poly1->coef;
             temp->pow = poly1->pow;
             poly1 = poly1->next;
+			fprintf(stderr, "[ERROR] poly_add(pol=%p,poly1=%p,poly2=%p): poly1 → %p\n", pol, poly1, poly2, poly1);
         }
         /* If the power of the second polynomial is greater than the power of
           the first one place the power and coefficient of that node of the
@@ -101,6 +107,7 @@ void poly_add(struct term **pol, struct term *poly1, struct term *poly2)
             temp->coef = poly2->coef;
             temp->pow = poly2->pow;
             poly2 = poly2->next;
+			fprintf(stderr, "[ERROR] poly_add(pol=%p,poly1=%p,poly2=%p): poly2 → %p\n", pol, poly1, poly2, poly2);
         }
         /* If both of them have same power then sum the coefficients
           place both the summed coefficient and the power in temp
@@ -154,6 +161,7 @@ void poly_add(struct term **pol, struct term *poly1, struct term *poly2)
             poly2 = poly2->next;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting poly_add(pol=%p,poly1=%p,poly2=%p)\n", pol, poly1, poly2);
 }
 
 /**
@@ -163,6 +171,7 @@ void poly_add(struct term **pol, struct term *poly1, struct term *poly2)
  */
 void display_polynomial(struct term *poly)
 {
+	fprintf(stderr, "[ERROR] >>> Entering display_polynomial(poly=%p)\n", poly);
     while (poly != NULL)
     {
         printf("%d x^%d", poly->coef, poly->pow);
@@ -172,6 +181,7 @@ void display_polynomial(struct term *poly)
             printf(" + ");
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting display_polynomial(poly=%p)\n", poly);
 }
 
 /**
@@ -185,6 +195,7 @@ void display_polynomial(struct term *poly)
  */
 static void test1(struct term *poly1, struct term *poly2, struct term *poly3)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test1(poly1=%p,poly2=%p,poly3=%p)\n", poly1, poly2, poly3);
     printf("\n----Test 1----\n");
     printf("\nFirst Polynomial:\n");  // Defining the 1st polynomial
     create_polynomial(&poly1, 5, 2);
@@ -207,6 +218,7 @@ static void test1(struct term *poly1, struct term *poly2, struct term *poly3)
     free_poly(poly1);
     free_poly(poly2);
     free_poly(poly3);
+	fprintf(stderr, "[WARN] <<< Exiting test1(poly1=%p,poly2=%p,poly3=%p)\n", poly1, poly2, poly3);
 }
 
 /**
@@ -220,6 +232,7 @@ static void test1(struct term *poly1, struct term *poly2, struct term *poly3)
  */
 static void test2(struct term *poly1, struct term *poly2, struct term *poly3)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test2(poly1=%p,poly2=%p,poly3=%p)\n", poly1, poly2, poly3);
     printf("\n----Test 2----\n");
     printf("\nFirst Polynomial:\n");  // Defining the 1st polynomial
     create_polynomial(&poly1, 3, 5);
@@ -247,6 +260,7 @@ static void test2(struct term *poly1, struct term *poly2, struct term *poly3)
     free_poly(poly1);
     free_poly(poly2);
     free_poly(poly3);
+	fprintf(stderr, "[WARN] <<< Exiting test2(poly1=%p,poly2=%p,poly3=%p)\n", poly1, poly2, poly3);
 }
 
 /**
@@ -260,6 +274,7 @@ static void test2(struct term *poly1, struct term *poly2, struct term *poly3)
  */
 static void test3(struct term *poly1, struct term *poly2, struct term *poly3)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test3(poly1=%p,poly2=%p,poly3=%p)\n", poly1, poly2, poly3);
     printf("\n----Test 3----\n");
     printf("\nFirst Polynomial:\n");  // Defining the 1st polynomial
     create_polynomial(&poly1, -12, 0);
@@ -284,6 +299,7 @@ static void test3(struct term *poly1, struct term *poly2, struct term *poly3)
     free_poly(poly1);
     free_poly(poly2);
     free_poly(poly3);
+	fprintf(stderr, "[WARN] <<< Exiting test3(poly1=%p,poly2=%p,poly3=%p)\n", poly1, poly2, poly3);
 }
 
 /**
@@ -292,10 +308,12 @@ static void test3(struct term *poly1, struct term *poly2, struct term *poly3)
  */
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     struct term *poly1 = NULL, *poly2 = NULL, *poly3 = NULL;
     test1(poly1, poly2, poly3);
     test2(poly1, poly2, poly3);
     test3(poly1, poly2, poly3);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

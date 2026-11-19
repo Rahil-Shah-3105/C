@@ -1,7 +1,10 @@
+#include "stdio.h"
 int myAtoi(char *str)
 {
+	fprintf(stderr, "[ERROR] >>> Entering myAtoi(str=%s)\n", str);
     int minusFlag = 0;
     int length = strlen(str);
+	fprintf(stderr, "[ERROR] myAtoi(str=%s): length → %d\n", str, length);
     long int result = 0;
     char numberBuffer[11];
     int counter = 0;
@@ -19,6 +22,7 @@ int myAtoi(char *str)
             if (str[0] == '-')
             {
                 minusFlag = 1;
+				fprintf(stderr, "[ERROR] myAtoi(str=%s): minusFlag → %d\n", str, minusFlag);
                 i++;
             }
             else if (str[0] == '+')
@@ -74,5 +78,6 @@ int myAtoi(char *str)
     {
         return __INT_MAX__ * -1 - 1;
     }
+	fprintf(stderr, "[WARN] <<< Exiting myAtoi(str=%s)\n", str);
     return result;
 }

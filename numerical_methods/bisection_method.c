@@ -31,6 +31,8 @@
  */
 double sign(double a, double b)
 {
+	fprintf(stderr, "[ERROR] >>> Entering sign(a=%f,b=%f)\n", a, b);
+    fprintf(stderr, "[WARN] <<< Exiting sign(a=%f,b=%f)\n", a, b);
     return (a > 0 && b > 0) + (a < 0 && b < 0) - (a > 0 && b < 0) -
            (a < 0 && b > 0);
 }
@@ -42,6 +44,8 @@ double sign(double a, double b)
  */
 double func(double x)
 {
+	fprintf(stderr, "[ERROR] >>> Entering func(x=%f)\n", x);
+    fprintf(stderr, "[WARN] <<< Exiting func(x=%f)\n", x);
     return x * x * x + 2.0 * x - 10.0;  // f(x) = x**3 + 2x - 10
 }
 
@@ -57,12 +61,14 @@ double func(double x)
  */
 double bisection(double x_left, double x_right, double tolerance)
 {
+	fprintf(stderr, "[ERROR] >>> Entering bisection(x_left=%f,x_right=%f,tolerance=%f)\n", x_left, x_right, tolerance);
     int n = 1;      // step counter
     double middle;  // midpoint
 
     while (n <= NMAX)
     {
         middle = (x_left + x_right) / 2;  // bisect the interval
+		fprintf(stderr, "[ERROR] bisection(x_left=%f,x_right=%f,tolerance=%f): middle → %f\n", x_left, x_right, tolerance, middle);
         double error = middle - x_left;
 
         if (fabs(func(middle)) < EPSILON || error < tolerance)
@@ -81,6 +87,7 @@ double bisection(double x_left, double x_right, double tolerance)
 
         n++;  // increase step counter
     }
+	fprintf(stderr, "[WARN] <<< Exiting bisection(x_left=%f,x_right=%f,tolerance=%f)\n", x_left, x_right, tolerance);
     return -1;  // method failed (maximum number of steps exceeded)
 }
 
@@ -90,6 +97,7 @@ double bisection(double x_left, double x_right, double tolerance)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     /* Compares root value that is found by the bisection method within a given
      * floating point error*/
     assert(fabs(bisection(1.0, 2.0, 0.0001) - 1.847473) <
@@ -98,6 +106,7 @@ static void test()
            EPSILON);  // the algorithm works as expected
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -106,6 +115,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

@@ -1,3 +1,4 @@
+#include "stdio.h"
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
@@ -8,6 +9,7 @@
 // Runtime: O(n)
 // Space: O(1)
 int* minOperations(char* boxes, int* returnSize){
+	fprintf(stderr, "[ERROR] >>> Entering minOperations(boxes=%s,returnSize=%p)\n", boxes, returnSize);
     int leftOnes = 0;
     int leftCommonDistance = 0;
     
@@ -15,6 +17,7 @@ int* minOperations(char* boxes, int* returnSize){
     int rightCommonDistance = 0;
     
     int boxesLength = strlen(boxes);
+	fprintf(stderr, "[ERROR] minOperations(boxes=%s,returnSize=%p): boxesLength → %d\n", boxes, returnSize, boxesLength);
 
     *returnSize = boxesLength;
     int* result = malloc(boxesLength * sizeof(int));
@@ -37,5 +40,6 @@ int* minOperations(char* boxes, int* returnSize){
         leftCommonDistance += leftOnes;
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting minOperations(boxes=%s,returnSize=%p)\n", boxes, returnSize);
     return result;
 }

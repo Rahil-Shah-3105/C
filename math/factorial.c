@@ -1,6 +1,7 @@
 #include <stdio.h>
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int a[200], n, counter, temp, i;
     a[0] = 1;
     counter = 0;
@@ -27,5 +28,6 @@ int main()
         }
         for (i = counter; i >= 0; i--) printf("%d", a[i]);
     }
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

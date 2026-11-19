@@ -18,9 +18,11 @@
  */
 void swap(int8_t *first, int8_t *second)
 {
+	fprintf(stderr, "[ERROR] >>> Entering swap(first=%p,second=%p)\n", first, second);
     int8_t temp = *first;
     *first = *second;
     *second = temp;
+	fprintf(stderr, "[WARN] <<< Exiting swap(first=%p,second=%p)\n", first, second);
 }
 
 /**
@@ -31,6 +33,7 @@ void swap(int8_t *first, int8_t *second)
 */
 uint8_t findIndex(const int8_t *arr, const uint8_t size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering findIndex(arr=%p,size=%p)\n", arr, size);
     if (size == 1)
     {
         return 0;
@@ -38,12 +41,14 @@ uint8_t findIndex(const int8_t *arr, const uint8_t size)
 
     // marking recursive call to reach starting element
     uint8_t min_index = findIndex(arr, size - 1);
+	fprintf(stderr, "[ERROR] findIndex(arr=%p,size=%d): min_index → %d\n", arr, size, min_index);
 
     if (arr[size - 1] < arr[min_index])
     {
         min_index = size - 1;
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting findIndex(arr=%p,size=%p)\n", arr, size);
     return min_index;
 }
 
@@ -55,6 +60,7 @@ uint8_t findIndex(const int8_t *arr, const uint8_t size)
  */
 void selectionSort(int8_t *arr, const uint8_t size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering selectionSort(arr=%p,size=%p)\n", arr, size);
     if (size <= 1)
     {
         return;
@@ -62,6 +68,7 @@ void selectionSort(int8_t *arr, const uint8_t size)
 
     /* findIndex(arr, size) returned the index having min value*/
     uint8_t min_index = findIndex(arr, size);
+	fprintf(stderr, "[ERROR] selectionSort(arr=%p,size=%d): min_index → %d\n", arr, size, min_index);
     /* arr[min_index] is the minimum value in the array*/
 
     if (min_index != 0)
@@ -71,6 +78,7 @@ void selectionSort(int8_t *arr, const uint8_t size)
 
     /*sorted the remaining array recursively*/
     selectionSort(arr + 1, size - 1);
+	fprintf(stderr, "[WARN] <<< Exiting selectionSort(arr=%p,size=%p)\n", arr, size);
 }
 
 /**
@@ -79,6 +87,7 @@ void selectionSort(int8_t *arr, const uint8_t size)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     const uint8_t size = 10;
     int8_t *arr = (int8_t *)calloc(size, sizeof(int8_t));
 
@@ -93,6 +102,7 @@ static void test()
         assert(arr[i] <= arr[i + 1]);
     }
     free(arr);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -101,9 +111,11 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     /* Intializes random number generator */
     srand(time(NULL));
 
     test();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

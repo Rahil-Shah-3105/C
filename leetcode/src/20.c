@@ -1,5 +1,7 @@
+#include "stdio.h"
 bool isValid(char *s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering isValid(s=%s)\n", s);
     int i, k = 0, len = strlen(s);
     char *store = calloc(len, sizeof(char));
 

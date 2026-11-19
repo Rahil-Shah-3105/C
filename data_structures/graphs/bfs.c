@@ -1,3 +1,4 @@
+#include "errno.h"
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 40
@@ -40,6 +41,7 @@ void bfs(struct Graph *graph, int startVertex);
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int vertices, edges, source, i, src, dst;
     printf("Enter the number of vertices\n");
     scanf("%d", &vertices);
@@ -69,6 +71,7 @@ int main()
     addEdge(graph, 3, 4);
     bfs(graph,0);*/
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
 void bfs(struct Graph *graph, int startVertex)
@@ -101,6 +104,7 @@ void bfs(struct Graph *graph, int startVertex)
             temp = temp->next;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting bfs(graph=%p,startVertex=%p)\n", graph, startVertex);
 }
 // Memory for a graph node
 struct node *createNode(int v)
@@ -131,6 +135,7 @@ struct Graph *createGraph(int vertices)
 // Adds bidirectional edge to graph
 void addEdge(struct Graph *graph, int src, int dest)
 {
+	fprintf(stderr, "[ERROR] >>> Entering addEdge(graph=%p,src=%p,dest=%d)\n", graph, src, dest);
     // Add edge from src to dest
     struct node *newNode = createNode(dest);
     newNode->next = graph->adjLists[src];
@@ -138,8 +143,10 @@ void addEdge(struct Graph *graph, int src, int dest)
 
     // Add edge from dest to src; comment it out for directed graph
     newNode = createNode(src);
+	fprintf(stderr, "[ERROR] addEdge(graph=%p,src=%d,dest=%d): newNode → %p\n", graph, src, dest, newNode);
     newNode->next = graph->adjLists[dest];
     graph->adjLists[dest] = newNode;
+	fprintf(stderr, "[WARN] <<< Exiting addEdge(graph=%p,src=%p,dest=%d)\n", graph, src, dest);
 }
 // Allocates memory for our queue data structure
 struct queue *createQueue()
@@ -152,6 +159,7 @@ struct queue *createQueue()
 // Checks for empty queue
 int isEmpty(struct queue *q)
 {
+	fprintf(stderr, "[ERROR] >>> Entering isEmpty(q=%p)\n", q);
     if (q->rear == -1)
         return 1;
     else
@@ -160,6 +168,7 @@ int isEmpty(struct queue *q)
 // Inserts item at start of queue
 void enqueue(struct queue *q, int value)
 {
+	fprintf(stderr, "[ERROR] >>> Entering enqueue(q=%p,value=%p)\n", q, value);
     if (q->rear == SIZE - 1)
         printf("\nQueue is Full!!");
     else
@@ -169,6 +178,7 @@ void enqueue(struct queue *q, int value)
         q->rear++;
         q->items[q->rear] = value;
     }
+	fprintf(stderr, "[WARN] <<< Exiting enqueue(q=%p,value=%p)\n", q, value);
 }
 // Returns item at front of queue and removes it from queue
 int dequeue(struct queue *q)
@@ -178,10 +188,14 @@ int dequeue(struct queue *q)
     {
         printf("Queue is empty");
         item = -1;
+		fprintf(stderr, "[ERROR] dequeue(q=%p): item → %d\n", q, item);
+    fprintf(stderr, "[DEBUG] dequeue(q=%p): item → %d\n", q, item);
     }
     else
     {
         item = q->items[q->front];
+		fprintf(stderr, "[ERROR] dequeue(q=%p): item → %d\n", q, item);
+		fprintf(stderr, "[DEBUG] dequeue(q=%p): item → %d\n", q, item);
         q->front++;
         if (q->front > q->rear)
         {

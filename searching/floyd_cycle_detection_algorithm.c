@@ -24,12 +24,15 @@
  */
 uint32_t duplicateNumber(const uint32_t *in_arr, size_t n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering duplicateNumber(in_arr=%p,n=%zu)\n", in_arr, n);
     if (n <= 1) {  // to find duplicate in an array its size should be at least 2
         return -1;
     }
     uint32_t tortoise = in_arr[0];  ///< variable tortoise is used for the longer
+									fprintf(stderr, "[ERROR] duplicateNumber(in_arr=%p,n=%zu): tortoise → %d\n", in_arr, n, tortoise);
                                     ///< jumps in the array
     uint32_t hare = in_arr[0];  ///< variable hare is used for shorter jumps in the array
+	fprintf(stderr, "[ERROR] duplicateNumber(in_arr=%p,n=%zu): hare → %d\n", in_arr, n, hare);
     do {                                   // loop to enter the cycle
         tortoise = in_arr[tortoise];       // tortoise is moving by one step
         hare = in_arr[in_arr[hare]];       // hare is moving by two steps
@@ -39,6 +42,7 @@ uint32_t duplicateNumber(const uint32_t *in_arr, size_t n)
         tortoise = in_arr[tortoise];
         hare = in_arr[hare];
     }
+	fprintf(stderr, "[WARN] <<< Exiting duplicateNumber(in_arr=%p,n=%zu)\n", in_arr, n);
     return tortoise;
 }
 
@@ -48,6 +52,7 @@ uint32_t duplicateNumber(const uint32_t *in_arr, size_t n)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     uint32_t arr[] = {1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610}; // input array
     size_t n = sizeof(arr) / sizeof(int);
 
@@ -55,6 +60,7 @@ static void test()
     uint32_t index = duplicateNumber(arr, n); // calling the duplicateNumber function to check which number occurs twice in the array
     assert(index == 1); // the number which occurs twice is 1 or not
     printf("passed\n");
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -63,6 +69,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

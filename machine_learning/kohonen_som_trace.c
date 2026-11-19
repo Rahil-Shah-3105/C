@@ -53,7 +53,10 @@
  */
 double _random(double a, double b)
 {
+	fprintf(stderr, "[ERROR] >>> Entering _random(a=%f,b=%f)\n", a, b);
     int r = rand() % 100;
+	fprintf(stderr, "[ERROR] _random(a=%f,b=%f): r → %d\n", a, b, r);
+    fprintf(stderr, "[WARN] <<< Exiting _random(a=%f,b=%f)\n", a, b);
     return ((b - a) * r / 100.f) + a;
 }
 
@@ -103,6 +106,7 @@ int save_nd_data(const char *fname, double **X, int num_points,
  */
 void kohonen_get_min_1d(double const *X, int N, double *val, int *idx)
 {
+	fprintf(stderr, "[ERROR] >>> Entering kohonen_get_min_1d(X=%p,N=%p,val=%p,idx=%p)\n", X, N, val, idx);
     val[0] = INFINITY;  // initial min value
 
     for (int i = 0; i < N; i++)  // check each value
@@ -113,6 +117,7 @@ void kohonen_get_min_1d(double const *X, int N, double *val, int *idx)
             val[0] = X[i];
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting kohonen_get_min_1d(X=%p,N=%p,val=%p,idx=%p)\n", X, N, val, idx);
 }
 
 /**
@@ -222,9 +227,11 @@ void kohonen_som_tracer(double **X, double *const *W, int num_samples,
  */
 void test_circle(double *const *data, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_circle(data=%p,N=%p)\n", data, N);
     const double R = 0.75, dr = 0.3;
     double a_t = 0., b_t = 2.f * M_PI;  // theta random between 0 and 2*pi
     double a_r = R - dr, b_r = R + dr;  // radius random between R-dr and R+dr
+	fprintf(stderr, "[WARN] <<< Exiting test_circle(data=%p,N=%p)\n", data, N);
     int i;
 
 #ifdef _OPENMP
@@ -260,6 +267,7 @@ void test_circle(double *const *data, int N)
  */
 void test1()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test1()\n");
     int j, N = 500;
     int features = 2;
     int num_out = 50;
@@ -318,7 +326,9 @@ void test1()
  */
 void test_lamniscate(double *const *data, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_lamniscate(data=%p,N=%p)\n", data, N);
     const double dr = 0.2;
+	fprintf(stderr, "[WARN] <<< Exiting test_lamniscate(data=%p,N=%p)\n", data, N);
     int i;
 
 #ifdef _OPENMP
@@ -357,6 +367,7 @@ void test_lamniscate(double *const *data, int N)
  */
 void test2()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test2()\n");
     int j, N = 500;
     int features = 2;
     int num_out = 20;
@@ -409,9 +420,11 @@ void test2()
  */
 void test_3d_classes(double *const *data, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_3d_classes(data=%p,N=%p)\n", data, N);
     const double R = 0.1;  // radius of cluster
     int i;
     const int num_classes = 4;
+	fprintf(stderr, "[WARN] <<< Exiting test_3d_classes(data=%p,N=%p)\n", data, N);
     const double centres[][3] = {
         // centres of each class cluster
         {.5, .5, .5},    // centre of class 1
@@ -461,6 +474,7 @@ void test_3d_classes(double *const *data, int N)
  */
 void test3()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test3()\n");
     int j, N = 200;
     int features = 3;
     int num_out = 20;
@@ -510,6 +524,8 @@ void test3()
  */
 double get_clock_diff(clock_t start_t, clock_t end_t)
 {
+	fprintf(stderr, "[ERROR] >>> Entering get_clock_diff(start_t=%d,end_t=%d)\n", start_t, end_t);
+    fprintf(stderr, "[WARN] <<< Exiting get_clock_diff(start_t=%d,end_t=%d)\n", start_t, end_t);
     return (double)(end_t - start_t) / (double)CLOCKS_PER_SEC;
 }
 
@@ -522,8 +538,10 @@ int main(int argc, char **argv)
     printf("NOT using OpenMP based parallelization\n");
 #endif
     clock_t start_clk = clock();
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): start_clk → %d\n", argc, argv, start_clk);
     test1();
     clock_t end_clk = clock();
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): end_clk → %d\n", argc, argv, end_clk);
     printf("Test 1 completed in %.4g sec\n",
            get_clock_diff(start_clk, end_clk));
     start_clk = clock();

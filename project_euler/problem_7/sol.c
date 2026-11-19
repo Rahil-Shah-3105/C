@@ -11,6 +11,7 @@
  */
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     char *sieve;
     size_t i;
     unsigned count = 0;
@@ -18,6 +19,8 @@ int main(void)
     const unsigned target = 10001;
 
     sieve = (char *)calloc(n, sizeof(char));
+	fprintf(stderr, "[ERROR] main(): sieve → %p\n", sieve);
+    fprintf(stderr, "[DEBUG] main(): sieve → %p\n", sieve);
     for (i = 2; i < n; i++)
     {
         if (!sieve[i])
@@ -36,5 +39,6 @@ int main(void)
         }
     }
     free(sieve);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

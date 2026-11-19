@@ -16,6 +16,7 @@
  */
 int find(int *p, int x)
 {
+	fprintf(stderr, "[ERROR] >>> Entering find(p=%p,x=%p)\n", p, x);
     if (x >= MAX_SIZE)
     {
         fprintf(stderr, "Out-of bounds value\n");
@@ -29,6 +30,7 @@ int find(int *p, int x)
     else
     {
         p[x] = find(p, p[x]);
+		fprintf(stderr, "[WARN] <<< Exiting find(p=%p,x=%p)\n", p, x);
         return p[x];
     }
 }
@@ -44,6 +46,7 @@ void join(int *p, int x, int y) { p[find(p, x)] = find(p, y); }
 /** Main function */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int union_set[MAX_SIZE];
 
     // Have all array indexes that you need to use reference themselves
@@ -85,5 +88,6 @@ int main()
     }
     printf("\n");
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

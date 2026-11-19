@@ -1,6 +1,8 @@
+#include "stdio.h"
 /* 1st way: Using 2 pointers */
 int *sortedSquares(int *A, int ASize, int *returnSize)
 {
+	fprintf(stderr, "[ERROR] >>> Entering sortedSquares(A=%p,ASize=%p,returnSize=%p)\n", A, ASize, returnSize);
     int i, start = 0, end = ASize - 1;
     int *res = malloc(ASize * sizeof(int));
     *returnSize = ASize;
@@ -17,6 +19,7 @@ int *sortedSquares(int *A, int ASize, int *returnSize)
             end--;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting sortedSquares(A=%p,ASize=%p,returnSize=%p)\n", A, ASize, returnSize);
     return res;
 }
 

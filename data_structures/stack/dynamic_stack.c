@@ -14,6 +14,7 @@
  * @author [SahilK-027](https://github.com/SahilK-027)
  *
  */
+#include "errno.h"
 #include <assert.h>  /// to verify assumptions made by the program and print a diagnostic message if this assumption is false.
 #include <inttypes.h>  /// to provide a set of integer types with universally consistent definitions that are operating system-independent
 #include <stdio.h>     /// for IO operations
@@ -35,12 +36,14 @@ typedef struct DArrayStack
  */
 DArrayStack *create_stack(int cap)
 {
+	fprintf(stderr, "[ERROR] >>> Entering create_stack(cap=%d)\n", cap);
     DArrayStack *ptr;
     ptr = (DArrayStack *)malloc(sizeof(DArrayStack));
     ptr->capacity = cap;
     ptr->top = -1;
     ptr->arrPtr = (int *)malloc(sizeof(int) * cap);
     printf("\nStack of capacity %d is successfully created.\n", ptr->capacity);
+	fprintf(stderr, "[WARN] <<< Exiting create_stack(cap=%d)\n", cap);
     return (ptr);
 }
 
@@ -54,6 +57,7 @@ DArrayStack *create_stack(int cap)
  */
 DArrayStack *double_array(DArrayStack *ptr, int cap)
 {
+	fprintf(stderr, "[ERROR] >>> Entering double_array(ptr=%p,cap=%p)\n", ptr, cap);
     int newCap = 2 * cap;
     int *temp;
     temp = (int *)malloc(sizeof(int) * newCap);
@@ -64,6 +68,7 @@ DArrayStack *double_array(DArrayStack *ptr, int cap)
     free(ptr->arrPtr);
     ptr->arrPtr = temp;
     ptr->capacity = newCap;
+	fprintf(stderr, "[WARN] <<< Exiting double_array(ptr=%p,cap=%p)\n", ptr, cap);
     return ptr;
 }
 
@@ -78,6 +83,7 @@ DArrayStack *double_array(DArrayStack *ptr, int cap)
  */
 DArrayStack *shrink_array(DArrayStack *ptr, int cap)
 {
+	fprintf(stderr, "[ERROR] >>> Entering shrink_array(ptr=%p,cap=%p)\n", ptr, cap);
     int newCap = cap / 2;
     int *temp;
     temp = (int *)malloc(sizeof(int) * newCap);
@@ -88,6 +94,7 @@ DArrayStack *shrink_array(DArrayStack *ptr, int cap)
     free(ptr->arrPtr);
     ptr->arrPtr = temp;
     ptr->capacity = newCap;
+	fprintf(stderr, "[WARN] <<< Exiting shrink_array(ptr=%p,cap=%p)\n", ptr, cap);
     return ptr;
 }
 
@@ -100,6 +107,7 @@ DArrayStack *shrink_array(DArrayStack *ptr, int cap)
  */
 int push(DArrayStack *ptr, int data)
 {
+	fprintf(stderr, "[ERROR] >>> Entering push(ptr=%p,data=%p)\n", ptr, data);
     if (ptr->top == (ptr->capacity) - 1)
     {
         ptr = double_array(ptr, ptr->capacity);
@@ -112,6 +120,7 @@ int push(DArrayStack *ptr, int data)
         ptr->arrPtr[ptr->top] = data;
     }
     printf("Successfully pushed : %d\n", data);
+	fprintf(stderr, "[WARN] <<< Exiting push(ptr=%p,data=%p)\n", ptr, data);
     return ptr->top;
 }
 
@@ -123,6 +132,7 @@ int push(DArrayStack *ptr, int data)
  */
 int pop(DArrayStack *ptr)
 {
+	fprintf(stderr, "[ERROR] >>> Entering pop(ptr=%p)\n", ptr);
     if (ptr->top == -1)
     {
         printf("Stack is empty UNDERFLOW \n");
@@ -136,9 +146,11 @@ int pop(DArrayStack *ptr)
         if (ptr->top <= (ptr->capacity / 2) - 1)
         {
             ptr = shrink_array(ptr, ptr->capacity);
+			fprintf(stderr, "[ERROR] pop(ptr=%p): ptr → %p\n", ptr, ptr);
         }
     }
     printf("Successfully popped: %d\n", ele);
+	fprintf(stderr, "[WARN] <<< Exiting pop(ptr=%p)\n", ptr);
     return ele;
 }
 
@@ -151,11 +163,13 @@ int pop(DArrayStack *ptr)
  */
 int peek(DArrayStack *ptr)
 {
+	fprintf(stderr, "[ERROR] >>> Entering peek(ptr=%p)\n", ptr);
     if (ptr->top == -1)
     {
         printf("Stack is empty UNDERFLOW \n");
         return -1;
     }
+	fprintf(stderr, "[WARN] <<< Exiting peek(ptr=%p)\n", ptr);
     return ptr->arrPtr[ptr->top];
 }
 
@@ -176,10 +190,13 @@ int show_capacity(DArrayStack *ptr) { return ptr->capacity; }
  */
 int isempty(DArrayStack *ptr)
 {
+	fprintf(stderr, "[ERROR] >>> Entering isempty(ptr=%p)\n", ptr);
     if (ptr->top == -1)
     {
+		fprintf(stderr, "[ERROR] Exception in isempty(ptr=%p): %d\n", ptr, errno);
         return 1;
     }
+	fprintf(stderr, "[WARN] <<< Exiting isempty(ptr=%p)\n", ptr);
     return 0;
 }
 
@@ -198,6 +215,7 @@ int stack_size(DArrayStack *ptr) { return ptr->top + 1; }
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     DArrayStack *NewStack;
     int capacity = 1;
     NewStack = create_stack(capacity);
@@ -212,6 +230,7 @@ static void test()
     for (int i = 0; i < 12; ++i)
     {
         int topVal = push(NewStack, arr[i]);
+		fprintf(stderr, "[ERROR] test(): topVal → %d\n", topVal);
         printf("Size: %d, Capacity: %d\n\n", stack_size(NewStack),
                show_capacity(NewStack));
         assert(topVal == i);
@@ -226,6 +245,7 @@ static void test()
         peek(NewStack);
         assert(peek(NewStack) == arr[i]);
         int ele = pop(NewStack);
+		fprintf(stderr, "[ERROR] test(): ele → %d\n", ele);
         assert(ele == arr[i]);
         assert(stack_size(NewStack) == i);
     }
@@ -237,6 +257,7 @@ static void test()
 
     printf("\nTesting POP operation on empty stack: ");
     assert(pop(NewStack) == -1);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -245,6 +266,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

@@ -13,6 +13,7 @@
  * @see hexadecimal_to_octal.c
  */
 
+#include "errno.h"
 #include <stdio.h>  /// for printf() and fgets()
 #include <string.h> /// for memset()
 
@@ -33,6 +34,7 @@ const char *hex_to_oct(const char *hex)
 
     if (hex == NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in hex_to_oct(hex=%s): %d\n", hex, errno);
         // Return an empty string
         return octal;
     }
@@ -70,6 +72,7 @@ const char *hex_to_oct(const char *hex)
     {
         octal[0] = '0';
         len = 1;
+		fprintf(stderr, "[DEBUG] hex_to_oct(hex=%s): len → %d\n", hex, len);
     }
     else
     {
@@ -94,6 +97,7 @@ const char *hex_to_oct(const char *hex)
         octal[len - i - 1] = tmp;
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting hex_to_oct(hex=%s)\n", hex);
     return octal;
 }
 
@@ -115,5 +119,6 @@ int main()
     printf("Hexadecimal number = %s\n", hex);
     printf("Octal number = %s\n", octal);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

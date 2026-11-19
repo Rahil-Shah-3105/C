@@ -1,16 +1,22 @@
+#include "stdio.h"
+#include "errno.h"
 double powPositive(double x, int n){
+	fprintf(stderr, "[ERROR] >>> Entering powPositive(x=%f,n=%f)\n", x, n);
     if (n == 1){
         return x;
     }
 
     double val = powPositive(x, n / 2);
+	fprintf(stderr, "[ERROR] powPositive(x=%f,n=%d): val → %f\n", x, n, val);
     double result = val * val;
+	fprintf(stderr, "[ERROR] powPositive(x=%f,n=%d): result → %f\n", x, n, result);
     
     // if n is odd
     if (n & 1 > 0){
         result *= x;
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting powPositive(x=%f,n=%f)\n", x, n);
     return result;
 }
 
@@ -18,6 +24,7 @@ double powPositive(double x, int n){
 // Runtime: O(log(n))
 // Space: O(1)
 double myPow(double x, int n){
+	fprintf(stderr, "[ERROR] >>> Entering myPow(x=%f,n=%f)\n", x, n);
     if (n == 0){
         return 1;
     }
@@ -32,8 +39,10 @@ double myPow(double x, int n){
 
     // 1 / pow(x, -(n + 1))
     if (n < 0){
+		fprintf(stderr, "[ERROR] Exception in myPow(x=%f,n=%d): %d\n", x, n, errno);
         return 1 / powPositive(x, -n);
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting myPow(x=%f,n=%f)\n", x, n);
     return powPositive(x, n);
 }

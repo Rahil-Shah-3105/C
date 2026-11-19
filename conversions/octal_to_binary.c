@@ -15,8 +15,10 @@
  */
 long octalToBinary(int octalnum)
 {
+	fprintf(stderr, "[ERROR] >>> Entering octalToBinary(octalnum=%d)\n", octalnum);
     int decimalnum = 0, i = 0;
     long binarynum = 0;
+	fprintf(stderr, "[ERROR] octalToBinary(octalnum=%d): decimalnum → %d\n", octalnum, decimalnum);
 
     /* This loop converts octal number "octalnum" to the
      * decimal number "decimalnum"
@@ -37,11 +39,13 @@ long octalToBinary(int octalnum)
     while (decimalnum != 0)
     {
         binarynum = binarynum + (long)(decimalnum % 2) * i;
+		fprintf(stderr, "[ERROR] octalToBinary(octalnum=%d): binarynum → %ld\n", octalnum, binarynum);
         decimalnum = decimalnum / 2;
         i = i * 10;
     }
 
     // Returning the binary number that we got from octal number
+	fprintf(stderr, "[WARN] <<< Exiting octalToBinary(octalnum=%d)\n", octalnum);
     return binarynum;
 }
 
@@ -51,6 +55,7 @@ long octalToBinary(int octalnum)
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int octalnum;
 
     printf("Enter an octal number: ");
@@ -58,5 +63,6 @@ int main()
 
     // Calling the function octaltoBinary
     printf("Equivalent binary number is: %ld", octalToBinary(octalnum));
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

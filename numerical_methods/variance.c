@@ -4,8 +4,12 @@
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int *ARRAY = NULL, ARRAY_LENGTH, i, TEMPORARY_ELEMENT, isSorted = 0;
     float MEAN = 0, VARIANCE = 0, STAND;
+	fprintf(stderr, "[ERROR] main(): MEAN → %f\n", MEAN);
+	fprintf(stderr, "[ERROR] main(): VARIANCE → %f\n", VARIANCE);
+	fprintf(stderr, "[ERROR] main(): isSorted → %d\n", isSorted);
 
     printf("Enter no. for Random Numbers :");
     scanf("%d", &ARRAY_LENGTH);
@@ -46,9 +50,11 @@ int main()
         VARIANCE = VARIANCE + (pow((ARRAY[i] - MEAN), 2));
 
     VARIANCE = VARIANCE / (float)ARRAY_LENGTH;
+	fprintf(stderr, "[DEBUG] main(): VARIANCE → %f\n", VARIANCE);
     STAND = sqrt(VARIANCE);
 
     printf("\n\n- Mean is: %f\n", MEAN);
     printf("- Variance is: %f\n", VARIANCE);
     printf("- Standard Deviation is: %f\n", STAND);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
 }

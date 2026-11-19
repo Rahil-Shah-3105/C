@@ -36,6 +36,7 @@ static char game_table[9];
  */
 int main()
 {   
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     srand( (unsigned int)time(NULL));
     int l = 0;
     do
@@ -84,6 +85,7 @@ int main()
  */
 void singlemode()
 {
+	fprintf(stderr, "[ERROR] >>> Entering singlemode()\n");
     int m;
     int k = 0;
     int table_fill_count=0;
@@ -125,6 +127,7 @@ void singlemode()
         }
         table_fill_count++;
         int o = checkwin();
+		fprintf(stderr, "[ERROR] singlemode(): o → %d\n", o);
 
         if (o == -1 || o == -2)
         {
@@ -146,6 +149,7 @@ void singlemode()
             break;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting singlemode()\n");
 }
 
 /**
@@ -155,6 +159,7 @@ void singlemode()
  */
 void doublemode()
 {
+	fprintf(stderr, "[ERROR] >>> Entering doublemode()\n");
     int m;
     int e1;
     int k = 0;
@@ -198,6 +203,7 @@ void doublemode()
         }
         doublemode_table_count++;
         int o = checkwin();
+		fprintf(stderr, "[ERROR] doublemode(): o → %d\n", o);
 
         if (o == -1 || o == -2)
         {
@@ -218,9 +224,11 @@ void doublemode()
             break;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting doublemode()\n");
 }
 
 int check_placex(){
+	fprintf(stderr, "[ERROR] >>> Entering check_placex()\n");
 	char input[50];
 	int n1;
 	while (1){
@@ -237,6 +245,7 @@ int check_placex(){
 			fprintf(stderr,"Already allocated, Enter number: ");
 			continue;
 		}
+	fprintf(stderr, "[WARN] <<< Exiting check_placex()\n");
 		return n1;
 	}
 }	
@@ -280,6 +289,7 @@ void placex(int m)
  */
 void place()
 {
+fprintf(stderr, "[ERROR] >>> Entering place()\n");
 
     int e = rand() % 9;
 
@@ -295,6 +305,7 @@ void place()
             place();
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting place()\n");
 }
 /**
  * @brief Update table by placing an `O`
@@ -305,6 +316,7 @@ void place()
  */
 void placey(int e1)
 {
+	fprintf(stderr, "[ERROR] >>> Entering placey(e1=%d)\n", e1);
     int n1 = 0;
     if (e1 >= 1 && e1 <= 9)
     {
@@ -315,6 +327,7 @@ void placey(int e1)
         else
         {
 			int n = check_placex();
+			fprintf(stderr, "[ERROR] placey(e1=%d): n → %d\n", e1, n);
 			placex(n);
         }
     }
@@ -323,6 +336,7 @@ void placey(int e1)
 		int n = check_placex();
 		placex(n);
     }
+	fprintf(stderr, "[WARN] <<< Exiting placey(e1=%d)\n", e1);
 }
 /**
  * @brief Implementation of win conditon checker for 'X' or 'O' whenever the table is updated
@@ -333,6 +347,7 @@ void placey(int e1)
  */
 int checkwin()
 {
+	fprintf(stderr, "[ERROR] >>> Entering checkwin()\n");
     if (game_table[0] == game_table[1] && game_table[1] == game_table[2])
     {
         if (game_table[0] == 'x' && game_table[1] == 'x' &&
@@ -445,5 +460,6 @@ int checkwin()
             return -2;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting checkwin()\n");
     return 0;
 }

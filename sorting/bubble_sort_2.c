@@ -10,6 +10,7 @@
  * @author [Gabriel Fioravante](https://github.com/northernSage)
  */
 
+#include "stdio.h"
 #include <stdlib.h>   /// for rand() calls
 #include <assert.h>   /// for assert(<expr>)
 #include <stdbool.h>  /// for boolean values: true, false  
@@ -23,6 +24,7 @@
  */
 void bubble_sort(int* array_sort)
 {
+	fprintf(stderr, "[ERROR] >>> Entering bubble_sort(array_sort=%p)\n", array_sort);
 	bool is_sorted = false;
 
     /* keep iterating over entire array
@@ -31,6 +33,7 @@ void bubble_sort(int* array_sort)
     while (!is_sorted)
     {
 		is_sorted = true;
+		fprintf(stderr, "[ERROR] bubble_sort(array_sort=%p): is_sorted → %d\n", array_sort, is_sorted);
 
         /* iterate over all elements */
         for (int i = 0; i < MAX - 1; i++)
@@ -49,6 +52,7 @@ void bubble_sort(int* array_sort)
             }
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting bubble_sort(array_sort=%p)\n", array_sort);
 }
 
 /**
@@ -56,6 +60,7 @@ void bubble_sort(int* array_sort)
  * @returns void
  */
 static void test() {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     /* simple int array for testing */
 	int array_sort[MAX] = {0};
 
@@ -74,6 +79,7 @@ static void test() {
     {
         assert(array_sort[i] <= array_sort[i+1]);
     }
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -82,6 +88,8 @@ static void test() {
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

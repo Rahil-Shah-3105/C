@@ -1,4 +1,6 @@
+#include "stdio.h"
 void visitRooms(int key, int** rooms, int roomsSize, int* roomsColSize, int* visitedRooms){
+	fprintf(stderr, "[ERROR] >>> Entering visitRooms(key=%d,rooms=%p,roomsSize=%p,roomsColSize=%p,visitedRooms=%p)\n", key, rooms, roomsSize, roomsColSize, visitedRooms);
     if (visitedRooms[key] == 1){
         return;
     }
@@ -7,12 +9,14 @@ void visitRooms(int key, int** rooms, int roomsSize, int* roomsColSize, int* vis
     for (int i = 0; i < roomsColSize[key]; i++){
         visitRooms(rooms[key][i], rooms, roomsSize, roomsColSize, visitedRooms);
     }
+	fprintf(stderr, "[WARN] <<< Exiting visitRooms(key=%d,rooms=%p,roomsSize=%p,roomsColSize=%p,visitedRooms=%p)\n", key, rooms, roomsSize, roomsColSize, visitedRooms);
 }
 
 // Depth-first search
 // Runtime: O(n)
 // Space: O(n)
 bool canVisitAllRooms(int** rooms, int roomsSize, int* roomsColSize){
+	fprintf(stderr, "[ERROR] >>> Entering canVisitAllRooms(rooms=%p,roomsSize=%p,roomsColSize=%p)\n", rooms, roomsSize, roomsColSize);
     int* visitedRooms = calloc(roomsSize, sizeof(int));
     visitRooms(0, rooms, roomsSize, roomsColSize, visitedRooms);
 
@@ -23,5 +27,6 @@ bool canVisitAllRooms(int** rooms, int roomsSize, int* roomsColSize){
         }
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting canVisitAllRooms(rooms=%p,roomsSize=%p,roomsColSize=%p)\n", rooms, roomsSize, roomsColSize);
     return visitedRoomsNumber == roomsSize;
 }

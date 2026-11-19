@@ -11,6 +11,7 @@
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int i, n, l = 0;
 
     printf("Enter size of array = ");
@@ -44,5 +45,6 @@ int main()
 
     free(a);
     free(b);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

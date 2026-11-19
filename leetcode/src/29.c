@@ -1,9 +1,13 @@
+#include "stdio.h"
+#include "errno.h"
 int divide(int dividend, int divisor)
 {
+	fprintf(stderr, "[ERROR] >>> Entering divide(dividend=%d,divisor=%d)\n", dividend, divisor);
     int sign = 1;
     long int output = 0;
     if (dividend < 0)
     {
+		fprintf(stderr, "[ERROR] Exception in divide(dividend=%d,divisor=%d): %d\n", dividend, divisor, errno);
         sign *= -1;
     }
     else
@@ -42,5 +46,6 @@ int divide(int dividend, int divisor)
         output += tmp;
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting divide(dividend=%d,divisor=%d)\n", dividend, divisor);
     return output * sign;
 }

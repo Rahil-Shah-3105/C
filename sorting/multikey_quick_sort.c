@@ -28,22 +28,27 @@
 
 void vecswap(int i, int j, int n, char *x[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering vecswap(i=%d,j=%d,n=%d,x=%p)\n", i, j, n, x);
     while (n-- > 0)
     {
         swap(i, j);
         i++;
         j++;
     }
+	fprintf(stderr, "[WARN] <<< Exiting vecswap(i=%d,j=%d,n=%d,x=%p)\n", i, j, n, x);
 }
 
 void ssort1(char *x[], int n, int depth)
 {
+	fprintf(stderr, "[ERROR] >>> Entering ssort1(x=%p,n=%p,depth=%d)\n", x, n, depth);
     int a, b, c, d, r, v;
     if (n <= 1)
         return;
     a = rand() % n;
+	fprintf(stderr, "[ERROR] ssort1(x=%p,n=%d,depth=%d): a → %d\n", x, n, depth, a);
     swap(0, a);
     v = i2c(0);
+	fprintf(stderr, "[ERROR] ssort1(x=%p,n=%d,depth=%d): v → %d\n", x, n, depth, v);
     a = b = 1;
     c = d = n - 1;
     for (;;)
@@ -73,6 +78,7 @@ void ssort1(char *x[], int n, int depth)
         c--;
     }
     r = min(a, b - a);
+	fprintf(stderr, "[ERROR] ssort1(x=%p,n=%d,depth=%d): r → %d\n", x, n, depth, r);
     vecswap(0, b - r, r, x);
     r = min(d - c, n - d - 1);
     vecswap(b, n - r, r, x);
@@ -82,6 +88,7 @@ void ssort1(char *x[], int n, int depth)
         ssort1(x + r, a + n - d - 1, depth + 1);
     r = d - c;
     ssort1(x + n - r, r, depth);
+	fprintf(stderr, "[WARN] <<< Exiting ssort1(x=%p,n=%p,depth=%d)\n", x, n, depth);
 }
 
 void ssort1main(char *x[], int n) { ssort1(x, n, 0); }
@@ -90,12 +97,14 @@ void ssort1main(char *x[], int n) { ssort1(x, n, 0); }
 
 void vecswap2(char **a, char **b, int n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering vecswap2(a=%p,b=%p,n=%p)\n", a, b, n);
     while (n-- > 0)
     {
         char *t = *a;
         *a++ = *b;
         *b++ = t;
     }
+	fprintf(stderr, "[WARN] <<< Exiting vecswap2(a=%p,b=%p,n=%p)\n", a, b, n);
 }
 
 #define swap2(a, b)  \
@@ -108,6 +117,7 @@ void vecswap2(char **a, char **b, int n)
 
 char **med3func(char **a, char **b, char **c, int depth)
 {
+	fprintf(stderr, "[ERROR] >>> Entering med3func(a=%p,b=%p,c=%p,depth=%p)\n", a, b, c, depth);
     int va, vb, vc;
     if ((va = ptr2char(a)) == (vb = ptr2char(b)))
         return a;
@@ -120,6 +130,7 @@ char **med3func(char **a, char **b, char **c, int depth)
 
 void inssort(char **a, int n, int d)
 {
+	fprintf(stderr, "[ERROR] >>> Entering inssort(a=%p,n=%p,d=%d)\n", a, n, d);
     char **pi, **pj, *s, *t;
     for (pi = a + 1; --n > 0; pi++)
         for (pj = pi; pj > a; pj--)
@@ -131,10 +142,12 @@ void inssort(char **a, int n, int d)
                 break;
             swap2(pj, pj - 1);
         }
+		fprintf(stderr, "[WARN] <<< Exiting inssort(a=%p,n=%p,d=%d)\n", a, n, d);
 }
 
 void ssort2(char **a, int n, int depth)
 {
+	fprintf(stderr, "[ERROR] >>> Entering ssort2(a=%p,n=%p,depth=%d)\n", a, n, depth);
     int d, r, partval;
     char **pa, **pb, **pc, **pd, **pl, **pm, **pn, *t;
     if (n < 10)
@@ -143,11 +156,15 @@ void ssort2(char **a, int n, int depth)
         return;
     }
     pl = a;
+	fprintf(stderr, "[ERROR] ssort2(a=%p,n=%d,depth=%d): pl → %p\n", a, n, depth, pl);
     pm = a + (n / 2);
+	fprintf(stderr, "[ERROR] ssort2(a=%p,n=%d,depth=%d): pm → %p\n", a, n, depth, pm);
     pn = a + (n - 1);
+	fprintf(stderr, "[ERROR] ssort2(a=%p,n=%d,depth=%d): pn → %p\n", a, n, depth, pn);
     if (n > 30)
     {  // On big arrays, pseudomedian of 9
         d = (n / 8);
+		fprintf(stderr, "[ERROR] ssort2(a=%p,n=%d,depth=%d): d → %d\n", a, n, depth, d);
         pl = med3(pl, pl + d, pl + 2 * d);
         pm = med3(pm - d, pm, pm + d);
         pn = med3(pn - 2 * d, pn - d, pn);
@@ -155,6 +172,8 @@ void ssort2(char **a, int n, int depth)
     pm = med3(pl, pm, pn);
     swap2(a, pm);
     partval = ptr2char(a);
+	fprintf(stderr, "[ERROR] ssort2(a=%p,n=%d,depth=%d): partval → %d\n", a, n, depth, partval);
+	fprintf(stderr, "[DEBUG] ssort2(a=%p,n=%d,depth=%d): partval → %d\n", a, n, depth, partval);
     pa = pb = a + 1;
     pc = pd = a + n - 1;
     for (;;)
@@ -185,6 +204,7 @@ void ssort2(char **a, int n, int depth)
     }
     pn = a + n;
     r = min(pa - a, pb - pa);
+	fprintf(stderr, "[ERROR] ssort2(a=%p,n=%d,depth=%d): r → %d\n", a, n, depth, r);
     vecswap2(a, pb - r, r);
     r = min(pd - pc, pn - pd - 1);
     vecswap2(pb, pn - r, r);
@@ -194,6 +214,7 @@ void ssort2(char **a, int n, int depth)
         ssort2(a + r, pa - a + pn - pd - 1, depth + 1);
     if ((r = pd - pc) > 1)
         ssort2(a + n - r, r, depth);
+		fprintf(stderr, "[WARN] <<< Exiting ssort2(a=%p,n=%p,depth=%d)\n", a, n, depth);
 }
 
 void ssort2main(char **a, int n) { ssort2(a, n, 0); }
@@ -212,9 +233,11 @@ Tptr root;
 
 Tptr insert1(Tptr p, char *s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insert1(p=%d,s=%s)\n", p, s);
     if (p == 0)
     {
         p = (Tptr)malloc(sizeof(Tnode));
+		fprintf(stderr, "[ERROR] insert1(p=%d,s=%s): p → %d\n", p, s, p);
         p->splitchar = *s;
         p->lokid = p->eqkid = p->hikid = 0;
     }
@@ -227,11 +250,13 @@ Tptr insert1(Tptr p, char *s)
     }
     else
         p->hikid = insert1(p->hikid, s);
+	fprintf(stderr, "[WARN] <<< Exiting insert1(p=%d,s=%s)\n", p, s);
     return p;
 }
 
 void cleanup1(Tptr p)
 {
+	fprintf(stderr, "[ERROR] >>> Entering cleanup1(p=%d)\n", p);
     if (p)
     {
         cleanup1(p->lokid);
@@ -239,6 +264,7 @@ void cleanup1(Tptr p)
         cleanup1(p->hikid);
         free(p);
     }
+	fprintf(stderr, "[WARN] <<< Exiting cleanup1(p=%d)\n", p);
 }
 
 // Insert 2 -- Faster version of Insert
@@ -251,12 +277,15 @@ int storestring = 0;
 
 void insert2(char *s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insert2(s=%s)\n", s);
     int d;
     char *instr = s;
 
     Tptr pp, *p;
     p = &root;
+	fprintf(stderr, "[ERROR] insert2(s=%s): p → %p\n", s, p);
     pp = *p;
+	fprintf(stderr, "[ERROR] insert2(s=%s): pp → %d\n", s, pp);
     while (pp == *p)
     {
         if ((d = *s - pp->splitchar) == 0)
@@ -276,8 +305,11 @@ void insert2(char *s)
         if (bufn-- == 0)
         {
             buffer = (Tptr)malloc(BUFSIZE * sizeof(Tnode));
+			fprintf(stderr, "[ERROR] insert2(s=%s): buffer → %d\n", s, buffer);
+			fprintf(stderr, "[DEBUG] insert2(s=%s): buffer → %d\n", s, buffer);
             freearr[freen++] = (void *)buffer;
             bufn = BUFSIZE - 1;
+			fprintf(stderr, "[DEBUG] insert2(s=%s): bufn → %d\n", s, bufn);
         }
         *p = buffer++;
         pp = *p;
@@ -291,19 +323,24 @@ void insert2(char *s)
         }
         p = &(pp->eqkid);
     }
+	fprintf(stderr, "[WARN] <<< Exiting insert2(s=%s)\n", s);
 }
 void cleanup2()
 {
+	fprintf(stderr, "[ERROR] >>> Entering cleanup2()\n");
     int i;
     for (i = 0; i < freen; i++) free(freearr[i]);
+	fprintf(stderr, "[WARN] <<< Exiting cleanup2()\n");
 }
 
 // Search Algorithms
 
 int search1(char *s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering search1(s=%s)\n", s);
     Tptr p;
     p = root;
+	fprintf(stderr, "[ERROR] search1(s=%s): p → %d\n", s, p);
     while (p)
     {
         if (*s < p->splitchar)
@@ -317,15 +354,19 @@ int search1(char *s)
         else
             p = p->hikid;
     }
+	fprintf(stderr, "[WARN] <<< Exiting search1(s=%s)\n", s);
     return 0;
 }
 
 int search2(char *s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering search2(s=%s)\n", s);
     int d, sc;
     Tptr p;
     sc = *s;
+	fprintf(stderr, "[ERROR] search2(s=%s): sc → %d\n", s, sc);
     p = root;
+	fprintf(stderr, "[ERROR] search2(s=%s): p → %d\n", s, p);
     while (p)
     {
         if ((d = sc - p->splitchar) == 0)
@@ -340,6 +381,7 @@ int search2(char *s)
         else
             p = p->hikid;
     }
+	fprintf(stderr, "[WARN] <<< Exiting search2(s=%s)\n", s);
     return 0;
 }
 
@@ -351,6 +393,7 @@ int srchtop;
 
 void pmsearch(Tptr p, char *s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering pmsearch(p=%d,s=%s)\n", p, s);
     if (!p)
         return;
     nodecnt++;
@@ -363,10 +406,12 @@ void pmsearch(Tptr p, char *s)
         srcharr[srchtop++] = (char *)p->eqkid;
     if (*s == '.' || *s > p->splitchar)
         pmsearch(p->hikid, s);
+		fprintf(stderr, "[WARN] <<< Exiting pmsearch(p=%d,s=%s)\n", p, s);
 }
 
 void nearsearch(Tptr p, char *s, int d)
 {
+	fprintf(stderr, "[ERROR] >>> Entering nearsearch(p=%d,s=%s,d=%s)\n", p, s, d);
     if (!p || d < 0)
         return;
     nodecnt++;
@@ -381,12 +426,14 @@ void nearsearch(Tptr p, char *s, int d)
         nearsearch(p->eqkid, *s ? s + 1 : s, (*s == p->splitchar) ? d : d - 1);
     if (d > 0 || *s > p->splitchar)
         nearsearch(p->hikid, s, d);
+		fprintf(stderr, "[WARN] <<< Exiting nearsearch(p=%d,s=%s,d=%s)\n", p, s, d);
 }
 
 #define NUMBER_OF_STRING 3
 
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     char *arr[NUMBER_OF_STRING] = {"apple", "cat", "boy"};
 
     ssort1main(arr, NUMBER_OF_STRING);
@@ -395,4 +442,5 @@ int main(int argc, char *argv[])
     {
         printf("%s ", arr[i]);
     }
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
 }

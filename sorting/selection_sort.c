@@ -15,9 +15,11 @@
  */
 void swap(int *first, int *second)
 {
+	fprintf(stderr, "[ERROR] >>> Entering swap(first=%p,second=%p)\n", first, second);
     int temp = *first;
     *first = *second;
     *second = temp;
+	fprintf(stderr, "[WARN] <<< Exiting swap(first=%p,second=%p)\n", first, second);
 }
 
 /**
@@ -27,9 +29,11 @@ void swap(int *first, int *second)
  */
 void selectionSort(int *arr, int size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering selectionSort(arr=%p,size=%p)\n", arr, size);
     for (int i = 0; i < size - 1; i++)
     {
         int min_index = i;
+		fprintf(stderr, "[ERROR] selectionSort(arr=%p,size=%d): min_index → %d\n", arr, size, min_index);
         for (int j = i + 1; j < size; j++)
         {
             if (arr[min_index] > arr[j])
@@ -42,6 +46,7 @@ void selectionSort(int *arr, int size)
             swap(arr + i, arr + min_index);
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting selectionSort(arr=%p,size=%p)\n", arr, size);
 }
 
 /** Test function
@@ -49,6 +54,7 @@ void selectionSort(int *arr, int size)
   */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     const int size = rand() % 500; /* random array size */
     int *arr = (int *)calloc(size, sizeof(int));
 
@@ -63,13 +69,16 @@ static void test()
         assert(arr[i] <= arr[i + 1]);
     }
     free(arr);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /** Driver Code */
 int main(int argc, const char *argv[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     /* Intializes random number generator */
     srand(time(NULL));
     test();
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

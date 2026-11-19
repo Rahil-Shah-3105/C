@@ -65,12 +65,16 @@ long double complex poly_function(long double *coeffs, unsigned int degree,
  */
 const char *complex_str(long double complex x)
 {
+	fprintf(stderr, "[ERROR] >>> Entering complex_str(x=%f)\n", x);
     static char msg[50];
     double r = creal(x);
+	fprintf(stderr, "[ERROR] complex_str(x=%f): r → %f\n", x, r);
     double c = cimag(x);
+	fprintf(stderr, "[ERROR] complex_str(x=%f): c → %f\n", x, c);
 
     sprintf(msg, "% 7.04g%+7.04gj", r, c);
 
+	fprintf(stderr, "[WARN] <<< Exiting complex_str(x=%f)\n", x);
     return msg;
 }
 
@@ -82,10 +86,12 @@ const char *complex_str(long double complex x)
  */
 char check_termination(long double delta)
 {
+	fprintf(stderr, "[ERROR] >>> Entering check_termination(delta=%f)\n", delta);
     static long double past_delta = INFINITY;
     if (fabsl(past_delta - delta) <= ACCURACY || delta < ACCURACY)
         return 1;
     past_delta = delta;
+	fprintf(stderr, "[WARN] <<< Exiting check_termination(delta=%f)\n", delta);
     return 0;
 }
 
@@ -94,6 +100,7 @@ char check_termination(long double delta)
  */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     long double *coeffs = NULL;
     long double complex *s0 = NULL;
     unsigned int degree = 0;
@@ -158,6 +165,7 @@ int main(int argc, char **argv)
         else
         {
             tmp = coeffs[0];
+			fprintf(stderr, "[DEBUG] main(argc=%d,argv=%p): tmp → %f\n", argc, argv, tmp);
             coeffs[0] = 1;
         }
 
@@ -179,6 +187,7 @@ int main(int argc, char **argv)
 #endif
 
     double tol_condition = 1;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): tol_condition → %f\n", argc, argv, tol_condition);
     unsigned long iter = 0;
 
     clock_t end_time, start_time = clock();
@@ -234,6 +243,8 @@ int main(int argc, char **argv)
 end:
 
     end_time = clock();
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): end_time → %d\n", argc, argv, end_time);
+fprintf(stderr, "[DEBUG] main(argc=%d,argv=%p): end_time → %d\n", argc, argv, end_time);
 
 #if defined(DEBUG) || !defined(NDEBUG)
     fclose(log_file);

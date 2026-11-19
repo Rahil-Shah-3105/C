@@ -28,8 +28,10 @@
  */
 char* convert(char* in, uint16_t numRows)
 {
+	fprintf(stderr, "[ERROR] >>> Entering convert(in=%s,numRows=%s)\n", in, numRows);
     uint16_t len = strlen(in);
 
+	fprintf(stderr, "[ERROR] convert(in=%s,numRows=%d): len → %d\n", in, numRows, len);
     if (len < numRows)
     {
         numRows = len;
@@ -60,6 +62,7 @@ char* convert(char* in, uint16_t numRows)
     {
         i = l;
         delta = 2 * l;
+		fprintf(stderr, "[ERROR] convert(in=%s,numRows=%d): delta → %d\n", in, numRows, delta);
         while (i < len)
         {
             out[o++] = in[i];
@@ -76,6 +79,7 @@ char* convert(char* in, uint16_t numRows)
         i += rr;
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting convert(in=%s,numRows=%s)\n", in, numRows);
     return out;
 }
 
@@ -85,12 +89,16 @@ char* convert(char* in, uint16_t numRows)
  */
 static void testZigZag(char* s, int numRows, char* expected)
 {
+	fprintf(stderr, "[ERROR] >>> Entering testZigZag(s=%s,numRows=%s,expected=%s)\n", s, numRows, expected);
     char* ret = convert(s, numRows);
     int len = strlen(s);
+	fprintf(stderr, "[ERROR] testZigZag(s=%s,numRows=%d,expected=%s): len → %d\n", s, numRows, expected, len);
     int cmp = strncmp(ret, expected, len);
+	fprintf(stderr, "[ERROR] testZigZag(s=%s,numRows=%d,expected=%s): cmp → %d\n", s, numRows, expected, cmp);
     assert(!cmp);
 
     free(ret);
+	fprintf(stderr, "[WARN] <<< Exiting testZigZag(s=%s,numRows=%s,expected=%s)\n", s, numRows, expected);
 }
 
 /**
@@ -99,6 +107,7 @@ static void testZigZag(char* s, int numRows, char* expected)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     char* s01 = "PAYPALISHIRING";
 
     char* r01 = "PINALSIGYAHRPI";
@@ -138,6 +147,7 @@ static void test()
         "xpdbsqzsjvctwdrwploufdisxgbahuinogzf";
 
     testZigZag(s04, 472, r04);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -146,6 +156,8 @@ static void test()
  */
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

@@ -19,8 +19,10 @@
  */
 uint32_t crc32(const char* s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering crc32(s=%s)\n", s);
     uint32_t crc = 0xffffffff;
     size_t i = 0;
+	fprintf(stderr, "[ERROR] crc32(s=%s): crc → %d\n", s, crc);
     while (s[i] != '\0')
     {
         uint8_t byte = s[i];
@@ -32,6 +34,7 @@ uint32_t crc32(const char* s)
 
         i++;
     }
+	fprintf(stderr, "[WARN] <<< Exiting crc32(s=%s)\n", s);
     return crc ^ 0xffffffff;
 }
 
@@ -41,11 +44,13 @@ uint32_t crc32(const char* s)
  */
 void test_crc32()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_crc32()\n");
     assert(crc32("Hello World") == 1243066710);
     assert(crc32("Hello World!") == 472456355);
     assert(crc32("Hello world") == 2346098258);
     assert(crc32("Hello world!") == 461707669);
     printf("Tests passed\n");
+	fprintf(stderr, "[WARN] <<< Exiting test_crc32()\n");
 }
 
 /** @} */
@@ -53,6 +58,8 @@ void test_crc32()
 /** Main function */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test_crc32();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

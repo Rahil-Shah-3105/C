@@ -19,6 +19,7 @@
  */
 void RecursionInsertionSort(int *arr, int size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering RecursionInsertionSort(arr=%p,size=%p)\n", arr, size);
     if(size <= 0)
     {
         return;
@@ -28,6 +29,7 @@ void RecursionInsertionSort(int *arr, int size)
     RecursionInsertionSort(arr,size-1);
     
     int key = arr[size-1];
+	fprintf(stderr, "[ERROR] RecursionInsertionSort(arr=%p,size=%d): key → %d\n", arr, size, key);
     int j = size-2;
     // swapping logic for insertion sort
     while(j >= 0 && arr[j] > key)
@@ -36,6 +38,7 @@ void RecursionInsertionSort(int *arr, int size)
         j--;
     }
     arr[j+1] = key;
+	fprintf(stderr, "[WARN] <<< Exiting RecursionInsertionSort(arr=%p,size=%p)\n", arr, size);
 }
 /** @} */
 /** Test function
@@ -43,6 +46,7 @@ void RecursionInsertionSort(int *arr, int size)
   */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     const int size = rand() % 500; /* random array size */
     int *arr = (int *)calloc(size, sizeof(int));
 
@@ -57,6 +61,7 @@ static void test()
         assert(arr[i] <= arr[i + 1]);
     }
     free(arr);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /** Main function
@@ -64,8 +69,10 @@ static void test()
  */
 int main(int argc, const char *argv[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     /* Intializes random number generator */
     srand(time(NULL));
     test();
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

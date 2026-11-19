@@ -7,8 +7,10 @@
 
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     int *a, n = 10, i, j, temp, sum = 0;
     float mean;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): n → %d\n", argc, argv, n);
 
     if (argc == 2)
     {
@@ -37,5 +39,6 @@ int main(int argc, char **argv)
     printf("%f\n", mean);
 
     free(a);
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

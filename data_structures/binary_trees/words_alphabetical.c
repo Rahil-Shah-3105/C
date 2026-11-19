@@ -14,6 +14,7 @@
  * @author [Randy Kwalar](https://github.com/RandyKdev)
  */
 
+#include "errno.h"
 #include <assert.h>    /// for assert
 #include <ctype.h>     /// for type checks
 #include <inttypes.h>  /// for uint64_t based types, int64_t based types
@@ -40,8 +41,10 @@ struct Node
  */
 void endProgramAbruptly(char *errorMessage)
 {
+	fprintf(stderr, "[ERROR] >>> Entering endProgramAbruptly(errorMessage=%s)\n", errorMessage);
     fprintf(stderr, "%s\n", errorMessage);
     exit(EXIT_FAILURE);
+	fprintf(stderr, "[WARN] <<< Exiting endProgramAbruptly(errorMessage=%s)\n", errorMessage);
 }
 
 /**
@@ -51,14 +54,17 @@ void endProgramAbruptly(char *errorMessage)
  */
 void freeTreeMemory(struct Node *node)
 {
+	fprintf(stderr, "[ERROR] >>> Entering freeTreeMemory(node=%p)\n", node);
     if (node != NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in freeTreeMemory(node=%p): %d\n", node, errno);
         freeTreeMemory(node->left);
         freeTreeMemory(node->right);
         free(node->word);  // freeing node->word because memory was allocated
                            // using malloc
         free(node);  // freeing node because memory was allocated using malloc
     }
+	fprintf(stderr, "[WARN] <<< Exiting freeTreeMemory(node=%p)\n", node);
 }
 
 /**
@@ -69,16 +75,19 @@ void freeTreeMemory(struct Node *node)
  */
 char *getPointerToWord(char *word)
 {
+	fprintf(stderr, "[ERROR] >>> Entering getPointerToWord(word=%s)\n", word);
     char *string =
         (char *)malloc((strlen(word) + 1) * sizeof(char));  ///< pointer to string
     // + 1 is for the '\0' character
     if (string != NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in getPointerToWord(word=%s): %d\n", word, errno);
         strcpy(string, word);
         return string;
     }
     endProgramAbruptly(
         "\nA problem occurred while reserving memory for the word\n");
+	fprintf(stderr, "[WARN] <<< Exiting getPointerToWord(word=%s)\n", word);
     return NULL;
 }
 
@@ -89,9 +98,11 @@ char *getPointerToWord(char *word)
  */
 void closeFile(FILE *file)
 {
+	fprintf(stderr, "[ERROR] >>> Entering closeFile(file=%p)\n", file);
     if (fclose(file)) {
         endProgramAbruptly("\nA Problem Occurred while closing a file\n");
      }
+	fprintf(stderr, "[WARN] <<< Exiting closeFile(file=%p)\n", file);
 }
 
 /**
@@ -120,6 +131,7 @@ struct Node *allocateMemoryForNode()
  */
 void writeContentOfTreeToFile(struct Node *node, FILE *file)
 {
+	fprintf(stderr, "[ERROR] >>> Entering writeContentOfTreeToFile(node=%p,file=%p)\n", node, file);
     static uint64_t i = 1;  ///< for word numbering in the write file
     if (node != NULL)       // checks if the node is valid
     {
@@ -133,6 +145,7 @@ void writeContentOfTreeToFile(struct Node *node, FILE *file)
             node->right,
             file);  // calls `writeContentOfTreeToFile` for right sub tree
     }
+	fprintf(stderr, "[WARN] <<< Exiting writeContentOfTreeToFile(node=%p,file=%p)\n", node, file);
 }
 
 /**
@@ -243,10 +256,12 @@ struct Node *readWordsInFileToTree(FILE *file, struct Node *root)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     struct Node *root = NULL;  ///< pointer to the root node
     FILE *file = NULL;         ///< pointer to the file
 
     file = fopen("file.txt", "w");  // creates test file in write mode
+	fprintf(stderr, "[ERROR] test(): file → %p\n", file);
 
     fprintf(file,
             "hey_this, is a. test input \n to a_file");  // writes test data to
@@ -303,6 +318,7 @@ static void test()
     remove("wordcount.txt");  // deletes `wordcount.txt`
 
     freeTreeMemory(root);  // frees memory taken up by the tree
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -311,6 +327,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

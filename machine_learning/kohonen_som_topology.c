@@ -66,7 +66,10 @@ struct kohonen_array_3d
  */
 double *kohonen_data_3d(const struct kohonen_array_3d *arr, int x, int y, int z)
 {
+	fprintf(stderr, "[ERROR] >>> Entering kohonen_data_3d(arr=%p,x=%p,y=%d,z=%d)\n", arr, x, y, z);
     int offset = (x * arr->dim2 * arr->dim3) + (y * arr->dim3) + z;
+	fprintf(stderr, "[ERROR] kohonen_data_3d(arr=%p,x=%d,y=%d,z=%d): offset → %d\n", arr, x, y, z, offset);
+    fprintf(stderr, "[WARN] <<< Exiting kohonen_data_3d(arr=%p,x=%p,y=%d,z=%d)\n", arr, x, y, z);
     return arr->data + offset;
 }
 
@@ -86,6 +89,8 @@ double *kohonen_data_3d(const struct kohonen_array_3d *arr, int x, int y, int z)
  */
 double _random(double a, double b)
 {
+	fprintf(stderr, "[ERROR] >>> Entering _random(a=%f,b=%f)\n", a, b);
+    fprintf(stderr, "[WARN] <<< Exiting _random(a=%f,b=%f)\n", a, b);
     return ((b - a) * (rand() % 100) / 100.f) + a;
 }
 
@@ -138,6 +143,7 @@ int save_2d_data(const char *fname, double **X, int num_points,
  */
 int save_u_matrix(const char *fname, struct kohonen_array_3d *W)
 {
+	fprintf(stderr, "[ERROR] >>> Entering save_u_matrix(fname=%s,W=%p)\n", fname, W);
     FILE *fp = fopen(fname, "wt");
     if (!fp)  // error with fopen
     {
@@ -157,9 +163,13 @@ int save_u_matrix(const char *fname, struct kohonen_array_3d *W)
             int k;
 
             int from_x = max(0, i - R);
+			fprintf(stderr, "[ERROR] save_u_matrix(fname=%s,W=%p): from_x → %d\n", fname, W, from_x);
             int to_x = min(W->dim1, i + R + 1);
+			fprintf(stderr, "[ERROR] save_u_matrix(fname=%s,W=%p): to_x → %d\n", fname, W, to_x);
             int from_y = max(0, j - R);
+			fprintf(stderr, "[ERROR] save_u_matrix(fname=%s,W=%p): from_y → %d\n", fname, W, from_y);
             int to_y = min(W->dim2, j + R + 1);
+			fprintf(stderr, "[ERROR] save_u_matrix(fname=%s,W=%p): to_y → %d\n", fname, W, to_y);
             int l;
 #ifdef _OPENMP
 #pragma omp parallel for reduction(+ : distance)
@@ -203,6 +213,7 @@ int save_u_matrix(const char *fname, struct kohonen_array_3d *W)
  */
 void get_min_2d(double **X, int N, double *val, int *x_idx, int *y_idx)
 {
+	fprintf(stderr, "[ERROR] >>> Entering get_min_2d(X=%p,N=%p,val=%p,x_idx=%p,y_idx=%p)\n", X, N, val, x_idx, y_idx);
     val[0] = INFINITY;  // initial min value
 
     for (int i = 0; i < N; i++)  // traverse each x-index
@@ -217,6 +228,7 @@ void get_min_2d(double **X, int N, double *val, int *x_idx, int *y_idx)
             }
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting get_min_2d(X=%p,N=%p,val=%p,x_idx=%p,y_idx=%p)\n", X, N, val, x_idx, y_idx);
 }
 
 /**
@@ -365,9 +377,11 @@ void kohonen_som(double **X, struct kohonen_array_3d *W, int num_samples,
  */
 void test_2d_classes(double *const *data, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_2d_classes(data=%p,N=%p)\n", data, N);
     const double R = 0.3;  // radius of cluster
     int i;
     const int num_classes = 4;
+	fprintf(stderr, "[WARN] <<< Exiting test_2d_classes(data=%p,N=%p)\n", data, N);
     const double centres[][2] = {
         // centres of each class cluster
         {.5, .5},   // centre of class 1
@@ -405,6 +419,7 @@ void test_2d_classes(double *const *data, int N)
  */
 void test1()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test1()\n");
     int j, N = 300;
     int features = 2;
     int num_out = 30;  // image size - N x N
@@ -415,8 +430,11 @@ void test1()
     // cluster nodex in 'x' * cluster nodes in 'y' * 2
     struct kohonen_array_3d W;
     W.dim1 = num_out;
+	fprintf(stderr, "[DEBUG] test1(): W.dim1 → %d\n", W.dim1);
     W.dim2 = num_out;
+	fprintf(stderr, "[DEBUG] test1(): W.dim2 → %d\n", W.dim2);
     W.dim3 = features;
+	fprintf(stderr, "[DEBUG] test1(): W.dim3 → %d\n", W.dim3);
     W.data = (double *)malloc(num_out * num_out * features *
                               sizeof(double));  // assign rows
 
@@ -464,9 +482,11 @@ void test1()
  */
 void test_3d_classes1(double *const *data, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_3d_classes1(data=%p,N=%p)\n", data, N);
     const double R = 0.2;  // radius of cluster
     int i;
     const int num_classes = 4;
+	fprintf(stderr, "[WARN] <<< Exiting test_3d_classes1(data=%p,N=%p)\n", data, N);
     const double centres[][3] = {
         // centres of each class cluster
         {.5, .5, .5},    // centre of class 1
@@ -505,6 +525,7 @@ void test_3d_classes1(double *const *data, int N)
  */
 void test2()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test2()\n");
     int j, N = 500;
     int features = 3;
     int num_out = 30;  // image size - N x N
@@ -515,8 +536,11 @@ void test2()
     // cluster nodex in 'x' * cluster nodes in 'y' * 2
     struct kohonen_array_3d W;
     W.dim1 = num_out;
+	fprintf(stderr, "[DEBUG] test2(): W.dim1 → %d\n", W.dim1);
     W.dim2 = num_out;
+	fprintf(stderr, "[DEBUG] test2(): W.dim2 → %d\n", W.dim2);
     W.dim3 = features;
+	fprintf(stderr, "[DEBUG] test2(): W.dim3 → %d\n", W.dim3);
     W.data = (double *)malloc(num_out * num_out * features *
                               sizeof(double));  // assign rows
 
@@ -563,9 +587,11 @@ void test2()
  */
 void test_3d_classes2(double *const *data, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_3d_classes2(data=%p,N=%p)\n", data, N);
     const double R = 0.2;  // radius of cluster
     int i;
     const int num_classes = 8;
+	fprintf(stderr, "[WARN] <<< Exiting test_3d_classes2(data=%p,N=%p)\n", data, N);
     const double centres[][3] = {
         // centres of each class cluster
         {.5, .5, .5},    // centre of class 1
@@ -608,6 +634,7 @@ void test_3d_classes2(double *const *data, int N)
  */
 void test3()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test3()\n");
     int j, N = 500;
     int features = 3;
     int num_out = 30;
@@ -616,8 +643,11 @@ void test3()
     // cluster nodex in 'x' * cluster nodes in 'y' * 2
     struct kohonen_array_3d W;
     W.dim1 = num_out;
+	fprintf(stderr, "[DEBUG] test3(): W.dim1 → %d\n", W.dim1);
     W.dim2 = num_out;
+	fprintf(stderr, "[DEBUG] test3(): W.dim2 → %d\n", W.dim2);
     W.dim3 = features;
+	fprintf(stderr, "[DEBUG] test3(): W.dim3 → %d\n", W.dim3);
     W.data = (double *)malloc(num_out * num_out * features *
                               sizeof(double));  // assign rows
 
@@ -662,6 +692,8 @@ void test3()
  */
 double get_clock_diff(clock_t start_t, clock_t end_t)
 {
+	fprintf(stderr, "[ERROR] >>> Entering get_clock_diff(start_t=%d,end_t=%d)\n", start_t, end_t);
+    fprintf(stderr, "[WARN] <<< Exiting get_clock_diff(start_t=%d,end_t=%d)\n", start_t, end_t);
     return (double)(end_t - start_t) / (double)CLOCKS_PER_SEC;
 }
 
@@ -676,8 +708,12 @@ int main(int argc, char **argv)
     clock_t start_clk, end_clk;
 
     start_clk = clock();
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): start_clk → %d\n", argc, argv, start_clk);
+	fprintf(stderr, "[DEBUG] main(argc=%d,argv=%p): start_clk → %d\n", argc, argv, start_clk);
     test1();
     end_clk = clock();
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): end_clk → %d\n", argc, argv, end_clk);
+    fprintf(stderr, "[DEBUG] main(argc=%d,argv=%p): end_clk → %d\n", argc, argv, end_clk);
     printf("Test 1 completed in %.4g sec\n",
            get_clock_diff(start_clk, end_clk));
 

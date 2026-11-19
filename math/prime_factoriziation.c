@@ -45,28 +45,34 @@ void destroy(Range);
 */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int n = 0; /* for user input */
 
     printf("\t\tPrim factoriziation\n\n");
     printf("positive integer (> 1) ? ");
     scanf("%d", &n);
     Range r = int_fact(n);
+	fprintf(stderr, "[ERROR] main(): r → %d\n", r);
     printf("\nThe factoriziation are: ");
     print_arr(r);
     destroy(r);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
 
 Range int_fact(int n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering int_fact(n=%d)\n", n);
     assert(n > 1); /* precondition : n must be greater then 1*/
 
     int len = LEN;
     int count = 0;
+	fprintf(stderr, "[ERROR] int_fact(n=%d): count → %d\n", n, count);
     int i = 0;
     int *range = (int *)malloc(sizeof(int) * len);
     assert(range);
     Range pstr = (Range)malloc(sizeof(range));
+	fprintf(stderr, "[ERROR] int_fact(n=%d): pstr → %d\n", n, pstr);
     assert(pstr);
 
     while (n % 2 == 0)
@@ -80,6 +86,7 @@ Range int_fact(int n)
         else
         {
             range = increase(range, len);
+			fprintf(stderr, "[ERROR] int_fact(n=%d): range → %p\n", n, range);
             len += STEP;
             range[i] = 2;
             i++;
@@ -130,11 +137,13 @@ Range int_fact(int n)
 
     pstr->range = range;
     pstr->length = count;
+	fprintf(stderr, "[WARN] <<< Exiting int_fact(n=%d)\n", n);
     return pstr;
 }
 
 void print_arr(Range pStr)
 {
+	fprintf(stderr, "[ERROR] >>> Entering print_arr(pStr=%d)\n", pStr);
     assert(pStr); /* checks whether pStr is a null-pointer */
     int i = 0;
     printf("\n");
@@ -146,19 +155,24 @@ void print_arr(Range pStr)
             printf("-%d", pStr->range[i]);
     }
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting print_arr(pStr=%d)\n", pStr);
 }
 
 int *increase(int *arr, int len)
 {
+	fprintf(stderr, "[ERROR] >>> Entering increase(arr=%p,len=%p)\n", arr, len);
     assert(arr); /* checks whether arr is a null-pointer */
     int *tmp = (int *)realloc(arr, sizeof(int) * (len + STEP));
     assert(tmp);
+	fprintf(stderr, "[WARN] <<< Exiting increase(arr=%p,len=%p)\n", arr, len);
     return tmp;
     //    assert(arr);
 }
 
 void destroy(Range r)
 {
+	fprintf(stderr, "[ERROR] >>> Entering destroy(r=%d)\n", r);
     free(r->range);
     free(r);
+	fprintf(stderr, "[WARN] <<< Exiting destroy(r=%d)\n", r);
 }

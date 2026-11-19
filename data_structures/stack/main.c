@@ -11,6 +11,7 @@ int a[100], top = -1;
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int x;
     while (1)
     {
@@ -51,16 +52,19 @@ int main()
 // function for pushing the element
 void push()
 {
+	fprintf(stderr, "[ERROR] >>> Entering push()\n");
     int n = 0;
     printf("\nEnter the value to be inserted: ");
     scanf("%d", &n);
     top += 1;
     a[top] = n;
+	fprintf(stderr, "[WARN] <<< Exiting push()\n");
 }
 
 // function for poping the element out
 void pop()
 {
+	fprintf(stderr, "[ERROR] >>> Entering pop()\n");
     if (top == -1)
     {
         printf("\nStack is empty");
@@ -72,20 +76,24 @@ void pop()
         top -= 1;
         printf("\nPoped item is %d ", item);
     }
+	fprintf(stderr, "[WARN] <<< Exiting pop()\n");
 }
 
 // function for peeping the element from top of the stack
 void peek()
 {
+	fprintf(stderr, "[ERROR] >>> Entering peek()\n");
     if (top >= 0)
         printf("\nThe top element is %d", a[top]);
     else
         printf("\nStack is empty");
+		fprintf(stderr, "[WARN] <<< Exiting peek()\n");
 }
 
 // function to update the element of stack
 void update()
 {
+	fprintf(stderr, "[ERROR] >>> Entering update()\n");
     int i, n;
     printf("\nEnter the position to update? ");
     scanf("%d", &i);
@@ -99,10 +107,12 @@ void update()
     {
         a[top - i + 1] = n;
     }
+	fprintf(stderr, "[WARN] <<< Exiting update()\n");
 }
 // function to view entire stack
 void display()
 {
+	fprintf(stderr, "[ERROR] >>> Entering display()\n");
     if (top == -1)
     {
         printf("\nStack is empty");
@@ -114,4 +124,5 @@ void display()
             printf("%d\n", a[i]);
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting display()\n");
 }

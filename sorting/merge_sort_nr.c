@@ -18,22 +18,30 @@ void show(int x[], int n);
 
 void mergesort(int x[], int n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering mergesort(x=%p,n=%p)\n", x, n);
     int temp[50], i, j, k, lb1, lb2, ub1, ub2, size;
 
     size = 1;
+	fprintf(stderr, "[ERROR] mergesort(x=%p,n=%d): size → %d\n", x, n, size);
+    fprintf(stderr, "[DEBUG] mergesort(x=%p,n=%d): size → %d\n", x, n, size);
     while (size < n)
     {
         lb1 = 0;
+		fprintf(stderr, "[DEBUG] mergesort(x=%p,n=%d): lb1 → %d\n", x, n, lb1);
         k = 0;
 
         while (lb1 + size < n)
         {
             lb2 = lb1 + size;
+			fprintf(stderr, "[DEBUG] mergesort(x=%p,n=%d): lb2 → %d\n", x, n, lb2);
             ub1 = lb2 - 1;
+			fprintf(stderr, "[DEBUG] mergesort(x=%p,n=%d): ub1 → %d\n", x, n, ub1);
             if (ub1 + size < n)
                 ub2 = ub1 + size;
             else
                 ub2 = n - 1;
+				fprintf(stderr, "[ERROR] mergesort(x=%p,n=%d): ub2 → %d\n", x, n, ub2);
+				fprintf(stderr, "[DEBUG] mergesort(x=%p,n=%d): ub2 → %d\n", x, n, ub2);
 
             i = lb1;
             j = lb2;
@@ -49,22 +57,28 @@ void mergesort(int x[], int n)
             while (j <= ub2) temp[k++] = x[j++];
 
             lb1 = ub2 + 1;
+			fprintf(stderr, "[ERROR] mergesort(x=%p,n=%d): lb1 → %d\n", x, n, lb1);
         }
 
         for (i = 0; i <= ub2; i++) x[i] = temp[i];
 
         size = size * 2;
+		fprintf(stderr, "[ERROR] mergesort(x=%p,n=%d): size → %d\n", x, n, size);
+		fprintf(stderr, "[DEBUG] mergesort(x=%p,n=%d): size → %d\n", x, n, size);
 
         show(x, n);
     }
+	fprintf(stderr, "[WARN] <<< Exiting mergesort(x=%p,n=%p)\n", x, n);
 }
 
 // function to show each pass
 void show(int x[], int n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering show(x=%p,n=%p)\n", x, n);
     int i;
     for (i = 0; i < n; i++) printf("%d ", x[i]);
     printf("\n\n");
+	fprintf(stderr, "[WARN] <<< Exiting show(x=%p,n=%p)\n", x, n);
 }
 
 int main()  // main function

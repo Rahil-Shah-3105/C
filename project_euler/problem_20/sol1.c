@@ -6,6 +6,7 @@
  * Implementation uses a custom `big_int` structure that can store arbitrarily
  * large integer numbers.
  */
+#include "errno.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -25,8 +26,10 @@ typedef struct _big_int
 /** print a digit from large integer */
 void print_digit(const big_int *my_int)
 {
+	fprintf(stderr, "[ERROR] >>> Entering print_digit(my_int=%p)\n", my_int);
     printf("\tValue : %d\n\tNext : %p\n\tPrev : %p\n", my_int->value,
            my_int->next_digit, my_int->prev_digit);
+		fprintf(stderr, "[WARN] <<< Exiting print_digit(my_int=%p)\n", my_int);
 }
 #endif
 
@@ -36,9 +39,11 @@ void print_digit(const big_int *my_int)
  */
 big_int *add_digit(big_int *digit, char value)
 {
+	fprintf(stderr, "[ERROR] >>> Entering add_digit(digit=%p,value=%c)\n", digit, value);
     if (digit == NULL)
     {
         digit = (big_int *)malloc(sizeof(big_int));
+		fprintf(stderr, "[ERROR] add_digit(digit=%p,value=%c): digit → %p\n", digit, value, digit);
         if (!digit)
         {
             perror("Unable to allocate memory!");
@@ -66,6 +71,7 @@ big_int *add_digit(big_int *digit, char value)
     digit->next_digit->value = value;
     digit->next_digit->next_digit = NULL;
     digit->next_digit->prev_digit = digit;
+	fprintf(stderr, "[WARN] <<< Exiting add_digit(digit=%p,value=%c)\n", digit, value);
     return digit->next_digit;
 }
 
@@ -75,6 +81,7 @@ big_int *add_digit(big_int *digit, char value)
  */
 char remove_digits(big_int *digit, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering remove_digits(digit=%p,N=%p)\n", digit, N);
     if (digit == NULL)
         return 0;
 
@@ -94,10 +101,12 @@ char remove_digits(big_int *digit, int N)
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     unsigned int N = 5;
     big_int *ptr = add_digit(NULL, 1); /* start with 1 */
     const big_int *ptr0 = ptr;         /* save the first location */
     unsigned long sum_digits = 0;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): N → %u\n", argc, argv, N);
     unsigned long num_digits = 0;
 
     if (argc == 2)
@@ -122,6 +131,7 @@ int main(int argc, char **argv)
             {
                 div_t tmp2 = div(tmp, 10);
                 carry = tmp2.quot;
+				fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): carry → %d\n", argc, argv, carry);
                 tmp = tmp2.rem;
             }
             else

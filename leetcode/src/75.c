@@ -1,4 +1,6 @@
+#include "stdio.h"
 void swap(int *x, int *y){
+	fprintf(stderr, "[ERROR] >>> Entering swap(x=%p,y=%p)\n", x, y);
     if (x==y)
         return;
    *x = *x + *y;
@@ -7,6 +9,7 @@ void swap(int *x, int *y){
 }
 
 void sortColors(int* arr, int n){
+	fprintf(stderr, "[ERROR] >>> Entering sortColors(arr=%p,n=%p)\n", arr, n);
     int start=0, mid=0, end=n-1;
     while(mid<=end){
         if(arr[mid]==1)

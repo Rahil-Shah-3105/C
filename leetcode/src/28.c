@@ -1,9 +1,11 @@
+#include "stdio.h"
 /*
  * brute force approach
  * time complexity: O(mn)
  */
 int strStr(char *haystack, char *needle)
 {
+	fprintf(stderr, "[ERROR] >>> Entering strStr(haystack=%s,needle=%s)\n", haystack, needle);
     int i = 0;
     int j = 0;
     int k = 0;
@@ -17,7 +19,9 @@ int strStr(char *haystack, char *needle)
         return -1;
 
     hlen = strlen(haystack);
+	fprintf(stderr, "[ERROR] strStr(haystack=%s,needle=%s): hlen → %d\n", haystack, needle, hlen);
     nlen = strlen(needle);
+	fprintf(stderr, "[ERROR] strStr(haystack=%s,needle=%s): nlen → %d\n", haystack, needle, nlen);
 
     if (hlen < nlen)
         return -1;
@@ -41,6 +45,7 @@ int strStr(char *haystack, char *needle)
         if (j == nlen)
             return i;
     }
+	fprintf(stderr, "[WARN] <<< Exiting strStr(haystack=%s,needle=%s)\n", haystack, needle);
     return -1;
 }
 
@@ -56,6 +61,7 @@ int strStr(char *haystack, char *needle)
  * in needle */
 void fill_overlap(char *needle, int len_needle, int *overlap)
 {
+	fprintf(stderr, "[ERROR] >>> Entering fill_overlap(needle=%s,len_needle=%s,overlap=%p)\n", needle, len_needle, overlap);
     int len = 0;
     int i = 0;
 
@@ -74,8 +80,10 @@ void fill_overlap(char *needle, int len_needle, int *overlap)
                 len = overlap[len - 1];
             else
                 overlap[i++] = 0;
+				fprintf(stderr, "[ERROR] fill_overlap(needle=%s,len_needle=%d,overlap=%p): len → %d\n", needle, len_needle, overlap, len);
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting fill_overlap(needle=%s,len_needle=%s,overlap=%p)\n", needle, len_needle, overlap);
 }
 
 int strStr(char *haystack, char *needle)

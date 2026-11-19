@@ -22,6 +22,7 @@ insert() - Would insert an element in a queue
 delete() -  Would delete the smallest element in the queue
 */
 
+#include "errno.h"
 #include <stdio.h>
 #include <stdlib.h>
 #define NULL ((void *)0)
@@ -40,6 +41,7 @@ void createqueue() { front = rear = NULL; }
 
 int empty()
 {
+	fprintf(stderr, "[ERROR] >>> Entering empty()\n");
     if (front == NULL)
         return 1;
     else
@@ -48,9 +50,11 @@ int empty()
 
 void insert(int x)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insert(x=%d)\n", x);
     struct node *pnode;
 
     pnode = (struct node *)malloc(sizeof(struct node));
+	fprintf(stderr, "[ERROR] insert(x=%d): pnode → %p\n", x, pnode);
     if (pnode == NULL)
     {
         printf("Memory overflow. Unable to insert.\n");
@@ -64,13 +68,16 @@ void insert(int x)
         front = rear = pnode;
     else
     {
+		fprintf(stderr, "[DEBUG] insert(x=%d): front → %d\n", x, front);
         rear->next = pnode;
         rear = pnode;
     }
+	fprintf(stderr, "[WARN] <<< Exiting insert(x=%d)\n", x);
 }
 
 int removes()
 {
+	fprintf(stderr, "[ERROR] >>> Entering removes()\n");
     int min;
     struct node *follow, *follow1, *p, *p1;
 
@@ -82,19 +89,26 @@ int removes()
 
     /* finding the node with minimum value in the APQ.*/
     p = p1 = front;
+	fprintf(stderr, "[ERROR] removes(): p → %p\n", p);
     follow = follow1 = NULL;
+	fprintf(stderr, "[ERROR] removes(): follow → %p\n", follow);
     min = front->data;
+	fprintf(stderr, "[ERROR] removes(): min → %d\n", min);
+    fprintf(stderr, "[DEBUG] removes(): follow → %p\n", follow);
     while (p != NULL)
     {
+		fprintf(stderr, "[INFO] removes(): min → %d\n", min);
         if (p->data < min)
         {
             min = p->data;
+			fprintf(stderr, "[ERROR] removes(): min → %d\n", min);
             follow1 = follow;
             p1 = p;
         }
         follow = p;
         p = p->next;
     }
+	fprintf(stderr, "[DEBUG] removes(): follow → %p\n", follow);
 
     /* Deleting the node with min value */
 
@@ -107,17 +121,20 @@ int removes()
     else if (p1 == rear) /* Deleting last node */
     {
         rear = follow1;
+		fprintf(stderr, "[ERROR] removes(): rear → %d\n", rear);
         rear->next = NULL;
     }
     else /* deleting any other node.*/
         follow1->next = p1->next;
 
     free(p1);
+	fprintf(stderr, "[WARN] <<< Exiting removes()\n");
     return min; /* DONT FORGET LAST 2 STATEMENTS.*/
 }
 
 void show()
 {
+	fprintf(stderr, "[ERROR] >>> Entering show()\n");
     struct node *p;
 
     if (empty())
@@ -131,16 +148,19 @@ void show()
         {
             printf("%d ", p->data);
             p = p->next;
+			fprintf(stderr, "[ERROR] show(): p → %p\n", p);
         }
 
         printf("\n");
     }
+	fprintf(stderr, "[WARN] <<< Exiting show()\n");
 }
 
 void destroyqueue() { front = rear = NULL; }
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int x, ch;
 
     createqueue();

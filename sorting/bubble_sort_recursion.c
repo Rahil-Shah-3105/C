@@ -16,9 +16,11 @@
  */
 void swap(int *first, int *second)
 {
+	fprintf(stderr, "[ERROR] >>> Entering swap(first=%p,second=%p)\n", first, second);
     int temp = *first;
     *first = *second;
     *second = temp;
+	fprintf(stderr, "[WARN] <<< Exiting swap(first=%p,second=%p)\n", first, second);
 }
 
 /**
@@ -28,6 +30,7 @@ void swap(int *first, int *second)
  */
 void bubbleSort(int *arr, int size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering bubbleSort(arr=%p,size=%p)\n", arr, size);
     if (size == 1)
     {
         return;
@@ -39,12 +42,14 @@ void bubbleSort(int *arr, int size)
         {
             swap(arr + i, arr + i + 1);
             swapped = true;
+			fprintf(stderr, "[ERROR] bubbleSort(arr=%p,size=%d): swapped → %d\n", arr, size, swapped);
         }
     }
     if (swapped)
     {
         bubbleSort(arr, size - 1);
     }
+	fprintf(stderr, "[WARN] <<< Exiting bubbleSort(arr=%p,size=%p)\n", arr, size);
 }
 
 /**
@@ -52,6 +57,7 @@ void bubbleSort(int *arr, int size)
  */
 void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     const int size = 10;
     int *arr = (int *)calloc(size, sizeof(int));
 
@@ -66,13 +72,16 @@ void test()
         assert(arr[i] <= arr[i + 1]);
     }
     free(arr);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /** Driver Code */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     /* Intializes random number generator */
     srand(time(NULL));
     test();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

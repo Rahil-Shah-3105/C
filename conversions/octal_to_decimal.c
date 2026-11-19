@@ -22,6 +22,7 @@ long long toDecimal(int octal_value)
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     printf("Enter octal value: ");
 
     int octal_value;
@@ -32,5 +33,6 @@ int main()
 
     printf("%d in decimal is %lld\n", octal_value, result);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

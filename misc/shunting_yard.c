@@ -20,6 +20,7 @@
  * @returns the operator's precedence
  */
 int getPrecedence(char operator) {
+	fprintf(stderr, "[ERROR] >>> Entering getPrecedence(operator=%c)\n", operator);
     switch (operator) {
         case '+':
         case '-': {
@@ -34,6 +35,7 @@ int getPrecedence(char operator) {
         }
         default:{
             fprintf(stderr,"Error: Invalid operator\n");
+			fprintf(stderr, "[WARN] <<< Exiting getPrecedence(operator=%c)\n", operator);
             return -1;
         }
     }
@@ -46,6 +48,7 @@ int getPrecedence(char operator) {
  * @returns '0' if the operator is right associative
  */
 int getAssociativity(char operator) {
+	fprintf(stderr, "[ERROR] >>> Entering getAssociativity(operator=%c)\n", operator);
     switch (operator) {
         case '^': {
             return 0;
@@ -58,6 +61,7 @@ int getAssociativity(char operator) {
         }
         default: {
             fprintf(stderr,"Error: Invalid operator\n");
+			fprintf(stderr, "[WARN] <<< Exiting getAssociativity(operator=%c)\n", operator);
             return -1;
         }
     }
@@ -71,8 +75,10 @@ int getAssociativity(char operator) {
  * @returns `0` if no mismatches are detected
  */
 int shuntingYard(const char *input, char *output) {
+	fprintf(stderr, "[ERROR] >>> Entering shuntingYard(input=%s,output=%s)\n", input, output);
     const unsigned int inputLength = strlen(input);
     char* operatorStack = (char*) malloc(sizeof(char) * inputLength);
+	fprintf(stderr, "[ERROR] shuntingYard(input=%s,output=%s): inputLength → %u\n", input, output, inputLength);
 
     // This pointer points at where we should insert the next element,
     // Hence stackPointer - 1 is used when accessing elements
@@ -149,8 +155,11 @@ int shuntingYard(const char *input, char *output) {
                 // We need to check if there's actually a valid operator at the top of the stack
                 if((stackPointer - 1 > 0) && operatorStack[stackPointer - 1] != '(') {
                     const int precedence1 = getPrecedence(token[0]);
+					fprintf(stderr, "[ERROR] shuntingYard(input=%s,output=%s): precedence1 → %d\n", input, output, precedence1);
                     const int precedence2 = getPrecedence(operatorStack[stackPointer - 1]);
+					fprintf(stderr, "[ERROR] shuntingYard(input=%s,output=%s): precedence2 → %d\n", input, output, precedence2);
                     const int associativity = getAssociativity(token[0]);
+					fprintf(stderr, "[ERROR] shuntingYard(input=%s,output=%s): associativity → %d\n", input, output, associativity);
 
                     // We pop operators from the stack, if...
                     while ( // ... their precedences are equal, and o1 is left associative, ...
@@ -195,6 +204,7 @@ int shuntingYard(const char *input, char *output) {
     }
 
     free(operatorStack);
+	fprintf(stderr, "[WARN] <<< Exiting shuntingYard(input=%s,output=%s)\n", input, output);
     return 0;
 }
 
@@ -203,6 +213,7 @@ int shuntingYard(const char *input, char *output) {
  * @returns void
  */
 static void test() {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     char* in = malloc(sizeof(char) * 50);
     char* out = malloc(sizeof(char) * 50);
     int i;
@@ -233,6 +244,8 @@ static void test() {
  * @returns 0 on exit
  */
 int main() {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test(); // Run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

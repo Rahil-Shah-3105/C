@@ -27,6 +27,7 @@
  * @returns The decimal equivalent of the binary number
 */
 int convert_to_decimal(uint64_t number) {
+	fprintf(stderr, "[ERROR] >>> Entering convert_to_decimal(number=%d)\n", number);
     int decimal_number = 0, i = 0;
 
     while (number > 0) {
@@ -35,6 +36,7 @@ int convert_to_decimal(uint64_t number) {
         i++;
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting convert_to_decimal(number=%d)\n", number);
     return decimal_number;
 }
 
@@ -43,6 +45,7 @@ int convert_to_decimal(uint64_t number) {
  * @returns void
 */
 static void tests() {
+	fprintf(stderr, "[ERROR] >>> Entering tests()\n");
     assert(convert_to_decimal(111) == 7);
     assert(convert_to_decimal(101) == 5);
     assert(convert_to_decimal(1010) == 10);
@@ -55,6 +58,7 @@ static void tests() {
     assert(convert_to_decimal(101110111) == 375);
 
     printf("All tests have successfully passed!\n");
+	fprintf(stderr, "[WARN] <<< Exiting tests()\n");
 }
 
 /**
@@ -63,6 +67,8 @@ static void tests() {
 */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     tests();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

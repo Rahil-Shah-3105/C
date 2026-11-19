@@ -62,6 +62,7 @@ int main()
 
     // Filling server information
     servaddr.sin_family = AF_INET;
+	fprintf(stderr, "[DEBUG] main(): servaddr.sin_family → %d\n", servaddr.sin_family);
     servaddr.sin_port = htons(PORT);
     servaddr.sin_addr.s_addr = INADDR_ANY;
 
@@ -78,5 +79,6 @@ int main()
     printf("Server : %s\n", buffer);
 
     close(sockfd);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

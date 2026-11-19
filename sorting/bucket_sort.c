@@ -24,11 +24,14 @@ int getBucketIndex(int value);
 
 void BucketSort(int arr[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering BucketSort(arr=%p)\n", arr);
     int i, j;
     struct Node **buckets;
 
     /* allocate memory for array of pointers to the buckets */
     buckets = (struct Node **)malloc(sizeof(struct Node *) * NBUCKET);
+	fprintf(stderr, "[ERROR] BucketSort(arr=%p): buckets → %p\n", arr, buckets);
+	fprintf(stderr, "[DEBUG] BucketSort(arr=%p): buckets → %p\n", arr, buckets);
 
     /* initialize pointers to the buckets */
     for (i = 0; i < NBUCKET; ++i)
@@ -42,7 +45,9 @@ void BucketSort(int arr[])
     {
         struct Node *current;
         int pos = getBucketIndex(arr[i]);
+		fprintf(stderr, "[ERROR] BucketSort(arr=%p): pos → %d\n", arr, pos);
         current = (struct Node *)malloc(sizeof(struct Node));
+		fprintf(stderr, "[ERROR] BucketSort(arr=%p): current → %p\n", arr, current);
         current->data = arr[i];
         current->next = buckets[pos];
         buckets[pos] = current;
@@ -77,6 +82,7 @@ void BucketSort(int arr[])
     {
         struct Node *node;
         node = buckets[i];
+		fprintf(stderr, "[ERROR] BucketSort(arr=%p): node → %p\n", arr, node);
         while (node)
         {
             // precondition for avoiding out of bounds by the array
@@ -95,11 +101,13 @@ void BucketSort(int arr[])
         {
             struct Node *tmp;
             tmp = node;
+			fprintf(stderr, "[DEBUG] BucketSort(arr=%p): tmp → %p\n", arr, tmp);
             node = node->next;
             free(tmp);
         }
     }
     free(buckets);
+	fprintf(stderr, "[WARN] <<< Exiting BucketSort(arr=%p)\n", arr);
     return;
 }
 
@@ -163,26 +171,31 @@ int getBucketIndex(int value) { return value / INTERVAL; }
 
 void print(int ar[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering print(ar=%p)\n", ar);
     int i;
     for (i = 0; i < NARRAY; ++i)
     {
         printf("%d ", ar[i]);
     }
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting print(ar=%p)\n", ar);
 }
 
 void printBuckets(struct Node *list)
 {
+	fprintf(stderr, "[ERROR] >>> Entering printBuckets(list=%p)\n", list);
     struct Node *cur = list;
     while (cur)
     {
         printf("%d ", cur->data);
         cur = cur->next;
+		fprintf(stderr, "[ERROR] printBuckets(list=%p): cur → %p\n", list, cur);
     }
 }
 
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int array[NARRAY] = {29, 25, -1, 49, 9, 37, 21, 43};
 
     printf("Initial array\n");
@@ -193,5 +206,6 @@ int main(void)
     printf("------------\n");
     printf("Sorted array\n");
     print(array);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

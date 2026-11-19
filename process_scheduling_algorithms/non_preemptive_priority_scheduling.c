@@ -18,6 +18,7 @@
  * been executed.
  * @author [Aryan Raj](https://github.com/aryaraj132)
  */
+#include "errno.h"
 #include <assert.h>   /// for assert
 #include <stdbool.h>  /// for boolean data type
 #include <stdio.h>    /// for IO operations (`printf`)
@@ -47,6 +48,7 @@
  */
 void insert(node **root, int id, int at, int bt, int prior)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insert(root=%p,id=%p,at=%d,bt=%d,prior=%d)\n", root, id, at, bt, prior);
     // create a new node and initialize it
     node *new = (node *)malloc(sizeof(node));
     node *ptr = *root;
@@ -61,6 +63,7 @@ void insert(node **root, int id, int at, int bt, int prior)
     // if the root is null, make the new node the root
     if (*root == NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in insert(root=%p,id=%d,at=%d,bt=%d,prior=%d): %d\n", root, id, at, bt, prior, errno);
         *root = new;
         return;
     }
@@ -68,8 +71,10 @@ void insert(node **root, int id, int at, int bt, int prior)
     while (ptr->next != NULL)
     {
         ptr = ptr->next;
+		fprintf(stderr, "[ERROR] insert(root=%p,id=%d,at=%d,bt=%d,prior=%d): ptr → %p\n", root, id, at, bt, prior, ptr);
     }
     ptr->next = new;
+	fprintf(stderr, "[WARN] <<< Exiting insert(root=%p,id=%p,at=%d,bt=%d,prior=%d)\n", root, id, at, bt, prior);
     return;
 }
 /*
@@ -80,10 +85,12 @@ void insert(node **root, int id, int at, int bt, int prior)
  */
 void delete(node **root, int id)
 {
+	fprintf(stderr, "[ERROR] >>> Entering delete(root=%p,id=%p)\n", root, id);
     node *ptr = *root, *prev;
     // if the root is null, return
     if (ptr == NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in delete(root=%p,id=%d): %d\n", root, id, errno);
         return;
     }
     // if the root is the process to be deleted, make the next node the root
@@ -98,6 +105,7 @@ void delete(node **root, int id)
     {
         prev = ptr;
         ptr = ptr->next;
+		fprintf(stderr, "[ERROR] delete(root=%p,id=%d): ptr → %p\n", root, id, ptr);
     }
     if (ptr == NULL)
     {
@@ -105,6 +113,7 @@ void delete(node **root, int id)
     }
     prev->next = ptr->next;
     free(ptr);
+	fprintf(stderr, "[WARN] <<< Exiting delete(root=%p,id=%p)\n", root, id);
 }
 /**
  * @brief To show the process queue
@@ -113,6 +122,7 @@ void delete(node **root, int id)
  */
 void show_list(node *head)
 {
+	fprintf(stderr, "[ERROR] >>> Entering show_list(head=%p)\n", head);
     printf("Process Priority AT BT CT TAT WT \n");
     while (head != NULL)
     {
@@ -120,6 +130,7 @@ void show_list(node *head)
                head->BT, head->CT, head->TAT, head->WT);
         head = head->next;
     }
+	fprintf(stderr, "[WARN] <<< Exiting show_list(head=%p)\n", head);
 }
 /**
  * @brief To length process queue
@@ -128,13 +139,17 @@ void show_list(node *head)
  */
 int l_length(node **root)
 {
+	fprintf(stderr, "[ERROR] >>> Entering l_length(root=%p)\n", root);
     int count = 0;
     node *ptr = *root;
     while (ptr != NULL)
     {
         count++;
         ptr = ptr->next;
+		fprintf(stderr, "[ERROR] l_length(root=%p): ptr → %p\n", root, ptr);
+    fprintf(stderr, "[ERROR] l_length(root=%p): count → %d\n", root, count);
     }
+	fprintf(stderr, "[WARN] <<< Exiting l_length(root=%p)\n", root);
     return count;
 }
 /**
@@ -149,6 +164,7 @@ int l_length(node **root)
  */
 void update(node **root, int id, int ct, int wt, int tat)
 {
+	fprintf(stderr, "[ERROR] >>> Entering update(root=%p,id=%p,ct=%d,wt=%d,tat=%d)\n", root, id, ct, wt, tat);
     node *ptr = *root;
     // If process to be updated is head node
     if (ptr != NULL && ptr->ID == id)
@@ -171,6 +187,7 @@ void update(node **root, int id, int ct, int wt, int tat)
     while (ptr != NULL && ptr->ID != id)
     {
         ptr = ptr->next;
+		fprintf(stderr, "[ERROR] update(root=%p,id=%d,ct=%d,wt=%d,tat=%d): ptr → %p\n", root, id, ct, wt, tat, ptr);
     }
     if (ct != 0)
     {
@@ -184,6 +201,7 @@ void update(node **root, int id, int ct, int wt, int tat)
     {
         ptr->TAT = tat;
     }
+	fprintf(stderr, "[WARN] <<< Exiting update(root=%p,id=%p,ct=%d,wt=%d,tat=%d)\n", root, id, ct, wt, tat);
     return;
 }
 /**
@@ -198,12 +216,14 @@ void update(node **root, int id, int ct, int wt, int tat)
  */
 bool compare(node *a, node *b)
 {
+	fprintf(stderr, "[ERROR] >>> Entering compare(a=%p,b=%p)\n", a, b);
     if (a->AT == b->AT)
     {
         return a->priority < b->priority;
     }
     else
     {
+		fprintf(stderr, "[WARN] <<< Exiting compare(a=%p,b=%p)\n", a, b);
         return a->AT < b->AT;
     }
 }
@@ -214,10 +234,13 @@ bool compare(node *a, node *b)
  */
 float calculate_ct(node **root)
 {
+	fprintf(stderr, "[ERROR] >>> Entering calculate_ct(root=%p)\n", root);
     // calculate the total completion time of all the processes
     node *ptr = *root, *prior, *rpt;
     int ct = 0, i, time = 0;
+	fprintf(stderr, "[ERROR] calculate_ct(root=%p): ct → %d\n", root, ct);
     int n = l_length(root);
+	fprintf(stderr, "[ERROR] calculate_ct(root=%p): n → %d\n", root, n);
     float avg, sum = 0;
     node *duproot = NULL;
     // create a duplicate queue
@@ -225,9 +248,11 @@ float calculate_ct(node **root)
     {
         insert(&duproot, ptr->ID, ptr->AT, ptr->BT, ptr->priority);
         ptr = ptr->next;
+		fprintf(stderr, "[ERROR] calculate_ct(root=%p): ptr → %p\n", root, ptr);
     }
     ptr = duproot;
     rpt = ptr->next;
+	fprintf(stderr, "[ERROR] calculate_ct(root=%p): rpt → %p\n", root, rpt);
     // sort the queue based on the arrival time and priority
     while (rpt != NULL)
     {
@@ -240,6 +265,7 @@ float calculate_ct(node **root)
     // ptr is the process to be executed first.
     ct = ptr->AT + ptr->BT;
     time = ct;
+	fprintf(stderr, "[DEBUG] calculate_ct(root=%p): time → %d\n", root, time);
     sum += ct;
     // update the completion time, turn around time and waiting time of the
     // process
@@ -272,6 +298,8 @@ float calculate_ct(node **root)
         delete (&duproot, ptr->ID);
     }
     avg = sum / n;
+	fprintf(stderr, "[DEBUG] calculate_ct(root=%p): avg → %f\n", root, avg);
+    fprintf(stderr, "[WARN] <<< Exiting calculate_ct(root=%p)\n", root);
     return avg;
 }
 /**
@@ -281,8 +309,10 @@ float calculate_ct(node **root)
  */
 float calculate_tat(node **root)
 {
+	fprintf(stderr, "[ERROR] >>> Entering calculate_tat(root=%p)\n", root);
     float avg, sum = 0;
     int n = l_length(root);
+	fprintf(stderr, "[ERROR] calculate_tat(root=%p): n → %d\n", root, n);
     node *ptr = *root;
     // calculate the completion time if not already calculated
     if (ptr->CT == 0)
@@ -295,8 +325,11 @@ float calculate_tat(node **root)
         ptr->TAT = ptr->CT - ptr->AT;
         sum += ptr->TAT;
         ptr = ptr->next;
+		fprintf(stderr, "[ERROR] calculate_tat(root=%p): ptr → %p\n", root, ptr);
     }
     avg = sum / n;
+	fprintf(stderr, "[DEBUG] calculate_tat(root=%p): avg → %f\n", root, avg);
+    fprintf(stderr, "[WARN] <<< Exiting calculate_tat(root=%p)\n", root);
     return avg;
 }
 /**
@@ -306,8 +339,10 @@ float calculate_tat(node **root)
  */
 float calculate_wt(node **root)
 {
+	fprintf(stderr, "[ERROR] >>> Entering calculate_wt(root=%p)\n", root);
     float avg, sum = 0;
     int n = l_length(root);
+	fprintf(stderr, "[ERROR] calculate_wt(root=%p): n → %d\n", root, n);
     node *ptr = *root;
     // calculate the completion if not already calculated
     if (ptr->CT == 0)
@@ -320,8 +355,11 @@ float calculate_wt(node **root)
         ptr->WT = (ptr->TAT - ptr->BT);
         sum += ptr->WT;
         ptr = ptr->next;
+		fprintf(stderr, "[ERROR] calculate_wt(root=%p): ptr → %p\n", root, ptr);
     }
     avg = sum / n;
+	fprintf(stderr, "[DEBUG] calculate_wt(root=%p): avg → %f\n", root, avg);
+    fprintf(stderr, "[WARN] <<< Exiting calculate_wt(root=%p)\n", root);
     return avg;
 }
 
@@ -331,6 +369,7 @@ float calculate_wt(node **root)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     // Entered processes
     // printf("ID Priority Arrival Time Burst Time \n");
     // printf("1 0 5 1 \n");
@@ -346,8 +385,11 @@ static void test()
     insert(&root, 4, 3, 2, 4);
     insert(&root, 5, 4, 1, 5);
     float avgCT = calculate_ct(&root);
+	fprintf(stderr, "[ERROR] test(): avgCT → %f\n", avgCT);
     float avgTAT = calculate_tat(&root);
+	fprintf(stderr, "[ERROR] test(): avgTAT → %f\n", avgTAT);
     float avgWT = calculate_wt(&root);
+	fprintf(stderr, "[ERROR] test(): avgWT → %f\n", avgWT);
     assert(avgCT == 11);
     assert(avgTAT == 9);
     assert(avgWT == 6);
@@ -355,6 +397,7 @@ static void test()
     // printf("Average Completion Time is : %f \n", calculate_ct(&root));
     // printf("Average Turn Around Time is : %f \n", calculate_tat(&root));
     // printf("Average Waiting Time is : %f \n", calculate_wt(&root));
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -363,7 +406,9 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();  // run self-test implementations
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

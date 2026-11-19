@@ -54,17 +54,22 @@ typedef struct segment_tree
  */
 void segment_tree_build(segment_tree *tree)
 {
+	fprintf(stderr, "[ERROR] >>> Entering segment_tree_build(tree=%p)\n", tree);
     size_t elem_size = tree->elem_size;
     int index = (tree->length - 2);
     size_t b, l, r;
     char *ptr = (char *)tree->root;
+	fprintf(stderr, "[ERROR] segment_tree_build(tree=%p): ptr → %p\n", tree, ptr);
     for (; index >= 0; index--)
     {
         b = index * elem_size;
         l = (2 * index + 1) * elem_size;
+		fprintf(stderr, "[ERROR] segment_tree_build(tree=%p): l → %zu\n", tree, l);
         r = (2 * index + 2) * elem_size;
+		fprintf(stderr, "[ERROR] segment_tree_build(tree=%p): r → %zu\n", tree, r);
         tree->combine(ptr + l, ptr + r, ptr + b);
     }
+	fprintf(stderr, "[WARN] <<< Exiting segment_tree_build(tree=%p)\n", tree);
 }
 
 /**
@@ -78,6 +83,7 @@ void segment_tree_build(segment_tree *tree)
  */
 void segment_tree_update(segment_tree *tree, size_t index, void *val)
 {
+	fprintf(stderr, "[ERROR] >>> Entering segment_tree_update(tree=%p,index=%zu,val=%p)\n", tree, index, val);
     size_t elem_size = tree->elem_size;
     index = index + tree->length - 1;
     char *base = (char *)tree->root;
@@ -90,6 +96,7 @@ void segment_tree_update(segment_tree *tree, size_t index, void *val)
                       base + (2 * index + 2) * elem_size,
                       base + index * elem_size);
     }
+	fprintf(stderr, "[WARN] <<< Exiting segment_tree_update(tree=%p,index=%zu,val=%p)\n", tree, index, val);
 }
 
 /**
@@ -104,9 +111,11 @@ void segment_tree_update(segment_tree *tree, size_t index, void *val)
  */
 void segment_tree_query(segment_tree *tree, long long l, long long r, void *res)
 {
+	fprintf(stderr, "[ERROR] >>> Entering segment_tree_query(tree=%p,l=%lld,r=%lld,res=%p)\n", tree, l, r, res);
     size_t elem_size = tree->elem_size;
     memcpy(res, tree->identity, elem_size);
     elem_size = tree->elem_size;
+	fprintf(stderr, "[ERROR] segment_tree_query(tree=%p,l=%lld,r=%lld,res=%p): elem_size → %zu\n", tree, l, r, res, elem_size);
     char *root = (char *)tree->root;
     l += tree->length - 1;
     r += tree->length - 1;
@@ -121,8 +130,11 @@ void segment_tree_query(segment_tree *tree, long long l, long long r, void *res)
             tree->combine(res, root + r * elem_size, res);
         }
         r = (r >> 1) - 1;
+		fprintf(stderr, "[ERROR] segment_tree_query(tree=%p,l=%lld,r=%lld,res=%p): r → %lld\n", tree, l, r, res, r);
         l = (l >> 1);
+		fprintf(stderr, "[ERROR] segment_tree_query(tree=%p,l=%lld,r=%lld,res=%p): l → %lld\n", tree, l, r, res, l);
     }
+	fprintf(stderr, "[WARN] <<< Exiting segment_tree_query(tree=%p,l=%lld,r=%lld,res=%p)\n", tree, l, r, res);
 }
 
 /**
@@ -161,8 +173,10 @@ segment_tree *segment_tree_init(void *arr, size_t elem_size, size_t len,
  */
 void segment_tree_dispose(segment_tree *tree)
 {
+	fprintf(stderr, "[ERROR] >>> Entering segment_tree_dispose(tree=%p)\n", tree);
     free(tree->root);
     free(tree->identity);
+	fprintf(stderr, "[WARN] <<< Exiting segment_tree_dispose(tree=%p)\n", tree);
 }
 
 /**
@@ -174,6 +188,7 @@ void segment_tree_dispose(segment_tree *tree)
  */
 void segment_tree_print_int(segment_tree *tree)
 {
+	fprintf(stderr, "[ERROR] >>> Entering segment_tree_print_int(tree=%p)\n", tree);
     char *base = (char *)tree->root;
     size_t i = 0;
     for (; i < 2 * tree->length - 1; i++)
@@ -181,6 +196,7 @@ void segment_tree_print_int(segment_tree *tree)
         printf("%d ", *(int *)(base + i * tree->elem_size));
     }
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting segment_tree_print_int(tree=%p)\n", tree);
 }
 
 /**
@@ -193,7 +209,9 @@ void segment_tree_print_int(segment_tree *tree)
  */
 void minimum(const void *a, const void *b, void *c)
 {
+	fprintf(stderr, "[ERROR] >>> Entering minimum(a=%p,b=%p,c=%p)\n", a, b, c);
     *(int *)c = *(int *)a < *(int *)b ? *(int *)a : *(int *)b;
+	fprintf(stderr, "[WARN] <<< Exiting minimum(a=%p,b=%p,c=%p)\n", a, b, c);
 }
 
 /**
@@ -204,6 +222,7 @@ void minimum(const void *a, const void *b, void *c)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     int32_t arr[10] = {1, 0, 3, 5, 7, 2, 11, 6, -2, 8};
     int32_t identity = __INT32_MAX__;
     segment_tree *tree =
@@ -215,6 +234,7 @@ static void test()
     segment_tree_query(tree, 8, 9, &result);
     assert(result == -2);
     result = 12;
+	fprintf(stderr, "[ERROR] test(): result → %d\n", result);
     segment_tree_update(tree, 5, &result);
     segment_tree_update(tree, 8, &result);
     segment_tree_query(tree, 0, 3, &result);
@@ -222,6 +242,7 @@ static void test()
     segment_tree_query(tree, 8, 9, &result);
     assert(result == 8);
     segment_tree_dispose(tree);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -230,6 +251,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

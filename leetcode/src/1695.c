@@ -1,9 +1,12 @@
+#include "stdio.h"
 // Window sliding. Runtime: O(n), Space: O(n)
 int maximumUniqueSubarray(int* nums, int numsSize){
+	fprintf(stderr, "[ERROR] >>> Entering maximumUniqueSubarray(nums=%p,numsSize=%p)\n", nums, numsSize);
     short* numsSet = (short*)calloc(10001, sizeof(short));
     numsSet[nums[0]] = 1;
 
     int maxSum = nums[0];
+	fprintf(stderr, "[ERROR] maximumUniqueSubarray(nums=%p,numsSize=%d): maxSum → %d\n", nums, numsSize, maxSum);
 
     int windowSumm = maxSum;
     int leftIndex = 0;
@@ -11,6 +14,7 @@ int maximumUniqueSubarray(int* nums, int numsSize){
     int num = 0;
     for(int i = 1; i < numsSize; i++){
         num = nums[i];
+		fprintf(stderr, "[ERROR] maximumUniqueSubarray(nums=%p,numsSize=%d): num → %d\n", nums, numsSize, num);
         while (numsSet[num] != 0){
             numsSet[nums[leftIndex]] = 0;
             windowSumm -= nums[leftIndex];
@@ -25,5 +29,6 @@ int maximumUniqueSubarray(int* nums, int numsSize){
         }
     }
     
+	fprintf(stderr, "[WARN] <<< Exiting maximumUniqueSubarray(nums=%p,numsSize=%p)\n", nums, numsSize);
     return maxSum;
 }

@@ -1,3 +1,4 @@
+#include "stdio.h"
 /*
 Prompt:
 
@@ -36,15 +37,18 @@ Implementation:
 */
 
 bool matchStar(char ch, char* s, char* p) {
+fprintf(stderr, "[ERROR] >>> Entering matchStar(ch=%c,s=%s,p=%s)\n", ch, s, p);
   do {
     if (isMatch(s, p))
       return true;
   } while (*s != '\0' && (*s++ == ch || ch == '.'));
 
+fprintf(stderr, "[WARN] <<< Exiting matchStar(ch=%c,s=%s,p=%s)\n", ch, s, p);
   return false;
 }
 
 bool isMatch(char* s, char* p) {
+fprintf(stderr, "[ERROR] >>> Entering isMatch(s=%s,p=%s)\n", s, p);
   if (*p == '\0')
     return *s == '\0';
 
@@ -55,5 +59,6 @@ bool isMatch(char* s, char* p) {
     return isMatch(s + 1, p + 1);
   }
 
+fprintf(stderr, "[WARN] <<< Exiting isMatch(s=%s,p=%s)\n", s, p);
   return false;
 }

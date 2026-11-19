@@ -19,6 +19,7 @@
  */
 void shell_sort(char data[][MAX_NAME_LEN], int LEN)
 {
+	fprintf(stderr, "[ERROR] >>> Entering shell_sort(data=%p,LEN=%p)\n", data, LEN);
     const int gaps[] = {701, 301, 132, 57, 23, 10, 4, 1};
     const int gap_len = 8;
     int i, j, g;
@@ -47,6 +48,7 @@ void shell_sort(char data[][MAX_NAME_LEN], int LEN)
  */
 void lazy_sort(char data[][MAX_NAME_LEN], int LEN)
 {
+	fprintf(stderr, "[ERROR] >>> Entering lazy_sort(data=%p,LEN=%p)\n", data, LEN);
     int i, j;
     for (i = 0; i < LEN; i++)
     {
@@ -69,11 +71,13 @@ void lazy_sort(char data[][MAX_NAME_LEN], int LEN)
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     unsigned long COUNT = 0;
     char *fname = "names.txt";
     char names[MAX_NAMES][MAX_NAME_LEN];
     short method = 0; /* sorting algorithm to use. 0 = lazy, 1 = shell-sort */
 
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): method → %hd\n", argc, argv, method);
     if (argc == 2)
         method = atoi(argv[1]);
 
@@ -90,6 +94,7 @@ int main(int argc, char **argv)
     do
     {
         int ret = fscanf(fp, "\"%[^\",]\",", names[COUNT++]);
+		fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): ret → %d\n", argc, argv, ret);
         if (ret <= 0)
             continue;
         // printf("%s\t", names[COUNT - 1]);
@@ -117,6 +122,7 @@ int main(int argc, char **argv)
 
     long sum_score = 0;
     clock_t start_time = clock();
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     int i;
 
 #ifdef _OPENMP

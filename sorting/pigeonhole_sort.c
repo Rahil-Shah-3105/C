@@ -3,6 +3,7 @@
 
 void pigeonholeSort(int arr[], int size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering pigeonholeSort(arr=%p,size=%p)\n", arr, size);
     int i, j, min = arr[0], max = arr[0], range;
 
     // Getting range of the array using max and min
@@ -10,10 +11,13 @@ void pigeonholeSort(int arr[], int size)
     {
         if (arr[i] < min)
             min = arr[i];
+			fprintf(stderr, "[INFO] pigeonholeSort(arr=%p,size=%d): min → %d\n", arr, size, min);
         if (arr[i] > max)
             max = arr[i];
+			fprintf(stderr, "[INFO] pigeonholeSort(arr=%p,size=%d): max → %d\n", arr, size, max);
     }
     range = max - min + 1;
+	fprintf(stderr, "[DEBUG] pigeonholeSort(arr=%p,size=%d): range → %d\n", arr, size, range);
 
     // Make 'holes' and put array's numbers in holes
     int *holes = (int *)malloc(sizeof(int) * range);
@@ -39,10 +43,12 @@ void pigeonholeSort(int arr[], int size)
     }
 
     free(holes);
+	fprintf(stderr, "[WARN] <<< Exiting pigeonholeSort(arr=%p,size=%p)\n", arr, size);
 }
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int i, n;
 
     printf("Enter the size of the array: ");
@@ -69,5 +75,6 @@ int main()
     printf("\n");
 
     free(arr);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

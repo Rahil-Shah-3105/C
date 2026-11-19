@@ -18,6 +18,7 @@
  */
 long count_divisors(long long n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering count_divisors(n=%lld)\n", n);
     long num_divisors = 0;
 
     for (long long i = 1; i < sqrtl(n) + 1; i++)
@@ -26,14 +27,17 @@ long count_divisors(long long n)
         else if (i * i == n)
             num_divisors += 1;
 
+	fprintf(stderr, "[WARN] <<< Exiting count_divisors(n=%lld)\n", n);
     return num_divisors;
 }
 
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     int MAX_DIVISORS = 500;
     long i = 1, num_divisors;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): MAX_DIVISORS → %d\n", argc, argv, MAX_DIVISORS);
     long long triangle_number = 1;
 
     if (argc == 2)
@@ -44,6 +48,8 @@ int main(int argc, char **argv)
         i++;
         triangle_number += i;
         num_divisors = count_divisors(triangle_number);
+		fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): num_divisors → %ld\n", argc, argv, num_divisors);
+		fprintf(stderr, "[DEBUG] main(argc=%d,argv=%p): num_divisors → %ld\n", argc, argv, num_divisors);
         if (num_divisors > MAX_DIVISORS)
             break;
     }
@@ -51,5 +57,6 @@ int main(int argc, char **argv)
     printf("First Triangle number with more than %d divisors: %lld\n",
            MAX_DIVISORS, triangle_number);
 
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

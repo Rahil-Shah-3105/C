@@ -17,6 +17,7 @@
  */
 static char check_number(unsigned long long n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering check_number(n=%llu)\n", n);
     for (unsigned long long i = 1; i <= 20; ++i)
     {
         if (n % i != 0)
@@ -25,6 +26,7 @@ static char check_number(unsigned long long n)
         }
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting check_number(n=%llu)\n", n);
     return 1;
 }
 
@@ -35,6 +37,7 @@ static char check_number(unsigned long long n)
  */
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     for (unsigned long long n = 1;; ++n)
     {
         if (check_number(n))
@@ -44,5 +47,6 @@ int main(void)
         }
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

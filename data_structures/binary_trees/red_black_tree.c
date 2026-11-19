@@ -1,3 +1,4 @@
+#include "errno.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,33 +15,39 @@ typedef struct node
 // Create a new node
 Node *newNode(int val, Node *par)
 {
+	fprintf(stderr, "[ERROR] >>> Entering newNode(val=%d,par=%p)\n", val, par);
     Node *create = (Node *)(malloc(sizeof(Node)));
     create->val = val;
     create->par = par;
     create->left = NULL;
     create->right = NULL;
     create->color = 1;
+	fprintf(stderr, "[WARN] <<< Exiting newNode(val=%d,par=%p)\n", val, par);
 }
 
 // Check if the node is the leaf
 int isLeaf(Node *n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering isLeaf(n=%p)\n", n);
     if (n->left == NULL && n->right == NULL)
     {
         return 1;
     }
+	fprintf(stderr, "[WARN] <<< Exiting isLeaf(n=%p)\n", n);
     return 0;
 }
 
 // Left Rotate
 Node *leftRotate(Node *node)
 {
+	fprintf(stderr, "[ERROR] >>> Entering leftRotate(node=%p)\n", node);
     Node *parent = node->par;
     Node *grandParent = parent->par;
 
     parent->right = node->left;
     if (node->left != NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in leftRotate(node=%p): %d\n", node, errno);
         node->left->par = parent;
     }
     node->par = grandParent;
@@ -57,18 +64,21 @@ Node *leftRotate(Node *node)
             grandParent->left = node;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting leftRotate(node=%p)\n", node);
     return node;
 }
 
 // Right Rotate
 Node *rightRotate(Node *node)
 {
+	fprintf(stderr, "[ERROR] >>> Entering rightRotate(node=%p)\n", node);
     Node *parent = node->par;
     Node *grandParent = parent->par;
 
     parent->left = node->right;
     if (node->right != NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in rightRotate(node=%p): %d\n", node, errno);
         node->right->par = parent;
     }
     node->par = grandParent;
@@ -85,12 +95,14 @@ Node *rightRotate(Node *node)
             grandParent->left = node;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting rightRotate(node=%p)\n", node);
     return node;
 }
 
 // Check the node after the insertion step
 void checkNode(Node *node)
 {
+	fprintf(stderr, "[ERROR] >>> Entering checkNode(node=%p)\n", node);
     // If the node is the root
     if (node == NULL || node->par == NULL)
     {
@@ -113,6 +125,7 @@ void checkNode(Node *node)
     // Just make the root black.
     if (grandParent == NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in checkNode(node=%p): %d\n", node, errno);
         parent->color = 0;
         return;
     }
@@ -278,11 +291,13 @@ void checkNode(Node *node)
             }
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting checkNode(node=%p)\n", node);
 }
 
 // To insert a node in the existing tree
 void insertNode(int val, Node **root)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insertNode(val=%d,root=%p)\n", val, root);
     Node *buffRoot = *root;
     while (buffRoot)
     {
@@ -291,7 +306,9 @@ void insertNode(int val, Node **root)
             // Go left
             if (buffRoot->left != NULL)
             {
+				fprintf(stderr, "[ERROR] Exception in insertNode(val=%d,root=%p): %d\n", val, root, errno);
                 buffRoot = buffRoot->left;
+				fprintf(stderr, "[ERROR] insertNode(val=%d,root=%p): buffRoot → %p\n", val, root, buffRoot);
             }
             else
             {
@@ -338,10 +355,12 @@ void insertNode(int val, Node **root)
             buffRoot->color = 0;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting insertNode(val=%d,root=%p)\n", val, root);
 }
 
 void checkForCase2(Node *toDelete, int delete, int fromDirection, Node **root)
 {
+	fprintf(stderr, "[ERROR] >>> Entering checkForCase2(toDelete=%p,delete=%p,fromDirection=%d,root=%p)\n", toDelete, delete, fromDirection, root);
     if (toDelete == (*root))
     {
         (*root)->color = 0;
@@ -354,6 +373,7 @@ void checkForCase2(Node *toDelete, int delete, int fromDirection, Node **root)
         {
             if (toDelete->right != NULL)
             {
+				fprintf(stderr, "[ERROR] Exception in checkForCase2(toDelete=%p,delete=%d,fromDirection=%d,root=%p): %d\n", toDelete, delete, fromDirection, root, errno);
                 toDelete->right->color = 1;
             }
         }
@@ -599,11 +619,13 @@ void checkForCase2(Node *toDelete, int delete, int fromDirection, Node **root)
             checkForCase2(parent->left, 0, 0, root);
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting checkForCase2(toDelete=%p,delete=%p,fromDirection=%d,root=%p)\n", toDelete, delete, fromDirection, root);
 }
 
 // To delete a node from the tree
 void deleteNode(int val, Node **root)
 {
+	fprintf(stderr, "[ERROR] >>> Entering deleteNode(val=%d,root=%p)\n", val, root);
     Node *buffRoot = *root;
 
     // Search for the element in the tree
@@ -620,6 +642,7 @@ void deleteNode(int val, Node **root)
             if (buffRoot->right != NULL)
             {
                 buffRoot = buffRoot->right;
+				fprintf(stderr, "[ERROR] deleteNode(val=%d,root=%p): buffRoot → %p\n", val, root, buffRoot);
             }
             else
             {
@@ -646,7 +669,9 @@ void deleteNode(int val, Node **root)
     // Look for the leftmost of right node or right most of left node
     if (toDelete->left != NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in deleteNode(val=%d,root=%p): %d\n", val, root, errno);
         toDelete = toDelete->left;
+		fprintf(stderr, "[ERROR] deleteNode(val=%d,root=%p): toDelete → %p\n", val, root, toDelete);
         while (toDelete->right != NULL)
         {
             toDelete = toDelete->right;
@@ -715,20 +740,24 @@ void deleteNode(int val, Node **root)
     {  // Case 2
         checkForCase2(toDelete, 1, ((toDelete->par->right == toDelete)), root);
     }
+	fprintf(stderr, "[WARN] <<< Exiting deleteNode(val=%d,root=%p)\n", val, root);
 }
 
 void printInorder(Node *root)
 {
+	fprintf(stderr, "[ERROR] >>> Entering printInorder(root=%p)\n", root);
     if (root != NULL)
     {
         printInorder(root->left);
         printf("%d c-%d ", root->val, root->color);
         printInorder(root->right);
     }
+	fprintf(stderr, "[WARN] <<< Exiting printInorder(root=%p)\n", root);
 }
 
 void checkBlack(Node *temp, int c)
 {
+	fprintf(stderr, "[ERROR] >>> Entering checkBlack(temp=%p,c=%p)\n", temp, c);
     if (temp == NULL)
     {
         printf("%d ", c);
@@ -740,10 +769,12 @@ void checkBlack(Node *temp, int c)
     }
     checkBlack(temp->left, c);
     checkBlack(temp->right, c);
+	fprintf(stderr, "[WARN] <<< Exiting checkBlack(temp=%p,c=%p)\n", temp, c);
 }
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     Node *root = NULL;
     int scanValue, choice = 1;
     printf(
@@ -792,6 +823,7 @@ int main()
             "Quit\n\nPlease Enter the Choice - ");
         scanf("%d", &choice);
     }
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
 }
 
 // 32 12 50 53 1 2 3 4 5 6 7 8 9

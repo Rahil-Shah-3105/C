@@ -24,6 +24,7 @@ void dfs(struct Graph *, int);
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int vertices, edges, source, i, src, dst;
     printf("Enter the number of vertices\n");
     scanf("%d", &vertices);
@@ -54,11 +55,13 @@ int main()
     dfs(graph,0);
     printf("\n");*/
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
 // Recursive dfs approach
 void dfs(struct Graph *graph, int vertex)
 {
+	fprintf(stderr, "[ERROR] >>> Entering dfs(graph=%p,vertex=%p)\n", graph, vertex);
     struct node *adjList = graph->adjLists[vertex];
     struct node *temp = adjList;
 
@@ -76,6 +79,7 @@ void dfs(struct Graph *graph, int vertex)
         }
         temp = temp->next;
     }
+	fprintf(stderr, "[WARN] <<< Exiting dfs(graph=%p,vertex=%p)\n", graph, vertex);
 }
 // Allocate memory for a node
 struct node *createNode(int v)
@@ -106,6 +110,7 @@ struct Graph *createGraph(int vertices)
 // Creates a bidirectional graph
 void addEdge(struct Graph *graph, int src, int dest)
 {
+	fprintf(stderr, "[ERROR] >>> Entering addEdge(graph=%p,src=%p,dest=%d)\n", graph, src, dest);
     // Add edge from src to dest
     struct node *newNode = createNode(dest);
     newNode->next = graph->adjLists[src];
@@ -113,12 +118,15 @@ void addEdge(struct Graph *graph, int src, int dest)
 
     // Add edge from dest to src
     newNode = createNode(src);
+	fprintf(stderr, "[ERROR] addEdge(graph=%p,src=%d,dest=%d): newNode → %p\n", graph, src, dest, newNode);
     newNode->next = graph->adjLists[dest];
     graph->adjLists[dest] = newNode;
+	fprintf(stderr, "[WARN] <<< Exiting addEdge(graph=%p,src=%p,dest=%d)\n", graph, src, dest);
 }
 // Utility function to see state of graph at a given time
 void printGraph(struct Graph *graph)
 {
+	fprintf(stderr, "[ERROR] >>> Entering printGraph(graph=%p)\n", graph);
     int v;
     for (v = 0; v < graph->numVertices; v++)
     {

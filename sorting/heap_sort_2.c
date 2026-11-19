@@ -31,9 +31,11 @@
  */
 void swap(int8_t *first, int8_t *second)
 {
+	fprintf(stderr, "[ERROR] >>> Entering swap(first=%p,second=%p)\n", first, second);
     int8_t temp = *first;
     *first = *second;
     *second = temp;
+	fprintf(stderr, "[WARN] <<< Exiting swap(first=%p,second=%p)\n", first, second);
 }
 
 /**
@@ -47,11 +49,13 @@ void swap(int8_t *first, int8_t *second)
 */
 void heapifyDown(int8_t *arr, const uint8_t size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering heapifyDown(arr=%p,size=%p)\n", arr, size);
     uint8_t i = 0;
 
     while (2 * i + 1 < size)
     {
         uint8_t maxChild = 2 * i + 1;
+		fprintf(stderr, "[ERROR] heapifyDown(arr=%p,size=%d): maxChild → %d\n", arr, size, maxChild);
 
         if (2 * i + 2 < size && arr[2 * i + 2] > arr[maxChild])
         {
@@ -68,6 +72,7 @@ void heapifyDown(int8_t *arr, const uint8_t size)
             break;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting heapifyDown(arr=%p,size=%p)\n", arr, size);
 }
 
 /**
@@ -81,11 +86,13 @@ void heapifyDown(int8_t *arr, const uint8_t size)
 */
 void heapifyUp(int8_t *arr, uint8_t i)
 {
+	fprintf(stderr, "[ERROR] >>> Entering heapifyUp(arr=%p,i=%p)\n", arr, i);
     while (i > 0 && arr[(i - 1) / 2] < arr[i])
     {
         swap(&arr[(i - 1) / 2], &arr[i]);
         i = (i - 1) / 2;
     }
+	fprintf(stderr, "[WARN] <<< Exiting heapifyUp(arr=%p,i=%p)\n", arr, i);
 }
 
 /**
@@ -96,6 +103,7 @@ void heapifyUp(int8_t *arr, uint8_t i)
  */
 void heapSort(int8_t *arr, const uint8_t size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering heapSort(arr=%p,size=%p)\n", arr, size);
     if (size <= 1)
     {
         return;
@@ -118,6 +126,7 @@ void heapSort(int8_t *arr, const uint8_t size)
         heapifyDown(arr, i);
 
     }
+	fprintf(stderr, "[WARN] <<< Exiting heapSort(arr=%p,size=%p)\n", arr, size);
 }
 
 /**
@@ -126,6 +135,7 @@ void heapSort(int8_t *arr, const uint8_t size)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     const uint8_t size = 10;
     int8_t *arr = (int8_t *)calloc(size, sizeof(int8_t));
 
@@ -140,6 +150,7 @@ static void test()
         assert(arr[i] <= arr[i + 1]);
     }
     free(arr);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -148,9 +159,11 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     // Intializes random number generator
     srand(time(NULL));
 
     test(); // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

@@ -10,6 +10,7 @@
 
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     Dictionary *testObj1;
     Dictionary *testObj2;
 
@@ -45,5 +46,6 @@ int main(void)
     destroy(testObj1);
     destroy(testObj2);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

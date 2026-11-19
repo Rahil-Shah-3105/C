@@ -4,6 +4,7 @@
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int a[10], n, i, j, temp;
     float mean, median;
 
@@ -40,6 +41,8 @@ int main()
     if (n % 2 == 0)
     {
         median = (a[n / 2] + a[(n / 2) - 1]) / 2;
+		fprintf(stderr, "[ERROR] main(): median → %f\n", median);
+    fprintf(stderr, "[DEBUG] main(): median → %f\n", median);
     }
     else
     {
@@ -47,5 +50,6 @@ int main()
     }
     printf("\nMedian is : %f", median);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

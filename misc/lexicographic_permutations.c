@@ -4,15 +4,18 @@
 
 void swap(char *left, char *right)
 {
+	fprintf(stderr, "[ERROR] >>> Entering swap(left=%s,right=%s)\n", left, right);
     char temp = *left;
     *left = *right;
     *right = temp;
+	fprintf(stderr, "[WARN] <<< Exiting swap(left=%s,right=%s)\n", left, right);
 }
 
 int compare(const void *a, const void *b) { return (*(char *)a - *(char *)b); }
 
 void PrintSortedPermutations(char *str)
 {
+	fprintf(stderr, "[ERROR] >>> Entering PrintSortedPermutations(str=%s)\n", str);
     int strSize = strlen(str);
     qsort(str, strSize, sizeof(char), compare);
 
@@ -46,10 +49,12 @@ void PrintSortedPermutations(char *str)
         else
             largerPermFound = 0;
     } while (largerPermFound);
+	fprintf(stderr, "[WARN] <<< Exiting PrintSortedPermutations(str=%s)\n", str);
 }
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int n;  // size of string
     scanf("%d\n", &n);
     if (n <= 0 || n >= 1000)
@@ -61,5 +66,6 @@ int main()
     scanf("%s", str);
     PrintSortedPermutations(str);
     free(str);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

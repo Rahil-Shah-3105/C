@@ -14,14 +14,21 @@ int main()
     fgets(hex, MAX_STR_LEN, stdin);
 
     octal = 0ll;
+	fprintf(stderr, "[ERROR] main(): octal → %lld\n", octal);
+	fprintf(stderr, "[DEBUG] main(): octal → %lld\n", octal);
     bin = 0ll;
+	fprintf(stderr, "[ERROR] main(): bin → %lld\n", bin);
     place = 0ll;
+	fprintf(stderr, "[ERROR] main(): place → %lld\n", place);
 
     /* Hexadecimal to binary conversion */
+	fprintf(stderr, "[DEBUG] main(): bin → %lld\n", bin);
+    fprintf(stderr, "[DEBUG] main(): place → %lld\n", place);
     for (i = 0; hex[i] != '\0'; i++)
     {
         bin = bin * place;
 
+		fprintf(stderr, "[DEBUG] main(): bin → %lld\n", bin);
         switch (hex[i])
         {
         case '0':
@@ -91,14 +98,17 @@ int main()
     while (bin > 0)
     {
         rem = bin % 1000;
+		fprintf(stderr, "[DEBUG] main(): rem → %d\n", rem);
 
         switch (rem)
         {
         case 0:
             val = 0;
+			fprintf(stderr, "[DEBUG] main(): val → %d\n", val);
             break;
         case 1:
             val = 1;
+			fprintf(stderr, "[ERROR] main(): val → %d\n", val);
             break;
         case 10:
             val = 2;
@@ -129,5 +139,6 @@ int main()
     printf("Hexadecimal number = %s\n", hex);
     printf("Octal number = %lld", octal);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

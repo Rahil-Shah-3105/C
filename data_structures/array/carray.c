@@ -35,6 +35,7 @@ void swap(CArray *array, int position1, int position2);
 
 CArray *getCArray(int size)
 {
+	fprintf(stderr, "[ERROR] >>> Entering getCArray(size=%d)\n", size);
     CArray *array = (CArray *)malloc(sizeof(CArray));
     array->array = (int *)malloc(sizeof(int) * size);
     array->size = size;
@@ -43,11 +44,13 @@ CArray *getCArray(int size)
     {
         array->array[i] = 0;
     }
+	fprintf(stderr, "[WARN] <<< Exiting getCArray(size=%d)\n", size);
     return array;
 }
 
 int insertValueCArray(CArray *array, int position, int value)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insertValueCArray(array=%p,position=%p,value=%d)\n", array, position, value);
     if (position >= 0 && position < array->size)
     {
         if (array->array[position] == 0)
@@ -58,11 +61,13 @@ int insertValueCArray(CArray *array, int position, int value)
         else
             return POSITION_INIT;
     }
+	fprintf(stderr, "[WARN] <<< Exiting insertValueCArray(array=%p,position=%p,value=%d)\n", array, position, value);
     return INVALID_POSITION;
 }
 
 int removeValueCArray(CArray *array, int position)
 {
+	fprintf(stderr, "[ERROR] >>> Entering removeValueCArray(array=%p,position=%p)\n", array, position);
     if (position >= 0 && position < array->size)
     {
         if (array->array[position] != 0)
@@ -72,11 +77,13 @@ int removeValueCArray(CArray *array, int position)
         else
             return POSITION_EMPTY;
     }
+	fprintf(stderr, "[WARN] <<< Exiting removeValueCArray(array=%p,position=%p)\n", array, position);
     return INVALID_POSITION;
 }
 
 int pushValueCArray(CArray *array, int value)
 {
+	fprintf(stderr, "[ERROR] >>> Entering pushValueCArray(array=%p,value=%p)\n", array, value);
     int i;
     int ok = 0;
     for (i = 0; i < array->size; i++)
@@ -85,6 +92,7 @@ int pushValueCArray(CArray *array, int value)
         {
             array->array[i] = value;
             ok = 1;
+			fprintf(stderr, "[ERROR] pushValueCArray(array=%p,value=%d): ok → %d\n", array, value, ok);
             break;
         }
     }
@@ -96,6 +104,7 @@ int pushValueCArray(CArray *array, int value)
 
 int updateValueCArray(CArray *array, int position, int value)
 {
+	fprintf(stderr, "[ERROR] >>> Entering updateValueCArray(array=%p,position=%p,value=%d)\n", array, position, value);
     if (position >= 0 && position < array->size)
     {
         if (array->array[position] != 0)
@@ -107,27 +116,32 @@ int updateValueCArray(CArray *array, int position, int value)
         else
             return POSITION_NOT_INIT;
     }
+	fprintf(stderr, "[WARN] <<< Exiting updateValueCArray(array=%p,position=%p,value=%d)\n", array, position, value);
     return INVALID_POSITION;
 }
 
 int eraseCArray(CArray *array)
 {
+	fprintf(stderr, "[ERROR] >>> Entering eraseCArray(array=%p)\n", array);
     int i;
     for (i = 0; i < array->size; i++)
     {
         array->array[i] = 0;
     }
+	fprintf(stderr, "[WARN] <<< Exiting eraseCArray(array=%p)\n", array);
     return 0;
 }
 
 int switchValuesCArray(CArray *array, int position1, int position2)
 {
+	fprintf(stderr, "[ERROR] >>> Entering switchValuesCArray(array=%p,position1=%p,position2=%d)\n", array, position1, position2);
     if (position1 >= 0 && position1 < array->size && position2 >= 0 &&
         position2 < array->size)
     {
         int temp = array->array[position1];
         array->array[position1] = array->array[position2];
         array->array[position2] = temp;
+	fprintf(stderr, "[WARN] <<< Exiting switchValuesCArray(array=%p,position1=%p,position2=%d)\n", array, position1, position2);
         return SUCCESS;
     }
     return INVALID_POSITION;
@@ -135,16 +149,19 @@ int switchValuesCArray(CArray *array, int position1, int position2)
 
 int reverseCArray(CArray *array)
 {
+	fprintf(stderr, "[ERROR] >>> Entering reverseCArray(array=%p)\n", array);
     int i;
     for (i = 0; i < array->size / 2; i++)
     {
         swap(array, i, array->size - i - 1);
     }
+	fprintf(stderr, "[WARN] <<< Exiting reverseCArray(array=%p)\n", array);
     return SUCCESS;
 }
 
 int displayCArray(CArray *array)
 {
+	fprintf(stderr, "[ERROR] >>> Entering displayCArray(array=%p)\n", array);
     int i;
     printf("\nC ARRAY\n");
     for (i = 0; i < array->size; i++)
@@ -152,23 +169,28 @@ int displayCArray(CArray *array)
         printf("%d ", array->array[i]);
     }
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting displayCArray(array=%p)\n", array);
     return 0;
 }
 
 int blenderCArray(CArray *array)
 {
+	fprintf(stderr, "[ERROR] >>> Entering blenderCArray(array=%p)\n", array);
     srand(time(NULL) * array->size);
     int i;
     int total = array->size * 100;
+	fprintf(stderr, "[ERROR] blenderCArray(array=%p): total → %d\n", array, total);
     for (i = 0; i < total; i++)
     {
         swap(array, rand() % array->size, rand() % array->size);
     }
+	fprintf(stderr, "[WARN] <<< Exiting blenderCArray(array=%p)\n", array);
     return 0;
 }
 
 CArray *getCopyCArray(CArray *arr)
 {
+	fprintf(stderr, "[ERROR] >>> Entering getCopyCArray(arr=%p)\n", arr);
     CArray *array = (CArray *)malloc(sizeof(CArray));
     array->array = (int *)malloc(sizeof(int) * arr->size);
     array->size = arr->size;
@@ -177,18 +199,22 @@ CArray *getCopyCArray(CArray *arr)
     {
         array->array[i] = arr->array[i];
     }
+	fprintf(stderr, "[WARN] <<< Exiting getCopyCArray(arr=%p)\n", arr);
     return array;
 }
 
 void swap(CArray *array, int position1, int position2)
 {
+	fprintf(stderr, "[ERROR] >>> Entering swap(array=%p,position1=%p,position2=%d)\n", array, position1, position2);
     int temp = array->array[position1];
     array->array[position1] = array->array[position2];
     array->array[position2] = temp;
+	fprintf(stderr, "[WARN] <<< Exiting swap(array=%p,position1=%p,position2=%d)\n", array, position1, position2);
 }
 
 int bubbleSortCArray(CArray *array)
 {
+	fprintf(stderr, "[ERROR] >>> Entering bubbleSortCArray(array=%p)\n", array);
     int i, j;
     for (i = 0; i < array->size - 1; i++)
     {
@@ -200,29 +226,36 @@ int bubbleSortCArray(CArray *array)
             }
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting bubbleSortCArray(array=%p)\n", array);
     return 0;
 }
 
 int selectionSortCArray(CArray *array)
 {
+	fprintf(stderr, "[ERROR] >>> Entering selectionSortCArray(array=%p)\n", array);
     int i, j, min;
     for (i = 0; i < array->size - 1; i++)
     {
         min = i;
+		fprintf(stderr, "[ERROR] selectionSortCArray(array=%p): min → %d\n", array, min);
+		fprintf(stderr, "[INFO] selectionSortCArray(array=%p): min → %d\n", array, min);
         for (j = i + 1; j < array->size; j++)
             if (array->array[j] < array->array[min])
                 min = j;
         swap(array, min, i);
     }
+	fprintf(stderr, "[WARN] <<< Exiting selectionSortCArray(array=%p)\n", array);
     return 0;
 }
 
 int insertionSortCArray(CArray *array)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insertionSortCArray(array=%p)\n", array);
     int i, j, num;
     for (i = 1; i < array->size; i++)
     {
         num = array->array[i];
+		fprintf(stderr, "[DEBUG] insertionSortCArray(array=%p): num → %d\n", array, num);
         j = i - 1;
         while (j >= 0 && array->array[j] > num)
         {
@@ -231,24 +264,29 @@ int insertionSortCArray(CArray *array)
         }
         array->array[j + 1] = num;
     }
+	fprintf(stderr, "[WARN] <<< Exiting insertionSortCArray(array=%p)\n", array);
     return 0;
 }
 
 int valueOcurranceCArray(CArray *array, int value)
 {
+	fprintf(stderr, "[ERROR] >>> Entering valueOcurranceCArray(array=%p,value=%p)\n", array, value);
     int i, total = 0;
     for (i = 0; i < array->size; i++)
     {
         if (array->array[i] == value)
             total++;
     }
+	fprintf(stderr, "[WARN] <<< Exiting valueOcurranceCArray(array=%p,value=%p)\n", array, value);
     return total;
 }
 
 CArray *valuePositionsCArray(CArray *array, int value)
 {
+	fprintf(stderr, "[ERROR] >>> Entering valuePositionsCArray(array=%p,value=%p)\n", array, value);
     int i, j = 0;
     int total = valueOcurranceCArray(array, value);
+	fprintf(stderr, "[ERROR] valuePositionsCArray(array=%p,value=%d): total → %d\n", array, value, total);
     CArray *resultArray = getCArray(total);
     for (i = 0; i < array->size; i++)
     {
@@ -259,13 +297,16 @@ CArray *valuePositionsCArray(CArray *array, int value)
             j++;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting valuePositionsCArray(array=%p,value=%p)\n", array, value);
     return resultArray;
 }
 
 int findMinCArray(CArray *array)
 {
+	fprintf(stderr, "[ERROR] >>> Entering findMinCArray(array=%p)\n", array);
     int i;
     int min = array->array[0];
+	fprintf(stderr, "[ERROR] findMinCArray(array=%p): min → %d\n", array, min);
     for (i = 1; i < array->size; i++)
     {
         if (array->array[i] < min)
@@ -273,13 +314,16 @@ int findMinCArray(CArray *array)
             min = array->array[i];
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting findMinCArray(array=%p)\n", array);
     return min;
 }
 
 int findMaxCArray(CArray *array)
 {
+	fprintf(stderr, "[ERROR] >>> Entering findMaxCArray(array=%p)\n", array);
     int i;
     int max = array->array[0];
+	fprintf(stderr, "[ERROR] findMaxCArray(array=%p): max → %d\n", array, max);
     for (i = 1; i < array->size; i++)
     {
         if (array->array[i] > max)
@@ -287,5 +331,6 @@ int findMaxCArray(CArray *array)
             max = array->array[i];
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting findMaxCArray(array=%p)\n", array);
     return max;
 }

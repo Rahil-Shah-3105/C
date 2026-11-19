@@ -1,9 +1,11 @@
+#include "stdio.h"
 #define min(a,b) (((a)<(b))?(a):(b))
 
 // Dynamic programming.
 // Runtime O(n*n)
 // Space O(n)
 int minFallingPathSum(int** matrix, int matrixSize, int* matrixColSize){
+	fprintf(stderr, "[ERROR] >>> Entering minFallingPathSum(matrix=%p,matrixSize=%p,matrixColSize=%p)\n", matrix, matrixSize, matrixColSize);
     int* dp = calloc(matrixSize, sizeof(int));
 
     for (int i = 0; i < matrixSize; i++){
@@ -25,13 +27,16 @@ int minFallingPathSum(int** matrix, int matrixSize, int* matrixColSize){
 
         free(dp);
         dp = nextDp;
+		fprintf(stderr, "[ERROR] minFallingPathSum(matrix=%p,matrixSize=%d,matrixColSize=%p): dp → %p\n", matrix, matrixSize, matrixColSize, dp);
     }
 
     int result = dp[0];
+	fprintf(stderr, "[ERROR] minFallingPathSum(matrix=%p,matrixSize=%d,matrixColSize=%p): result → %d\n", matrix, matrixSize, matrixColSize, result);
     for (int j = 1; j < matrixSize; j++){
         result = min(result, dp[j]);
     }
 
     free(dp);
+	fprintf(stderr, "[WARN] <<< Exiting minFallingPathSum(matrix=%p,matrixSize=%p,matrixColSize=%p)\n", matrix, matrixSize, matrixColSize);
     return result;
 }

@@ -17,6 +17,8 @@
  * \author [Amitha Nayak](https://github.com/amitnayakblr)
  */
 
+#include "errno.h"
+#include "time.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -37,9 +39,11 @@ typedef struct Node
  */
 node *create_node(int data)
 {
+	fprintf(stderr, "[ERROR] >>> Entering create_node(data=%d)\n", data);
     node *ptr = (node *)malloc(sizeof(node));
     ptr->rlink = ptr->llink = NULL;
     ptr->data = data;
+	fprintf(stderr, "[WARN] <<< Exiting create_node(data=%d)\n", data);
     return ptr;
 }
 
@@ -50,11 +54,13 @@ node *create_node(int data)
  */
 void insert_bt(node **root, int data)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insert_bt(root=%p,data=%p)\n", root, data);
     node *new_node = create_node(data);
     node *temp;  // to be deleted
     node *prev;  // keeps track of the parent of the element deleted
     if (*root == NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in insert_bt(root=%p,data=%d): %d\n", root, data, errno);
         *root = new_node;
     }
     else
@@ -66,6 +72,7 @@ void insert_bt(node **root, int data)
             if (new_node->data > temp->data)
             {
                 prev = temp;
+				fprintf(stderr, "[ERROR] insert_bt(root=%p,data=%d): prev → %p\n", root, data, prev);
                 temp = temp->rlink;
             }
             else if (new_node->data < temp->data)
@@ -88,6 +95,7 @@ void insert_bt(node **root, int data)
             prev->llink = new_node;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting insert_bt(root=%p,data=%p)\n", root, data);
 }
 
 /**
@@ -97,6 +105,7 @@ void insert_bt(node **root, int data)
  */
 void search(node *root, int ele)
 {
+	fprintf(stderr, "[ERROR] >>> Entering search(root=%p,ele=%p)\n", root, ele);
     node *temp = root;
     while (temp != NULL)
     {
@@ -120,6 +129,7 @@ void search(node *root, int ele)
     }
     else
         printf("%s\n", "Element found.");
+		fprintf(stderr, "[WARN] <<< Exiting search(root=%p,ele=%p)\n", root, ele);
 }
 
 /**
@@ -128,12 +138,14 @@ void search(node *root, int ele)
  */
 void inorder_display(node *curr)
 {
+	fprintf(stderr, "[ERROR] >>> Entering inorder_display(curr=%p)\n", curr);
     if (curr != NULL)
     {
         inorder_display(curr->llink);
         printf("%d\t", curr->data);
         inorder_display(curr->rlink);
     }
+	fprintf(stderr, "[WARN] <<< Exiting inorder_display(curr=%p)\n", curr);
 }
 
 /**
@@ -142,12 +154,14 @@ void inorder_display(node *curr)
  */
 void postorder_display(node *curr)
 {
+	fprintf(stderr, "[ERROR] >>> Entering postorder_display(curr=%p)\n", curr);
     if (curr != NULL)
     {
         postorder_display(curr->llink);
         postorder_display(curr->rlink);
         printf("%d\t", curr->data);
     }
+	fprintf(stderr, "[WARN] <<< Exiting postorder_display(curr=%p)\n", curr);
 }
 
 /**
@@ -156,12 +170,14 @@ void postorder_display(node *curr)
  */
 void preorder_display(node *curr)
 {
+	fprintf(stderr, "[ERROR] >>> Entering preorder_display(curr=%p)\n", curr);
     if (curr != NULL)
     {
         printf("%d\t", curr->data);
         preorder_display(curr->llink);
         preorder_display(curr->rlink);
     }
+	fprintf(stderr, "[WARN] <<< Exiting preorder_display(curr=%p)\n", curr);
 }
 
 /**
@@ -172,6 +188,7 @@ void preorder_display(node *curr)
  */
 void delete_bt(node **root, int ele)
 {
+	fprintf(stderr, "[ERROR] >>> Entering delete_bt(root=%p,ele=%p)\n", root, ele);
     node *temp;
     node *prev;
     if (*root == NULL)
@@ -190,6 +207,7 @@ void delete_bt(node **root, int ele)
             else if (ele > temp->data)
             {
                 prev = temp;
+				fprintf(stderr, "[ERROR] delete_bt(root=%p,ele=%d): prev → %p\n", root, ele, prev);
                 temp = temp->rlink;
             }
             else
@@ -209,10 +227,12 @@ void delete_bt(node **root, int ele)
         if (temp->llink == NULL && temp->rlink == NULL)
         {
             replacement = NULL;
+			fprintf(stderr, "[DEBUG] delete_bt(root=%p,ele=%d): replacement → %p\n", root, ele, replacement);
         }
         else if (temp->llink == NULL && temp->rlink != NULL)
         {
             replacement = temp->rlink;
+			fprintf(stderr, "[ERROR] delete_bt(root=%p,ele=%d): replacement → %p\n", root, ele, replacement);
         }
         else if (temp->llink != NULL && temp->rlink == NULL)
         {
@@ -222,6 +242,7 @@ void delete_bt(node **root, int ele)
         {
             replacement = temp->rlink;  // replaced with inorder successor
             t = replacement;
+			fprintf(stderr, "[ERROR] delete_bt(root=%p,ele=%d): t → %p\n", root, ele, t);
             while (t->llink != NULL)
             {
                 t = t->llink;
@@ -254,16 +275,19 @@ void delete_bt(node **root, int ele)
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     printf("BINARY THREADED TREE: \n");
     node *root = NULL;
     int choice, n;
     do
     {
+		clock_t __logStart = clock();
         printf("%s\n", "1. Insert into BT");
         printf("%s\n", "2. Print BT - inorder");
         printf("%s\n", "3. Print BT - preorder");
         printf("%s\n", "4. print BT - postorder");
         printf("%s\n", "5. delete from BT");
+		fprintf(stderr, "[ERROR] main(): delete query executed in %d ms\n", (int)((clock() - __logStart) * 1000 / CLOCKS_PER_SEC));
         printf("%s\n", "6. search in BT");
         printf("%s\n", "Type 0 to exit");
         scanf("%d", &choice);

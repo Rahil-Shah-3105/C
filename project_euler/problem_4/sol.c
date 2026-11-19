@@ -11,6 +11,7 @@
  */
 int is_palindromic(unsigned int n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering is_palindromic(n=%u)\n", n);
     unsigned int reversed = 0, t = n;
 
     while (t > 0)
@@ -18,12 +19,14 @@ int is_palindromic(unsigned int n)
         reversed = 10 * reversed + (t % 10);
         t /= 10;
     }
+	fprintf(stderr, "[WARN] <<< Exiting is_palindromic(n=%u)\n", n);
     return reversed == n;
 }
 
 /** Main function */
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     unsigned int i, j, max = 0;
     for (i = 100; i <= 999; i++)
     {
@@ -37,5 +40,6 @@ int main(void)
         }
     }
     printf("%u\n", max);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

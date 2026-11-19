@@ -4,6 +4,7 @@
 /*Displays the array, passed to this method*/
 void display(int arr[], int n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering display(arr=%p,n=%p)\n", arr, n);
     int i;
     for (i = 0; i < n; i++)
     {
@@ -11,14 +12,17 @@ void display(int arr[], int n)
     }
 
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting display(arr=%p,n=%p)\n", arr, n);
 }
 
 /*Swap function to swap two values*/
 void swap(int *first, int *second)
 {
+	fprintf(stderr, "[ERROR] >>> Entering swap(first=%p,second=%p)\n", first, second);
     int temp = *first;
     *first = *second;
     *second = temp;
+	fprintf(stderr, "[WARN] <<< Exiting swap(first=%p,second=%p)\n", first, second);
 }
 
 /*Partition method which selects a pivot
@@ -30,6 +34,7 @@ void swap(int *first, int *second)
 */
 int partition(int arr[], int lower, int upper)
 {
+	fprintf(stderr, "[ERROR] >>> Entering partition(arr=%p,lower=%p,upper=%d)\n", arr, lower, upper);
     int i = (lower - 1);
 
     int pivot = arr[upper];  // Selects last element as the pivot value
@@ -48,6 +53,7 @@ int partition(int arr[], int lower, int upper)
     swap(&arr[i + 1], &arr[upper]);  // places the last element i.e, the pivot
                                      // to its correct position
 
+	fprintf(stderr, "[WARN] <<< Exiting partition(arr=%p,lower=%p,upper=%d)\n", arr, lower, upper);
     return (i + 1);
 }
 
@@ -58,21 +64,25 @@ int partition(int arr[], int lower, int upper)
 */
 void quickSort(int arr[], int lower, int upper)
 {
+	fprintf(stderr, "[ERROR] >>> Entering quickSort(arr=%p,lower=%p,upper=%d)\n", arr, lower, upper);
     if (upper > lower)
     {
         // partitioning index is returned by the partition method , partition
         // element is at its correct poition
 
         int partitionIndex = partition(arr, lower, upper);
+		fprintf(stderr, "[ERROR] quickSort(arr=%p,lower=%d,upper=%d): partitionIndex → %d\n", arr, lower, upper, partitionIndex);
 
         // Sorting elements before and after the partition index
         quickSort(arr, lower, partitionIndex - 1);
         quickSort(arr, partitionIndex + 1, upper);
     }
+	fprintf(stderr, "[WARN] <<< Exiting quickSort(arr=%p,lower=%p,upper=%d)\n", arr, lower, upper);
 }
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int n;
     printf("Enter size of array:\n");
     scanf("%d", &n);  // E.g. 8
@@ -94,5 +104,6 @@ int main()
     display(arr, n);  // Sorted array : 3 4 7 8 8 9 10 11
     getchar();
     free(arr);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

@@ -7,6 +7,7 @@
  * realtime. For example, devices reading biometrics data. The algorithm is
  * simple enough to be easily implemented in an embedded system.
  */
+#include "errno.h"
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>
@@ -23,6 +24,7 @@
  */
 void stats_computer1(float x, float *mean, float *variance, float *std)
 {
+	fprintf(stderr, "[ERROR] >>> Entering stats_computer1(x=%f,mean=%p,variance=%p,std=%p)\n", x, mean, variance, std);
     /* following variables declared static becuase they need to be remembered
      * when updating for next sample, when received.
      */
@@ -48,6 +50,7 @@ void stats_computer1(float x, float *mean, float *variance, float *std)
     /* return sample standard deviation computed till last sample */
     if (std != NULL)
         *std = sqrtf(*variance);
+		fprintf(stderr, "[WARN] <<< Exiting stats_computer1(x=%f,mean=%p,variance=%p,std=%p)\n", x, mean, variance, std);
 }
 
 /**
@@ -60,6 +63,7 @@ void stats_computer1(float x, float *mean, float *variance, float *std)
  */
 void stats_computer2(float x, float *mean, float *variance, float *std)
 {
+	fprintf(stderr, "[ERROR] >>> Entering stats_computer2(x=%f,mean=%p,variance=%p,std=%p)\n", x, mean, variance, std);
     /* following variables declared static becuase they need to be remembered
      * when updating for next sample, when received.
      */
@@ -83,6 +87,7 @@ void stats_computer2(float x, float *mean, float *variance, float *std)
     /* return sample standard deviation computed till last sample */
     if (std != NULL)
         *std = sqrtf(*variance);
+		fprintf(stderr, "[WARN] <<< Exiting stats_computer2(x=%f,mean=%p,variance=%p,std=%p)\n", x, mean, variance, std);
 }
 
 /** Test the algorithm implementation
@@ -91,6 +96,7 @@ void stats_computer2(float x, float *mean, float *variance, float *std)
  */
 void test_function(const float *test_data, const int number_of_samples)
 {
+	fprintf(stderr, "[ERROR] >>> Entering test_function(test_data=%p,number_of_samples=%p)\n", test_data, number_of_samples);
     float ref_mean = 0.f, ref_variance = 0.f;
     float s1_mean = 0.f, s1_variance = 0.f, s1_std = 0.f;
     float s2_mean = 0.f, s2_variance = 0.f, s2_std = 0.f;
@@ -122,11 +128,13 @@ void test_function(const float *test_data, const int number_of_samples)
     assert(fabs(s2_variance - ref_variance) < 0.01);
 
     printf("(Tests passed)\n\n");
+	fprintf(stderr, "[WARN] <<< Exiting test_function(test_data=%p,number_of_samples=%p)\n", test_data, number_of_samples);
 }
 
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     const float test_data1[] = {3, 4, 5, -1.4, -3.6, 1.9, 1.};
     test_function(test_data1, sizeof(test_data1) / sizeof(test_data1[0]));
 
@@ -154,5 +162,6 @@ int main(int argc, char **argv)
                s2_mean, s2_variance, s2_std);
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

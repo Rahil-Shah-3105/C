@@ -6,8 +6,10 @@ number n
 #include <stdio.h>
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int i, n, test = 0, count = 0;
     // taking input number n
+	fprintf(stderr, "[ERROR] main(): count → %d\n", count);
     scanf("%d", &n);
 
     // looping from 1 till loop break
@@ -26,5 +28,6 @@ int main()
             break;  // break the loop for if test=0
     }
     printf("%d\n", count);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

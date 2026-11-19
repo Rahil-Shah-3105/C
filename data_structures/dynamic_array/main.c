@@ -4,6 +4,7 @@
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     dynamic_array_t *da = init_dynamic_array();
 
     for (int i = 1; i <= 50; i++)
@@ -14,6 +15,7 @@ int main()
     delete (da, 10);
 
     int value = 1000;
+	fprintf(stderr, "[ERROR] main(): value → %d\n", value);
 
     put(da, &value, 0);
 
@@ -31,5 +33,6 @@ int main()
     int value_for_invalid_index = 10000;
 
     put(da, &value_for_invalid_index, 150);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

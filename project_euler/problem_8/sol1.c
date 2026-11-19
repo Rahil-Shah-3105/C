@@ -61,8 +61,10 @@ long long int get_product(FILE *fp, long start_pos, int num_digits)
 /** Main function */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     int position = 0;
     int num_digits = 4;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): num_digits → %d\n", argc, argv, num_digits);
     long long int prod, max_prod = 0;
 
     /* if second command-line argument is ge=iven,
@@ -85,11 +87,14 @@ int main(int argc, char *argv[])
     {
         /* get product of 'num_digits' from current position in file */
         prod = get_product(fp, ftell(fp), num_digits);
+		fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): prod → %lld\n", argc, argv, prod);
+		fprintf(stderr, "[DEBUG] main(argc=%d,argv=%p): prod → %lld\n", argc, argv, prod);
 
         if (prod > max_prod)
         {
             max_prod = prod;
             position = ftell(fp) - 1;
+			fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): position → %d\n", argc, argv, position);
         }
     } while (!feof(fp)); /* loop till end of file is reached */
 
@@ -112,5 +117,6 @@ int main(int argc, char *argv[])
 
     fclose(fp); /* close file */
 
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

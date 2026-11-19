@@ -1,3 +1,4 @@
+#include "errno.h"
 #include <limits.h>  /// for INT_MIN
 #include <stdio.h>   /// for IO operations
 #include <stdlib.h>  /// for dynamic memory allocation
@@ -24,6 +25,7 @@ int size(Heap *heap);  /*Returns the size of heap*/
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     Heap *head = create_heap(head);
     push(head, 10);
     printf("Pushing element : 10\n");
@@ -46,26 +48,33 @@ int main()
     printf("Popping an element.\n");
     printf("Top element = %d \n", top(head));
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
 Heap *create_heap(Heap *heap)
 {
+	fprintf(stderr, "[ERROR] >>> Entering create_heap(heap=%p)\n", heap);
     heap = (Heap *)malloc(sizeof(Heap));
     heap->size = 1;
+	fprintf(stderr, "[ERROR] create_heap(heap=%p): heap → %p\n", heap, heap);
     heap->p = (int *)malloc(heap->size * sizeof(int));
     heap->count = 0;
+	fprintf(stderr, "[WARN] <<< Exiting create_heap(heap=%p)\n", heap);
     return heap;
 }
 
 void down_heapify(Heap *heap, int index)
 {
+	fprintf(stderr, "[ERROR] >>> Entering down_heapify(heap=%p,index=%p)\n", heap, index);
     if (index >= heap->count)
         return;
     int left = index * 2 + 1;
     int right = index * 2 + 2;
     int leftflag = 0, rightflag = 0;
+	fprintf(stderr, "[ERROR] down_heapify(heap=%p,index=%d): leftflag → %d\n", heap, index, leftflag);
 
     int maximum = *((heap->p) + index);
+	fprintf(stderr, "[ERROR] down_heapify(heap=%p,index=%d): maximum → %d\n", heap, index, maximum);
     if (left < heap->count && maximum < *((heap->p) + left))
     {
         maximum = *((heap->p) + left);
@@ -76,6 +85,7 @@ void down_heapify(Heap *heap, int index)
         maximum = *((heap->p) + right);
         leftflag = 0;
         rightflag = 1;
+		fprintf(stderr, "[DEBUG] down_heapify(heap=%p,index=%d): rightflag → %d\n", heap, index, rightflag);
     }
     if (leftflag)
     {
@@ -89,9 +99,11 @@ void down_heapify(Heap *heap, int index)
         *((heap->p) + index) = maximum;
         down_heapify(heap, right);
     }
+	fprintf(stderr, "[WARN] <<< Exiting down_heapify(heap=%p,index=%p)\n", heap, index);
 }
 void up_heapify(Heap *heap, int index)
 {
+	fprintf(stderr, "[ERROR] >>> Entering up_heapify(heap=%p,index=%p)\n", heap, index);
     int parent = (index - 1) / 2;
     if (parent < 0)
         return;
@@ -106,6 +118,7 @@ void up_heapify(Heap *heap, int index)
 
 void push(Heap *heap, int x)
 {
+	fprintf(stderr, "[ERROR] >>> Entering push(heap=%p,x=%p)\n", heap, x);
     if (heap->count >= heap->size)
         return;
     *((heap->p) + heap->count) = x;
@@ -116,9 +129,11 @@ void push(Heap *heap, int x)
         (heap->p) = (int *)realloc((heap->p), (heap->size) * sizeof(int));
     }
     up_heapify(heap, heap->count - 1);
+	fprintf(stderr, "[WARN] <<< Exiting push(heap=%p,x=%p)\n", heap, x);
 }
 void pop(Heap *heap)
 {
+	fprintf(stderr, "[ERROR] >>> Entering pop(heap=%p)\n", heap);
     if (heap->count == 0)
         return;
     heap->count--;
@@ -131,9 +146,11 @@ void pop(Heap *heap)
         heap->size /= 2;
         (heap->p) = (int *)realloc((heap->p), (heap->size) * sizeof(int));
     }
+	fprintf(stderr, "[WARN] <<< Exiting pop(heap=%p)\n", heap);
 }
 int top(Heap *heap)
 {
+	fprintf(stderr, "[ERROR] >>> Entering top(heap=%p)\n", heap);
     if (heap->count != 0)
         return *(heap->p);
     else
@@ -141,6 +158,7 @@ int top(Heap *heap)
 }
 int empty(Heap *heap)
 {
+	fprintf(stderr, "[ERROR] >>> Entering empty(heap=%p)\n", heap);
     if (heap->count != 0)
         return 0;
     else

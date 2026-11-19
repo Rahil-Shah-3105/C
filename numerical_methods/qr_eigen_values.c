@@ -26,6 +26,8 @@
  */
 void create_matrix(double **A, int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering create_matrix(A=%p,N=%p)\n", A, N);
+	fprintf(stderr, "[WARN] <<< Exiting create_matrix(A=%p,N=%p)\n", A, N);
     int i, j, tmp, lim2 = LIMS >> 1;
 
 #ifdef _OPENMP
@@ -37,6 +39,7 @@ void create_matrix(double **A, int N)
         for (j = i + 1; j < N; j++)
         {
             tmp = (rand() % LIMS) - lim2;
+			fprintf(stderr, "[DEBUG] create_matrix(A=%p,N=%d): tmp → %d\n", A, N, tmp);
             A[i][j] = tmp;
             A[j][i] = tmp;
         }
@@ -223,6 +226,7 @@ double eigen_values(double **A, double *eigen_vals, int mat_size,
  */
 void test1()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test1()\n");
     int mat_size = 2;
     double X[][2] = {{5, 7}, {7, 11}};
     double y[] = {15.56158, 0.384227};  // corresponding y-values
@@ -245,6 +249,7 @@ void test1()
             if (fabs(y[i] - eig_vals[j]) < 0.1)
             {
                 result = 1;
+				fprintf(stderr, "[ERROR] test1(): result → %c\n", result);
                 printf("(%.3g) ", eig_vals[j]);
             }
         }
@@ -255,6 +260,7 @@ void test1()
     }
     printf("Test 1 Passed in %.3g sec\n\n", dtime);
     free(A);
+	fprintf(stderr, "[WARN] <<< Exiting test1()\n");
 }
 
 /**
@@ -270,6 +276,7 @@ void test1()
  */
 void test2()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test2()\n");
     int mat_size = 5;
     double X[][5] = {{-4, 4, 2, 0, -3},
                      {4, -4, 4, -3, -1},
@@ -297,6 +304,7 @@ void test2()
             if (fabs(y[i] - eig_vals[j]) < 0.1)
             {
                 result = 1;
+				fprintf(stderr, "[ERROR] test2(): result → %c\n", result);
                 printf("(%.3g) ", eig_vals[j]);
             }
         }
@@ -307,6 +315,7 @@ void test2()
     }
     printf("Test 2 Passed in %.3g sec\n\n", dtime);
     free(A);
+	fprintf(stderr, "[WARN] <<< Exiting test2()\n");
 }
 
 /**
@@ -314,9 +323,11 @@ void test2()
  */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     srand(time(NULL));
 
     int mat_size = 5;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): mat_size → %d\n", argc, argv, mat_size);
     if (argc == 2)
     {
         mat_size = atoi(argv[1]);
@@ -365,5 +376,6 @@ int main(int argc, char **argv)
     for (int i = 0; i < mat_size; i++) free(A[i]);
     free(A);
     free(eigen_vals);
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

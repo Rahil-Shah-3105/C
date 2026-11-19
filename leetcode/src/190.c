@@ -1,5 +1,7 @@
+#include "stdio.h"
 uint32_t reverseBits(uint32_t n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering reverseBits(n=%d)\n", n);
     uint TotalBits = 32;
     uint32_t reverse_int = 0;  // stored in memory as 32 bits, each bit valued 0
     uint i;
@@ -22,5 +24,6 @@ uint32_t reverseBits(uint32_t n)
                            // 0) and 1 shifted left 31 - i bits (to ith bit from
                            // the end)
     }
+	fprintf(stderr, "[WARN] <<< Exiting reverseBits(n=%d)\n", n);
     return reverse_int;
 }

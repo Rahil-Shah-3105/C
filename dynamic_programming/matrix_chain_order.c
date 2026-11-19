@@ -25,6 +25,7 @@
  */
 int matrixChainOrder(int l, const int *p, int *s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering matrixChainOrder(l=%d,p=%p,s=%p)\n", l, p, s);
     // mat stores the cost for a chain that starts at i and ends on j (inclusive
     // on both ends)
     int **mat = malloc(l * sizeof(int *));
@@ -57,6 +58,7 @@ int matrixChainOrder(int l, const int *p, int *s)
         }
     }
     int result = mat[0][l - 1];
+	fprintf(stderr, "[ERROR] matrixChainOrder(l=%d,p=%p,s=%p): result → %d\n", l, p, s, result);
 
     // Free dynamically allocated memory
     for (int i = 0; i < l; ++i)
@@ -65,6 +67,7 @@ int matrixChainOrder(int l, const int *p, int *s)
     }
     free(mat);
 
+	fprintf(stderr, "[WARN] <<< Exiting matrixChainOrder(l=%d,p=%p,s=%p)\n", l, p, s);
     return result;
 }
 
@@ -78,6 +81,7 @@ int matrixChainOrder(int l, const int *p, int *s)
  */
 void printSolution(int l, int *s, int i, int j)
 {
+	fprintf(stderr, "[ERROR] >>> Entering printSolution(l=%d,s=%p,i=%p,j=%d)\n", l, s, i, j);
     if (i == j)
     {
         printf("A%d", i);
@@ -87,6 +91,7 @@ void printSolution(int l, int *s, int i, int j)
     printSolution(l, s, i, s[i * l + j]);
     printSolution(l, s, s[i * l + j] + 1, j);
     putchar(')');
+	fprintf(stderr, "[WARN] <<< Exiting printSolution(l=%d,s=%p,i=%p,j=%d)\n", l, s, i, j);
 }
 
 /**
@@ -95,6 +100,7 @@ void printSolution(int l, int *s, int i, int j)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     int sizes[] = {35, 15, 5, 10, 20, 25};
     int len = 6;
     int *sol = malloc(len * len * sizeof(int));
@@ -106,6 +112,7 @@ static void test()
     free(sol);
 
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -114,6 +121,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

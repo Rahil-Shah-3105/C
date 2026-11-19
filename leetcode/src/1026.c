@@ -1,3 +1,5 @@
+#include "stdio.h"
+#include "errno.h"
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -11,7 +13,9 @@
 #define min(a,b) (((a)<(b))?(a):(b))
 
 void recursiveSolve(struct TreeNode* node, int* result, int minVal, int maxVal){
+	fprintf(stderr, "[ERROR] >>> Entering recursiveSolve(node=%p,result=%p,minVal=%p,maxVal=%p)\n", node, result, minVal, maxVal);
     if (node == NULL){
+		fprintf(stderr, "[ERROR] Exception in recursiveSolve(node=%p,result=%p,minVal=%d,maxVal=%d): %d\n", node, result, minVal, maxVal, errno);
         return;
     }
 
@@ -19,10 +23,13 @@ void recursiveSolve(struct TreeNode* node, int* result, int minVal, int maxVal){
     *result = max(*result, abs(maxVal - node->val));
 
     minVal = min(minVal, node->val);
+	fprintf(stderr, "[ERROR] recursiveSolve(node=%p,result=%p,minVal=%d,maxVal=%d): minVal → %d\n", node, result, minVal, maxVal, minVal);
     maxVal = max(maxVal, node->val);
+	fprintf(stderr, "[ERROR] recursiveSolve(node=%p,result=%p,minVal=%d,maxVal=%d): maxVal → %d\n", node, result, minVal, maxVal, maxVal);
 
     recursiveSolve(node->left, result, minVal, maxVal);
     recursiveSolve(node->right, result, minVal, maxVal);
+	fprintf(stderr, "[WARN] <<< Exiting recursiveSolve(node=%p,result=%p,minVal=%p,maxVal=%p)\n", node, result, minVal, maxVal);
 }
 
 // Depth First Search
@@ -30,9 +37,12 @@ void recursiveSolve(struct TreeNode* node, int* result, int minVal, int maxVal){
 // Runtime: O(n)
 // Space: O(1)
 int maxAncestorDiff(struct TreeNode* root){
+	fprintf(stderr, "[ERROR] >>> Entering maxAncestorDiff(root=%p)\n", root);
     int result = 0;
     int maxVal = root->val;
+	fprintf(stderr, "[ERROR] maxAncestorDiff(root=%p): result → %d\n", root, result);
     int minVal = root->val;
     recursiveSolve(root, &result, minVal, maxVal);
+	fprintf(stderr, "[WARN] <<< Exiting maxAncestorDiff(root=%p)\n", root);
     return result;
 }

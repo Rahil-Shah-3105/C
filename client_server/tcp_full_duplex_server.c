@@ -51,8 +51,10 @@
  */
 void error()
 {
+	fprintf(stderr, "[ERROR] >>> Entering error()\n");
     perror("Socket Creation Failed");
     exit(EXIT_FAILURE);
+	fprintf(stderr, "[WARN] <<< Exiting error()\n");
 }
 
 /**
@@ -61,6 +63,7 @@ void error()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     /** Variable Declarations */
     uint32_t sockfd,
         conn;  ///< socket descriptors - Like file handles but for sockets
@@ -118,6 +121,7 @@ int main()
      */
     bzero(&server_addr, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
+	fprintf(stderr, "[DEBUG] main(): server_addr.sin_family → %d\n", server_addr.sin_family);
     server_addr.sin_port = htons(PORT);
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
@@ -148,6 +152,8 @@ int main()
      * accepted and established through the socket descriptor
      */
     conn = accept(sockfd, (struct sockaddr *)NULL, NULL);
+	fprintf(stderr, "[ERROR] main(): conn → %d\n", conn);
+	fprintf(stderr, "[DEBUG] main(): conn → %d\n", conn);
 
     printf("Server is connected...\n");
 
@@ -179,6 +185,8 @@ int main()
     #ifdef _WIN32
     #ifdef FORK_WINDOWS
     pid = fork();
+	fprintf(stderr, "[ERROR] main(): pid → %d\n", pid);
+	fprintf(stderr, "[DEBUG] main(): pid → %d\n", pid);
     #endif
     #else
     pid = fork();
@@ -212,5 +220,6 @@ int main()
     /// Close socket
     close(sockfd);
     printf("Server is offline...\n");
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

@@ -47,10 +47,12 @@ struct sudoku
  */
 bool OKrow(const struct sudoku *a, int x, int y, int v)
 {
+	fprintf(stderr, "[ERROR] >>> Entering OKrow(a=%p,x=%p,y=%d,v=%d)\n", a, x, y, v);
     int offset = x * a->N;
     for (int j = 0; j < a->N; j++)
         if (a->a[offset + j] == v)
             // if the value is found in the row
+	fprintf(stderr, "[WARN] <<< Exiting OKrow(a=%p,x=%p,y=%d,v=%d)\n", a, x, y, v);
             return false;
     return true;
 }
@@ -66,9 +68,11 @@ bool OKrow(const struct sudoku *a, int x, int y, int v)
  */
 bool OKcol(const struct sudoku *a, int x, int y, int v)
 {
+	fprintf(stderr, "[ERROR] >>> Entering OKcol(a=%p,x=%p,y=%d,v=%d)\n", a, x, y, v);
     for (int i = 0; i < a->N; i++)
         if (a->a[i * a->N + y] == v)
             // if the value is found in the column
+	fprintf(stderr, "[WARN] <<< Exiting OKcol(a=%p,x=%p,y=%d,v=%d)\n", a, x, y, v);
             return false;
     return true;
 }
@@ -84,6 +88,7 @@ bool OKcol(const struct sudoku *a, int x, int y, int v)
  */
 bool OKbox(const struct sudoku *a, int x, int y, int v)
 {
+	fprintf(stderr, "[ERROR] >>> Entering OKbox(a=%p,x=%p,y=%d,v=%d)\n", a, x, y, v);
     /* get start indices of the box that the current (x,y) lies in
        remember that in C/C++, division operation always rounds towards
        -infinity for signed integers and towards 0 for unsigned integers
@@ -95,6 +100,7 @@ bool OKbox(const struct sudoku *a, int x, int y, int v)
         for (int j = bj; j < (bj + a->N2); j++)
             if (a->a[i * a->N + j] == v)
                 // if the value is found in the box
+	fprintf(stderr, "[WARN] <<< Exiting OKbox(a=%p,x=%p,y=%d,v=%d)\n", a, x, y, v);
                 return false;
     return true;
 }
@@ -110,12 +116,15 @@ bool OKbox(const struct sudoku *a, int x, int y, int v)
  */
 bool OK(const struct sudoku *a, int x, int y, int v)
 {
+	fprintf(stderr, "[ERROR] >>> Entering OK(a=%p,x=%p,y=%d,v=%d)\n", a, x, y, v);
     bool result = OKrow(a, x, y, v);
     if (result)
         result = OKcol(a, x, y, v);
+		fprintf(stderr, "[ERROR] OK(a=%p,x=%d,y=%d,v=%d): result → %d\n", a, x, y, v, result);
     if (result)
         result = OKbox(a, x, y, v);
 
+	fprintf(stderr, "[WARN] <<< Exiting OK(a=%p,x=%p,y=%d,v=%d)\n", a, x, y, v);
     return result;
 }
 
@@ -125,11 +134,13 @@ bool OK(const struct sudoku *a, int x, int y, int v)
  */
 void print(const struct sudoku *a)
 {
+	fprintf(stderr, "[ERROR] >>> Entering print(a=%p)\n", a);
     int i, j;
     for (i = 0; i < a->N; i++)
         for (j = 0; j < a->N; j++)
             printf("%" SCNu8 "%c", a->a[i * a->N + j],
                    (j == a->N - 1 ? '\n' : ' '));
+				fprintf(stderr, "[WARN] <<< Exiting print(a=%p)\n", a);
 }
 
 /**
@@ -143,6 +154,7 @@ void print(const struct sudoku *a)
  */
 bool get_next_unknown(const struct sudoku *a, int *x, int *y)
 {
+	fprintf(stderr, "[ERROR] >>> Entering get_next_unknown(a=%p,x=%p,y=%p)\n", a, x, y);
     for (int i = 0; i < a->N; i++)
     {
         for (int j = 0; j < a->N; j++)
@@ -157,6 +169,7 @@ bool get_next_unknown(const struct sudoku *a, int *x, int *y)
     }
 
     /* no unknown locations found */
+	fprintf(stderr, "[WARN] <<< Exiting get_next_unknown(a=%p,x=%p,y=%p)\n", a, x, y);
     return false;
 }
 
@@ -171,6 +184,7 @@ bool get_next_unknown(const struct sudoku *a, int *x, int *y)
  */
 bool solve(struct sudoku *a)
 {
+	fprintf(stderr, "[ERROR] >>> Entering solve(a=%p)\n", a);
     static uint32_t counter = 0;
     int i, j;
     static char prefix[100] = "";  // enough memory
@@ -213,6 +227,7 @@ bool solve(struct sudoku *a)
         }
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting solve(a=%p)\n", a);
     return false;
 }
 
@@ -220,6 +235,7 @@ bool solve(struct sudoku *a)
 
 void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     printf("Test begin...\n");
 
     uint8_t test_array[] = {3, 0, 6, 5, 0, 8, 4, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0,
@@ -240,11 +256,13 @@ void test()
             assert(a.a[i * a.N + j] == expected[i * a.N + j]);
 
     printf("Test passed\n");
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /** \brief Main function */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();
 
     struct sudoku a;  // store the matrix as a 1D array
@@ -266,5 +284,6 @@ int main()
     print(&a);
 
     free(a.a);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

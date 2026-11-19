@@ -1,7 +1,10 @@
+#include "stdio.h"
 //using the binary search method is one of the efficient ones for this problem statement.
 int mySqrt(int x){
+fprintf(stderr, "[ERROR] >>> Entering mySqrt(x=%d)\n", x);
 int start=0;
         int end=x;
+		fprintf(stderr, "[ERROR] mySqrt(x=%d): end → %d\n", x, end);
         long long int ans=0;
         while(start <= end){
                long long int mid=(start+end)/2;
@@ -19,5 +22,6 @@ int start=0;
                        end = mid-1;
                }
         }
+fprintf(stderr, "[WARN] <<< Exiting mySqrt(x=%d)\n", x);
    return ans;
 }

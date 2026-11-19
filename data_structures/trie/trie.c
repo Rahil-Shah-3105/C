@@ -6,6 +6,7 @@
 // needed for strnlen
 #define _POSIX_C_SOURCE 200809L
 
+#include "time.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -155,6 +156,7 @@ void trie_print (
 /*------Demonstrate purposes uses text file called dictionary -------*/
 
 int main() {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int ret = 0;
     struct trie * root = NULL;
     struct trie * trie = NULL;
@@ -162,6 +164,7 @@ int main() {
 
     // Create a root trie
     ret = trie_new(&root);
+	fprintf(stderr, "[ERROR] main(): ret → %d\n", ret);
     if (-1 == ret) {
         fprintf(stderr, "Could not create trie\n");
         exit(1);
@@ -203,4 +206,5 @@ int main() {
 
         printf("\n==========================================================\n");
     }
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
 }

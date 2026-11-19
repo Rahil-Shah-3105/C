@@ -20,6 +20,7 @@
 
 int CArrayTests()
 {
+	fprintf(stderr, "[ERROR] >>> Entering CArrayTests()\n");
     printf("\n");
     printf(" +-------------------------------------+\n");
     printf(" |                                     |\n");
@@ -156,5 +157,6 @@ int CArrayTests()
     free(carray);
     free(darray);
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting CArrayTests()\n");
     return 0;
 }

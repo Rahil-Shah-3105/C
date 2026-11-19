@@ -1,3 +1,4 @@
+#include "stdio.h"
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -31,5 +32,7 @@ struct TreeNode* findKthSmallest(struct TreeNode* node, int* k){
 // Runtime: O(n)
 // Space: O(1)
 int kthSmallest(struct TreeNode* root, int k){
+	fprintf(stderr, "[ERROR] >>> Entering kthSmallest(root=%p,k=%p)\n", root, k);
+    fprintf(stderr, "[WARN] <<< Exiting kthSmallest(root=%p,k=%p)\n", root, k);
     return findKthSmallest(root, &k)->val;
 }

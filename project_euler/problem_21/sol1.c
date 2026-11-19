@@ -12,6 +12,7 @@
  */
 unsigned long sum_of_divisors(unsigned int N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering sum_of_divisors(N=%u)\n", N);
     unsigned long sum = 1 + N; /* 1 and itself are always a divisor */
     /* divisors are symmertically distributed about the square-root */
     for (unsigned int i = 2; i * i < N; i++)
@@ -29,14 +30,17 @@ unsigned long sum_of_divisors(unsigned int N)
     // #ifdef DEBUG
     //     printf("\nSum of divisors of %4d: %4d\n", N, sum);
     // #endif
+	fprintf(stderr, "[WARN] <<< Exiting sum_of_divisors(N=%u)\n", N);
     return sum;
 }
 
 /** Main function */
 int main(int argc, char **argv)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     unsigned long sum = 0;
     unsigned int MAX_N = 500;
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): MAX_N → %u\n", argc, argv, MAX_N);
     if (argc == 2)
         MAX_N = atoi(argv[1]);
 
@@ -64,6 +68,7 @@ int main(int argc, char **argv)
             continue;
 
         unsigned int c = sum_of_divisors(b);
+		fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): c → %u\n", argc, argv, c);
         if (c == i && b != i)
         {
             /* found amicable */

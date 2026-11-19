@@ -3,13 +3,16 @@
 
 void swap(int *a, int *b)
 {
+	fprintf(stderr, "[ERROR] >>> Entering swap(a=%p,b=%p)\n", a, b);
     int temp;
     temp = *a;
     *a = *b;
     *b = temp;
+	fprintf(stderr, "[WARN] <<< Exiting swap(a=%p,b=%p)\n", a, b);
 }
 void shakersort(int *a, int n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering shakersort(a=%p,n=%p)\n", a, n);
     int p, i;
     for (p = 1; p <= n / 2; p++)
     {
@@ -24,9 +27,11 @@ void shakersort(int *a, int n)
                 swap(&a[i], &a[i - 1]);
             }
     }
+	fprintf(stderr, "[WARN] <<< Exiting shakersort(a=%p,n=%p)\n", a, n);
 }
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int n;
     scanf("%d", &n);
     int *arr = (int *)malloc(n * sizeof(int));
@@ -35,5 +40,6 @@ int main()
     shakersort(arr, n);
     for (i = 0; i < n; i++) printf("%d ", arr[i]);
     free(arr);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

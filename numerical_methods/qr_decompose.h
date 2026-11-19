@@ -42,7 +42,9 @@ void print_matrix(double **A, /**< matrix to print */
  */
 double vector_dot(double *a, double *b, int L)
 {
+	fprintf(stderr, "[ERROR] >>> Entering vector_dot(a=%p,b=%p,L=%p)\n", a, b, L);
     double mag = 0.f;
+	fprintf(stderr, "[WARN] <<< Exiting vector_dot(a=%p,b=%p,L=%p)\n", a, b, L);
     int i;
 #ifdef _OPENMP
 // parallelize on threads
@@ -63,7 +65,10 @@ double vector_dot(double *a, double *b, int L)
  */
 double vector_mag(double *vector, int L)
 {
+	fprintf(stderr, "[ERROR] >>> Entering vector_mag(vector=%p,L=%p)\n", vector, L);
     double dot = vector_dot(vector, vector, L);
+	fprintf(stderr, "[ERROR] vector_mag(vector=%p,L=%d): dot → %f\n", vector, L, dot);
+    fprintf(stderr, "[WARN] <<< Exiting vector_mag(vector=%p,L=%p)\n", vector, L);
     return sqrt(dot);
 }
 
@@ -75,12 +80,16 @@ double vector_mag(double *vector, int L)
  */
 double *vector_proj(double *a, double *b, double *out, int L)
 {
+	fprintf(stderr, "[ERROR] >>> Entering vector_proj(a=%p,b=%p,out=%p,L=%p)\n", a, b, out, L);
     const double num = vector_dot(a, b, L);
     const double deno = vector_dot(b, b, L);
+	fprintf(stderr, "[ERROR] vector_proj(a=%p,b=%p,out=%p,L=%d): deno → %f\n", a, b, out, L, deno);
+	fprintf(stderr, "[ERROR] vector_proj(a=%p,b=%p,out=%p,L=%d): num → %f\n", a, b, out, L, num);
     if (deno == 0) /*! check for division by zero */
         return NULL;
 
     const double scalar = num / deno;
+	fprintf(stderr, "[WARN] <<< Exiting vector_proj(a=%p,b=%p,out=%p,L=%p)\n", a, b, out, L);
     int i;
 #ifdef _OPENMP
 // parallelize on threads

@@ -44,8 +44,10 @@
  */
 uint16_t minimum(uint16_t arr[], uint16_t N)
 {
+	fprintf(stderr, "[ERROR] >>> Entering minimum(arr=%p,N=%p)\n", arr, N);
     uint16_t index = 0;
     uint16_t min = INF;
+	fprintf(stderr, "[ERROR] minimum(arr=%p,N=%d): min → %d\n", arr, N, min);
 
     for (uint16_t i = 0; i < N; i++)
     {
@@ -55,6 +57,7 @@ uint16_t minimum(uint16_t arr[], uint16_t N)
             index = i;
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting minimum(arr=%p,N=%p)\n", arr, N);
     return index;
 }
 
@@ -64,6 +67,7 @@ uint16_t minimum(uint16_t arr[], uint16_t N)
  */
 void prim(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
 {
+	fprintf(stderr, "[ERROR] >>> Entering prim(G=%p,MST=%p,V=%p)\n", G, MST, V);
     uint16_t u, v;
     uint16_t E_t[MAX], path[MAX];
     uint16_t V_t[MAX], no_of_edges;
@@ -79,10 +83,12 @@ void prim(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
     }
 
     no_of_edges = V - 1;
+	fprintf(stderr, "[DEBUG] prim(G=%p,MST=%p,V=%d): no_of_edges → %d\n", G, MST, V, no_of_edges);
 
     while (no_of_edges > 0)
     {
         u = minimum(E_t, V);
+		fprintf(stderr, "[ERROR] prim(G=%p,MST=%p,V=%d): u → %d\n", G, MST, V, u);
         while (V_t[u] == 1)
         {
             E_t[u] = INF;
@@ -104,6 +110,7 @@ void prim(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
             }
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting prim(G=%p,MST=%p,V=%p)\n", G, MST, V);
 }
 
 /**
@@ -112,6 +119,7 @@ void prim(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
  */
 static void test(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
 {
+fprintf(stderr, "[ERROR] >>> Entering test(G=%p,MST=%p,V=%p)\n", G, MST, V);
  
   uint16_t test[4][4] = {{0,1,2,3},{1,0,4,6},{2,4,0,5},{3,6,5,0}};
   uint16_t solution[4][4] = {{0,1,2,3},{1,0,0,0},{2,0,0,0},{3,0,0,0}};
@@ -135,6 +143,7 @@ static void test(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
       assert(MST[i][j] == solution[i][j]);
     }
   }
+fprintf(stderr, "[WARN] <<< Exiting test(G=%p,MST=%p,V=%p)\n", G, MST, V);
 }
 
 /**
@@ -144,6 +153,7 @@ static void test(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
  */
 void user_graph(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
 {
+	fprintf(stderr, "[ERROR] >>> Entering user_graph(G=%p,MST=%p,V=%p)\n", G, MST, V);
       printf("Enter the number of vertices: ");
       scanf(" %hd", &V);
 
@@ -173,6 +183,7 @@ void user_graph(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
               printf("%d\t", MST[i][j]);
           }
       }
+	fprintf(stderr, "[WARN] <<< Exiting user_graph(G=%p,MST=%p,V=%p)\n", G, MST, V);
 }
 
 
@@ -184,6 +195,7 @@ void user_graph(uint16_t G[][MAX], uint16_t MST[][MAX], uint16_t V)
  */
 int main(int argc, char const *argv[])
 {   
+fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
 
     uint16_t G[MAX][MAX];    ///< weighted, connected graph G
     uint16_t MST[MAX][MAX];  ///< adj matrix to hold minimum spanning tree of G
@@ -199,5 +211,6 @@ int main(int argc, char const *argv[])
       user_graph(&(*G),&(*MST),V);
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     return 0;
 }

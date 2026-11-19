@@ -13,6 +13,7 @@ struct Graph
 // Constructs a graph with V vertices and E edges
 void createGraph(struct Graph *G, int V)
 {
+	fprintf(stderr, "[ERROR] >>> Entering createGraph(G=%p,V=%p)\n", G, V);
     G->vertexNum = V;
     G->edges = (int **)malloc(V * sizeof(int *));
     for (int i = 0; i < V; i++)
@@ -21,17 +22,21 @@ void createGraph(struct Graph *G, int V)
         for (int j = 0; j < V; j++) G->edges[i][j] = INT_MAX;
         G->edges[i][i] = 0;
     }
+	fprintf(stderr, "[WARN] <<< Exiting createGraph(G=%p,V=%p)\n", G, V);
 }
 
 // Adds the given edge to the graph
 void addEdge(struct Graph *G, int src, int dst, int weight)
 {
+	fprintf(stderr, "[ERROR] >>> Entering addEdge(G=%p,src=%p,dst=%d,weight=%d)\n", G, src, dst, weight);
     G->edges[src][dst] = weight;
+	fprintf(stderr, "[WARN] <<< Exiting addEdge(G=%p,src=%p,dst=%d,weight=%d)\n", G, src, dst, weight);
 }
 
 // Utility function to print distances
 void print(int dist[], int V)
 {
+	fprintf(stderr, "[ERROR] >>> Entering print(dist=%p,V=%p)\n", dist, V);
     printf("\nThe Distance matrix for Floyd - Warshall\n");
     for (int i = 0; i < V; i++)
     {
@@ -44,12 +49,14 @@ void print(int dist[], int V)
         }
         printf("\n");
     }
+	fprintf(stderr, "[WARN] <<< Exiting print(dist=%p,V=%p)\n", dist, V);
 }
 
 // The main function that finds the shortest path from a vertex
 // to all other vertices using Floyd-Warshall Algorithm.
 void FloydWarshall(struct Graph *graph)
 {
+	fprintf(stderr, "[ERROR] >>> Entering FloydWarshall(graph=%p)\n", graph);
     int V = graph->vertexNum;
     int dist[V][V];
 
@@ -79,11 +86,13 @@ void FloydWarshall(struct Graph *graph)
         for (int j = 0; j < V; j++) dist1d[i * V + j] = dist[i][j];
 
     print(dist1d, V);
+	fprintf(stderr, "[WARN] <<< Exiting FloydWarshall(graph=%p)\n", graph);
 }
 
 // Driver Function
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int V, E;
     int src, dst, weight;
     struct Graph G;
@@ -104,5 +113,6 @@ int main()
     }
     FloydWarshall(&G);
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

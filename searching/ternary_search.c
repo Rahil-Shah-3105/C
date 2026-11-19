@@ -4,11 +4,14 @@
 // Function to perform Ternary Search
 int ternarySearch(int l, int r, int key, int ar[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering ternarySearch(l=%d,r=%d,key=%d,ar=%p)\n", l, r, key, ar);
     if (r >= l)
     {
         // Find the mid1 and mid2
         int mid1 = l + (r - l) / 3;
+		fprintf(stderr, "[ERROR] ternarySearch(l=%d,r=%d,key=%d,ar=%p): mid1 → %d\n", l, r, key, ar, mid1);
         int mid2 = r - (r - l) / 3;
+		fprintf(stderr, "[ERROR] ternarySearch(l=%d,r=%d,key=%d,ar=%p): mid2 → %d\n", l, r, key, ar, mid2);
 
         // Check if key is present at any mid
         if (ar[mid1] == key)
@@ -43,12 +46,14 @@ int ternarySearch(int l, int r, int key, int ar[])
     }
 
     // Key not found
+	fprintf(stderr, "[WARN] <<< Exiting ternarySearch(l=%d,r=%d,key=%d,ar=%p)\n", l, r, key, ar);
     return -1;
 }
 
 // Driver code
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int l, r, p, key;
 
     // Get the array
@@ -82,4 +87,5 @@ int main()
 
     // Print the result
     printf("Index of %d is %d", key, p);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
 }

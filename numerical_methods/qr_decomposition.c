@@ -17,6 +17,7 @@
  */
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     double **A;
     unsigned int ROWS, COLUMNS;
 
@@ -33,6 +34,7 @@ int main(void)
     printf("Enter matrix elements row-wise:\n");
 
     A = (double **)malloc(ROWS * sizeof(double *));
+	fprintf(stderr, "[ERROR] main(): A → %p\n", A);
     for (int i = 0; i < ROWS; i++)
         A[i] = (double *)malloc(COLUMNS * sizeof(double));
 
@@ -76,5 +78,6 @@ int main(void)
     free(A);
     free(R);
     free(Q);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

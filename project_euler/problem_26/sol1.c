@@ -18,15 +18,20 @@
 /** comparison function for use with internal `qsort` algorithm */
 int compare(const void *a, const void *b)
 {
+	fprintf(stderr, "[ERROR] >>> Entering compare(a=%p,b=%p)\n", a, b);
+    fprintf(stderr, "[WARN] <<< Exiting compare(a=%p,b=%p)\n", a, b);
     return (*(unsigned short *)a - *(unsigned short *)b);
 }
 
 /** Main function */
 int main(int argc, char *argv[])
 {
+	fprintf(stderr, "[ERROR] >>> Entering main(argc=%d,argv=%p)\n", argc, argv);
     unsigned short max_digits = 0, max_idx_number = 0;
 
+	fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): max_digits → %hu\n", argc, argv, max_digits);
     clock_t start_time = clock();
+	fprintf(stderr, "[WARN] <<< Exiting main(argc=%d,argv=%p)\n", argc, argv);
     short deno;
 #ifdef _OPENMP
 #pragma omp for
@@ -35,6 +40,7 @@ int main(int argc, char *argv[])
     {
         unsigned short remainders[MAX_LEN];
         unsigned short rem = 1, *rem_ptr = remainders;
+		fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): rem → %hu\n", argc, argv, rem);
         memset(remainders, (unsigned short)-1,
                MAX_LEN * sizeof(unsigned short));
         // remainders[0] = 1;
@@ -61,6 +67,8 @@ int main(int argc, char *argv[])
         }
 
         num_digits = index - (rem_ptr - remainders);
+		fprintf(stderr, "[ERROR] main(argc=%d,argv=%p): num_digits → %hu\n", argc, argv, num_digits);
+		fprintf(stderr, "[DEBUG] main(argc=%d,argv=%p): num_digits → %hu\n", argc, argv, num_digits);
         // printf("\n\t(%14p, %14p, %4u, %4u)\n", rem_ptr, remainders, index,
         // num_digits);
 #ifdef _OPENMP

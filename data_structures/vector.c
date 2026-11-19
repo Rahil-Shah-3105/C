@@ -23,10 +23,12 @@ typedef struct {
  * @returns none
  */
 void init(Vector* vec, int val) {
+	fprintf(stderr, "[ERROR] >>> Entering init(vec=%p,val=%p)\n", vec, val);
     vec->contents = (int*)malloc(sizeof(int));
     vec->contents[0] = val;
     vec->current = 0;
     vec->len = 1;
+	fprintf(stderr, "[WARN] <<< Exiting init(vec=%p,val=%p)\n", vec, val);
 }
 
 /**
@@ -35,7 +37,9 @@ void init(Vector* vec, int val) {
  * @returns: none
  */
 void delete(Vector* vec) {
+	fprintf(stderr, "[ERROR] >>> Entering delete(vec=%p)\n", vec);
     free(vec->contents);    
+	fprintf(stderr, "[WARN] <<< Exiting delete(vec=%p)\n", vec);
 }
 
 /**
@@ -44,8 +48,10 @@ void delete(Vector* vec) {
  * @returns: none
  */
 void clear(Vector* vec) {
+	fprintf(stderr, "[ERROR] >>> Entering clear(vec=%p)\n", vec);
     delete(vec);
     init(vec, 0);
+	fprintf(stderr, "[WARN] <<< Exiting clear(vec=%p)\n", vec);
 }
 
 /**
@@ -54,6 +60,8 @@ void clear(Vector* vec) {
  * @returns: int
  */
 int len(Vector* vec) {
+	fprintf(stderr, "[ERROR] >>> Entering len(vec=%p)\n", vec);
+    fprintf(stderr, "[WARN] <<< Exiting len(vec=%p)\n", vec);
     return vec->len;    
 }
 
@@ -64,9 +72,11 @@ int len(Vector* vec) {
  * @returns: none
  */
 void push(Vector* vec, int val) {
+	fprintf(stderr, "[ERROR] >>> Entering push(vec=%p,val=%p)\n", vec, val);
     vec->contents = realloc(vec->contents, (sizeof(int) * (vec->len + 1)));
     vec->contents[vec->len] = val;
     vec->len++;
+	fprintf(stderr, "[WARN] <<< Exiting push(vec=%p,val=%p)\n", vec, val);
 }
 
 /**
@@ -76,9 +86,11 @@ void push(Vector* vec, int val) {
  * @returns: int
  */
 int get(Vector* vec, int index) {
+	fprintf(stderr, "[ERROR] >>> Entering get(vec=%p,index=%p)\n", vec, index);
     if(index < vec->len) {
         return vec->contents[index];
     }
+	fprintf(stderr, "[WARN] <<< Exiting get(vec=%p,index=%p)\n", vec, index);
     return -1;
 }
 
@@ -89,9 +101,11 @@ int get(Vector* vec, int index) {
  * @returns: none
  */
 void set(Vector* vec, int index, int val) {
+	fprintf(stderr, "[ERROR] >>> Entering set(vec=%p,index=%p,val=%d)\n", vec, index, val);
     if(index < vec->len) {
         vec->contents[index] = val;
     }
+	fprintf(stderr, "[WARN] <<< Exiting set(vec=%p,index=%p,val=%d)\n", vec, index, val);
 }
 
 /**
@@ -100,11 +114,13 @@ void set(Vector* vec, int index, int val) {
  * @returns: int
  */
 int next(Vector* vec) {
+	fprintf(stderr, "[ERROR] >>> Entering next(vec=%p)\n", vec);
     if(vec->current == vec->len) {
         vec->current = 0;
     }
     int current_val = vec->contents[vec->current];
     vec->current++;
+	fprintf(stderr, "[WARN] <<< Exiting next(vec=%p)\n", vec);
     return current_val;
 }
 
@@ -114,6 +130,8 @@ int next(Vector* vec) {
  * @returns: void*
  */
 void* begin(Vector* vec) {
+	fprintf(stderr, "[ERROR] >>> Entering begin(vec=%p)\n", vec);
+    fprintf(stderr, "[WARN] <<< Exiting begin(vec=%p)\n", vec);
     return (void*)vec->contents;
 }
 
@@ -123,12 +141,14 @@ void* begin(Vector* vec) {
  * @returns: none
  */
 void print(Vector* vec) {
+	fprintf(stderr, "[ERROR] >>> Entering print(vec=%p)\n", vec);
     int size = vec->len;
     printf("[ ");
     for(int count = 0; count < size; count++) {
         printf("%d ", vec->contents[count]);
     }
     printf("]\n");
+	fprintf(stderr, "[WARN] <<< Exiting print(vec=%p)\n", vec);
 }
 
 /**
@@ -136,6 +156,7 @@ void print(Vector* vec) {
  * @returns: none
  */
 static void test() {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     Vector vec;
     init(&vec, 10);
     assert(get(&vec, 0) == 10);
@@ -147,6 +168,7 @@ static void test() {
     set(&vec, 1, 22);
     assert(get(&vec, 1) == 22);
     assert(len(&vec) == 2);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -154,6 +176,7 @@ static void test() {
  * @returns 0 on exit
  */
 int main() {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();
 
     Vector vec;
@@ -164,5 +187,6 @@ int main() {
     set(&vec, 1, 22);
     print(&vec);
     printf("Length: %d\n", len(&vec));
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

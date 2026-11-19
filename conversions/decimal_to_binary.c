@@ -5,6 +5,7 @@
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     // input of the user
     int inputNumber;
 
@@ -39,6 +40,7 @@ int main()
 
         // computes the quotient of division by 2
         inputNumber = inputNumber / 2;
+		fprintf(stderr, "[DEBUG] main(): inputNumber → %d\n", inputNumber);
 
         bits[i] = re;
         i++;
@@ -58,5 +60,6 @@ int main()
         printf("0");
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

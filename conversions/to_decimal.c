@@ -7,6 +7,7 @@
 
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int base, i, j;
     char number[100];
     unsigned long decimal = 0;
@@ -41,4 +42,5 @@ int main(void)
     }
 
     printf("%lu\n", decimal);
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
 }

@@ -2,6 +2,7 @@
 
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int a[16500], T;
     long long int i, j;
 
@@ -17,12 +18,15 @@ int main()
 
         a[1] = 1;
         int N, carry = 0, count = 0;
+		fprintf(stderr, "[ERROR] main(): carry → %d\n", carry);
+		fprintf(stderr, "[ERROR] main(): count → %d\n", count);
         printf("Enter a number : ");
         scanf("%d", &N);
 
         for (i = 1; i <= N; i++)
         {
             carry = 0;
+			fprintf(stderr, "[DEBUG] main(): carry → %d\n", carry);
             for (j = 0; j < 16500; j++)
             {
                 a[j] = a[j] * i + carry;
@@ -37,6 +41,7 @@ int main()
             {
                 count = i;
             }
+			fprintf(stderr, "[DEBUG] main(): count → %d\n", count);
         }
 
         for (i = count; i > 0; i--)
@@ -46,5 +51,6 @@ int main()
         printf("\n");
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

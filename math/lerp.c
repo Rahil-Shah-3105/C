@@ -24,5 +24,6 @@ int main()
         printf("%f\n", lerp(start, finish, i / steps));
     }
 
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

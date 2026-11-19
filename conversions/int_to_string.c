@@ -24,6 +24,7 @@
  */
 char *int_to_string(uint16_t value, char *dest, int base)
 {
+	fprintf(stderr, "[ERROR] >>> Entering int_to_string(value=%d,dest=%s,base=%s)\n", value, dest, base);
     const char hex_table[] = {'0', '1', '2', '3', '4', '5', '6', '7',
                               '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
@@ -42,6 +43,7 @@ char *int_to_string(uint16_t value, char *dest, int base)
         dest[len - 1 - i] = t;
     }
     dest[len] = '\0';
+	fprintf(stderr, "[WARN] <<< Exiting int_to_string(value=%d,dest=%s,base=%s)\n", value, dest, base);
     return dest;
 }
 
@@ -50,6 +52,7 @@ char *int_to_string(uint16_t value, char *dest, int base)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     const int MAX_SIZE = 100;
     char *str1 = (char *)calloc(sizeof(char), MAX_SIZE);
     char *str2 = (char *)calloc(sizeof(char), MAX_SIZE);
@@ -58,6 +61,7 @@ static void test()
     {
         /* Generate value from 0 to 100 */
         int value = rand() % 100;
+		fprintf(stderr, "[ERROR] test(): value → %d\n", value);
 
         // assert(strcmp(itoa(value, str1, 2), int_to_string(value, str2, 2)) ==
         //        0);
@@ -71,13 +75,16 @@ static void test()
 
     free(str1);
     free(str2);
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /** Driver Code */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     /* Intializes random number generator */
     srand(time(NULL));
     test();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

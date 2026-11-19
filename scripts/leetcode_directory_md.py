@@ -5,6 +5,9 @@ from os import listdir
 from pathlib import Path
 
 import requests
+import time
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -19,30 +22,41 @@ class Task:
 
 def fetch_leetcode_folder_tasks(solutions_folder: Path) -> list[Task]:
     """Fetch leetcode tasks from the Leetcode"""
+    logger.error(">>> Entering fetch_leetcode_folder_tasks(solutions_folder=%s)", solutions_folder, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
+    __log_start = time.time()
 
     # Fetch tasks info from the leetcode API.
     resp = requests.get("https://leetcode.com/api/problems/algorithms/", timeout=10)
+    logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): resp → %s", solutions_folder, resp, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
     content_dict = resp.json()
+    logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): content_dict → %s", solutions_folder, content_dict, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
+    logger.error("fetch_leetcode_folder_tasks(solutions_folder)=%s: external service call took %s ms", solutions_folder, int((time.time() - __log_start) * 1000), extra={"event.action": "fetch_leetcode_folder_tasks", "event.category": "network", "logrite.solutions_folder": solutions_folder})
 
     raw_tasks_id_dict = {}
 
     for task in content_dict["stat_status_pairs"]:
         task_stat = task["stat"]
+        logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): task_stat → %s", solutions_folder, task_stat, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
         raw_tasks_id_dict[str(task_stat["frontend_question_id"])] = task
 
     # Generate result tasks info to be inserted into the document
     tasks_list = []
 
     difficulty = {1: "Easy", 2: "Medium", 3: "Hard"}
+    logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): difficulty → %s", solutions_folder, difficulty, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
 
     for fl in listdir(solutions_folder):
         task_id = fl.split(".")[0]
+        logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): task_id → %s", solutions_folder, task_id, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
 
         raw_task = raw_tasks_id_dict.get(task_id, None)
+        logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): raw_task → %s", solutions_folder, raw_task, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
         if raw_task is None:
             continue
 
+            logger.warning("<<< Exiting fetch_leetcode_folder_tasks(solutions_folder=%s)", solutions_folder, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
         raw_task_stat = raw_task["stat"]
+        logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): raw_task_stat → %s", solutions_folder, raw_task_stat, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
         tasks_list.append(
             Task(
                 id=f'{raw_task_stat["frontend_question_id"]}',
@@ -52,6 +66,9 @@ def fetch_leetcode_folder_tasks(solutions_folder: Path) -> list[Task]:
             )
         )
 
+    logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): id → %s", solutions_folder, id, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
+    logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): solution → %s", solutions_folder, solution, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
+    logger.error("fetch_leetcode_folder_tasks(solutions_folder=%s): title → %s", solutions_folder, title, extra={"event.action": "fetch_leetcode_folder_tasks", "logrite.solutions_folder": solutions_folder})
     return tasks_list
 
 
@@ -64,8 +81,12 @@ SEPARATOR = "-"
 
 def print_directory_md(tasks_list: list[Task]) -> None:
     """Print tasks into the stdout"""
+    logger.error(">>> Entering print_directory_md(tasks_list=%s)", tasks_list, extra={"event.action": "print_directory_md", "logrite.tasks_list": tasks_list})
 
+    logger.warning("<<< Exiting print_directory_md(tasks_list=%s)", tasks_list, extra={"event.action": "print_directory_md", "logrite.tasks_list": tasks_list})
     def get_max_len(get_item):
+        logger.error(">>> Entering get_max_len(get_item=%s)", get_item, extra={"event.action": "get_max_len", "logrite.get_item": get_item})
+        logger.warning("<<< Exiting get_max_len(get_item=%s)", get_item, extra={"event.action": "get_max_len", "logrite.get_item": get_item})
         return max(list(map(lambda x: len(get_item(x)), tasks_list)))
 
     id_max_length = max(get_max_len(lambda x: x.id), len(HEADER_ID))
@@ -76,6 +97,8 @@ def print_directory_md(tasks_list: list[Task]) -> None:
     )
 
     def formatted_string(header, title, solution, difficulty):
+        logger.error(">>> Entering formatted_string(header=%s,title=%s,solution=%s,difficulty=%s)", header, title, solution, difficulty, extra={"event.action": "formatted_string", "logrite.title": title, "logrite.solution": solution, "logrite.difficulty": difficulty})
+        logger.warning("<<< Exiting formatted_string(header=%s,title=%s,solution=%s,difficulty=%s)", header, title, solution, difficulty, extra={"event.action": "formatted_string", "logrite.title": title, "logrite.solution": solution, "logrite.difficulty": difficulty})
         return (
             f"| {header.rjust(id_max_length)} "
             + f"| {title.ljust(title_max_length)} "

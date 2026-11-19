@@ -49,6 +49,7 @@ char pop(void)  // function for pop
 
 int isBalanced(char *s)
 {
+	fprintf(stderr, "[ERROR] >>> Entering isBalanced(s=%s)\n", s);
     int i = 0;
     char x;
     while (s[i] != '\0')  // loop for covering entire string of brackets
@@ -76,11 +77,13 @@ int isBalanced(char *s)
 
     // at end if stack is empy which means whole process has been performed
     // correctly so return 1
+	fprintf(stderr, "[WARN] <<< Exiting isBalanced(s=%s)\n", s);
     return (c == 0) ? 1 : 0;
 }
 
 void destroyStack(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering destroyStack()\n");
     struct node *p = head;
     if (c > 0)
     {
@@ -88,15 +91,18 @@ void destroyStack(void)
         {
             struct node *tmp = p;
             p = p->link;
+			fprintf(stderr, "[ERROR] destroyStack(): p → %p\n", p);
             free(tmp);
         }
 
         c = 0;
     }
+	fprintf(stderr, "[WARN] <<< Exiting destroyStack()\n");
 }
 
 int main(void)
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     int t;
     printf("\t\tBalanced parenthesis\n\n");
     printf("\nPlease enter the number of processing rounds? ");
@@ -115,5 +121,6 @@ int main(void)
         /* tidy up stack for new round */
         destroyStack();
     }
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

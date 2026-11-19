@@ -3,6 +3,7 @@
  * @brief Strong number is a number whose sum of all digits’ factorial is equal
  * to the number n For example: 145 = 1!(1) + 4!(24) + 5!(120)
  */
+#include "errno.h"
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -14,8 +15,10 @@
  */
 bool isStrong(int number)
 {
+	fprintf(stderr, "[ERROR] >>> Entering isStrong(number=%d)\n", number);
     if (number < 0)
     {
+		fprintf(stderr, "[ERROR] Exception in isStrong(number=%d): %d\n", number, errno);
         return false;
     }
     int sum = 0;
@@ -33,6 +36,7 @@ bool isStrong(int number)
         sum += factorial;
         originalNumber /= 10;
     }
+	fprintf(stderr, "[WARN] <<< Exiting isStrong(number=%d)\n", number);
     return number == sum;
 }
 
@@ -42,8 +46,10 @@ bool isStrong(int number)
  */
 void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     assert(isStrong(145));  /* 145 = 1! + 4! + 5! */
     assert(!isStrong(543)); /* 543 != 5!+ 4! + 3! */
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -52,6 +58,8 @@ void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }

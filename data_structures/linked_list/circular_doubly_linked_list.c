@@ -17,6 +17,7 @@
  *
  */
 
+#include "errno.h"
 #include <assert.h>  /// to verify assumptions made by the program and print a diagnostic message if this assumption is false.
 #include <inttypes.h>  /// to provide a set of integer types with universally consistent definitions that are operating system-independent
 #include <stdio.h>     /// for IO operations
@@ -38,10 +39,12 @@ typedef struct node
  */
 ListNode *create_node(uint64_t data)
 {
+	fprintf(stderr, "[ERROR] >>> Entering create_node(data=%d)\n", data);
     ListNode *new_list = (ListNode *)malloc(sizeof(ListNode));
     new_list->value = data;
     new_list->next = new_list;
     new_list->prev = new_list;
+	fprintf(stderr, "[WARN] <<< Exiting create_node(data=%d)\n", data);
     return new_list;
 }
 
@@ -54,9 +57,12 @@ ListNode *create_node(uint64_t data)
  */
 ListNode *insert_at_head(ListNode *head, uint64_t data)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insert_at_head(head=%p,data=%p)\n", head, data);
     if (head == NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in insert_at_head(head=%p,data=%d): %d\n", head, data, errno);
         head = create_node(data);
+		fprintf(stderr, "[ERROR] insert_at_head(head=%p,data=%d): head → %p\n", head, data, head);
         return head;
     }
     else
@@ -69,6 +75,7 @@ ListNode *insert_at_head(ListNode *head, uint64_t data)
         new_node->prev = temp;
         temp->next = new_node;
         head = new_node;
+		fprintf(stderr, "[WARN] <<< Exiting insert_at_head(head=%p,data=%p)\n", head, data);
         return head;
     }
 }
@@ -83,9 +90,12 @@ ListNode *insert_at_head(ListNode *head, uint64_t data)
  */
 ListNode *insert_at_tail(ListNode *head, uint64_t data)
 {
+	fprintf(stderr, "[ERROR] >>> Entering insert_at_tail(head=%p,data=%p)\n", head, data);
     if (head == NULL)
     {
+		fprintf(stderr, "[ERROR] Exception in insert_at_tail(head=%p,data=%d): %d\n", head, data, errno);
         head = create_node(data);
+		fprintf(stderr, "[ERROR] insert_at_tail(head=%p,data=%d): head → %p\n", head, data, head);
         return head;
     }
     else
@@ -98,6 +108,7 @@ ListNode *insert_at_tail(ListNode *head, uint64_t data)
         new_node->next = temp1;
         temp1->prev = new_node;
         temp2->next = new_node;
+		fprintf(stderr, "[WARN] <<< Exiting insert_at_tail(head=%p,data=%p)\n", head, data);
         return head;
     }
 }
@@ -110,6 +121,7 @@ ListNode *insert_at_tail(ListNode *head, uint64_t data)
  */
 ListNode *delete_from_head(ListNode *head)
 {
+	fprintf(stderr, "[ERROR] >>> Entering delete_from_head(head=%p)\n", head);
     if (head == NULL)
     {
         printf("The list is empty\n");
@@ -128,6 +140,7 @@ ListNode *delete_from_head(ListNode *head)
     (temp1->next)->prev = temp2;
     head = temp1->next;
     free(temp1);
+	fprintf(stderr, "[WARN] <<< Exiting delete_from_head(head=%p)\n", head);
     return head;
 }
 
@@ -139,6 +152,7 @@ ListNode *delete_from_head(ListNode *head)
  */
 ListNode *delete_from_tail(ListNode *head)
 {
+	fprintf(stderr, "[ERROR] >>> Entering delete_from_tail(head=%p)\n", head);
     if (head == NULL)
     {
         printf("The list is empty\n");
@@ -157,6 +171,7 @@ ListNode *delete_from_tail(ListNode *head)
     (temp2->prev)->next = temp1;
     temp1->prev = temp2->prev;
     free(temp2);
+	fprintf(stderr, "[WARN] <<< Exiting delete_from_tail(head=%p)\n", head);
     return head;
 }
 
@@ -168,6 +183,7 @@ ListNode *delete_from_tail(ListNode *head)
  */
 int getsize(ListNode *head)
 {
+	fprintf(stderr, "[ERROR] >>> Entering getsize(head=%p)\n", head);
     if (!head)
     {
         return 0;
@@ -179,6 +195,7 @@ int getsize(ListNode *head)
         temp = temp->next;
         size++;
     }
+	fprintf(stderr, "[WARN] <<< Exiting getsize(head=%p)\n", head);
     return size;
 }
 
@@ -190,6 +207,7 @@ int getsize(ListNode *head)
 
 void display_list(ListNode *head)
 {
+	fprintf(stderr, "[ERROR] >>> Entering display_list(head=%p)\n", head);
     printf("\nContents of your linked list: ");
     ListNode *temp;
     temp = head;
@@ -210,6 +228,7 @@ void display_list(ListNode *head)
         printf("The list is empty");
     }
     printf("\n");
+	fprintf(stderr, "[WARN] <<< Exiting display_list(head=%p)\n", head);
 }
 
 /**
@@ -222,6 +241,7 @@ void display_list(ListNode *head)
  */
 uint64_t get(ListNode *list, const int index)
 {
+	fprintf(stderr, "[ERROR] >>> Entering get(list=%p,index=%p)\n", list, index);
     if (list == NULL || index < 0)
     {
         exit(EXIT_FAILURE);
@@ -231,6 +251,7 @@ uint64_t get(ListNode *list, const int index)
     {
         temp = temp->next;
     }
+	fprintf(stderr, "[WARN] <<< Exiting get(list=%p,index=%p)\n", list, index);
     return temp->value;
 }
 
@@ -240,6 +261,7 @@ uint64_t get(ListNode *list, const int index)
  */
 static void test()
 {
+	fprintf(stderr, "[ERROR] >>> Entering test()\n");
     ListNode *testList = NULL;
     unsigned int array[] = {2, 3, 4, 5, 6};
 
@@ -250,6 +272,7 @@ static void test()
     {
         display_list(testList);
         testList = insert_at_head(testList, array[i]);
+		fprintf(stderr, "[ERROR] test(): testList → %p\n", testList);
         assert(testList->value == array[i]);
         assert(getsize(testList) == i + 1);
     }
@@ -282,6 +305,7 @@ static void test()
         // will wrap around to the list head
         if (testList != NULL)
         {
+			fprintf(stderr, "[ERROR] Exception in test(): %d\n", errno);
             assert(get(testList, i) == testList->value);
         }
         else
@@ -291,6 +315,7 @@ static void test()
             assert(i == 0);
         }
     }
+	fprintf(stderr, "[WARN] <<< Exiting test()\n");
 }
 
 /**
@@ -299,6 +324,8 @@ static void test()
  */
 int main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     test();  // run self-test implementations
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     return 0;
 }
